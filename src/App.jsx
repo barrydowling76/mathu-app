@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.4.0";
+const APP_VERSION = "0.4.1";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -1226,16 +1226,15 @@ export default function MathU() {
           <button
             onClick={async () => {
               if (phoneValid && email.includes("@") && username.trim()) {
-                setCodeError("");
+                setCodeError("Creating account...");
                 try {
                   // Check if phone already exists
-                  const { data: existing } = await supabase
+                  const { data: existingList } = await supabase
                     .from("profiles")
                     .select("id")
-                    .eq("phone", phone)
-                    .single();
+                    .eq("phone", phone);
 
-                  if (existing) {
+                  if (existingList && existingList.length > 0) {
                     setCodeError("This number is already registered. Please sign in instead.");
                     return;
                   }
@@ -1247,18 +1246,24 @@ export default function MathU() {
                     .select()
                     .single();
 
-                  if (error) throw error;
+                  if (error) {
+                    setCodeError("Error: " + (error.message || JSON.stringify(error)));
+                    return;
+                  }
 
                   // Create empty stats row
-                  await supabase.from("user_stats").insert({ user_id: profile.id });
+                  const { error: statsError } = await supabase.from("user_stats").insert({ user_id: profile.id });
+                  if (statsError) {
+                    setCodeError("Stats error: " + statsError.message);
+                    return;
+                  }
 
                   setUserId(profile.id);
-                  localStorage.setItem("mathu_session", profile.id);
+                  try { localStorage.setItem("mathu_session", profile.id); } catch {}
                   setIsLoggedIn(true);
                   setScreen("onboard_year");
                 } catch (err) {
-                  console.error("Signup failed:", err);
-                  setCodeError("Something went wrong. Please try again.");
+                  setCodeError("Error: " + (err.message || String(err)));
                 }
               }
             }}
