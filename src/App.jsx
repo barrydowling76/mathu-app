@@ -1178,11 +1178,10 @@ export default function MathU() {
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 48, marginBottom: 12 }}>📱</div>
             <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>Create Account</h2>
-            <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 1 of 3</p>
+            <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 1 of 2</p>
             <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
-              <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
-              <div style={{ width: 40, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
-              <div style={{ width: 40, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
+              <div style={{ width: 60, height: 4, borderRadius: 2, background: colors.primary }} />
+              <div style={{ width: 60, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
             </div>
           </div>
 
@@ -1218,22 +1217,59 @@ export default function MathU() {
             style={{ ...styles.input, marginBottom: 24 }}
           />
 
+          {codeError && (
+            <p style={{ color: colors.danger, fontSize: 13, fontWeight: 600, marginBottom: 12 }}>
+              {codeError}
+            </p>
+          )}
+
           <button
-            onClick={() => {
+            onClick={async () => {
               if (phoneValid && email.includes("@") && username.trim()) {
-                sendVerificationCode();
-                setScreen("verify_code");
+                setCodeError("");
+                try {
+                  // Check if phone already exists
+                  const { data: existing } = await supabase
+                    .from("profiles")
+                    .select("id")
+                    .eq("phone", phone)
+                    .single();
+
+                  if (existing) {
+                    setCodeError("This number is already registered. Please sign in instead.");
+                    return;
+                  }
+
+                  // Create new profile
+                  const { data: profile, error } = await supabase
+                    .from("profiles")
+                    .insert({ phone, email, name: username })
+                    .select()
+                    .single();
+
+                  if (error) throw error;
+
+                  // Create empty stats row
+                  await supabase.from("user_stats").insert({ user_id: profile.id });
+
+                  setUserId(profile.id);
+                  localStorage.setItem("mathu_session", profile.id);
+                  setIsLoggedIn(true);
+                  setScreen("onboard_year");
+                } catch (err) {
+                  console.error("Signup failed:", err);
+                  setCodeError("Something went wrong. Please try again.");
+                }
               }
             }}
             disabled={!phoneValid || !email.includes("@") || !username.trim()}
             style={styles.btn(phoneValid && email.includes("@") && username.trim() ? colors.primary : "#cbd5e1", true)}
           >
-            Send Verification Code
+            Create Account
           </button>
 
           <p style={{ fontSize: 11, color: colors.textLight, textAlign: "center", marginTop: 16, lineHeight: 1.5 }}>
-            We'll send a 4-digit code to verify your number.
-            <br />Your data is private and never shared.
+            Your data is private and never shared.
           </p>
         </div>
       </div>
@@ -1379,11 +1415,10 @@ export default function MathU() {
         <div style={{ padding: "40px 24px 24px", textAlign: "center" }}>
           <div style={{ fontSize: 48, marginBottom: 12 }}>🎓</div>
           <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>What year are you in?</h2>
-          <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 3 of 3</p>
+          <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 2 of 2</p>
           <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
-            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
-            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
-            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+            <div style={{ width: 60, height: 4, borderRadius: 2, background: colors.primary }} />
+            <div style={{ width: 60, height: 4, borderRadius: 2, background: colors.primary }} />
           </div>
           <p style={{ color: colors.textLight, margin: "0 0 24px", fontSize: 14 }}>We'll tailor questions to your level</p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
