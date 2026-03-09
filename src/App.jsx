@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.5.0";
+const APP_VERSION = "0.5.1";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -667,6 +667,17 @@ export default function MathU() {
   const [year, setYear] = useState(null);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [username, setUsername] = useState("");
+  const [pin, setPin] = useState("");
+
+  // Normalise phone: strip spaces, dashes, and ensure leading 0
+  const normalisePhone = (p) => {
+    let digits = p.replace(/\D/g, "");
+    // If starts with 353, strip it (international prefix)
+    if (digits.startsWith("353") && digits.length > 9) digits = digits.slice(3);
+    // Ensure leading 0
+    if (digits.length > 0 && !digits.startsWith("0")) digits = "0" + digits;
+    return digits;
+  };
 
   // Game state
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -823,7 +834,7 @@ export default function MathU() {
         const { data: existing } = await supabase
           .from("profiles")
           .select("id")
-          .eq("phone", phone)
+          .eq("phone", normalisePhone(phone))
           .single();
 
         if (existing) {
@@ -834,7 +845,7 @@ export default function MathU() {
         // Create new profile
         const { data: profile, error } = await supabase
           .from("profiles")
-          .insert({ phone, email, name: username })
+          .insert({ phone: normalisePhone(phone), email, name: username, pin })
           .select()
           .single();
 
@@ -862,11 +873,17 @@ export default function MathU() {
       const { data: profile, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("phone", phone)
+        .eq("phone", normalisePhone(phone))
         .single();
 
       if (error || !profile) {
         setCodeError("No account found with this number. Please sign up first.");
+        return;
+      }
+
+      // Check PIN
+      if (profile.pin && profile.pin !== pin) {
+        setCodeError("Incorrect PIN. Please try again.");
         return;
       }
 
@@ -1215,8 +1232,42 @@ export default function MathU() {
             value={username}
             onChange={e => setUsername(e.target.value)}
             placeholder="Enter your first name"
-            style={{ ...styles.input, marginBottom: 24 }}
+            style={{ ...styles.input, marginBottom: 20 }}
           />
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Choose a 4-digit PIN</label>
+          <p style={{ fontSize: 11, color: colors.textLight, margin: "0 0 6px" }}>You'll use this to sign in — don't forget it!</p>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 24 }}>
+            {[0, 1, 2, 3].map(i => (
+              <input
+                key={i}
+                maxLength={1}
+                value={pin[i] || ""}
+                onChange={e => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  const newPin = pin.split("");
+                  newPin[i] = val;
+                  setPin(newPin.join(""));
+                  if (val && i < 3) {
+                    const next = e.target.parentElement.children[i + 1];
+                    if (next) next.focus();
+                  }
+                }}
+                onKeyDown={e => {
+                  if (e.key === "Backspace" && !pin[i] && i > 0) {
+                    const prev = e.target.parentElement.children[i - 1];
+                    if (prev) prev.focus();
+                  }
+                }}
+                style={{
+                  width: 52, height: 58, textAlign: "center", fontSize: 24, fontWeight: 800,
+                  border: "2px solid #e2e8f0", borderRadius: 12, outline: "none", color: colors.text,
+                }}
+                type="tel"
+                inputMode="numeric"
+              />
+            ))}
+          </div>
 
           {codeError && (
             <p style={{ color: colors.danger, fontSize: 13, fontWeight: 600, marginBottom: 12 }}>
@@ -1226,14 +1277,14 @@ export default function MathU() {
 
           <button
             onClick={async () => {
-              if (phoneValid && email.includes("@") && username.trim()) {
+              if (phoneValid && email.includes("@") && username.trim() && pin.length === 4) {
                 setCodeError("Creating account...");
                 try {
                   // Check if phone already exists
                   const { data: existingList } = await supabase
                     .from("profiles")
                     .select("id")
-                    .eq("phone", phone);
+                    .eq("phone", normalisePhone(phone));
 
                   if (existingList && existingList.length > 0) {
                     setCodeError("This number is already registered. Please sign in instead.");
@@ -1243,7 +1294,7 @@ export default function MathU() {
                   // Create new profile
                   const { data: profile, error } = await supabase
                     .from("profiles")
-                    .insert({ phone, email, name: username })
+                    .insert({ phone: normalisePhone(phone), email, name: username, pin })
                     .select()
                     .single();
 
@@ -1269,7 +1320,7 @@ export default function MathU() {
               }
             }}
             disabled={!phoneValid || !email.includes("@") || !username.trim()}
-            style={styles.btn(phoneValid && email.includes("@") && username.trim() ? colors.primary : "#cbd5e1", true)}
+            style={styles.btn(phoneValid && email.includes("@") && username.trim() && pin.length === 4 ? colors.primary : "#cbd5e1", true)}
           >
             Create Account
           </button>
@@ -1383,10 +1434,45 @@ export default function MathU() {
             <input
               value={phone}
               onChange={e => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setCodeError(""); }}
-              placeholder="08X XXX XXXX"
+              placeholder="08X XXX XXXX or 8X XXX XXXX"
               type="tel"
               style={{ ...styles.input, flex: 1 }}
             />
+          </div>
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Your 4-digit PIN</label>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 20 }}>
+            {[0, 1, 2, 3].map(i => (
+              <input
+                key={i}
+                maxLength={1}
+                value={pin[i] || ""}
+                onChange={e => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  const newPin = pin.split("");
+                  newPin[i] = val;
+                  setPin(newPin.join(""));
+                  setCodeError("");
+                  if (val && i < 3) {
+                    const next = e.target.parentElement.children[i + 1];
+                    if (next) next.focus();
+                  }
+                }}
+                onKeyDown={e => {
+                  if (e.key === "Backspace" && !pin[i] && i > 0) {
+                    const prev = e.target.parentElement.children[i - 1];
+                    if (prev) prev.focus();
+                  }
+                }}
+                style={{
+                  width: 52, height: 58, textAlign: "center", fontSize: 24, fontWeight: 800,
+                  border: `2px solid ${codeError.includes("PIN") ? colors.danger : "#e2e8f0"}`,
+                  borderRadius: 12, outline: "none", color: colors.text,
+                }}
+                type="tel"
+                inputMode="numeric"
+              />
+            ))}
           </div>
 
           {codeError && (
@@ -1397,8 +1483,8 @@ export default function MathU() {
 
           <button
             onClick={signIn}
-            disabled={phone.replace(/\D/g, "").length < 10}
-            style={styles.btn(phone.replace(/\D/g, "").length >= 10 ? colors.primary : "#cbd5e1", true)}
+            disabled={phone.replace(/\D/g, "").length < 7 || pin.length !== 4}
+            style={styles.btn(phone.replace(/\D/g, "").length >= 7 && pin.length === 4 ? colors.primary : "#cbd5e1", true)}
           >
             Sign In
           </button>
