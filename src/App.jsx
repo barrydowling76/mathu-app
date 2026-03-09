@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
+const APP_VERSION = "0.2.0";
+
 // ─── TOPIC DATABASE ───
 const TOPICS = {
   paper1: {
@@ -521,14 +523,39 @@ const getLevel = (xp) => {
 // ─── DRAWING CANVAS COMPONENT ───
 function DrawingCanvas({ onClear }) {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [lastPos, setLastPos] = useState(null);
+  const [canvasHeight, setCanvasHeight] = useState(300);
+  const CANVAS_WIDTH = 360;
+  const MIN_HEIGHT = 300;
+  const EXTEND_AMOUNT = 200;
+  const EXTEND_THRESHOLD = 60; // pixels from bottom to auto-extend
 
   const getPos = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
     const touch = e.touches ? e.touches[0] : e;
     return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
   };
+
+  const extendCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    // Save current drawing
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const newHeight = canvasHeight + EXTEND_AMOUNT;
+    // Resize
+    canvas.height = newHeight;
+    // Restore drawing
+    ctx.putImageData(imageData, 0, 0);
+    setCanvasHeight(newHeight);
+    // Scroll container to bottom
+    if (containerRef.current) {
+      setTimeout(() => {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }, 50);
+    }
+  }, [canvasHeight]);
 
   const startDraw = (e) => {
     e.preventDefault();
@@ -549,13 +576,22 @@ function DrawingCanvas({ onClear }) {
     ctx.lineCap = "round";
     ctx.stroke();
     setLastPos(pos);
+    // Auto-extend if drawing near bottom
+    if (pos.y > canvasHeight - EXTEND_THRESHOLD) {
+      extendCanvas();
+    }
   };
 
   const stopDraw = () => { setIsDrawing(false); setLastPos(null); };
 
   const clearCanvas = () => {
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    // Reset to original height
+    canvas.height = MIN_HEIGHT;
+    setCanvasHeight(MIN_HEIGHT);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (containerRef.current) containerRef.current.scrollTop = 0;
     if (onClear) onClear();
   };
 
@@ -565,28 +601,49 @@ function DrawingCanvas({ onClear }) {
 
   return (
     <div style={{ position: "relative" }}>
-      <canvas
-        ref={canvasRef}
-        width={360}
-        height={220}
+      <div
+        ref={containerRef}
         style={{
+          maxHeight: 350,
+          overflowY: "auto",
           border: "2px solid #cbd5e1",
           borderRadius: 12,
           background: "#fefce8",
-          touchAction: "none",
-          cursor: "crosshair",
-          width: "100%",
-          maxWidth: 360,
+          WebkitOverflowScrolling: "touch",
         }}
-        onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw}
-        onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={stopDraw}
-      />
-      <button onClick={clearCanvas} style={{
-        position: "absolute", top: 8, right: 8, background: "#ef4444", color: "white",
-        border: "none", borderRadius: 8, padding: "4px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer"
-      }}>Clear</button>
+      >
+        <canvas
+          ref={canvasRef}
+          width={CANVAS_WIDTH}
+          height={canvasHeight}
+          style={{
+            touchAction: "none",
+            cursor: "crosshair",
+            width: "100%",
+            maxWidth: CANVAS_WIDTH,
+            display: "block",
+          }}
+          onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw}
+          onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={stopDraw}
+        />
+      </div>
+      {/* Toolbar */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 6 }}>
+        <button onClick={extendCanvas} style={{
+          background: "#3B82F6", color: "white",
+          border: "none", borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer",
+          display: "flex", alignItems: "center", gap: 4,
+        }}>↕ More Space</button>
+        <span style={{ fontSize: 11, color: "#94a3b8" }}>
+          {canvasHeight > MIN_HEIGHT ? `Page ${Math.ceil(canvasHeight / MIN_HEIGHT)}` : "Page 1"}
+        </span>
+        <button onClick={clearCanvas} style={{
+          background: "#ef4444", color: "white",
+          border: "none", borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer"
+        }}>Clear</button>
+      </div>
       <div style={{ textAlign: "center", fontSize: 11, color: "#94a3b8", marginTop: 4 }}>
-        ✏️ Draw your workings here
+        ✏️ Draw your workings — canvas extends as you write
       </div>
     </div>
   );
@@ -1093,6 +1150,7 @@ export default function MathU() {
               <span>{item.label}</span>
             </div>
           ))}
+          <div style={{ position: "absolute", bottom: 2, right: 12, fontSize: 9, color: "#cbd5e1" }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
@@ -1391,6 +1449,7 @@ export default function MathU() {
               <span>{item.label}</span>
             </div>
           ))}
+          <div style={{ position: "absolute", bottom: 2, right: 12, fontSize: 9, color: "#cbd5e1" }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
@@ -1472,6 +1531,7 @@ export default function MathU() {
               <span>{item.label}</span>
             </div>
           ))}
+          <div style={{ position: "absolute", bottom: 2, right: 12, fontSize: 9, color: "#cbd5e1" }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
@@ -1521,6 +1581,7 @@ export default function MathU() {
               <span>{item.label}</span>
             </div>
           ))}
+          <div style={{ position: "absolute", bottom: 2, right: 12, fontSize: 9, color: "#cbd5e1" }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
@@ -1591,6 +1652,7 @@ export default function MathU() {
               <span>{item.label}</span>
             </div>
           ))}
+          <div style={{ position: "absolute", bottom: 2, right: 12, fontSize: 9, color: "#cbd5e1" }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
