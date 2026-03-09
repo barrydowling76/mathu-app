@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.4.2";
+const APP_VERSION = "0.5.0";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -1277,9 +1277,6 @@ export default function MathU() {
           <p style={{ fontSize: 11, color: colors.textLight, textAlign: "center", marginTop: 16, lineHeight: 1.5 }}>
             Your data is private and never shared.
           </p>
-          <p style={{ fontSize: 10, color: "#94a3b8", textAlign: "center", marginTop: 8 }}>
-            Debug: phone={phoneDigits} digits ({phoneValid ? "✓" : "✗"}) | email={email.includes("@") ? "✓" : "✗"} | name={username.trim() ? "✓" : "✗"}
-          </p>
         </div>
       </div>
     );
@@ -1811,14 +1808,73 @@ export default function MathU() {
                   +{Math.round(currentQuestion.xp * (1 - hintsUsed * 0.2))} XP earned! ⚡
                 </div>
               )}
-              <div style={{ fontSize: 13, fontWeight: 700, color: colors.textLight, marginTop: 12, marginBottom: 8 }}>Full Solution:</div>
-              <div style={{
-                background: "white", padding: 14, borderRadius: 10, fontSize: 13,
-                lineHeight: 1.7, whiteSpace: "pre-line", color: colors.text,
-                fontFamily: "'SF Mono', 'Fira Code', monospace",
-              }}>
-                {currentQuestion.solution}
+              {/* Step-by-step solution */}
+              <div style={{ fontSize: 13, fontWeight: 700, color: colors.textLight, marginTop: 12, marginBottom: 8 }}>
+                Step-by-Step Solution:
               </div>
+              <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
+                {currentQuestion.solution.split("\n\n").map((step, i) => (
+                  <div key={i} style={{
+                    padding: "12px 14px",
+                    borderBottom: i < currentQuestion.solution.split("\n\n").length - 1 ? "1px solid #f1f5f9" : "none",
+                    display: "flex", gap: 10, alignItems: "flex-start",
+                  }}>
+                    <div style={{
+                      minWidth: 24, height: 24, borderRadius: 12,
+                      background: colors.primary, color: "white",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 12, fontWeight: 800, marginTop: 2,
+                    }}>{i + 1}</div>
+                    <div style={{
+                      fontSize: 13, lineHeight: 1.7, whiteSpace: "pre-line", color: colors.text,
+                      fontFamily: "'SF Mono', 'Fira Code', monospace", flex: 1,
+                    }}>{step.trim()}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Self-assessment: where did you go wrong? */}
+              {!isCorrect && (
+                <div style={{ marginTop: 16 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: colors.text, marginBottom: 8 }}>
+                    🤔 Where did you get stuck?
+                  </div>
+                  <p style={{ fontSize: 12, color: colors.textLight, margin: "0 0 8px" }}>
+                    Tap the step where you first went wrong — this helps us track what to focus on.
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {currentQuestion.solution.split("\n\n").map((step, i) => (
+                      <button key={i} onClick={() => {
+                        alert(`Got it — we'll note that Step ${i + 1} was tricky for you on ${currentQuestion.subtopic}. Keep practising!`);
+                      }} style={{
+                        padding: "8px 14px", borderRadius: 10,
+                        border: `2px solid ${colors.danger}30`, background: `${colors.danger}08`,
+                        fontSize: 12, fontWeight: 600, color: colors.danger, cursor: "pointer",
+                      }}>
+                        Step {i + 1}
+                      </button>
+                    ))}
+                    <button onClick={() => {
+                      alert("No worries — keep practising and you'll get there!");
+                    }} style={{
+                      padding: "8px 14px", borderRadius: 10,
+                      border: `2px solid ${colors.textLight}30`, background: "#f8fafc",
+                      fontSize: 12, fontWeight: 600, color: colors.textLight, cursor: "pointer",
+                    }}>
+                      Didn't know where to start
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {isCorrect && (
+                <div style={{ marginTop: 12, padding: "10px 14px", background: "#f0fdf4", borderRadius: 10 }}>
+                  <div style={{ fontSize: 13, color: colors.success, fontWeight: 600 }}>
+                    💪 Compare your workings with the solution above. Did you use the same method?
+                  </div>
+                </div>
+              )}
+
               <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
                 <button onClick={() => { setScreen("home"); setPracticeMode(false); }}
                   style={styles.btnOutline(colors.textLight)}>
