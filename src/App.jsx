@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.4.1";
+const APP_VERSION = "0.4.2";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -1170,7 +1170,8 @@ export default function MathU() {
 
   // ─── SIGN UP: PHONE ───
   if (screen === "signup_phone") {
-    const phoneValid = phone.replace(/\D/g, "").length >= 10;
+    const phoneDigits = phone.replace(/\D/g, "").length;
+    const phoneValid = phoneDigits >= 7;
     return (
       <div style={styles.app}>
         <div style={{ padding: "40px 24px 24px" }}>
@@ -1275,6 +1276,9 @@ export default function MathU() {
 
           <p style={{ fontSize: 11, color: colors.textLight, textAlign: "center", marginTop: 16, lineHeight: 1.5 }}>
             Your data is private and never shared.
+          </p>
+          <p style={{ fontSize: 10, color: "#94a3b8", textAlign: "center", marginTop: 8 }}>
+            Debug: phone={phoneDigits} digits ({phoneValid ? "✓" : "✗"}) | email={email.includes("@") ? "✓" : "✗"} | name={username.trim() ? "✓" : "✗"}
           </p>
         </div>
       </div>
