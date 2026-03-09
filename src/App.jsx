@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.2.0";
+const APP_VERSION = "0.4.0";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -651,6 +652,16 @@ function DrawingCanvas({ onClear }) {
 
 // ─── MAIN APP ───
 export default function MathU() {
+  // Auth state
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [sentCode, setSentCode] = useState(null);
+  const [codeError, setCodeError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   // App state
   const [screen, setScreen] = useState("splash");
   const [year, setYear] = useState(null);
@@ -680,6 +691,231 @@ export default function MathU() {
   const [newBadge, setNewBadge] = useState(null);
   const [xpAnimation, setXpAnimation] = useState(null);
   const [practiceMode, setPracticeMode] = useState(false);
+
+  // Check for existing session on load
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const savedUserId = localStorage.getItem("mathu_session");
+        if (savedUserId) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", savedUserId)
+            .single();
+
+          if (profile) {
+            setUserId(profile.id);
+            setUsername(profile.name);
+            setPhone(profile.phone);
+            setEmail(profile.email || "");
+            setYear(profile.year);
+            setSelectedTopics(profile.topics || []);
+            setIsLoggedIn(true);
+
+            // Load stats
+            const { data: statsData } = await supabase
+              .from("user_stats")
+              .select("*")
+              .eq("user_id", profile.id)
+              .single();
+
+            if (statsData) {
+              const today = new Date().toISOString().split("T")[0];
+              setStats({
+                totalXP: statsData.total_xp || 0,
+                streak: statsData.streak || 0,
+                totalCorrect: statsData.total_correct || 0,
+                totalAttempted: statsData.total_attempted || 0,
+                fastestTime: statsData.fastest_time || 0,
+                noHintStreak: statsData.no_hint_streak || 0,
+                correctStreak: statsData.correct_streak || 0,
+                topicsAttempted: Object.keys(statsData.topic_stats || {}).length,
+                topicStats: statsData.topic_stats || {},
+                earnedBadges: statsData.earned_badges || [],
+                dailyCompleted: statsData.last_daily_date === today,
+                questionsToday: 0,
+              });
+              setEarnedBadges(statsData.earned_badges || []);
+            }
+
+            if (profile.year && profile.topics?.length > 0) {
+              setScreen("home");
+            } else if (profile.year) {
+              setScreen("onboard_topics");
+            } else {
+              setScreen("onboard_year");
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Session check failed:", err);
+      }
+      setLoading(false);
+    };
+    checkSession();
+  }, []);
+
+  // Save profile to Supabase
+  const saveUser = async (data) => {
+    if (!userId) return;
+    try {
+      await supabase.from("profiles").update(data).eq("id", userId);
+    } catch (err) {
+      console.error("Save failed:", err);
+    }
+  };
+
+  // Save stats to Supabase
+  const saveStats = async (newStats) => {
+    if (!userId) return;
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      await supabase.from("user_stats").upsert({
+        user_id: userId,
+        total_xp: newStats.totalXP,
+        streak: newStats.streak,
+        total_correct: newStats.totalCorrect,
+        total_attempted: newStats.totalAttempted,
+        fastest_time: newStats.fastestTime,
+        no_hint_streak: newStats.noHintStreak,
+        correct_streak: newStats.correctStreak,
+        topic_stats: newStats.topicStats,
+        earned_badges: earnedBadges,
+        daily_completed: newStats.dailyCompleted,
+        last_daily_date: newStats.dailyCompleted ? today : null,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "user_id" });
+    } catch (err) {
+      console.error("Stats save failed:", err);
+    }
+  };
+
+  // Logout
+  const logout = () => {
+    try { localStorage.removeItem("mathu_session"); } catch {}
+    setIsLoggedIn(false);
+    setUserId(null);
+    setUsername("");
+    setPhone("");
+    setEmail("");
+    setYear(null);
+    setSelectedTopics([]);
+    setScreen("splash");
+  };
+
+  // Send verification code (simulated for now — generates a 4-digit code)
+  const sendVerificationCode = () => {
+    const code = String(Math.floor(1000 + Math.random() * 9000));
+    setSentCode(code);
+    setCodeError("");
+    // In production, this would call Twilio via a Supabase Edge Function
+    console.log(`[MathU Dev] Verification code: ${code}`);
+    alert(`Your verification code is ${code}\n\n(In the full release, this will be sent via SMS)`);
+  };
+
+  // Verify code and create account in Supabase
+  const verifyCode = async () => {
+    if (verificationCode === sentCode) {
+      setCodeError("");
+      try {
+        // Check if phone already exists
+        const { data: existing } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("phone", phone)
+          .single();
+
+        if (existing) {
+          setCodeError("This number is already registered. Please sign in instead.");
+          return;
+        }
+
+        // Create new profile
+        const { data: profile, error } = await supabase
+          .from("profiles")
+          .insert({ phone, email, name: username })
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        // Create empty stats row
+        await supabase.from("user_stats").insert({ user_id: profile.id });
+
+        setUserId(profile.id);
+        localStorage.setItem("mathu_session", profile.id);
+        setIsLoggedIn(true);
+        setScreen("onboard_year");
+      } catch (err) {
+        console.error("Signup failed:", err);
+        setCodeError("Something went wrong. Please try again.");
+      }
+    } else {
+      setCodeError("Incorrect code. Please try again.");
+    }
+  };
+
+  // Sign in with existing phone
+  const signIn = async () => {
+    try {
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("phone", phone)
+        .single();
+
+      if (error || !profile) {
+        setCodeError("No account found with this number. Please sign up first.");
+        return;
+      }
+
+      setUserId(profile.id);
+      setUsername(profile.name);
+      setEmail(profile.email || "");
+      setYear(profile.year);
+      setSelectedTopics(profile.topics || []);
+      localStorage.setItem("mathu_session", profile.id);
+      setIsLoggedIn(true);
+
+      // Load stats
+      const { data: statsData } = await supabase
+        .from("user_stats")
+        .select("*")
+        .eq("user_id", profile.id)
+        .single();
+
+      if (statsData) {
+        const today = new Date().toISOString().split("T")[0];
+        setStats({
+          totalXP: statsData.total_xp || 0,
+          streak: statsData.streak || 0,
+          totalCorrect: statsData.total_correct || 0,
+          totalAttempted: statsData.total_attempted || 0,
+          fastestTime: statsData.fastest_time || 0,
+          noHintStreak: statsData.no_hint_streak || 0,
+          correctStreak: statsData.correct_streak || 0,
+          topicsAttempted: Object.keys(statsData.topic_stats || {}).length,
+          topicStats: statsData.topic_stats || {},
+          earnedBadges: statsData.earned_badges || [],
+          dailyCompleted: statsData.last_daily_date === today,
+          questionsToday: 0,
+        });
+        setEarnedBadges(statsData.earned_badges || []);
+      }
+
+      if (profile.year && profile.topics?.length > 0) {
+        setScreen("home");
+      } else if (profile.year) {
+        setScreen("onboard_topics");
+      } else {
+        setScreen("onboard_year");
+      }
+    } catch (err) {
+      console.error("Sign in failed:", err);
+      setCodeError("Something went wrong. Please try again.");
+    }
+  };
 
   // Leaderboard (simulated)
   const [leaderboard] = useState([
@@ -818,6 +1054,9 @@ export default function MathU() {
         }
       });
 
+      // Save to Supabase
+      saveStats(newStats);
+
       return newStats;
     });
   };
@@ -892,6 +1131,19 @@ export default function MathU() {
     }),
   };
 
+  // ─── LOADING SCREEN ───
+  if (loading) {
+    return (
+      <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient }}>
+        <div style={{ textAlign: "center", color: "white" }}>
+          <div style={{ fontSize: 72, marginBottom: 8 }}>📐</div>
+          <h1 style={{ fontSize: 36, fontWeight: 900, margin: "0 0 16px", letterSpacing: -2 }}>MathU</h1>
+          <div style={{ fontSize: 14, opacity: 0.8 }}>Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
   // ─── SPLASH SCREEN ───
   if (screen === "splash") {
     return (
@@ -902,38 +1154,219 @@ export default function MathU() {
           <p style={{ fontSize: 16, opacity: 0.9, margin: "0 0 8px" }}>Your Daily Maths Challenge</p>
           <p style={{ fontSize: 13, opacity: 0.7, margin: "0 0 40px" }}>Leaving Cert Honours Maths</p>
           <button
-            onClick={() => setScreen("onboard_name")}
+            onClick={() => setScreen("signup_phone")}
             style={{ ...styles.btn("white"), color: colors.primaryDark, fontSize: 18, padding: "16px 48px" }}
           >
             Get Started
           </button>
-          <p style={{ fontSize: 12, opacity: 0.6, marginTop: 20 }}>Already have an account? <span style={{ textDecoration: "underline", cursor: "pointer" }}>Sign In</span></p>
+          <p onClick={() => setScreen("signin")} style={{ fontSize: 12, opacity: 0.6, marginTop: 20, cursor: "pointer" }}>
+            Already have an account? <span style={{ textDecoration: "underline" }}>Sign In</span>
+          </p>
+          <div style={{ fontSize: 9, opacity: 0.4, marginTop: 40 }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
   }
 
-  // ─── ONBOARDING: NAME ───
-  if (screen === "onboard_name") {
+  // ─── SIGN UP: PHONE ───
+  if (screen === "signup_phone") {
+    const phoneValid = phone.replace(/\D/g, "").length >= 10;
     return (
       <div style={styles.app}>
-        <div style={{ padding: "60px 24px 24px", textAlign: "center" }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>👋</div>
-          <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: colors.text }}>What's your name?</h2>
-          <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>So we can personalise your experience</p>
+        <div style={{ padding: "40px 24px 24px" }}>
+          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>📱</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>Create Account</h2>
+            <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 1 of 3</p>
+            <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
+            </div>
+          </div>
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Mobile Number</label>
+          <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+            <div style={{
+              padding: "14px 12px", border: "2px solid #e2e8f0", borderRadius: 12,
+              fontSize: 16, color: colors.text, fontWeight: 600, background: "#f8fafc",
+            }}>+353</div>
+            <input
+              value={phone}
+              onChange={e => setPhone(e.target.value.replace(/[^\d\s-]/g, ""))}
+              placeholder="08X XXX XXXX"
+              type="tel"
+              style={{ ...styles.input, flex: 1 }}
+            />
+          </div>
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Email Address</label>
+          <input
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            type="email"
+            style={{ ...styles.input, marginBottom: 20 }}
+          />
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>First Name</label>
           <input
             value={username}
             onChange={e => setUsername(e.target.value)}
             placeholder="Enter your first name"
-            style={{ ...styles.input, textAlign: "center", fontSize: 20 }}
+            style={{ ...styles.input, marginBottom: 24 }}
           />
+
           <button
-            onClick={() => username.trim() && setScreen("onboard_year")}
-            disabled={!username.trim()}
-            style={{ ...styles.btn(username.trim() ? colors.primary : "#cbd5e1", true), marginTop: 24 }}
+            onClick={() => {
+              if (phoneValid && email.includes("@") && username.trim()) {
+                sendVerificationCode();
+                setScreen("verify_code");
+              }
+            }}
+            disabled={!phoneValid || !email.includes("@") || !username.trim()}
+            style={styles.btn(phoneValid && email.includes("@") && username.trim() ? colors.primary : "#cbd5e1", true)}
           >
-            Continue
+            Send Verification Code
           </button>
+
+          <p style={{ fontSize: 11, color: colors.textLight, textAlign: "center", marginTop: 16, lineHeight: 1.5 }}>
+            We'll send a 4-digit code to verify your number.
+            <br />Your data is private and never shared.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── VERIFY CODE ───
+  if (screen === "verify_code") {
+    return (
+      <div style={styles.app}>
+        <div style={{ padding: "40px 24px 24px" }}>
+          <button onClick={() => setScreen("signup_phone")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>🔐</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>Verify Your Number</h2>
+            <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 2 of 3</p>
+            <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 16 }}>
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+              <div style={{ width: 40, height: 4, borderRadius: 2, background: "#e2e8f0" }} />
+            </div>
+            <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 13 }}>
+              Enter the 4-digit code sent to <strong style={{ color: colors.text }}>+353 {phone}</strong>
+            </p>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 16 }}>
+            {[0, 1, 2, 3].map(i => (
+              <input
+                key={i}
+                maxLength={1}
+                value={verificationCode[i] || ""}
+                onChange={e => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  const newCode = verificationCode.split("");
+                  newCode[i] = val;
+                  setVerificationCode(newCode.join(""));
+                  setCodeError("");
+                  // Auto-focus next input
+                  if (val && i < 3) {
+                    const next = e.target.parentElement.children[i + 1];
+                    if (next) next.focus();
+                  }
+                }}
+                onKeyDown={e => {
+                  if (e.key === "Backspace" && !verificationCode[i] && i > 0) {
+                    const prev = e.target.parentElement.children[i - 1];
+                    if (prev) prev.focus();
+                  }
+                }}
+                style={{
+                  width: 56, height: 64, textAlign: "center", fontSize: 28, fontWeight: 800,
+                  border: `2px solid ${codeError ? colors.danger : "#e2e8f0"}`,
+                  borderRadius: 12, outline: "none", color: colors.text,
+                }}
+                type="tel"
+                inputMode="numeric"
+              />
+            ))}
+          </div>
+
+          {codeError && (
+            <p style={{ color: colors.danger, fontSize: 13, textAlign: "center", fontWeight: 600, marginBottom: 12 }}>
+              {codeError}
+            </p>
+          )}
+
+          <button
+            onClick={verifyCode}
+            disabled={verificationCode.length !== 4}
+            style={styles.btn(verificationCode.length === 4 ? colors.primary : "#cbd5e1", true)}
+          >
+            Verify & Continue
+          </button>
+
+          <p style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: colors.textLight }}>
+            Didn't receive the code?{" "}
+            <span onClick={sendVerificationCode} style={{ color: colors.primary, fontWeight: 700, cursor: "pointer" }}>
+              Resend
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── SIGN IN ───
+  if (screen === "signin") {
+    return (
+      <div style={styles.app}>
+        <div style={{ padding: "40px 24px 24px" }}>
+          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>👋</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: colors.text }}>Welcome Back!</h2>
+            <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>Sign in with your mobile number</p>
+          </div>
+
+          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Mobile Number</label>
+          <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+            <div style={{
+              padding: "14px 12px", border: "2px solid #e2e8f0", borderRadius: 12,
+              fontSize: 16, color: colors.text, fontWeight: 600, background: "#f8fafc",
+            }}>+353</div>
+            <input
+              value={phone}
+              onChange={e => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setCodeError(""); }}
+              placeholder="08X XXX XXXX"
+              type="tel"
+              style={{ ...styles.input, flex: 1 }}
+            />
+          </div>
+
+          {codeError && (
+            <p style={{ color: colors.danger, fontSize: 13, fontWeight: 600, marginBottom: 12 }}>
+              {codeError}
+            </p>
+          )}
+
+          <button
+            onClick={signIn}
+            disabled={phone.replace(/\D/g, "").length < 10}
+            style={styles.btn(phone.replace(/\D/g, "").length >= 10 ? colors.primary : "#cbd5e1", true)}
+          >
+            Sign In
+          </button>
+
+          <p style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: colors.textLight }}>
+            Don't have an account?{" "}
+            <span onClick={() => { setCodeError(""); setScreen("signup_phone"); }} style={{ color: colors.primary, fontWeight: 700, cursor: "pointer" }}>
+              Sign Up
+            </span>
+          </p>
         </div>
       </div>
     );
@@ -943,13 +1376,19 @@ export default function MathU() {
   if (screen === "onboard_year") {
     return (
       <div style={styles.app}>
-        <div style={{ padding: "60px 24px 24px", textAlign: "center" }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>🎓</div>
-          <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: colors.text }}>What year are you in?</h2>
-          <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>We'll tailor questions to your level</p>
+        <div style={{ padding: "40px 24px 24px", textAlign: "center" }}>
+          <div style={{ fontSize: 48, marginBottom: 12 }}>🎓</div>
+          <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>What year are you in?</h2>
+          <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 3 of 3</p>
+          <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
+            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+            <div style={{ width: 40, height: 4, borderRadius: 2, background: colors.primary }} />
+          </div>
+          <p style={{ color: colors.textLight, margin: "0 0 24px", fontSize: 14 }}>We'll tailor questions to your level</p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             {["5th", "6th"].map(y => (
-              <button key={y} onClick={() => { setYear(y); setScreen("onboard_topics"); }}
+              <button key={y} onClick={() => { setYear(y); saveUser({ year: y }); setScreen("onboard_topics"); }}
                 style={{
                   width: 140, height: 140, borderRadius: 20, border: "3px solid " + colors.primary,
                   background: "white", cursor: "pointer", display: "flex", flexDirection: "column",
@@ -1008,7 +1447,7 @@ export default function MathU() {
               {selectedTopics.length === Object.keys(allTopics).length ? "Deselect All" : "Select All"}
             </button>
             <button
-              onClick={() => selectedTopics.length > 0 && setScreen("home")}
+              onClick={() => { if (selectedTopics.length > 0) { saveUser({ topics: selectedTopics }); setScreen("home"); } }}
               disabled={selectedTopics.length === 0}
               style={{ ...styles.btn(selectedTopics.length > 0 ? colors.primary : "#cbd5e1"), flex: 1 }}
             >
@@ -1630,12 +2069,26 @@ export default function MathU() {
             <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Year Group</h3>
             <div style={{ display: "flex", gap: 8 }}>
               {["5th", "6th"].map(y => (
-                <button key={y} onClick={() => setYear(y)}
+                <button key={y} onClick={() => { setYear(y); saveUser({ year: y }); }}
                   style={styles.chip(year === y, colors.primary)}>
                   {y} Year
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Account section */}
+          <div style={styles.card}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Account</h3>
+            {phone && <p style={{ fontSize: 13, color: colors.textLight, margin: "0 0 4px" }}>Phone: +353 {phone}</p>}
+            {email && <p style={{ fontSize: 13, color: colors.textLight, margin: "0 0 12px" }}>Email: {email}</p>}
+            <button onClick={logout} style={{
+              background: "none", border: "2px solid " + colors.danger, borderRadius: 12,
+              padding: "12px 24px", color: colors.danger, fontSize: 14, fontWeight: 700,
+              cursor: "pointer", width: "100%",
+            }}>
+              Sign Out
+            </button>
           </div>
         </div>
 
