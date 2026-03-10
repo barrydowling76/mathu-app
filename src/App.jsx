@@ -4991,7 +4991,9 @@ function MathKeyboard({ onInsert, onCalculate, showCalcRow = false }) {
 // ─── MAIN APP ───
 export default function MathU() {
   // Auth state
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(() => {
+    try { return localStorage.getItem("mathu_phone") || ""; } catch { return ""; }
+  });
   const [email, setEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [sentCode, setSentCode] = useState(null);
@@ -5444,6 +5446,7 @@ export default function MathU() {
 
         setUserId(profile.id);
         localStorage.setItem("mathu_session", profile.id);
+        try { localStorage.setItem("mathu_phone", phone); } catch {}
         setIsLoggedIn(true);
         setScreen("onboard_year");
       } catch (err) {
@@ -5456,7 +5459,8 @@ export default function MathU() {
   };
 
   // Sign in with existing phone
-  const signIn = async () => {
+  const signIn = async (pinOverride) => {
+    const pinToCheck = pinOverride || pin;
     try {
       const { data: profile, error } = await supabase
         .from("profiles")
@@ -5470,7 +5474,7 @@ export default function MathU() {
       }
 
       // Check PIN
-      if (profile.pin && profile.pin !== pin) {
+      if (profile.pin && profile.pin !== pinToCheck) {
         setCodeError("Incorrect PIN. Please try again.");
         return;
       }
@@ -5481,6 +5485,7 @@ export default function MathU() {
       setYear(profile.year);
       setSelectedTopics(profile.topics || []);
       localStorage.setItem("mathu_session", profile.id);
+      try { localStorage.setItem("mathu_phone", phone); } catch {}
       setIsLoggedIn(true);
 
       // Load stats
@@ -6255,6 +6260,7 @@ export default function MathU() {
 
   // ─── SIGN IN ───
   if (screen === "signin") {
+    const hasSavedPhone = phone && phone.replace(/\D/g, "").length >= 7;
     return (
       <div style={styles.app}>
         <div style={{ padding: "40px 24px 24px" }}>
@@ -6262,40 +6268,57 @@ export default function MathU() {
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 48, marginBottom: 12 }}>👋</div>
             <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: colors.text }}>Welcome Back!</h2>
-            <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>Sign in with your mobile number</p>
+            <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>
+              {hasSavedPhone ? "Enter your 4-digit PIN" : "Sign in with your mobile number"}
+            </p>
           </div>
 
-          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Mobile Number</label>
-          <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-            <div style={{
-              padding: "14px 12px", border: "2px solid #e2e8f0", borderRadius: 12,
-              fontSize: 16, color: colors.text, fontWeight: 600, background: "#f8fafc",
-            }}>+353</div>
-            <input
-              value={phone}
-              onChange={e => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setCodeError(""); }}
-              placeholder="08X XXX XXXX or 8X XXX XXXX"
-              type="tel"
-              style={{ ...styles.input, flex: 1 }}
-            />
-          </div>
+          {hasSavedPhone ? (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 20 }}>
+              <span style={{ fontSize: 15, color: colors.textLight }}>+353 {phone}</span>
+              <span onClick={() => { setPhone(""); try { localStorage.removeItem("mathu_phone"); } catch {} }} style={{ fontSize: 12, color: colors.primary, cursor: "pointer", fontWeight: 600 }}>Change</span>
+            </div>
+          ) : (
+            <>
+              <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Mobile Number</label>
+              <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+                <div style={{
+                  padding: "14px 12px", border: "2px solid #e2e8f0", borderRadius: 12,
+                  fontSize: 16, color: colors.text, fontWeight: 600, background: "#f8fafc",
+                }}>+353</div>
+                <input
+                  value={phone}
+                  onChange={e => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setCodeError(""); }}
+                  placeholder="08X XXX XXXX or 8X XXX XXXX"
+                  type="tel"
+                  style={{ ...styles.input, flex: 1 }}
+                />
+              </div>
+            </>
+          )}
 
-          <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Your 4-digit PIN</label>
+          {!hasSavedPhone && <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Your 4-digit PIN</label>}
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 20 }}>
             {[0, 1, 2, 3].map(i => (
               <input
                 key={i}
                 maxLength={1}
+                autoFocus={i === 0 && hasSavedPhone}
                 value={pin[i] || ""}
                 onChange={e => {
                   const val = e.target.value.replace(/\D/g, "");
                   const newPin = pin.split("");
                   newPin[i] = val;
-                  setPin(newPin.join(""));
+                  const fullPin = newPin.join("");
+                  setPin(fullPin);
                   setCodeError("");
                   if (val && i < 3) {
                     const next = e.target.parentElement.children[i + 1];
                     if (next) next.focus();
+                  }
+                  // Auto-login when all 4 digits entered
+                  if (val && i === 3 && fullPin.length === 4 && phone.replace(/\D/g, "").length >= 7) {
+                    setTimeout(() => signIn(fullPin), 150);
                   }
                 }}
                 onKeyDown={e => {
