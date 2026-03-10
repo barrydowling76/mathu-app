@@ -8219,15 +8219,45 @@ function DrawingCanvas({ onClear }) {
   );
 }
 
+// ─── MATHS EXPRESSION EVALUATOR ───
+function evaluateMathExpr(expr) {
+  try {
+    // Clean the expression: replace maths symbols with JS equivalents
+    let e = expr.trim();
+    // Replace common maths symbols
+    e = e.replace(/×/g, "*").replace(/÷/g, "/").replace(/·/g, "*");
+    e = e.replace(/π/g, `(${Math.PI})`);
+    e = e.replace(/√\(([^)]+)\)/g, "Math.sqrt($1)"); // √(x)
+    e = e.replace(/√(\d+\.?\d*)/g, "Math.sqrt($1)");  // √9
+    e = e.replace(/(\d+\.?\d*)²/g, "Math.pow($1,2)");
+    e = e.replace(/(\d+\.?\d*)³/g, "Math.pow($1,3)");
+    e = e.replace(/(\d+\.?\d*)\^(\d+\.?\d*)/g, "Math.pow($1,$2)");
+    e = e.replace(/sin\(/g, "Math.sin(").replace(/cos\(/g, "Math.cos(").replace(/tan\(/g, "Math.tan(");
+    e = e.replace(/log\(/g, "Math.log10(").replace(/ln\(/g, "Math.log(");
+    e = e.replace(/abs\(/g, "Math.abs(");
+    // Remove trailing operators
+    e = e.replace(/[+\-*/]+$/, "");
+    if (!e) return null;
+    // Safely evaluate (only allows numbers, operators, Math functions, parentheses)
+    if (/[^0-9+\-*/().,%eE\s]/.test(e.replace(/Math\.\w+/g, ""))) return null;
+    const result = Function('"use strict"; return (' + e + ')')();
+    if (typeof result !== "number" || !isFinite(result)) return null;
+    // Round to avoid floating point weirdness (up to 10 decimal places)
+    return Math.round(result * 10000000000) / 10000000000;
+  } catch {
+    return null;
+  }
+}
+
 // ─── MATHS KEYBOARD COMPONENT ───
-function MathKeyboard({ onInsert }) {
-  const rows = [
-    ["(", ")", "[", "]", "{", "}", "±", "="],
-    ["²", "³", "√", "π", "×", "÷", "∞", "!"],
-    ["≤", "≥", "≠", "≈", "<", ">", "%", "°"],
+function MathKeyboard({ onInsert, onCalculate, showCalcRow = false }) {
+  const numberRow = ["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", ".", "0", "(", ")", "^"];
+  const symbolRows = [
+    ["×", "÷", "√", "π", "²", "³", "±", "%"],
+    ["≤", "≥", "≠", "≈", "<", ">", "°", "∞"],
+    ["sin(", "cos(", "tan(", "log(", "ln(", "abs(", "→", "∈"],
     ["∫", "Σ", "Δ", "θ", "α", "β", "λ", "μ"],
-    ["sin", "cos", "tan", "log", "ln", "lim", "→", "∈"],
-    ["⁻¹", "ⁿ", "₁", "₂", "/", "·", "|", "…"],
+    ["⁻¹", "ⁿ", "₁", "₂", "[", "]", "|", "…"],
   ];
 
   const btnStyle = {
@@ -8243,9 +8273,35 @@ function MathKeyboard({ onInsert }) {
     transition: "all 0.15s",
   };
 
+  const calcBtnStyle = {
+    ...btnStyle,
+    background: "#22C55E",
+    color: "white",
+    border: "1px solid #16a34a",
+    fontSize: 14,
+    fontWeight: 800,
+    gridColumn: "span 4",
+  };
+
   return (
     <div style={{ marginTop: 8 }}>
-      {rows.map((row, ri) => (
+      {/* Number pad + operators */}
+      {showCalcRow && (
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4, marginBottom: 4 }}>
+            {numberRow.map((sym) => (
+              <button key={sym} style={btnStyle} onClick={() => onInsert(sym)} type="button">{sym}</button>
+            ))}
+          </div>
+          {onCalculate && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4, marginBottom: 6 }}>
+              <button style={calcBtnStyle} onClick={onCalculate} type="button">= Calculate</button>
+            </div>
+          )}
+        </>
+      )}
+      {/* Symbol rows */}
+      {symbolRows.map((row, ri) => (
         <div key={ri} style={{ display: "grid", gridTemplateColumns: `repeat(${row.length}, 1fr)`, gap: 4, marginBottom: 4 }}>
           {row.map((sym) => (
             <button
@@ -8254,7 +8310,7 @@ function MathKeyboard({ onInsert }) {
               onClick={() => onInsert(sym)}
               type="button"
             >
-              {sym}
+              {sym.replace(/\($/, "")}
             </button>
           ))}
         </div>
@@ -9519,18 +9575,47 @@ export default function MathU() {
                     lineHeight: 1.6,
                   }}
                 />
-                <MathKeyboard onInsert={(sym) => {
-                  const el = workingsTextRef.current;
-                  if (!el) return;
-                  const start = el.selectionStart;
-                  const end = el.selectionEnd;
-                  const newText = workingsText.slice(0, start) + sym + workingsText.slice(end);
-                  setWorkingsText(newText);
-                  setTimeout(() => {
-                    el.focus();
-                    el.selectionStart = el.selectionEnd = start + sym.length;
-                  }, 0);
-                }} />
+                <MathKeyboard
+                  showCalcRow={true}
+                  onInsert={(sym) => {
+                    const el = workingsTextRef.current;
+                    if (!el) return;
+                    const start = el.selectionStart;
+                    const end = el.selectionEnd;
+                    const newText = workingsText.slice(0, start) + sym + workingsText.slice(end);
+                    setWorkingsText(newText);
+                    setTimeout(() => {
+                      el.focus();
+                      el.selectionStart = el.selectionEnd = start + sym.length;
+                    }, 0);
+                  }}
+                  onCalculate={() => {
+                    const el = workingsTextRef.current;
+                    if (!el) return;
+                    // Find the current line the cursor is on
+                    const cursor = el.selectionStart;
+                    const lines = workingsText.split("\n");
+                    let pos = 0;
+                    let currentLineIdx = 0;
+                    for (let i = 0; i < lines.length; i++) {
+                      if (pos + lines[i].length >= cursor) { currentLineIdx = i; break; }
+                      pos += lines[i].length + 1; // +1 for newline
+                    }
+                    const currentLine = lines[currentLineIdx];
+                    // Try to evaluate the current line (strip any existing "= result" suffix)
+                    const exprPart = currentLine.replace(/\s*=\s*[\d.\-]+\s*$/, "").trim();
+                    const result = evaluateMathExpr(exprPart);
+                    if (result !== null) {
+                      lines[currentLineIdx] = exprPart + " = " + result;
+                      const newText = lines.join("\n") + "\n";
+                      setWorkingsText(newText);
+                      setTimeout(() => {
+                        el.focus();
+                        el.selectionStart = el.selectionEnd = newText.length;
+                      }, 0);
+                    }
+                  }}
+                />
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 6 }}>
                   <button onClick={() => setWorkingsText("")} style={{
                     background: "#ef4444", color: "white",
