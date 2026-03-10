@@ -205,7 +205,7 @@ const QUESTION_BANK = [
     subtopic: "De Moivre's theorem",
     difficulty: 3,
     source: "2024 P1 Q2",
-    question: "(a) Find the two solutions of $z^{2} + 12z + 261 = 0$, where $z$ is a complex number. Give each answer in the form $a + bi$, where $a, b \in \mathbb{R}$.\n\n(b) Use De Moivre's theorem to write $(1 - \sqrt{3}i)^{9}$ in the form $a + bi$, where $a, b \in \mathbb{R}$.\n\n(c) The point $w = -2 + 2i$ is plotted on an Argand diagram. Plot $u = 4(\cos \frac{\pi}{6} + i \sin \frac{\pi}{6})$ on the same Argand diagram. If $o = 0 + 0i$, find the size of the angle $\angle wou$ in radians.",
+    question: "(a) Find the two solutions of $z^{2} + 12z + 261 = 0$, where $z$ is a complex number. Give each answer in the form $a + bi$, where $a, b \in \mathbb{R}$.\n\n(b) Use De Moivre's theorem to write $(1 - \sqrt{3}i)^{9}$ in the form $a + bi$, where $a, b \in \mathbb{R}$.\n\n(c) The point $w = -2 + 2i$ is plotted on an Argand diagram.\n\n[diagram:argand_q007] Plot $u = 4(\cos \frac{\pi}{6} + i \sin \frac{\pi}{6})$ on the same Argand diagram. If $o = 0 + 0i$, find the size of the angle $\angle wou$ in radians.",
     hints: ["Convert to polar form: $z = r(\\$\$\$\$\$\cos \\theta + i \\$\$\$\$\$\sin \\theta)$", "$r = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$", "$\\theta = -\\frac{\\pi}{3}$ (or $\\frac{5\\pi}{3}$)"],
     answer: "256\nr = $\frac{1}{2}$\n$4$\n(a) z = −6 + 15i or z = −6 − 15i\n(b) −512\n(c) \\angle wou = 7\\pi /12",
     solution: "Step 1: $z = 1 - \\sqrt{3}i$, $r = \\sqrt{1+3} = 2$\n\nStep 2: $\\arg(z) = -\\frac{\\pi}{3}$\n\nStep 3: $z = 2(\\$\$\$\$\$\cos($$$$$-\\frac{\\pi}{3}) + i \\$\$\$\$\$\sin($$$$$-\\frac{\\pi}{3}))$\n\nStep 4: $z^9 = 2^9(\\cos(-3\\pi) + i \\sin(-3\\pi))$\n\nStep 5: $z^9 = 512(-1 + 0i) = -512$\n\n---\n\nStep 1: $\\frac{G_7}{G_{11}} = \\frac{ar^6}{ar^{10}} = \\frac{1}{r^4}$\n\nStep 2: $\\frac{6}{\\frac{3}{8}} = \\frac{1}{r^4}$\n\nStep 3: $16 = \\frac{1}{r^4}$\n\nStep 4: $r^4 = \\frac{1}{16}$\n\nStep 5: $r = \\frac{1}{2}$ (taking positive real root)\n\n---\n\n$4$\n\n---\n\n(a) z = (−12 ± \\sqrt(144 − 1044))/2\n= (−12 ± \\sqrt(−900))/2\n= (−12 ± 30i)/2\n= −6 ± 15i\n\nz = −6 + 15i or z = −6 − 15i\n\n---\n\n(b) |1 − \\sqrt3i| = \\sqrt(1 + 3) = 2\narg(1 − \\sqrt3i) = −\\pi /3 (4th quadrant: tan⁻¹(−\\sqrt$\\frac{3}{1}$))\n\n1 − \\sqrt3i = 2(cos(−\\pi /3) + i sin(−\\pi /3))\n\nBy De Moivre's:\n(1 − \\sqrt3i)^9 = $2^{9}$(cos(−9\\pi /3) + i sin(−9\\pi /3))\n= 512(cos(−3\\pi ) + i sin(−3\\pi ))\n= 512(−1 + 0i)\n= −512\n\n---\n\n(c) u = 4(cos \\pi /6 + i sin \\pi /6) = 2\\sqrt3 + 2i ≈ (3.46, 2)\n\narg(w) = \\pi  − arctan($\\frac{2}{2}$) = \\pi  − \\pi /4 = 3\\pi /4\narg(u) = \\pi /6\n\n\\angle wou = 3\\pi /4 − \\pi /6 = 9\\pi /12 − 2\\pi /12 = 7\\pi /12",
@@ -359,7 +359,7 @@ const QUESTION_BANK = [
     subtopic: "polynomial integration",
     difficulty: 2,
     source: "2022 P1 Q2",
-    question: "(a) $g(x) = 2x^2 + 5x + 6$, where $x \in \mathbb{R}$. Find $\int g(x) \, dx$.\n\n(b) The cubic function $f(x) = ax^2 + bx + c$ with $a, b, c \in \mathbb{Z}$ has the following properties:\n\n• Area between $x = 0$ and $x = 2$: 538 square units\n• Area between $x = 2$ and $x = 4$: (given by equation) \n• Area between $x = 4$ and $x = 6$: (given by equation) \n\nThese three areas give the following equations:\n$4a + 3b + 3c = 807$ ... (1)\n$28a + 9b + 3c = 879$ ... (2)\n$76a + 15b + 3c = 663$ ... (3)\n\n(i) Use integration of $f(x)$ from 0 to 2 to verify equation (1).\n\n(ii) Solve these three equations to find the values of $a$, $b$, and $c$.",
+    question: "(a) $g(x) = 2x^2 + 5x + 6$, where $x \in \mathbb{R}$. Find $\int g(x) \, dx$.\n\n[diagram:graph_q022]\n\n(b) The cubic function $f(x) = ax^2 + bx + c$ with $a, b, c \in \mathbb{Z}$ has the following properties:\n\n• Area between $x = 0$ and $x = 2$: 538 square units\n• Area between $x = 2$ and $x = 4$: (given by equation) \n• Area between $x = 4$ and $x = 6$: (given by equation) \n\nThese three areas give the following equations:\n$4a + 3b + 3c = 807$ ... (1)\n$28a + 9b + 3c = 879$ ... (2)\n$76a + 15b + 3c = 663$ ... (3)\n\n(i) Use integration of $f(x)$ from 0 to 2 to verify equation (1).\n\n(ii) Solve these three equations to find the values of $a$, $b$, and $c$.",
     hints: ["For (a): Integrate term by term", "$\\int x^2 dx = \\frac{x^3}{3}$", "For (b)(i): Integrate $f(x)$ from 0 to 2 and set equal to 538", "For (b)(ii): Solve the system of 3 equations in 3 unknowns"],
     answer: "(a) $\\frac{2x^3}{3} + \\frac{5x^2}{2} + 6x + C$\n(b)(i) $4a + 3b + 3c = 807$\n(b)(ii) $a = -9$, $b = 90$, $c = 134$",
     solution: "(a) $\\int (2x^2 + 5x + 6) \\, dx = \\frac{2x^3}{3} + \\frac{5x^2}{2} + 6x + C$\n\n---\n\n(b)(i) Area of K = $\\int_0^2 (ax^2 + bx + c) \\, dx = 538$\n\n$= [\\frac{ax^3}{3} + \\frac{bx^2}{2} + cx]_0^2$\n$= \\frac{8a}{3} + 2b + 2c = 538$\n\nMultiplying by $\\frac{3}{2}$:\n$4a + 3b + 3c = 807$ ✓\n\n---\n\n(b)(ii) From the three equations:\n$4a + 3b + 3c = 807$ ... (1)\n$28a + 9b + 3c = 879$ ... (2)\n$76a + 15b + 3c = 663$ ... (3)\n\n(2) − (1): $24a + 6b = 72$, so $4a + b = 12$ ... (4)\n(3) − (2): $48a + 6b = -216$, so $8a + b = -36$ ... (5)\n(5) − (4): $4a = -48$, so $a = -12$\n\nWait, let me recheck. From (4): $b = 12 - 4(-12) = 60$\nFrom (1): $4(-12) + 3(60) + 3c = 807$, $-48 + 180 + 3c = 807$, $3c = 675$, $c = 225$\n\nSo $a = -12$, $b = 60$, $c = 225$.",
@@ -1757,7 +1757,7 @@ const QUESTION_BANK = [
     subtopic: "Equation of a Circle",
     difficulty: 2,
     source: "2014 P2 Q9",
-    question: "(a) The diagram shows a circular clock face with two circular cogs, $h$ and $k$, which touch externally. The point $C$ is the centre of the clock face. The point $D$ is the centre of the larger cog, $h$, and the point $E$ is the centre of the smaller cog, $k$. [diagram:clock_cogs]\n\n(i) In suitable coordinates, the equation of the circle $h$ is $x^2 + y^2 + 4x - 6y - 19 = 0$. Find the radius of $h$, and the coordinates of its centre, $D$.\n\n(ii) The point $E$ has coordinates $(3, 2)$. Find the radius of the circle $k$.\n\n(iii) Show that the distance from $C(-2, 2)$ to the line $DE$ is half the length of $[DE]$.",
+    question: "(a) The diagram shows a circular clock face with two circular cogs, $h$ and $k$, which touch externally. The point $C$ is the centre of the clock face. The point $D$ is the centre of the larger cog, $h$, and the point $E$ is the centre of the smaller cog, $k$. [diagram:clock_cogs]\n\n[diagram:cogs_q179]\n\n(i) In suitable coordinates, the equation of the circle $h$ is $x^2 + y^2 + 4x - 6y - 19 = 0$. Find the radius of $h$, and the coordinates of its centre, $D$.\n\n(ii) The point $E$ has coordinates $(3, 2)$. Find the radius of the circle $k$.\n\n(iii) Show that the distance from $C(-2, 2)$ to the line $DE$ is half the length of $[DE]$.",
     hints: ["For (i): Form: $x^2 + y^2 + 2gx + 2fy + c = 0$. Find $g$, $f$, $c$ and use Centre $= (-g, -f)$, $r = \\sqrt{g^2 + f^2 - c}$", "For (ii): Use the condition that circles $h$ and $k$ touch externally", "For (iii): Find equation of line $DE$ and distance formula"],
     answer: "(i) Centre $D: (-2, 3)$, radius $= 4\\sqrt{2}$\n(ii) radius of $k = $ [Solution needed]\n(iii) [Proof needed]",
     solution: "Part (i): Form: $x^2 + y^2 + 2gx + 2fy + c = 0$. Comparing: $2g = 4 \\to g = 2$, $2f = -6 \\to f = -3$, $c = -19$. Centre $D = (-g, -f) = (-2, 3)$. Radius $= \\sqrt{g^2 + f^2 - c} = \\sqrt{4 + 9 + 19} = \\sqrt{32} = 4\\sqrt{2}$.\n\nPart (ii): Distance $DE = $ [Circle touch externally when distance between centers equals sum of radii].\n\nPart (iii): [Distance from point to line and length of $DE$].",
@@ -1771,7 +1771,7 @@ const QUESTION_BANK = [
     subtopic: "Conditional Probability",
     difficulty: 3,
     source: "2014 P2 Q8",
-    question: "Blood tests are sometimes used to indicate if a person has a particular disease. It is estimated that $0.3\%$ of a large population have a particular disease. A test developed to detect the disease gives a false positive in $4\%$ of tests and a false negative in $1\%$ of tests. A person picked at random is tested for the disease.\n\n(a) (i) Write the probability associated with each branch of a tree diagram.\n\n(ii) Calculate the probability that a person selected at random from the population tests positive for the disease.\n\n(iii) A person tests positive for the disease. What is the probability that the person actually has the disease? Give your answer correct to three significant figures.",
+    question: "Blood tests are sometimes used to indicate if a person has a particular disease. It is estimated that $0.3\%$ of a large population have a particular disease. A test developed to detect the disease gives a false positive in $4\%$ of tests and a false negative in $1\%$ of tests. A person picked at random is tested for the disease.\n\n(a) (i) Write the probability associated with each branch of a tree diagram.\n\n[diagram:tree_q180]\n\n(ii) Calculate the probability that a person selected at random from the population tests positive for the disease.\n\n(iii) A person tests positive for the disease. What is the probability that the person actually has the disease? Give your answer correct to three significant figures.",
     hints: ["For (a)(i): $P(\\text{disease}) = 0.003$, $P(\\text{tests pos | has disease}) = 0.99$, $P(\\text{tests pos | no disease}) = 0.04$", "For (a)(ii): Use total probability: $P(\\text{tests pos}) = P(\\text{has}) \\times P(\\text{pos | has}) + P(\\text{no has}) \\times P(\\text{pos | no has})$", "For (a)(iii): Use Bayes' theorem: $P(\\text{has | tests pos}) = \\frac{P(\\text{pos | has}) \\times P(\\text{has})}{P(\\text{tests pos})}$"],
     answer: "(a)(ii) [Solution needed]\n(a)(iii) [Solution needed with three sig figs]\n(b) [Solution needed]",
     solution: "Part (a)(i): Probabilities on tree diagram branches as described.\n\nPart (a)(ii): $P(\\text{tests pos}) = 0.003 \\times 0.99 + 0.997 \\times 0.04 = 0.00297 + 0.03988 = 0.04285$.\n\nPart (a)(iii): $P(\\text{has | tests pos}) = \\frac{0.003 \\times 0.99}{0.04285} \\approx 0.0693$ or $6.93\\%$.\n\nPart (b): [Continue with full question].",
@@ -1925,7 +1925,7 @@ const QUESTION_BANK = [
     subtopic: "Sine & Cosine Rules",
     difficulty: 2,
     source: "2015 P2 Q9",
-    question: "(a) Joan is playing golf. She is $150$ m from the centre of a circular green of diameter $30$ m. The diagram shows the range of directions in which Joan can hit the ball so that it could land on the green. Find $\alpha$, the measure of the angle of this range of directions. Give your answer, in degrees, correct to one decimal place. [diagram:golf_angle]\n\n(b) At the next hole, Joan, at $T$, attempts to hit the ball in the direction of the hole $H$. Her shot is off target and the ball lands at $A$, a distance of $190$ metres from $T$, where $|\angle ATH| = 18°$. $|TH| = 385$ metres. Find $|AH|$, the distance from the ball to the hole, correct to the nearest metre. [diagram:golf_distance]\n\n(c) At another hole, where the ground is not level, Joan hits the ball from $K$, as shown. The ball lands at $B$. The height of the ball, in metres, above the horizontal line $OB$ is given by $h = -6t^2 + 22t + 8$ where $t$ is the time in seconds after the ball is struck and $h$ is the height of the ball. [diagram:golf_height]\n\n(i) Find the height of $K$ above $OB$.\n\n(ii) The horizontal speed of the ball over the straight distance $[OB]$ is a constant $38$ m/s. Find the angle of elevation of $K$ from $B$, correct to the nearest degree.",
+    question: "(a) Joan is playing golf. She is $150$ m from the centre of a circular green of diameter $30$ m. The diagram shows the range of directions in which Joan can hit the ball so that it could land on the green. Find $\alpha$, the measure of the angle of this range of directions. Give your answer, in degrees, correct to one decimal place. [diagram:golf_angle]\n\n[diagram:golf_q191]\n\n(b) At the next hole, Joan, at $T$, attempts to hit the ball in the direction of the hole $H$. Her shot is off target and the ball lands at $A$, a distance of $190$ metres from $T$, where $|\angle ATH| = 18°$. $|TH| = 385$ metres. Find $|AH|$, the distance from the ball to the hole, correct to the nearest metre. [diagram:golf_distance]\n\n(c) At another hole, where the ground is not level, Joan hits the ball from $K$, as shown. The ball lands at $B$. The height of the ball, in metres, above the horizontal line $OB$ is given by $h = -6t^2 + 22t + 8$ where $t$ is the time in seconds after the ball is struck and $h$ is the height of the ball. [diagram:golf_height]\n\n(i) Find the height of $K$ above $OB$.\n\n(ii) The horizontal speed of the ball over the straight distance $[OB]$ is a constant $38$ m/s. Find the angle of elevation of $K$ from $B$, correct to the nearest degree.",
     hints: ["Use Cosine Rule: $|AH|^2 = |TA|^2 + |TH|^2 - 2|TA||TH|\\cos(18°)$", "$|AH|^2 = 190^2 + 385^2 - 2(190)(385)\\cos(18°)$", "Calculate and take the square root"],
     answer: "$|AH| \\approx 211$ m",
     solution: "Using the Cosine Rule:\n$|AH|^2 = |TA|^2 + |TH|^2 - 2|TA||TH|\\cos(\\angle ATH)$\n$|AH|^2 = 190^2 + 385^2 - 2(190)(385)\\cos(18°)$\n$|AH|^2 = 36100 + 148225 - 146300(0.9511)$\n$|AH|^2 = 184325 - 139146$\n$|AH|^2 = 45179$\n\n$|AH| = \\sqrt{45179} \\approx 211$ m",
@@ -2009,7 +2009,7 @@ const QUESTION_BANK = [
     subtopic: "Rates of Change",
     difficulty: 3,
     source: "2016 P1 Q7",
-    question: "(a) (i) Air is pumped into a spherical exercise ball at the rate of 250 cm$^3$ per second. Find the rate at which the radius is increasing when the radius of the ball is 20 cm. Give your answer in terms of $\pi$. (Use volume formula $V = \frac{4}{3}\pi r^{3}$)\n\n(ii) Find the rate at which the surface area of the ball is increasing when the radius of the ball is 20 cm. (Use surface area formula $A = 4\pi r^{2}$)\n\n(b) The inflated ball is kicked into the air from a point O on the ground. Taking O as the origin, the path of the ball is described by the equation where $y = -0.1x^{2} + x + 10$ and both $x$ and $y$ are measured in metres.\n\n(i) Find the values of $x$ when the ball is on the ground (i.e., when $y = 0$).\n\n(ii) Find the average height of the ball above the ground during the interval from when it is kicked until it hits the ground again.",
+    question: "(a) (i) Air is pumped into a spherical exercise ball at the rate of 250 cm$^3$ per second. Find the rate at which the radius is increasing when the radius of the ball is 20 cm. Give your answer in terms of $\pi$. (Use volume formula $V = \frac{4}{3}\pi r^{3}$)\n\n[diagram:trajectory_q198]\n\n(ii) Find the rate at which the surface area of the ball is increasing when the radius of the ball is 20 cm. (Use surface area formula $A = 4\pi r^{2}$)\n\n(b) The inflated ball is kicked into the air from a point O on the ground. Taking O as the origin, the path of the ball is described by the equation where $y = -0.1x^{2} + x + 10$ and both $x$ and $y$ are measured in metres.\n\n(i) Find the values of $x$ when the ball is on the ground (i.e., when $y = 0$).\n\n(ii) Find the average height of the ball above the ground during the interval from when it is kicked until it hits the ground again.",
     hints: ["V = ($\\frac{4}{3}$)\\pi $r^{3}$, dV/dr = 4\\pi $r^{2}$", "dV/dt = dV/dr × dr/dt", "250 = 4\\pi ($20^{2}$) × dr/dt"],
     answer: "dr/dt = 5/(32\\pi ) cm/s",
     solution: "V = ($\\frac{4}{3}$)\\pi $r^{3}$ \\to  dV/dr = 4\\pi $r^{2}$\n\ndV/dt = 4\\pi $r^{2}$ × dr/dt\n250 = 4\\pi (400) × dr/dt\n250 = 1600\\pi  × dr/dt\ndr/dt = 250/(1600\\pi ) = 5/(32\\pi ) cm/s",
@@ -2051,7 +2051,7 @@ const QUESTION_BANK = [
     subtopic: "Expected Value",
     difficulty: 2,
     source: "2016 P2 Q6",
-    question: "(a) In a lottery, contestants match a letter M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z (26 possible letters) and two numbers from 0-9 (10 possible numbers each). Calculate the probability that M, 3, 3 would be the winning outcome in a particular week.\n\n(b) If a contestant matches the letter only, or the letter and one number (but not both numbers), they win €50. Using the probabilities calculated from the sample space, find how much the club should expect to make or lose on each play, correct to the nearest cent, if they charge €2 per play.\n\n(c) The club estimates that the average number of plays per week will be 845. If the club wants to make an average profit of €600 per week from the lotto, how much should the club charge per play, correct to the nearest cent?",
+    question: "The table below shows lottery options:\n\nOutcome | Prize (€) | Probability\nMatch letter, first number, second number | 1000 | 1/26000\nMatch letter, first number only | 50 | (26-1)/26000\nMatch letter, second number only | 50 | (26-1)/26000\nMatch letter only | 50 | (26-1)/26000\nNo match | 0 | remaining\n\nFor each play, contestants pay €3. The club wants to determine expected value and pricing.",
     hints: ["Total outcomes = $26 \\times 10 \\times 10 = 2600$", "Only one winning combination", "$P = \\frac{1}{2600}$"],
     answer: "$\\frac{1}{2600}$",
     solution: "Total outcomes = $26 \\times 10 \\times 10 = 2600$\n$P(M, 3, 3) = \\frac{1}{2600}$",
@@ -2079,7 +2079,7 @@ const QUESTION_BANK = [
     subtopic: "Trigonometric Integration",
     difficulty: 2,
     source: "2024 P1 Q3",
-    question: "(a) Find the integral: $\\int \\cos 6x \\, dx$\n\n(b)(i) The function f is defined as $f(x) = $2x^{3}$ − $9x^{2}$ + 5x − 11.$\nFind the equation of the tangent to the graph of f at the point where x = 2.\n\n(b)(ii) Find the x-coordinate of the point of inflection of f(x) = $2x^{3}$ − $9x^{2}$ + 5x − 11.",
+    question: "(a) Find the integral: $\\int \\cos 6x \\, dx$\n\n(b)(i) The function f is defined as $f(x) = $2x^{3}$ − $9x^{2}$ + 5x − 11.$\nFind the equation of the tangent to the graph of f at the point where x = 2.\n\n[diagram:cubic_curve_q211]\n\n(b)(ii) Find the x-coordinate of the point of inflection of f(x) = $2x^{3}$ − $9x^{2}$ + 5x − 11.",
     hints: ["The integral of cos(ax) is (1/a)sin(ax) + C", "Here a = 6", "Don't forget the constant of integration"],
     answer: "(a) ($\\frac{1}{6}$) sin 6x + C\n(b)(i) y = −7x − 7\n(b)(ii) x = $\\frac{3}{2}$",
     solution: "(a) \\int  cos 6x dx = ($\\frac{1}{6}$) sin 6x + C\n\n---\n\n(b)(i) $f(2) = 2(8) − 9(4) + 5(2) − 11 = 16 − 36 + 10 − 11 = −21$\n\nf'(x) = $6x^{2}$ − 18x + 5\nf'(2) = 24 − 36 + 5 = −7\n\nTangent: y − (−21) = −7(x − 2)\ny + 21 = −7x + 14\ny = −7x − 7\n\n---\n\n(b)(ii) f'(x) = $6x^{2}$ − 18x + 5\nf''(x) = 12x − 18\n\nSet f''(x) = 0:\n12x − 18 = 0\n12x = 18\nx = $\\frac{3}{2}$ (or 1.5)",
@@ -2317,7 +2317,7 @@ const QUESTION_BANK = [
     subtopic: "Tangent Lines",
     difficulty: 2,
     source: "2018 P1 Q3",
-    question: "(a) Let $h(x) = cos(2x)$, where x \\in  $\mathbb{R}$. A tangent is drawn to the graph at the point where x = \\pi /12. Find the angle that this tangent makes with the positive x-axis.\n\n(b) Find the average value of $h(x) = \cos(2x)$ over the interval $0 \leq x \leq \pi$, where $x \in \mathbb{R}$. Give answer in terms of $\pi$.",
+    question: "(a) Let $h(x) = cos(2x)$, where x \\in  $\mathbb{R}$. A tangent is drawn to the graph at the point where x = \\pi /12. Find the angle that this tangent makes with the positive x-axis.\n\n[diagram:argand_circle_q273]\n\n(b) Find the average value of $h(x) = \cos(2x)$ over the interval $0 \leq x \leq \pi$, where $x \in \mathbb{R}$. Give answer in terms of $\pi$.",
     hints: ["Find $h'(x) = -2\sin(2x)$", "At $x = \frac{\pi}{12}$: $h'(\frac{\pi}{12}) = -2\sin(\frac{\pi}{6}) = -2(\frac{1}{2}) = -1$", "Slope = -1, so angle θ = arctan(-1) = -45° or 135°"],
     answer: "(a) $135^{{\\circ}}$ or 3\\pi /4 radians\n(b) 0",
     solution: "(a) $h(x) = cos(2x)$\nh'(x) = -2sin(2x)\n\nAt x = \\pi /12:\nh'(\\pi /12) = -2sin(2 × \\pi /12) = -2sin(\\pi /6) = -2 × ($\\frac{1}{2}$) = -1\n\nThe slope of the tangent is -1.\ntan(\\theta ) = -1\n\\theta  = $135^{{\\circ}}$ (or 3\\pi /4 radians) in standard position (second quadrant)\nor \\theta  = -$45^{{\\circ}}$ (or 7\\pi /4) measured counterclockwise from positive x-axis\n\nStandard answer: $135^{{\\circ}}$ or 3\\pi /4 radians\n\n---\n\n(b) Average value = (1/(\\pi  - 0)) \\int ₀^\\pi  cos(2x)dx\n\n= (1/\\pi ) [sin(2x)/2]₀^\\pi \n\n= (1/\\pi ) × ($\\frac{1}{2}$) × [sin(2\\pi ) - sin(0)]\n\n= (1/(2\\pi )) × [0 - 0]\n\n= 0",
@@ -2359,7 +2359,7 @@ const QUESTION_BANK = [
     subtopic: "Inverse Functions",
     difficulty: 2,
     source: "2019 P1 Q2",
-    question: "(a) (i) The function $g(x) = \sqrt{x - 1}$ is to be drawn on a coordinate plane. Sketch this graph and describe its key features (domain, starting point, etc.).\n\n(ii) Use substitution to verify that $f(x) = g(x)$ for some specific value $x = a$ where $a \geq 1$.\n\n(b) Given a recurrence relation where $f(n)$ follows a pattern with $n \geq 2$ and $n \in \mathbb{N}$, prove by mathematical induction that a specific formula holds for all such $n$.",
+    question: "(a) (i) The function $g(x) = \sqrt{x - 1}$ is to be drawn on a coordinate plane. Sketch this graph and describe its key features (domain, starting point, etc.).\n\n[diagram:exponential_linear_q282]\n\n(ii) Use substitution to verify that $f(x) = g(x)$ for some specific value $x = a$ where $a \geq 1$.\n\n(b) Given a recurrence relation where $f(n)$ follows a pattern with $n \geq 2$ and $n \in \mathbb{N}$, prove by mathematical induction that a specific formula holds for all such $n$.",
     hints: ["Base case: $n = 2$, f(2) = $4^{2}$ = 16", "Or prove that for the recurrence defined"],
     answer: "Proof by induction complete",
     solution: "Base case (n = 2):\nf(2) = $4^{2}$ = 16 ✓\n\nAssume $f(k) = 4ᵏ for some k $\\geq  2\n\nProve $f(k+1) = 4^(k+1):$\nf(k+1) = 4 × f(k) [if recurrence is $f(k+1) = 4·f(k)]$\$n = 4$ × 4ᵏ\n= 4^(k+1) ✓\n\nBy mathematical induction, $f(n) = 4ⁿ for all n $\\geq  2.",
@@ -2415,7 +2415,7 @@ const QUESTION_BANK = [
     subtopic: "Periodic Functions",
     difficulty: 2,
     source: "2021 P2 Q9",
-    question: "(a) An aeroplane flies east from point A for 2 hours at a constant speed of 420 km per hour until it reaches point B. It then changes direction by heading $20°$ towards the south at the same speed until it reaches point C. The direct distance from A to C is 1450 km and $|\angle BAC| = 8.57°$.\n\n(i) Find how long it took to fly from B to C. Give your answer correct to the nearest minute.\n\n(ii) The average fuel consumption of the plane is 3.8 litres per second and the fuel capacity of the plane is 100,000 litres. Show that the plane will be able to complete the journey from A to B to C and directly back to A at a speed of 420 km/h without refuelling.\n\n(b) The voltage, $V(t)$, (in Volts) of a certain alternating current is given by the function $V(t) = 110\sqrt{2} \sin(120\pi t)$, where $t$ is in seconds.\n\n(i) Find the period and range of the function $V(t)$.\n\n(ii) Sketch the function for $0 \leq t \leq p$, where $p$ is the period of $V(t)$. Indicate the period and range of the function on your graph.\n\n(iii) Use $V(t)$ to find the voltage when $t = 6.67$ seconds. Give your answer correct to two decimal places.\n\n(iv) Find one value for $t$ where the voltage is 110 Volts. Give your answer in a specific form.\n\n(v) Find the rate of change of the voltage when $t = 2$ seconds. Give your answer correct to the nearest unit.",
+    question: "(a) An aeroplane flies east from point A for 2 hours at a constant speed of 420 km per hour until it reaches point B. It then changes direction by heading $20°$ towards the south at the same speed until it reaches point C. The direct distance from A to C is 1450 km and $|\angle BAC| = 8.57°$.\n\n(i) Find how long it took to fly from B to C. Give your answer correct to the nearest minute.\n\n(ii) The average fuel consumption of the plane is 3.8 litres per second and the fuel capacity of the plane is 100,000 litres. Show that the plane will be able to complete the journey from A to B to C and directly back to A at a speed of 420 km/h without refuelling.\n\n(b) The voltage, $V(t)$, (in Volts) of a certain alternating current is given by the function $V(t) = 110\sqrt{2} \sin(120\pi t)$, where $t$ is in seconds.\n\n(i) Find the period and range of the function $V(t)$.\n\n(ii) Sketch the function for $0 \leq t \leq p$, where $p$ is the period of $V(t)$. Indicate the period and range of the function on your graph.\n\n[diagram:flight_path_q299]\n\n(iii) Use $V(t)$ to find the voltage when $t = 6.67$ seconds. Give your answer correct to two decimal places.\n\n(iv) Find one value for $t$ where the voltage is 110 Volts. Give your answer in a specific form.\n\n(v) Find the rate of change of the voltage when $t = 2$ seconds. Give your answer correct to the nearest unit.",
     hints: ["Period $T = 2$\\pi /ω where ω = 120\\pi ", "$T = 2$\\pi /(120\\pi ) = $\\frac{1}{60}$ seconds", "Range: amplitude = 110\\sqrt2, so range is [-110\\sqrt2, 110\\sqrt2]"],
     answer: "Period = $\\frac{1}{60}$ s; Range = [-110\\sqrt2, 110\\sqrt2] V",
     solution: "$V(t) = 110$\\sqrt2 sin(120\\pi t)\n\nPeriod:\nThe general form is $V(t) = A sin(ωt)$\nHere ω = 120\\pi \nPeriod = 2\\pi /ω = 2\\pi /(120\\pi ) = $\\frac{1}{60}$ seconds ≈ 0.0167 s\n\nRange:\nAmplitude = 110\\sqrt2 V\nSince -1 \\leq  sin(120\\pi t) \\leq  1:\nMinimum: -110\\sqrt2 V\nMaximum: 110\\sqrt2 V\nRange = [-110\\sqrt2, 110\\sqrt2] or approximately [-155.6, 155.6] V",
@@ -2429,7 +2429,7 @@ const QUESTION_BANK = [
     subtopic: "Optimization - Norman Window",
     difficulty: 3,
     source: "2019 P1 Q9",
-    question: "(a) (i) A Norman window consists of a rectangle with height $y$ and width $2x$ (where $x$ is the radius of the semicircular top), topped by a semicircle of radius $x$. Write the perimeter $P$ in terms of $x$, $y$, and $\pi$.\n\n(ii) In a particular Norman window with perimeter $P = 12$ metres, show that $y = 6 - x - \frac{\pi x}{2}$ where $0 \leq x \leq \frac{12}{2 + \pi}$.\n\n(b) (i) Complete the following table of values for the Norman window:\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nx & 0 & 2 & \frac{12}{2+\pi} \\\n\hline\ny = 6 - x - \frac{\pi x}{2} & & & \\\n\hline\n\end{array}$\n\n(ii) Draw the graph of the linear function $y = 6 - x - \frac{\pi x}{2}$ for $0 \leq x \leq \frac{12}{2+\pi}$ on a coordinate plane with x-axis labeled \"Radius\" (0 to 2.5) and y-axis labeled \"Height of rectangle\" (0 to 6).\n\n(iii) Find the slope of the graph of $y$, correct to 2 decimal places. Interpret this slope in the context of the question.\n\n(c) (i) The Norman window has a perimeter of 12 metres and $y = 6 - x - \frac{\pi x}{2}$. Show that the area function is $A(x) = x\left(6 - x - \frac{\pi x}{2}\right) + \frac{\pi x^{2}}{2}$ and simplify to find $A(x) = 6x - x^{2}$.\n\n(ii) Find $A'(x)$.\n\n(iii) Find the relationship between $x$ and $y$ when the area of the window is at its maximum.",
+    question: "(a) (i) A Norman window consists of a rectangle with height $y$ and width $2x$ (where $x$ is the radius of the semicircular top), topped by a semicircle of radius $x$. Write the perimeter $P$ in terms of $x$, $y$, and $\pi$.\n\n(ii) In a particular Norman window with perimeter $P = 12$ metres, show that $y = 6 - x - \frac{\pi x}{2}$ where $0 \leq x \leq \frac{12}{2 + \pi}$.\n\n(b) (i) Complete the following table of values for the Norman window:\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nx & 0 & 2 & \frac{12}{2+\pi} \\\n\hline\ny = 6 - x - \frac{\pi x}{2} & & & \\\n\hline\n\end{array}$\n\n(ii) Draw the graph of the linear function $y = 6 - x - \frac{\pi x}{2}$ for $0 \leq x \leq \frac{12}{2+\pi}$ on a coordinate plane with x-axis labeled \"Radius\" (0 to 2.5) and y-axis labeled \"Height of rectangle\" (0 to 6).\n\n[diagram:norman_window_q300]\n\n(iii) Find the slope of the graph of $y$, correct to 2 decimal places. Interpret this slope in the context of the question.\n\n(c) (i) The Norman window has a perimeter of 12 metres and $y = 6 - x - \frac{\pi x}{2}$. Show that the area function is $A(x) = x\left(6 - x - \frac{\pi x}{2}\right) + \frac{\pi x^{2}}{2}$ and simplify to find $A(x) = 6x - x^{2}$.\n\n(ii) Find $A'(x)$.\n\n(iii) Find the relationship between $x$ and $y$ when the area of the window is at its maximum.",
     hints: ["Area $A(x) = xy + $\\pi $x^{2}$/2", "y = (12 - \\pi x - 2x)/2", "dA/dx = 0 at maximum", "This gives: y = x"],
     answer: "y = x",
     solution: "For a Norman window with perimeter P = 12:\nPerimeter = 2x + 2y + \\pi $x = 12$ (where x is radius of semicircle, y is height of rectangle)\n\nSolve for y:\n2y = 12 - 2x - \\pi x\ny = (12 - 2x - \\pi x)/2 = 6 - x - \\pi x/2\n\nArea:\nA(x) = xy + \\pi $x^{2}$/2\n= x(6 - x - \\pi x/2) + \\pi $x^{2}$/2\n= 6x - $x^{2}$ - \\pi $x^{2}$/2 + \\pi $x^{2}$/2\n= 6x - $x^{2}$\n\ndA/dx = 6 - 2x = 0\nx = 3\n\ny = 6 - 3 - \\pi (3)/2 = 3 - 3\\pi /2\n\nActually at maximum when dA/dx = 0:\nThe relationship is y = x when area is optimized given the perimeter constraint.",
@@ -2569,7 +2569,7 @@ const QUESTION_BANK = [
     subtopic: "Trig Identities",
     difficulty: 2,
     source: "2022 P2 Q4",
-    question: "(a) (i) Prove that $\tan(A - B) = \frac{\tan A - \tan B}{1 + \tan A \tan B}$.\n\n(ii) Write $\tan 15°$ in the form $a - \sqrt{b}$, where $a \in \mathbb{N}$.\n\n(b) The triangle $ABC$ is shown in the diagram below. $|AC| = |BC|$ and $|\angle ACB| = 45°$. $|AB| = 10(\sqrt{2} - \sqrt{2})$. Find the length $|AC|$. [diagram:isosceles_45]",
+    question: "(a) (i) Prove that $\tan(A - B) = \frac{\tan A - \tan B}{1 + \tan A \tan B}$.\n\n(ii) Write $\tan 15°$ in the form $a - \sqrt{b}$, where $a \in \mathbb{N}$.\n\n(b) The triangle $ABC$ is shown in the diagram below.\n\n[diagram:triangle_geometry_q326] $|AC| = |BC|$ and $|\angle ACB| = 45°$. $|AB| = 10(\sqrt{2} - \sqrt{2})$. Find the length $|AC|$. [diagram:isosceles_45]",
     hints: ["Start with $\\sin(A-B) = \\sin A \\cos B - \\cos A \\sin B$ and $\\cos(A-B) = \\cos A \\cos B + \\sin A \\sin B$", "Divide $\\sin(A-B)$ by $\\cos(A-B)$", "Divide numerator and denominator by $\\cos A \\cos B$"],
     answer: "$\\tan(A - B) = \\frac{\\tan A - \\tan B}{1 + \\tan A \\tan B}$ (shown)",
     solution: "$\\tan(A - B) = \\frac{\\sin(A - B)}{\\cos(A - B)}$\n\nUsing compound angle formulas:\n$\\sin(A - B) = \\sin A \\cos B - \\cos A \\sin B$\n$\\cos(A - B) = \\cos A \\cos B + \\sin A \\sin B$\n\nSo:\n$\\tan(A - B) = \\frac{\\sin A \\cos B - \\cos A \\sin B}{\\cos A \\cos B + \\sin A \\sin B}$\n\nDivide numerator and denominator by $\\cos A \\cos B$:\n$= \\frac{\\frac{\\sin A \\cos B}{\\cos A \\cos B} - \\frac{\\cos A \\sin B}{\\cos A \\cos B}}{\\frac{\\cos A \\cos B}{\\cos A \\cos B} + \\frac{\\sin A \\sin B}{\\cos A \\cos B}}$\n$= \\frac{\\frac{\\sin A}{\\cos A} - \\frac{\\sin B}{\\cos B}}{1 + \\frac{\\sin A}{\\cos A} \\cdot \\frac{\\sin B}{\\cos B}}$\n$= \\frac{\\tan A - \\tan B}{1 + \\tan A \\tan B}$ ✓",
@@ -2583,7 +2583,7 @@ const QUESTION_BANK = [
     subtopic: "Geometric Proofs",
     difficulty: 3,
     source: "2022 P2 Q6",
-    question: "(a) Construct the circumcentre of triangle $XYZ$, using only a compass and straight edge. Label the circumcentre $C$. Show your construction lines clearly.\n\n(b) The points $A, B, C$, and $D$ lie on a circle. $AB$ is a diameter of the circle. $|\angle DAC| = 40°$, as shown. Triangle $ABD$ is isosceles. Find $|\angle ADC|$. [diagram:circle_inscribed_angle]\n\n(c) The triangle $PQR$ has an angle at $R$ greater than $90°$. $k$ is the circumcircle of $PQR$ and $O$ is the circumcentre. Prove that $O$ cannot be inside the triangle $PQR$.\n\nIf you are proving this by contradiction, your first line should be: \"Assume that $O$ is inside the triangle $PQR$.\"",
+    question: "(a) Construct the circumcentre of triangle $XYZ$, using only a compass and straight edge. Label the circumcentre $C$. Show your construction lines clearly.\n\n(b) The points $A, B, C$, and $D$ lie on a circle. $AB$ is a diameter of the circle. $|\angle DAC| = 40°$, as shown. Triangle $ABD$ is isosceles. Find $|\angle ADC|$. [diagram:circle_inscribed_angle]\n\n[diagram:quadrilateral_circle_q328]\n\n(c) The triangle $PQR$ has an angle at $R$ greater than $90°$. $k$ is the circumcircle of $PQR$ and $O$ is the circumcentre. Prove that $O$ cannot be inside the triangle $PQR$.\n\nIf you are proving this by contradiction, your first line should be: \"Assume that $O$ is inside the triangle $PQR$.\"",
     hints: ["Since AB is a diameter, \\angle ADB = $90^{{\\circ}}$ (angle in a semicircle)", "Triangle ABD is isosceles, so either |AD| = |AB| or |AD| = |BD|", "Using \\angle DAC = $40^{{\\circ}}$ and circle properties, work through the angles"],
     answer: "|\\angle ADC| = $130^{{\\circ}}$",
     solution: "Since AB is a diameter of the circle:\n\\angle ADB = $90^{{\\circ}}$ (angle in a semicircle)\n\nTriangle ABD is isosceles with \\angle ADB = $90^{{\\circ}}$.\nIf |AD| = |BD|, then the base angles are equal:\n\\angle DAB = \\angle DBA = $45^{{\\circ}}$\n\nIn the circle:\n\\angle DAC = $40^{{\\circ}}$ (given)\nSo \\angle CAB = \\angle DAB − \\angle DAC = $45^{{\\circ}}$ − $40^{{\\circ}}$ = $5^{{\\circ}}$ (or could be different configuration)\n\nUsing the inscribed angle theorem and circle properties:\n\\angle ADC is the angle we seek. Since ABCD are concyclic and AB is a diameter:\n\\angle ADC = $90^{{\\circ}}$ + $40^{{\\circ}}$ = $130^{{\\circ}}$",
@@ -2597,7 +2597,7 @@ const QUESTION_BANK = [
     subtopic: "Compound Interest",
     difficulty: 2,
     source: "2023 P1 Q8",
-    question: "(a) Olga puts €3000 in a savings account. Interest is added annually at a rate of 2.4% per year. Work out the amount in Olga's account after 5 years, correct to the nearest cent. (Use the compound interest formula $A = P(1 + \frac{r}{100})^n$)\n\n(b) (i) Explain what is meant by the \"present value\" of a payment of €1000 in 1 year's time at a particular interest rate.\n\n(ii) Chen puts a different amount in a savings account with the same interest rate (2.4% per year). After 6 years, Chen has €4000 in the account. Work out how much money Chen put in the account initially, correct to the nearest cent.\n\n(c) Fiona is taking out a loan at the same annual interest rate (2.4% per year). Fiona makes payments quarterly (that is, 4 times per year). Work out the quarterly interest rate that would be equivalent to an APR of 2.4%. Give your answer as a percentage, correct to 2 decimal places.\n\n(d) Rohan wants to put the same amount of money in a savings account at the start of each month for 36 months so that, at the end of 3 years, he will have a total of €12,000 in the account. Interest is calculated at a rate of 0.11% per month.\n\n(i) Taking €A to be the amount Rohan puts in his account at the start of each month, write down a geometric series in €A to show the total amount of money in the account at the end of the 3 years. Include the first two and the last two terms.\n\n(ii) Hence, find the value of €A that will give a total of €12,000 in the account after 3 years. Give your answer correct to the nearest cent.\n\n(e) A park sells three types of ticket: child, student, and adult. The prices and percentages are:\n\n• Child: €5; Percentage sold: 52%\n• Student: €11; Percentage sold: 15%\n• Adult: €x (where an adult ticket is €5 more than a child ticket); Percentage sold: 33%\n\nThe expected value of the price of a ticket is €13.85. Work out the value of $x$, the price of an adult ticket.\n\n(f) When an item is being sold: the mark up is the profit as a percentage of the cost price, and the margin is the profit as a percentage of the selling price. A shop sells an item with a margin of 18%. Work out the mark up for this item. Give your answer as a percentage, correct to the nearest percent.",
+    question: "A park sells three types of ticket: child, student, and adult.\n\n| Type of ticket | Child | Student | Adult |\n|---|---|---|---|\n| Price of ticket | €11 | €5 less than an adult ticket | €x |\n| Percentage | 52% | 15% | 33% |\n\nThe expected value of the price of a ticket is €13·85. Work out the value of x, the price of an adult ticket.",
     hints: ["Use compound interest formula A = P(1 + r/100)^n", "$P = 3000$, r = 2.4%, n = 5", "A = 3000(1.024)^5"],
     answer: "€3381.74",
     solution: "Using the compound interest formula:\nA = P(1 + r/100)^n\n\nWhere:\nP = €3000 (principal)\nr = 2.4 (annual interest rate %)\nn = 5 (number of years)\n\nA = 3000(1 + 2.$\\frac{4}{100}$)^5\nA = 3000(1.024)^5\nA = 3000 × 1.127607...\nA = 3382.82...\n\nRounded to nearest cent: €3381.74 (or €3382.82 depending on rounding)",
@@ -2611,7 +2611,7 @@ const QUESTION_BANK = [
     subtopic: "Chain Rule",
     difficulty: 2,
     source: "2023 P1 Q5",
-    question: "(a) The function $f$ is defined as follows, for $x \in \mathbb{R}$: $f(x) = \frac{1}{5x + 7}$. Find $f'(x)$, the derivative of $f$. Give your answer in its simplest form.\n\n(b) The function $g(x)$ is defined as follows, for $x \in \mathbb{R}$ with $0 < x < \pi$: $g(x) = \tan(\ln x)$. Find the value of $g\left(\frac{\pi}{2}\right)$. Give your answer in the form $a + \ln b$, where $a, b \in \mathbb{R}$.\n\n(c) The functions $f: A \to B$ and $g: B \to C$ are defined with the following mapping:\n\nSet A = {1, 2, 3, 4} (with #A = 4)\nSet B = {x, w, y, z} (with #B = 3)\nSet C has 4 elements (with #C = 4)\n\nMappings: 1 $\to$ x, 2 $\to$ w, 3 $\to$ y, 4 $\to$ z via $f$; and x $\to$ (some element), w $\to$ (some element), y $\to$ (some element), z $\to$ (some element) via $g$.\n\n(i) Find the value of $g(f(3))$.\n\n(ii) Explain why $g: B \to C$ is injective but not surjective (that is, one-to-one but not onto).",
+    question: "(a) The function $f$ is defined as follows, for $x \in \mathbb{R}$: $f(x) = \frac{1}{5x + 7}$. Find $f'(x)$, the derivative of $f$. Give your answer in its simplest form.\n\n[diagram:function_mapping_diagram]\n\n(b) The function $g(x)$ is defined as follows, for $x \in \mathbb{R}$ with $0 < x < \pi$: $g(x) = \tan(\ln x)$. Find the value of $g\left(\frac{\pi}{2}\right)$. Give your answer in the form $a + \ln b$, where $a, b \in \mathbb{R}$.\n\n(c) The functions $f: A \to B$ and $g: B \to C$ are defined with the following mapping:\n\nSet A = {1, 2, 3, 4} (with #A = 4)\nSet B = {x, w, y, z} (with #B = 3)\nSet C has 4 elements (with #C = 4)\n\nMappings: 1 $\to$ x, 2 $\to$ w, 3 $\to$ y, 4 $\to$ z via $f$; and x $\to$ (some element), w $\to$ (some element), y $\to$ (some element), z $\to$ (some element) via $g$.\n\n(i) Find the value of $g(f(3))$.\n\n(ii) Explain why $g: B \to C$ is injective but not surjective (that is, one-to-one but not onto).",
     hints: ["Rewrite as f(x) = (5x + 7)^(−1)", "Use chain rule: d/dx[(5x+7)^(−1)] = −(5x+7)^(−2) × 5", "Simplify to get f'(x) = −5/(5x+7)^2"],
     answer: "f'(x) = −5/(5x+7)^2",
     solution: "$f(x) = 1/(5x + 7) = (5x + 7)^(−1)$\n\nUsing the chain rule:\nf'(x) = −(5x + 7)^(−2) × d/dx(5x + 7)\nf'(x) = −(5x + 7)^(−2) × 5\nf'(x) = −5(5x + 7)^(−2)\nf'(x) = −5/(5x + 7)^2",
@@ -2639,7 +2639,7 @@ const QUESTION_BANK = [
     subtopic: "Polynomials",
     difficulty: 2,
     source: "2014 P1 Q1",
-    question: "(a) The graph of a cubic function $f(x)$ cuts the x-axis at $x = -3$, $x = -1$, and $x = 2$, and the y-axis at $(0, -6)$. Verify that $f(x)$ can be written as $f(x) = x^{3} + 2x^{2} - 5x - 6$.\n\n(b) (i) The graph of the function $g(x) = 2x - 6$ intersects the graph of $f(x) = x^{3} + 2x^{2} - 5x - 6$. Let $f(x) = g(x)$ and solve the resulting equation to find the coordinates of the points where the graphs intersect.\n\n(ii) On the same coordinate plane showing the cubic $f(x)$ with zeros at $x = -3, -1, 2$ and y-intercept at $(0, -6)$, draw the linear function $g(x) = 2x - 6$.",
+    question: "(a) The graph of a cubic function $f(x)$ cuts the x-axis at $x = -3$, $x = -1$, and $x = 2$, and the y-axis at $(0, -6)$. Verify that $f(x)$ can be written as $f(x) = x^{3} + 2x^{2} - 5x - 6$.\n\n[diagram:cubic_graph]\n\n(b) (i) The graph of the function $g(x) = 2x - 6$ intersects the graph of $f(x) = x^{3} + 2x^{2} - 5x - 6$. Let $f(x) = g(x)$ and solve the resulting equation to find the coordinates of the points where the graphs intersect.\n\n(ii) On the same coordinate plane showing the cubic $f(x)$ with zeros at $x = -3, -1, 2$ and y-intercept at $(0, -6)$, draw the linear function $g(x) = 2x - 6$.",
     hints: ["Set f(x) = g(x) to get $x^{3}$ + $2x^{2}$ − 5x − 6 = 2x − 6", "Simplify to $x^{3}$ + $2x^{2}$ − 7x = 0", "Factor out x and solve the resulting quadratic"],
     answer: "Points: (0, −6), (2, −2), (−3.5, −13)",
     solution: "Setting $f(x) = g(x):$\$nx^{3}$ + $2x^{2}$ − 5x − 6 = 2x − 6\$nx^{3}$ + $2x^{2}$ − 7x = 0\nx($x^{2}$ + 2x − 7) = 0\n\nEither $x = 0$ or $x^{2}$ + 2x − 7 = 0\n\nUsing the quadratic formula:\nx = (−2 ± \\sqrt(4 + 28))/2 = (−2 ± \\sqrt32)/2 = (−2 ± 4\\sqrt2)/2 = −1 ± 2\\sqrt2\n\nx ≈ −1 + 2.828 = 1.828 or x ≈ −1 − 2.828 = −3.828\n\nCoordinates:\n- (0, −6)\n- (1.828, −0.344)\n- (−3.828, −13.656)",
@@ -2653,7 +2653,7 @@ const QUESTION_BANK = [
     subtopic: "Quadratic Functions",
     difficulty: 3,
     source: "2014 P1 Q7",
-    question: "(a) Three natural numbers $a, b$ and $c$, such that $a^2 + b^2 = c^2$, are called a Pythagorean triple.\n\n(i) Let $a = 2n + 1$, $b = 2n^2 + 2n$ and $c = 2n^2 + 2n + 1$. Pick one natural number $n$ and verify that the corresponding values of $a, b$ and $c$ form a Pythagorean triple.\n\n(ii) Prove that $a = 2n + 1$, $b = 2n^2 + 2n$ and $c = 2n^2 + 2n + 1$, where $n \in \mathbb{N}$, will always form a Pythagorean triple.\n\n(b) $ADEC$ is a rectangle with $|AC| = 7$ m and $|AD| = 2$ m, as shown. $B$ is a point on $[AC]$ such that $|AB| = 5$ m. $P$ is a point on $[DE]$ such that $|DP| = x$ m. [diagram:rectangle_pqr_distance]\n\n(i) Let $f(x) = |PA|^2 + |PB|^2 + |PC|^2$. Show that $f(x) = 3x^2 - 24x + 86$, for $0 \leq x \leq 7$, $x \in \mathbb{R}$.\n\n(ii) The function $f(x)$ has a minimum value at $x = k$. Find the value of $k$ and the minimum value of $f(x)$.",
+    question: "(a) Three natural numbers $a, b$ and $c$, such that $a^2 + b^2 = c^2$, are called a Pythagorean triple.\n\n(i) Let $a = 2n + 1$, $b = 2n^2 + 2n$ and $c = 2n^2 + 2n + 1$. Pick one natural number $n$ and verify that the corresponding values of $a, b$ and $c$ form a Pythagorean triple.\n\n(ii) Prove that $a = 2n + 1$, $b = 2n^2 + 2n$ and $c = 2n^2 + 2n + 1$, where $n \in \mathbb{N}$, will always form a Pythagorean triple.\n\n(b) $ADEC$ is a rectangle with $|AC| = 7$ m and $|AD| = 2$ m, as shown. $B$ is a point on $[AC]$ such that $|AB| = 5$ m. $P$ is a point on $[DE]$ such that $|DP| = x$ m. [diagram:rectangle_pqr_distance]\n\n[diagram:rectangle_distances]\n\n(i) Let $f(x) = |PA|^2 + |PB|^2 + |PC|^2$. Show that $f(x) = 3x^2 - 24x + 86$, for $0 \leq x \leq 7$, $x \in \mathbb{R}$.\n\n(ii) The function $f(x)$ has a minimum value at $x = k$. Find the value of $k$ and the minimum value of $f(x)$.",
     hints: ["Set up coordinates: A at origin, C at (7,0), D at (0,2), P at (x,2)", "|PA|^2 = $x^{2}$ + 4", "|PB|^2 = (x−5)^2 + 4 = $x^{2}$ − 10x + 29"],
     answer: "f(x) = $3x^{2}$ − 24x + 86; minimum at $x = 4$ with f(4) = 38",
     solution: "Using coordinates with A at origin:\n- A = (0,0), B = (5,0), C = (7,0)\n- D = (0,2), E = (7,2), P = (x,2)\n\n|PA|^2 = $x^{2}$ + 4\n|PB|^2 = (x−5)^2 + 4 = $x^{2}$ − 10x + 25 + 4 = $x^{2}$ − 10x + 29\n|PC|^2 = (x−7)^2 + 4 = $x^{2}$ − 14x + 49 + 4 = $x^{2}$ − 14x + 53\n\nf(x) = ($x^{2}$ + 4) + ($x^{2}$ − 10x + 29) + ($x^{2}$ − 14x + 53)\n= $3x^{2}$ − 24x + 86\n\nTo find minimum:\nf'(x) = 6x − 24 = 0\nx = 4\nf(4) = 3(16) − 24(4) + 86 = 48 − 96 + 86 = 38",
@@ -2667,7 +2667,7 @@ const QUESTION_BANK = [
     subtopic: "Lines and Angles",
     difficulty: 2,
     source: "2014 P2 Q2",
-    question: "(a) Prove that $\cos 2A = \cos^2 A - \sin^2 A$.\n\n(b) The diagram shows part of the circular end of a running track with three running lanes shown. The centre of each of the circular boundaries of the lanes is at $O$. Kate runs in the middle of lane 1, from $A$ to $B$ as shown. Helen runs in the middle of lane 2, from $C$ to $D$ as shown. [diagram:running_track]\n\nHelen runs $3$ m further than Kate. $|\angle AOB| = |\angle COD| = \theta$ radians.\n\nIf each lane is $1.2$ m wide, find $\theta$.",
+    question: "(a) Prove that $\cos 2A = \cos^2 A - \sin^2 A$.\n\n(b) The diagram shows part of the circular end of a running track with three running lanes shown. The centre of each of the circular boundaries of the lanes is at $O$. Kate runs in the middle of lane 1, from $A$ to $B$ as shown. Helen runs in the middle of lane 2, from $C$ to $D$ as shown. [diagram:running_track]\n\n[diagram:running_track_arc]\n\nHelen runs $3$ m further than Kate. $|\angle AOB| = |\angle COD| = \theta$ radians.\n\nIf each lane is $1.2$ m wide, find $\theta$.",
     hints: ["Arc length = radius × angle", "Kate's path: length = r₁\\theta ", "Helen's path: length = r₂\\theta  = (r₁ + 1.2)\\theta "],
     answer: "\\theta  = 2.5 radians",
     solution: "Let Kate's radius be r₁ and Helen's radius be r₂ = r₁ + 1.2\n\nArc lengths:\n- Kate: s₁ = r₁\\theta \n- Helen: s₂ = r₂\\theta  = (r₁ + 1.2)\\theta \n\nDifference:\ns₂ − s₁ = 3\n(r₁ + 1.2)\\theta  − r₁\\theta  = 3\n1.2\\theta  = 3\n\\theta  = $\\frac{3}{1}$.2 = 2.5 radians",
@@ -2695,7 +2695,7 @@ const QUESTION_BANK = [
     subtopic: "Standard Deviation",
     difficulty: 2,
     source: "2014 P2 Q4",
-    question: "(a) The voltage in an electrical circuit follows a sinusoidal pattern given by $V = 311\sin(100\pi t)$.\n\n(i) Write down the range of the function.\n\n(ii) How many complete periods are there in one second?\n\n(b) (i) The table below gives the voltage, correct to the nearest whole number, at equally spaced intervals from $t_1$ to $t_{12}$ over one complete period. The data points are: 156, 269, 311 at $t_1$, $t_2$, $t_3$ respectively. Using the entries given in the table and the properties of the sinusoidal function (symmetry about the mean), complete the remaining entries in the table for $t_4$ through $t_{12}$.\n\n(ii) Using a calculator, or otherwise, calculate the standard deviation, $\sigma$, of the twelve values of V in the table, correct to the nearest whole number.\n\n(c) (i) The standard deviation, $\sigma$, of closely spaced values of any function of the form $V = a\sin(bt)$ over 1 full period, is given by $\sigma = k \cdot V_{\max}$, where $k$ is a constant that does not depend on $a$ or $b$, and $V_{\max}$ is the maximum value of the function. Use the function $V = 311\sin(100\pi t)$ to find an approximate value for $k$ correct to three decimal places.\n\n(ii) Using your answer in part (c)(i), find the value of $b$ required so that the function $V = a\sin(bt)$ has 60 complete periods in one second and the approximate value of $a$ so that it has a standard deviation of 110 volts.",
+    question: "Standard Normal Distribution Table\n\n| z | 0.00 | 0.01 | 0.02 | 0.03 | 0.04 |\n|---|---|---|---|---|---|\n| 0.0 | 0.5000 | 0.5040 | 0.5080 | 0.5120 | 0.5160 |\n| 0.1 | 0.5398 | 0.5438 | 0.5478 | 0.5517 | 0.5557 |\n| 0.2 | 0.5793 | 0.5832 | 0.5871 | 0.5910 | 0.5948 |\n| 0.3 | 0.6179 | 0.6217 | 0.6255 | 0.6293 | 0.6331 |\n| 0.4 | 0.6554 | 0.6591 | 0.6628 | 0.6664 | 0.6700 |\n\nThis table shows the probability P(Z ≤ z) for standard normal distribution values.",
     hints: ["For sine function, values are symmetric about the mean", "Standard deviation $\\sigma \\approx 0.408 \\times V_{\\max}$ for sine over full period", "$V_{\\max} = 311$ volts"],
     answer: "$\\sigma \\approx 127$ volts",
     solution: "For a sinusoidal function $V = a \\cdot \\sin(bt)$ over one complete period:\n- The 12 equally spaced values are symmetric\n- Maximum value $V_{\\max} = 311$\n- Standard deviation $\\approx 0.408 \\times V_{\\max}$\n\n$\\sigma \\approx 0.408 \\times 311 \\approx 126.9 \\approx 127$ volts\n\nAlternatively, for sine function:\n$\\sigma = \\frac{V_{\\max}}{\\sqrt{2}} \\times (\\text{some factor}) \\approx 127$ volts",
@@ -2723,7 +2723,7 @@ const QUESTION_BANK = [
     subtopic: "Rates of Change",
     difficulty: 3,
     source: "2015 P1 Q7",
-    question: "(a) A plane descending to land follows a path modeled by the cubic function $f(x) = 0.0024x^{3} + 0.018x^{2} + cx + d$, where $x$ is the horizontal distance in km and $f(x)$ is the height in km above the ground.\n\n(i) Show that $d = 0$ (the plane starts on the ground).\n\n(ii) Using the fact that $P = (-5, 0.15)$ is a point on the curve (the plane passes through this point), show that $c = 0$.\n\n(b) (i) Find the value of $f'(x)$, the derivative of $f(x)$, when $x = -4$.\n\n(ii) Use your answer to part (b)(i) above to find the angle at which the plane is descending when it is 4 km from touchdown. Give your answer correct to the nearest degree.\n\n(c) Show that $(-2.5, 0.075)$ is the point of inflection of the curve $y = f(x)$.\n\n(d) (i) If $(x, y)$ is a point on the curve $y = f(x)$, verify that $(-x - 5, -y + 0.15)$ is also a point on $y = f(x)$.\n\n(ii) Find the image of $(-x - 5, -y + 0.15)$ under symmetry in the point of inflection.",
+    question: "(a) A plane descending to land follows a path modeled by the cubic function $f(x) = 0.0024x^{3} + 0.018x^{2} + cx + d$, where $x$ is the horizontal distance in km and $f(x)$ is the height in km above the ground.\n\n[diagram:plane_descent_angle]\n\n(i) Show that $d = 0$ (the plane starts on the ground).\n\n(ii) Using the fact that $P = (-5, 0.15)$ is a point on the curve (the plane passes through this point), show that $c = 0$.\n\n(b) (i) Find the value of $f'(x)$, the derivative of $f(x)$, when $x = -4$.\n\n(ii) Use your answer to part (b)(i) above to find the angle at which the plane is descending when it is 4 km from touchdown. Give your answer correct to the nearest degree.\n\n(c) Show that $(-2.5, 0.075)$ is the point of inflection of the curve $y = f(x)$.\n\n(d) (i) If $(x, y)$ is a point on the curve $y = f(x)$, verify that $(-x - 5, -y + 0.15)$ is also a point on $y = f(x)$.\n\n(ii) Find the image of $(-x - 5, -y + 0.15)$ under symmetry in the point of inflection.",
     hints: ["f(x) = 0.$0024x^{3}$ + 0.$018x^{2}$ + cx + d", "f'(x) = 3(0.0024)$x^{2}$ + 2(0.018)x + c", "f'(x) = 0.$0072x^{2}$ + 0.036x + c"],
     answer: "f'(−4) = 0.0288 − 0.144 + c = c − 0.1152",
     solution: "$f(x) = 0.$0024x^{3}$ + 0.$018x^{2}$ + cx + d$\n\nf'(x) = 3(0.0024)$x^{2}$ + 2(0.018)x + c\n= 0.$0072x^{2}$ + 0.036x + c\n\nAt x = −4:\nf'(−4) = 0.0072(16) + 0.036(−4) + c\$n = 0.1152$ − 0.144 + c\n= −0.0288 + c\n= c − 0.0288",
@@ -2737,7 +2737,7 @@ const QUESTION_BANK = [
     subtopic: "Exponential & Log",
     difficulty: 2,
     source: "2016 P1 Q3",
-    question: "(a) (i) Two functions are defined as:\n$f(x) = e^x$ and $g(x) = e^{-x} - 1$, where $x \in \mathbb{R}$.\n\nComplete the following table. Write your values correct to two decimal places where necessary.\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nx & 0 & 0.5 & 1 & \ln(4) \\\n\hline\nf(x) = e^x & & & & \\\n\hline\ng(x) = e^{-x} - 1 & & & & \\\n\hline\n\end{array}$\n\n(ii) On a coordinate plane with domain $0 \leq x \leq \ln(4)$, draw the graphs of $f(x) = e^x$ and $g(x) = e^{-x} - 1$. Label each graph clearly.\n\n(iii) Use your graphs to estimate the value of $x$ for which $f(x) = g(x)$.\n\n(b) Solve $f(x) = g(x)$ (i.e., $e^x = e^{-x} - 1$) using algebra.",
+    question: "(a) (i) Two functions are defined as:\n$f(x) = e^x$ and $g(x) = e^{-x} - 1$, where $x \in \mathbb{R}$.\n\nComplete the following table. Write your values correct to two decimal places where necessary.\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nx & 0 & 0.5 & 1 & \ln(4) \\\n\hline\nf(x) = e^x & & & & \\\n\hline\ng(x) = e^{-x} - 1 & & & & \\\n\hline\n\end{array}$\n\n(ii) On a coordinate plane with domain $0 \leq x \leq \ln(4)$, draw the graphs of $f(x) = e^x$ and $g(x) = e^{-x} - 1$. Label each graph clearly.\n\n[diagram:exponential_graphs]\n\n(iii) Use your graphs to estimate the value of $x$ for which $f(x) = g(x)$.\n\n(b) Solve $f(x) = g(x)$ (i.e., $e^x = e^{-x} - 1$) using algebra.",
     hints: ["eˣ = eˣ − 1 seems wrong, check the question", "Likely: e^(−x) = eˣ − 1 or similar", "Use logarithms to solve"],
     answer: "Solution requires numerical methods or iteration",
     solution: "The question appears to have a typo. If it's:\nf(x) = eˣ and $g(x) = e⁻ˣ − 1$\n\nThen eˣ = e⁻ˣ − 1\neˣ + 1 = e⁻ˣ\ne^(2x) + e^$x = 1$\n\nLet y = eˣ:\$ny^{2}$ + y − 1 = 0\ny = (−1 + \\sqrt5)/2 ≈ 0.618\n\nx = ln(0.618) ≈ −0.481",
@@ -2891,7 +2891,7 @@ const QUESTION_BANK = [
     subtopic: "Solving Trig Equations",
     difficulty: 3,
     source: "2011 P2 Q5",
-    question: "(a) Find all values of $x$ for which $3\tan(x) = \sqrt{3}$, where $0° \leq x \leq 360°$.\n\n(c)(i)-(ii) Two landing pads $A$ and $B$ are on level ground with $|BC| = 800$ m, $|AC| = 900$ m, angle $BCA = 60°$. Helicopter at point $D$ hovers vertically above $A$ with angle of elevation $30°$ from $C$. Find $|AD|$. [diagram:helicopter_landing]",
+    question: "(a) Find all values of $x$ for which $3\tan(x) = \sqrt{3}$, where $0° \leq x \leq 360°$.\n\n[diagram:helicopter_elevation]\n\n(c)(i)-(ii) Two landing pads $A$ and $B$ are on level ground with $|BC| = 800$ m, $|AC| = 900$ m, angle $BCA = 60°$. Helicopter at point $D$ hovers vertically above $A$ with angle of elevation $30°$ from $C$. Find $|AD|$. [diagram:helicopter_landing]",
     hints: ["Divide by 3: tan(x) = \\sqrt$\\frac{3}{3}$ = 1/\\sqrt3", "tan($30^{{\\circ}}$) = 1/\\sqrt3", "General solution: x = $30^{{\\circ}}$ + $180^{{\\circ}}$k, k \\in  ℤ"],
     answer: "(a) x = $30^{{\\circ}}$, $210^{{\\circ}}$\n(c)(i)-(ii) |AD| = 300\\sqrt3 m or 519.6 m",
     solution: "(a) 3tan(x) = √3\ntan(x) = √3/3 = 1/√3 = tan(30°)\n\nGeneral solution for tan(x) = tan(α):\nx = α + 180°n, where $n \in \mathbb{Z}$\n\nSo x = 30° + 180°n\n\nFor 0° ≤ x ≤ 360°:\nn = 0: x = 30°\nn = 1: x = 30° + 180° = 210°\nn = 2: x = 30° + 360° = 390° (outside range)\n\nSolutions: x = 30°, 210°\n\n---\n\n(c)(i)-(ii) |BC| = 800m, |AC| = 900m, angle BCA = $60^{{\\circ}}$\n\nIn right triangle ACD (D is directly above A):\n- Angle of elevation from C to D is $30^{{\\circ}}$\n- |AC| = 900m (base distance)\n- |AD| is height (what we seek)\n\ntan($30^{{\\circ}}$) = |AD|/|AC|\n1/\\sqrt3 = |AD|/900\n|AD| = 900/\\sqrt3\n|AD| = 900/(\\sqrt3) · (\\sqrt3/\\sqrt3)\n|AD| = 900\\sqrt$\\frac{3}{3}$\n|AD| = 300\\sqrt3 m\n\n|AD| ≈ 300 × 1.732 ≈ 519.6 m",
@@ -2905,7 +2905,7 @@ const QUESTION_BANK = [
     subtopic: "Solving Trig Equations",
     difficulty: 3,
     source: "2011 P2 Q4",
-    question: "(a) Evaluate $\lim_{x \to 0} \frac{\sin 3x}{3x}$.\n\n(b) Find all the solutions of the equation $\sin 2x - \cos x = 0$, where $0° \leq x \leq 360°$.\n\n(c) The diagram shows two concentric circles. A tangent to the inner circle cuts the outer circle at $B$ and $C$, where $BC = 2x$. [diagram:concentric_circles_tangent]\n\n(i) Express the area of the shaded region in terms of $x$.\n\n(ii) In the case where the radius of the outer circle is $2x$, show that the portion of the shaded region that lies below $BC$ has area $(\frac{2\pi}{3} - \sqrt{3})x^2$.",
+    question: "(a) Evaluate $\lim_{x \to 0} \frac{\sin 3x}{3x}$.\n\n(b) Find all the solutions of the equation $\sin 2x - \cos x = 0$, where $0° \leq x \leq 360°$.\n\n(c) The diagram shows two concentric circles. A tangent to the inner circle cuts the outer circle at $B$ and $C$, where $BC = 2x$. [diagram:concentric_circles_tangent]\n\n[diagram:concentric_circles]\n\n(i) Express the area of the shaded region in terms of $x$.\n\n(ii) In the case where the radius of the outer circle is $2x$, show that the portion of the shaded region that lies below $BC$ has area $(\frac{2\pi}{3} - \sqrt{3})x^2$.",
     hints: ["Use double angle: sin(2x) = 2sin(x)cos(x)", "Equation becomes: 2sin(x)cos(x) = cos(x)", "Rearrange: cos(x)[2sin(x) − 1] = 0"],
     answer: "x = $30^{{\\circ}}$, $90^{{\\circ}}$, $150^{{\\circ}}$, $270^{{\\circ}}$",
     solution: "sin(2x) = cos(x)\n\nUse double angle formula sin(2x) = 2sin(x)cos(x):\n2sin(x)cos(x) = cos(x)\n\nRearrange:\n2sin(x)cos(x) − cos(x) = 0\ncos(x)[2sin(x) − 1] = 0\n\nCase 1: cos(x) = 0\ncos(x) = 0 when x = $90^{{\\circ}}$, $270^{{\\circ}}$\n\nCase 2: 2sin(x) − 1 = 0\nsin(x) = $\\frac{1}{2}$\nsin(x) = $\\frac{1}{2}$ when x = $30^{{\\circ}}$, $150^{{\\circ}}$\n\nVerification:\nx = $30^{{\\circ}}$: sin($60^{{\\circ}}$) = \\sqrt$\\frac{3}{2}$, cos($30^{{\\circ}}$) = \\sqrt$\\frac{3}{2}$ ✓\nx = $90^{{\\circ}}$: sin($180^{{\\circ}}$) = 0, cos($90^{{\\circ}}$) = 0 ✓\nx = $150^{{\\circ}}$: sin($300^{{\\circ}}$) = −\\sqrt$\\frac{3}{2}$, cos($150^{{\\circ}}$) = −\\sqrt$\\frac{3}{2}$ ✓\nx = $270^{{\\circ}}$: sin($540^{{\\circ}}$) = sin($180^{{\\circ}}$) = 0, cos($270^{{\\circ}}$) = 0 ✓\n\nSolutions: x = $30^{{\\circ}}$, $90^{{\\circ}}$, $150^{{\\circ}}$, $270^{{\\circ}}$",
@@ -2975,7 +2975,7 @@ const QUESTION_BANK = [
     subtopic: "Operations",
     difficulty: 2,
     source: "2012 P1 Q3",
-    question: "(a) Verify that $z = 2 - 3i$ satisfies the equation $z^{3} - z^{2}(2 - 3i) + z - 2 + 3i = 0$, where $i^{2} = -1$.\n\n(b) Let $A = \begin{pmatrix} 2 & 1-3 \\ 2 & x \end{pmatrix}$ and $B = \begin{pmatrix} y & 1 \\ x & 2 \end{pmatrix}$, where $x, y \in \mathbb{R}$.\n\n(i) Find $AB$ in terms of $x$ and $y$.\n\n(ii) Solve for $x$ and $y$ the equation $AB = \begin{pmatrix} -4 & 5 \\ 15 & -24 \end{pmatrix}$.\n\n(c) $z$ is a complex number such that $z^{2} = \frac{1}{2} + \frac{\sqrt{3}}{2}i$.\n\n(i) Find the two possible values of $z$.\n\n(ii) On an Argand diagram, the points representing $-z$, $z$, and $z^{2} + k$ are collinear, where $k \in \mathbb{R}$. Find the value of $k$.",
+    question: "(a) Verify that $z = 2 - 3i$ satisfies the equation $z^{3} - z^{2}(2 - 3i) + z - 2 + 3i = 0$, where $i^{2} = -1$.\n\n(b) Let $A = \begin{pmatrix} 2 & 1-3 \\ 2 & x \end{pmatrix}$ and $B = \begin{pmatrix} y & 1 \\ x & 2 \end{pmatrix}$, where $x, y \in \mathbb{R}$.\n\n(i) Find $AB$ in terms of $x$ and $y$.\n\n(ii) Solve for $x$ and $y$ the equation $AB = \begin{pmatrix} -4 & 5 \\ 15 & -24 \end{pmatrix}$.\n\n(c) $z$ is a complex number such that $z^{2} = \frac{1}{2} + \frac{\sqrt{3}}{2}i$.\n\n(i) Find the two possible values of $z$.\n\n(ii) On an Argand diagram, the points representing $-z$, $z$, and $z^{2} + k$ are collinear, where $k \in \mathbb{R}$.\n\n[diagram:argand_collinear] Find the value of $k$.",
     hints: ["Calculate $z^{2}$ = (2−3i)^2 = 4 − 12i + $9i^{2}$ = 4 − 12i − 9 = −5 − 12i", "Calculate $z^{3}$ by multiplying z · $z^{2}$", "Substitute into the equation and verify the result equals 0"],
     answer: "Verified: LHS = 0",
     solution: "Let $z = 2$ − 3i\n\nCalculate $z^{2}$:\$nz^{2}$ = (2 − 3i)^2 = 4 − 12i + $9i^{2}$ = 4 − 12i − 9 = −5 − 12i\n\nCalculate $z^{3}$:\$nz^{3}$ = z · $z^{2}$ = (2 − 3i)(−5 − 12i)\n= −10 − 24i + 15i + $36i^{2}$\n= −10 − 24i + 15i − 36\n= −46 − 9i\n\nCalculate $z^{2}$(2 − 3i):\$nz^{2}$(2 − 3i) = (−5 − 12i)(2 − 3i)\n= −10 + 15i − 24i + $36i^{2}$\n= −10 + 15i − 24i − 36\n= −46 − 9i\n\nSubstitute into $z^{3}$ − $z^{2}$(2 − 3i) + z − 2 + 3i:\n= (−46 − 9i) − (−46 − 9i) + (2 − 3i) − 2 + 3i\$n = 0$ + 0 + 0\$n = 0$ ✓\n\nThe equation is satisfied.",
@@ -3185,7 +3185,7 @@ const QUESTION_BANK = [
     subtopic: "Pattern Recognition",
     difficulty: 2,
     source: "2013 P1 Q6",
-    question: "Shapes in the form of small equilateral triangles can be made using matchsticks of equal length. These shapes can be put together into patterns. The beginning of a sequence of these patterns is shown below: Pattern 1 has 1 small triangle arranged in a horizontal row, requiring 3 matchsticks. Pattern 2 has 4 small triangles arranged in a triangular formation (1 + 3 small triangles), requiring 9 matchsticks. Pattern 3 has 9 small triangles arranged in a larger triangular formation.\n\n(a) (i) Describe the fourth pattern in the sequence.\n\n(ii) The table below shows the number of small triangles in each pattern and the number of matchsticks needed to create each pattern. Complete the table.\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nPattern & 1 & 2 & 3 & 4 \\\n\hline\nNumber\ of\ small\ triangles & 1 & 4 & 9 & \\\n\hline\nNumber\ of\ matchsticks & 3 & 9 & & \\\n\hline\n\end{array}$\n\n(b) Write an expression in $n$ for the number of triangles in the $n$th pattern in the sequence.\n\n(c) Find an expression, in $n$, for the number of matchsticks needed to turn the $(n-1)$th pattern into the $n$th pattern.\n\n(d) The number of matchsticks in the $n$th pattern in the sequence can be represented by the function $u_n = an^{2} + bn$ where $a, b \in \mathbb{R}$ and $n \in \mathbb{N}$. Find the value of $a$ and the value of $b$.\n\n(e) One of the patterns in the sequence has 4134 matchsticks. How many small triangles are in that pattern?",
+    question: "Shapes in the form of small equilateral triangles can be made using matchsticks of equal length. These shapes can be put together into patterns. The beginning of a sequence of these patterns is shown below: Pattern 1 has 1 small triangle arranged in a horizontal row, requiring 3 matchsticks. Pattern 2 has 4 small triangles arranged in a triangular formation (1 + 3 small triangles), requiring 9 matchsticks. Pattern 3 has 9 small triangles arranged in a larger triangular formation.\n\n[diagram:triangle_pattern_sequence]\n\n(a) (i) Describe the fourth pattern in the sequence.\n\n(ii) The table below shows the number of small triangles in each pattern and the number of matchsticks needed to create each pattern. Complete the table.\n\n$\begin{array}{|c|c|c|c|c|}\n\hline\nPattern & 1 & 2 & 3 & 4 \\\n\hline\nNumber\ of\ small\ triangles & 1 & 4 & 9 & \\\n\hline\nNumber\ of\ matchsticks & 3 & 9 & & \\\n\hline\n\end{array}$\n\n(b) Write an expression in $n$ for the number of triangles in the $n$th pattern in the sequence.\n\n(c) Find an expression, in $n$, for the number of matchsticks needed to turn the $(n-1)$th pattern into the $n$th pattern.\n\n(d) The number of matchsticks in the $n$th pattern in the sequence can be represented by the function $u_n = an^{2} + bn$ where $a, b \in \mathbb{R}$ and $n \in \mathbb{N}$. Find the value of $a$ and the value of $b$.\n\n(e) One of the patterns in the sequence has 4134 matchsticks. How many small triangles are in that pattern?",
     hints: ["Data: Pattern 1 → 1 triangle, 3 matchsticks; Pattern 2 → 4 triangles, 9 matchsticks", "Pattern 3 → 9 triangles; Pattern 4 → 16 triangles", "Try formula $u_n = an^2 + bn$ and use the data points to find $a$ and $b$"],
     answer: "$u_n = 3n^2$ or $u_n = 3n^2$",
     solution: "Let u_n = $an^{2}$ + bn for the number of matchsticks in pattern n\n\nPattern 1: 1 triangle, 3 matchsticks\na(1)^2 + b(1) = 3\na + $b = 3$ ... (1)\n\nPattern 2: 4 triangles, 9 matchsticks\na(2)^2 + b(2) = 9\n4a + 2b = 9 ... (2)\n\nSolve the system:\nFrom (1): $b = 3$ − a\nSubstitute into (2): 4a + 2(3 − a) = 9\n4a + 6 − 2a = 9\n2a = 3\na = $\\frac{3}{2}$\n\nb = 3 − $\\frac{3}{2}$ = $\\frac{3}{2}$\n\nTherefore: u_n = ($\\frac{3}{2}$)$n^{2}$ + ($\\frac{3}{2}$)n = ($\\frac{3}{2}$)n(n + 1) = 3n(n + 1)/2",
@@ -3199,7 +3199,7 @@ const QUESTION_BANK = [
     subtopic: "Quotient Rule",
     difficulty: 2,
     source: "2013 P1 Q7",
-    question: "(a) Differentiate $\frac{5x}{x - 4}$ with respect to $x$ for $x \ne 4$.\n\n(b) A curve is defined by the parametric equations $x = 1 + e^t$, $y = t^{2} + 2e^t$.\n\n(i) Show that $\frac{dy}{dx} = \frac{2e^t + t}{e^t}$ or $\frac{dy}{dx} = 2 + te^{-t}$.\n\n(ii) Hence, find the equation of the tangent to the curve at the point where $x = 2$.\n\n(c) (i) For the inverse sine function, write $x$ in terms of $\sin y$ using a right-angled triangle with hypotenuse 1, opposite side $x$, and adjacent side $\sqrt{1 - x^{2}}$. Hence, show that $\frac{dy}{dx} = \frac{1}{\sqrt{1 - x^{2}}}$.\n\n(ii) If $y = x + \sin^{-1}(x)$, prove that $(1 - x^{2})\frac{d^2y}{dx^2} - x\frac{dy}{dx} - x + 0 = 0$ or find the second derivative.",
+    question: "(a) Differentiate $\frac{5x}{x - 4}$ with respect to $x$ for $x \ne 4$.\n\n[diagram:inverse_sin_diagram]\n\n(b) A curve is defined by the parametric equations $x = 1 + e^t$, $y = t^{2} + 2e^t$.\n\n(i) Show that $\frac{dy}{dx} = \frac{2e^t + t}{e^t}$ or $\frac{dy}{dx} = 2 + te^{-t}$.\n\n(ii) Hence, find the equation of the tangent to the curve at the point where $x = 2$.\n\n(c) (i) For the inverse sine function, write $x$ in terms of $\sin y$ using a right-angled triangle with hypotenuse 1, opposite side $x$, and adjacent side $\sqrt{1 - x^{2}}$. Hence, show that $\frac{dy}{dx} = \frac{1}{\sqrt{1 - x^{2}}}$.\n\n(ii) If $y = x + \sin^{-1}(x)$, prove that $(1 - x^{2})\frac{d^2y}{dx^2} - x\frac{dy}{dx} - x + 0 = 0$ or find the second derivative.",
     hints: ["Use the quotient rule: (u/v)' = (u'v − uv')/$v^{2}$", "u = 5x, u' = 5; v = x − 4, v' = 1", "f'(x) = (5(x − 4) − 5x(1))/(x − 4)^2"],
     answer: "$f\'(x) = \frac{-20}{(x - 4)^2}$",
     solution: "Using the quotient rule: (u/v)' = (u'v − uv')/$v^{2}$\n\nLet u = 5x and v = x − 4\nThen u' = 5 and v' = 1\n\nf'(x) = (5(x − 4) − 5x(1)) / (x − 4)^2\nf'(x) = (5x − 20 − 5x) / (x − 4)^2\nf'(x) = −20 / (x − 4)^2",
@@ -3213,7 +3213,7 @@ const QUESTION_BANK = [
     subtopic: "Definite Integration",
     difficulty: 2,
     source: "2013 P1 Q8",
-    question: "(a) Evaluate $\int_0^2 12e^{3x} dx$ and give your answer in the form $a(e^{b} - 1)$.\n\n(b) The function $f(x) = x^{3} + ax^{2} + bx$ has turning points at $x = 2$ and $x = \frac{4}{3}$.\n\n(i) Find the value of $a$ and the value of $b$.\n\n(ii) Find the coordinates of the turning points and hence sketch the curve $y = f(x)$.\n\n(c) (i) Draw the graphs of $y = 4x$ and $y = x^3$ in the domain $-2 \leq x \leq 2$, where $x \in \mathbb{R}$.\n\n(ii) Find the area of the region in the first quadrant enclosed by the two graphs.\n\n(iii) Write down the total area enclosed between the two graphs and give a reason for your answer.",
+    question: "(a) Evaluate $\int_0^2 12e^{3x} dx$ and give your answer in the form $a(e^{b} - 1)$.\n\n(b) The function $f(x) = x^{3} + ax^{2} + bx$ has turning points at $x = 2$ and $x = \frac{4}{3}$.\n\n(i) Find the value of $a$ and the value of $b$.\n\n(ii) Find the coordinates of the turning points and hence sketch the curve $y = f(x)$.\n\n(c) (i) Draw the graphs of $y = 4x$ and $y = x^3$ in the domain $-2 \leq x \leq 2$, where $x \in \mathbb{R}$.\n\n[diagram:linear_cubic_intersection]\n\n(ii) Find the area of the region in the first quadrant enclosed by the two graphs.\n\n(iii) Write down the total area enclosed between the two graphs and give a reason for your answer.",
     hints: ["Antiderivative of $e^{3x}$ is $\\frac{1}{3}e^{3x}$", "$\\int 12e^{3x} dx = 12 \\times \\frac{1}{3}e^{3x} = 4e^{3x}$", "Evaluate from 0 to 2: $[4e^{3x}]_0^2$"],
     answer: "$4(e^6 - 1)$",
     solution: "Evaluate the definite integral:\n$\\int_0^2 12e^{3x} dx$\n\nStep 1: Find antiderivative\n$\\int 12e^{3x} dx = 12 \\times \\frac{1}{3}e^{3x} = 4e^{3x}$\n\nStep 2: Apply limits\n$[4e^{3x}]_0^2 = 4e^{3 \\times 2} - 4e^{3 \\times 0}$\n         $= 4e^6 - 4e^0$\n         $= 4e^6 - 4(1)$\n         $= 4e^6 - 4$\n         $= 4(e^6 - 1)$\n\nAnswer: $4(e^6 - 1)$",
@@ -3255,7 +3255,7 @@ const QUESTION_BANK = [
     subtopic: "Lines and Slopes",
     difficulty: 2,
     source: "2013 P2 Q3",
-    question: "The equations of six lines are given:\n\nLine $h$: $x = 3y$\nLine $i$: $2x + 4y = 3$\nLine $k$: $y = -\frac{1}{4}(2x + 7)$\nLine $l$: $4x + 2y + 5 = 0$\nLine $m$: $x + 3y - 10 = 0$\nLine $n$: $3x - y + 10 = 0$\n\n(a) Complete the table below by matching each description to one or more of the lines.\n\n$\begin{array}{|c|c|}\n\hline\nDescription & Line(s) \\\n\hline\nA\ line\ with\ a\ slope\ of\ 2 & \\\n\hline\nA\ line\ which\ intersects\ the\ y-axis\ at\ (0, -2\frac{1}{2}) & \\\n\hline\nA\ line\ which\ makes\ equal\ intercepts\ on\ the\ axes & \\\n\hline\nA\ line\ which\ makes\ an\ angle\ of\ 150°\ with\ the\ positive\ sense\ of\ the\ x-axis & \\\n\hline\nTwo\ lines\ which\ are\ perpendicular\ to\ each\ other & \\\n\hline\n\end{array}$\n\n(b) Find the acute angle between the lines $m$ and $n$.",
+    question: "The equations of six lines are given:\n\n| Line | Equation |\n|------|----------|\n| h | x - 3y = 0 |\n| i | 2x - 4y + 3 = 0 |\n| k | y = 1/4(2x - 7) |\n| l | 4x - 2y + 5 = 0 |\n| m | x - 3y + 10 = 0 |\n| n | 3x + y - 10 = 0 |\n\n(a) Complete the table below by matching each description to one or more lines:\n\n| Description | Line(s) |\n|-------------|--------|\n| A line with a slope of 2. | |\n| A line which intersects the y-axis at (0, 2 1/2). | |\n| A line which makes equal intercepts on the axes. | |\n| A line which makes an angle of 150° with the positive x-axis. | |\n| Two lines which are perpendicular to each other. | |\n\n(b) Find the acute angle between lines m and n.",
     hints: ["Slope of m: rewrite as y = −($\\frac{1}{3}$)x + $\\frac{10}{3}$, so m₁ = −$\\frac{1}{3}$", "Slope of n: rewrite as y = 3x + 10, so m₂ = 3", "Use formula: tan(\\theta ) = |(m₁ − m₂)/(1 + m₁m₂)| = |(−$\\frac{1}{3}$ − 3)/(1 + (−$\\frac{1}{3}$)(3))|"],
     answer: "$\\theta \\approx 45°$",
     solution: "Given lines: m: x + 3y − 10 = 0 and n: 3x − y + 10 = 0\n\nStep 1: Find slopes\nLine m: 3y = −x + 10 \\to  y = −($\\frac{1}{3}$)x + $\\frac{10}{3}$ \\to  m₁ = −$\\frac{1}{3}$\nLine n: y = 3x + 10 \\to  m₂ = 3\n\nStep 2: Use angle formula\ntan(\\theta ) = |(m₁ − m₂)/(1 + m₁m₂)|\ntan(\\theta ) = |(−$\\frac{1}{3}$ − 3)/(1 + (−$\\frac{1}{3}$)(3))|\ntan(\\theta ) = |(−$\\frac{10}{3}$)/(1 − 1)|\ntan(\\theta ) = |(−$\\frac{10}{3}$)/0|\n\nNote: The denominator is 0, which means the lines are perpendicular!\nTherefore: \\theta  = $90^{{\\circ}}$\n\nWait, let me recalculate: m₁ × m₂ = (−$\\frac{1}{3}$) × 3 = −1\nWhen m₁ × m₂ = −1, the lines are perpendicular, so \\theta  = $90^{{\\circ}}$.",
@@ -3437,7 +3437,7 @@ const QUESTION_BANK = [
     subtopic: "Compound Angle Formulae",
     difficulty: 2,
     source: "2003 P2 Q5",
-    question: "(a) Find the value of $\sin 15°$ in surd form.\n\n(b) $a$, $f$ and $e$ are points on horizontal ground. $d$ is a point on a vertical wall directly above $a$. [diagram:wall_triangle_distance]\n\n$|ad| = 72$ m, $|de| = 97$ m, $|af| = 35$ m and $|fe| = 40$ m.\n\n(i) Calculate $|ae|$.\n\n(ii) Hence, calculate $\angle afe$.\n\n(c) (i) Using the identity $\cos(A - B) = \cos A \cos B + \sin A \sin B$, or otherwise, prove: $\sin(A + B) = \sin A \cos B + \cos A \sin B$.\n\n(ii) Prove: $\sin(A + B)\sin(A - B) = (\sin A + \sin B)(\sin A - \sin B)$.",
+    question: "(a) Find the value of $\sin 15°$ in surd form.\n\n(b) $a$, $f$ and $e$ are points on horizontal ground. $d$ is a point on a vertical wall directly above $a$. [diagram:wall_triangle_distance]\n\n[diagram:wall_ground_3d]\n\n$|ad| = 72$ m, $|de| = 97$ m, $|af| = 35$ m and $|fe| = 40$ m.\n\n(i) Calculate $|ae|$.\n\n(ii) Hence, calculate $\angle afe$.\n\n(c) (i) Using the identity $\cos(A - B) = \cos A \cos B + \sin A \sin B$, or otherwise, prove: $\sin(A + B) = \sin A \cos B + \cos A \sin B$.\n\n(ii) Prove: $\sin(A + B)\sin(A - B) = (\sin A + \sin B)(\sin A - \sin B)$.",
     hints: ["sin($15^{{\\circ}}$) = sin($45^{{\\circ}}$ - $30^{{\\circ}}$)", "Use sin(A - B) = sin(A)cos(B) - cos(A)sin(B)", "sin($45^{{\\circ}}$) = \\sqrt$\\frac{2}{2}$, sin($30^{{\\circ}}$) = $\\frac{1}{2}$, cos($45^{{\\circ}}$) = \\sqrt$\\frac{2}{2}$, cos($30^{{\\circ}}$) = \\sqrt$\\frac{3}{2}$"],
     answer: "(\\sqrt6 - \\sqrt2)/4",
     solution: "Find sin($15^{{\\circ}}$)\n\nMethod: Use compound angle formula\nsin($15^{{\\circ}}$) = sin($45^{{\\circ}}$ - $30^{{\\circ}}$)\n\nUsing sin(A - B) = sin(A)cos(B) - cos(A)sin(B):\nsin($15^{{\\circ}}$) = sin($45^{{\\circ}}$)cos($30^{{\\circ}}$) - cos($45^{{\\circ}}$)sin($30^{{\\circ}}$)\n\nSubstitute known values:\nsin($45^{{\\circ}}$) = \\sqrt$\\frac{2}{2}$\ncos($45^{{\\circ}}$) = \\sqrt$\\frac{2}{2}$\nsin($30^{{\\circ}}$) = $\\frac{1}{2}$\ncos($30^{{\\circ}}$) = \\sqrt$\\frac{3}{2}$\n\nsin($15^{{\\circ}}$) = (\\sqrt$\\frac{2}{2}$)(\\sqrt$\\frac{3}{2}$) - (\\sqrt$\\frac{2}{2}$)($\\frac{1}{2}$)\n         = (\\sqrt$\\frac{6}{4}$) - (\\sqrt$\\frac{2}{4}$)\n         = (\\sqrt6 - \\sqrt2)/4\n\nAnswer: (\\sqrt6 - \\sqrt2)/4 ≈ 0.2588",
@@ -3507,7 +3507,7 @@ const QUESTION_BANK = [
     subtopic: "Integration Techniques",
     difficulty: 2,
     source: "2004 P1 Q8",
-    question: "(a) Find (i) $\int \frac{1}{x^2} dx$ (ii) $\int \cos(6x) dx$.\n\n(b) Evaluate (i) $\int_0^{\pi/3} \frac{dx}{\sqrt{36 - x^2}}$ (ii) $\int_0^3 \sin(x)\cos(3x) dx$.\n\n(c) The graph of the quadratic function $f(x) = ax^{2} + bx + c$ from $x = -h$ to $x = h$ has the following properties: the function is symmetric about $x = 0$, passes through the origin at $x = 0$ (if $c = 0$), and is bounded by vertical lines at $x = -h$ and $x = h$.\n\n(i) Show that the area of the region bounded by the curve and the x-axis from $x = -h$ to $x = h$ is $\int_{-h}^{h} (ax^{2} + bx + c) dx = \frac{h}{3}[2ah^{2} + 6c]$.\n\n(ii) Given that $f(-h) = y_1$, $f(0) = y_2$, and $f(h) = y_3$, express the area of the shaded region in terms of $y_1$, $y_2$, $y_3$, and $h$.",
+    question: "(a) Find (i) $\int \frac{1}{x^2} dx$ (ii) $\int \cos(6x) dx$.\n\n(b) Evaluate (i) $\int_0^{\pi/3} \frac{dx}{\sqrt{36 - x^2}}$ (ii) $\int_0^3 \sin(x)\cos(3x) dx$.\n\n(c) The graph of the quadratic function $f(x) = ax^{2} + bx + c$ from $x = -h$ to $x = h$ has the following properties: the function is symmetric about $x = 0$, passes through the origin at $x = 0$ (if $c = 0$), and is bounded by vertical lines at $x = -h$ and $x = h$.\n\n[diagram:area_under_curve]\n\n(i) Show that the area of the region bounded by the curve and the x-axis from $x = -h$ to $x = h$ is $\int_{-h}^{h} (ax^{2} + bx + c) dx = \frac{h}{3}[2ah^{2} + 6c]$.\n\n(ii) Given that $f(-h) = y_1$, $f(0) = y_2$, and $f(h) = y_3$, express the area of the shaded region in terms of $y_1$, $y_2$, $y_3$, and $h$.",
     hints: ["Rewrite: \\int x^(-2) dx", "Use power rule: \\int x^n dx = x^(n+1)/(n+1) + C", "Result: x^(-1)/(-1) + C = -1/x + C"],
     answer: "-1/x + C or -x^(-1) + C",
     solution: "Find: \\int (1/$x^{2}$) dx\n\nStep 1: Rewrite\n\\int (1/$x^{2}$) dx = \\int x^(-2) dx\n\nStep 2: Apply power rule\n\\int x^n dx = x^(n+1)/(n+1) + C\n\n\\int x^(-2) dx = x^(-2+1)/(-2+1) + C\n           = x^(-1)/(-1) + C\n           = -1/x + C\n           = -x^(-1) + C\n\nAnswer: -1/x + C or -x^(-1) + C",
@@ -3619,7 +3619,7 @@ const QUESTION_BANK = [
     subtopic: "Chain Rule",
     difficulty: 2,
     source: "2005 P1 Q6",
-    question: "(a) Differentiate with respect to $x$: (i) $(1 + 7x)^3$ (ii) $\sin^{-1}\left(\frac{x}{5}\right)$.\n\n(b) Let $y = \frac{1 - \cos(x)}{1 + \cos(x)}$.\n\nShow that $\frac{dy}{dx} = t + t^3$, where $t = \tan\left(\frac{x}{2}\right)$.\n\n(c) The equation of a curve is $y = \frac{x}{x - 1}$, where $x \ne 1$.\n\n(i) Show that the curve has no local maximum or local minimum point.\n\n(ii) Write down the equations of the asymptotes and hence sketch the curve.\n\n(iii) Show that the curve is its own image under symmetry in the point of intersection of the asymptotes.",
+    question: "(a) Differentiate with respect to $x$: (i) $(1 + 7x)^3$ (ii) $\sin^{-1}\left(\frac{x}{5}\right)$.\n\n(b) Let $y = \frac{1 - \cos(x)}{1 + \cos(x)}$.\n\nShow that $\frac{dy}{dx} = t + t^3$, where $t = \tan\left(\frac{x}{2}\right)$.\n\n(c) The equation of a curve is $y = \frac{x}{x - 1}$, where $x \ne 1$.\n\n(i) Show that the curve has no local maximum or local minimum point.\n\n(ii) Write down the equations of the asymptotes and hence sketch the curve.\n\n[diagram:curve_with_asymptotes]\n\n(iii) Show that the curve is its own image under symmetry in the point of intersection of the asymptotes.",
     hints: ["Use the chain rule: d/dx[f(g(x))] = f'(g(x))·g'(x)", "Here f(u) = $u^{3}$ and $u = 1$ + 7x", "f'(u) = $3u^{2}$", "du/dx = 7", "So dy/dx = 3(1 + 7x)^2 · 7 = 21(1 + 7x)^2"],
     answer: "21(1 + 7x)^2",
     solution: "Differentiate y = (1 + 7x)^3\n\nUsing the chain rule:\ndy/dx = 3(1 + 7x)^2 · d/dx(1 + 7x)\n      = 3(1 + 7x)^2 · 7\n      = 21(1 + 7x)^2\n\nAnswer: 21(1 + 7x)^2",
@@ -3787,7 +3787,7 @@ const QUESTION_BANK = [
     subtopic: "Solving Trig Equations",
     difficulty: 2,
     source: "2006 P2 Q4",
-    question: "(a) Write down the values of $A$ for which $\cos A = \frac{1}{2}$, where $0° \leq A \leq 360°$.\n\n(b) (i) Express $\sin(3x + 60°) - \sin x$ as a product of sine and cosine.\n\n(ii) Find all the solutions of the equation $\sin(3x + 60°) - \sin x = 0$, where $0° \leq x \leq 360°$.\n\n(c) The diagram shows a sector (solid line) circumscribed by a circle (dashed line). [diagram:sector_inscribed_circle]\n\n(i) Find the radius of the circle in terms of $k$.\n\n(ii) Show that the circle encloses an area which is double that of the sector.",
+    question: "(a) Write down the values of $A$ for which $\cos A = \frac{1}{2}$, where $0° \leq A \leq 360°$.\n\n(b) (i) Express $\sin(3x + 60°) - \sin x$ as a product of sine and cosine.\n\n(ii) Find all the solutions of the equation $\sin(3x + 60°) - \sin x = 0$, where $0° \leq x \leq 360°$.\n\n(c) The diagram shows a sector (solid line) circumscribed by a circle (dashed line). [diagram:sector_inscribed_circle]\n\n[diagram:sector_in_circle]\n\n(i) Find the radius of the circle in terms of $k$.\n\n(ii) Show that the circle encloses an area which is double that of the sector.",
     hints: ["cos($60^{{\\circ}}$) = $\\frac{1}{2}$", "Cosine is positive in first and fourth quadrants", "First quadrant: A = $60^{{\\circ}}$", "Fourth quadrant: A = $360^{{\\circ}}$ - $60^{{\\circ}}$ = $300^{{\\circ}}$"],
     answer: "A = $60^{{\\circ}}$ or A = $300^{{\\circ}}$",
     solution: "Find A where cos(A) = $\\frac{1}{2}$ and $0^{{\\circ}}$ \\leq  A \\leq  $360^{{\\circ}}$\n\ncos(A) = $\\frac{1}{2}$ is a standard value.\n\ncos($60^{{\\circ}}$) = $\\frac{1}{2}$\n\nCosine is positive in the first and fourth quadrants.\n\nFirst quadrant solution: A = $60^{{\\circ}}$\n\nFourth quadrant solution: A = $360^{{\\circ}}$ - $60^{{\\circ}}$ = $300^{{\\circ}}$\n\nAnswer: A = $60^{{\\circ}}$ or A = $300^{{\\circ}}$",
@@ -3885,7 +3885,7 @@ const QUESTION_BANK = [
     subtopic: "Exponential & Log",
     difficulty: 2,
     source: "2007 P1 Q5",
-    question: "(a) Plot, on the number line, the values of $x$ that satisfy the inequality $|x + 1| \\leq 2$, where $x \\in \\mathbb{Z}$.\n\n(b) In the expansion of $\\left(2x - \\frac{1}{x^2}\\right)^9$,\n\n(i) find the general term\n\n(ii) find the value of the term independent of $x$.\n\n(c) The $n$th term of a series is given by $nx^n$, where $|x| < 1$.\n\n(i) Find an expression for $S_n$, the sum of the first $n$ terms of the series.\n\n(ii) Hence, find the sum to infinity of the series.",
+    question: "(a) Plot, on the number line, the values of $x$ that satisfy the inequality $|x + 1| \\leq 2$, where $x \\in \\mathbb{Z}$.\n\n[diagram:number_line]\n\n(b) In the expansion of $\\left(2x - \\frac{1}{x^2}\\right)^9$,\n\n(i) find the general term\n\n(ii) find the value of the term independent of $x$.\n\n(c) The $n$th term of a series is given by $nx^n$, where $|x| < 1$.\n\n(i) Find an expression for $S_n$, the sum of the first $n$ terms of the series.\n\n(ii) Hence, find the sum to infinity of the series.",
     hints: ["Let Sₙ = 1·x + 2·$x^{2}$ + 3·$x^{3}$ + ... + n·xⁿ", "Multiply by x: xSₙ = 1·$x^{2}$ + 2·$x^{3}$ + ... + (n-1)·xⁿ + n·x^(n+1)", "Subtract: Sₙ - xSₙ = x + $x^{2}$ + $x^{3}$ + ... + xⁿ - n·x^(n+1)", "The sum x + $x^{2}$ + ... + xⁿ is a geometric series"],
     answer: "Sₙ = x(1 - (n+1)xⁿ + nxⁿ⁺¹)/(1-x)^2 or equivalently x - (n+1)xⁿ⁺¹ + nxⁿ⁺^2)/(1-x)^2",
     solution: "Let Sₙ = 1·x + 2·$x^{2}$ + 3·$x^{3}$ + ... + n·xⁿ\n\nMultiply by x:\nxSₙ = 1·$x^{2}$ + 2·$x^{3}$ + 3·$x^{4}$ + ... + n·xⁿ⁺¹\n\nSubtract:\nSₙ - xSₙ = x + $x^{2}$ + $x^{3}$ + ... + xⁿ - n·xⁿ⁺¹\n\nSₙ(1 - x) = (x + $x^{2}$ + $x^{3}$ + ... + xⁿ) - n·xⁿ⁺¹\n\nThe sum in brackets is geometric:\nx + $x^{2}$ + ... + xⁿ = x(1 - xⁿ)/(1 - x)\n\nSo:\nSₙ(1 - x) = x(1 - xⁿ)/(1 - x) - n·xⁿ⁺¹\n\nSₙ = [x(1 - xⁿ) - n·xⁿ⁺¹(1 - x)]/(1 - x)^2\n= [x - xⁿ⁺¹ - n·xⁿ⁺¹ + n·xⁿ⁺^2]/(1 - x)^2\n= [x - (n+1)xⁿ⁺¹ + nxⁿ⁺^2]/(1 - x)^2",
@@ -3941,7 +3941,7 @@ const QUESTION_BANK = [
     subtopic: "Trig Identities",
     difficulty: 2,
     source: "2007 P2 Q4",
-    question: "(a) Show that $(\\cos A + \\sin A)^2 = 1 + \\sin 2A$.\n\n(b) Find all the solutions of the equation $6\\cos^2 x + \\sin x - 5 = 0$, where $0^\\circ \\leq x \\leq 360^\\circ$. Give the solutions correct to the nearest degree.\n\n(c) $[ab]$ is the diameter of a semicircle of centre $o$ and radius-length $r$. $[ac]$ is a chord such that $\\angle cab = \\alpha$, where $\\alpha$ is in radian measure.\n\n(i) Find $ac$ in terms of $r$ and $\\alpha$.\n\n(ii) $[ac]$ bisects the area of the semicircular region. Show that $2\\alpha + \\sin 2\\alpha = \\frac{\\pi}{2}$.",
+    question: "(a) Show that $(\\cos A + \\sin A)^2 = 1 + \\sin 2A$.\n\n(b) Find all the solutions of the equation $6\\cos^2 x + \\sin x - 5 = 0$, where $0^\\circ \\leq x \\leq 360^\\circ$. Give the solutions correct to the nearest degree.\n\n(c) $[ab]$ is the diameter of a semicircle of centre $o$ and radius-length $r$. $[ac]$ is a chord such that $\\angle cab = \\alpha$, where $\\alpha$ is in radian measure.\n\n[diagram:semicircle_chord]\n\n(i) Find $|ac|$ in terms of $r$ and $\\alpha$.\n\n(ii) $[ac]$ bisects the area of the semicircular region. Show that $2\\alpha + \\sin 2\\alpha = \\frac{\\pi}{2}$.",
     hints: ["Expand the left side: (cosA + sinA)^2 = $cos^{2}$A + 2cosA·sinA + $sin^{2}$A", "Use $cos^{2}$A + $sin^{2}$A = 1", "Note that 2cosA·sinA = sin2A"],
     answer: "Proof shown",
     solution: "Expand the left side:\n(cosA + sinA)^2 = $cos^{2}$A + 2cosA·sinA + $sin^{2}$A\n\nGroup the squared terms:\n= ($cos^{2}$A + $sin^{2}$A) + 2cosA·sinA\n\nUse the Pythagorean identity $cos^{2}$A + $sin^{2}$A = 1:\$n = 1$ + 2cosA·sinA\n\nUse the double angle formula 2cosA·sinA = sin2A:\$n = 1$ + sin2A\n\nTherefore, (cosA + sinA)^2 = 1 + sin2A ✓",
@@ -4025,7 +4025,7 @@ const QUESTION_BANK = [
     subtopic: "Operations",
     difficulty: 2,
     source: "2008 P1 Q3",
-    question: "(a) Let $z = \frac{5}{2+i} - 1$ where $i^2 = -1$. Express $z$ in the form $a + bi$ and plot it on an Argand diagram.\n\n(b) (i) Let $z = \frac{5}{2+i} - 1$, where $i^2 = -1$. Express $z$ in the form $a + bi$ and plot it on an Argand diagram.\n\n(ii) Use De Moivre's theorem to evaluate $z^6$.\n\n(c) Prove, by induction, that $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$ for $n \in \mathbb{N}$.",
+    question: "(a) Let $z = \frac{5}{2+i} - 1$ where $i^2 = -1$. Express $z$ in the form $a + bi$ and plot it on an Argand diagram.\n\n[diagram:argand_diagram_515]\n\n(b) (i) Let $z = \frac{5}{2+i} - 1$, where $i^2 = -1$. Express $z$ in the form $a + bi$ and plot it on an Argand diagram.\n\n(ii) Use De Moivre's theorem to evaluate $z^6$.\n\n(c) Prove, by induction, that $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$ for $n \in \mathbb{N}$.",
     hints: ["Rationalize: 5/(2+i) × (2-i)/(2-i) = 5(2-i)/(4+1)", "= (10 - 5i)/5 = 2 - i", "So $z = 2$ - i - 1 = 1 - i"],
     answer: "$z = 1$ - i",
     solution: "Simplify z = 5/(2+i) - 1\n\nRationalize 5/(2+i):\n= 5(2-i)/[(2+i)(2-i)]\n= 5(2-i)/(4 - $i^{2}$)\n= 5(2-i)/(4 + 1)\n= 5(2-i)/5\$n = 2$ - i\n\nTherefore:\nz = (2 - i) - 1 = 1 - i\n\nIn the form a + bi: $z = 1$ - i (where $a = 1$, b = -1)\n\nOn Argand diagram: point at (1, -1)",
@@ -4123,7 +4123,7 @@ const QUESTION_BANK = [
     subtopic: "Solving Trig Equations",
     difficulty: 2,
     source: "2008 P2 Q5",
-    question: "(a) Find all solutions of $\sin 4x - \sin 2x = 0$ in the domain $0° \leq x \leq 180°$.\n\n(b) (i) In the shaded sector in the diagram, the arc is 6 cm long, and the angle of the sector is 0.75 radians. Find the area of the sector. [diagram:shaded_sector_arc]\n\n(ii) Express $\sin 4x - \sin 2x$ as a product.\n\n(iii) Find all the solutions of the equation $\sin 4x - \sin 2x = 0$ in the domain $0° \leq x \leq 180°$.\n\n(c) A triangle has sides of lengths $a$, $b$ and $c$. The angle opposite the side of length $a$ is $A$.\n\n(i) Prove that $a^2 = b^2 + c^2 - 2bc \cos A$.\n\n(ii) If $a$, $b$ and $c$ are consecutive whole numbers, show that $\cos A = \frac{a+5}{2a+4}$.",
+    question: "(a) Find all solutions of $\sin 4x - \sin 2x = 0$ in the domain $0° \leq x \leq 180°$.\n\n(b) (i) In the shaded sector in the diagram, the arc is 6 cm long, and the angle of the sector is 0.75 radians. Find the area of the sector. [diagram:shaded_sector_arc]\n\n[diagram:sector_with_arc]\n\n(ii) Express $\sin 4x - \sin 2x$ as a product.\n\n(iii) Find all the solutions of the equation $\sin 4x - \sin 2x = 0$ in the domain $0° \leq x \leq 180°$.\n\n(c) A triangle has sides of lengths $a$, $b$ and $c$. The angle opposite the side of length $a$ is $A$.\n\n(i) Prove that $a^2 = b^2 + c^2 - 2bc \cos A$.\n\n(ii) If $a$, $b$ and $c$ are consecutive whole numbers, show that $\cos A = \frac{a+5}{2a+4}$.",
     hints: ["Factor: sin4x - sin2x = 0", "Use product-to-sum: sinA - sinB = 2cos((A+B)/2)sin((A-B)/2)", "sin4x - sin2x = 2cos(3x)sin(x) = 0", "Either cos(3x) = 0 or sin(x) = 0"],
     answer: "x = $0^{{\\circ}}$, $30^{{\\circ}}$, $60^{{\\circ}}$, $90^{{\\circ}}$, $120^{{\\circ}}$, $150^{{\\circ}}$, $180^{{\\circ}}$",
     solution: "Solve sin4x - sin2x = 0 for $0^{{\\circ}}$ \\leq  x \\leq  $180^{{\\circ}}$\n\nUse difference formula:\nsinA - sinB = 2cos((A+B)/2)sin((A-B)/2)\n\nsin4x - sin2x = 2cos((4x+2x)/2)sin((4x-2x)/2)\n= 2cos(3x)sin(x)\n\nSet equal to 0:\n2cos(3x)sin(x) = 0\n\nEither sin(x) = 0 or cos(3x) = 0\n\nFrom sin(x) = 0: x = $0^{{\\circ}}$, $180^{{\\circ}}$\n\nFrom cos(3x) = 0: 3x = $90^{{\\circ}}$, $270^{{\\circ}}$, $450^{{\\circ}}$, $630^{{\\circ}}$\nx = $30^{{\\circ}}$, $90^{{\\circ}}$, $150^{{\\circ}}$, $210^{{\\circ}}$ (only $30^{{\\circ}}$, $90^{{\\circ}}$, $150^{{\\circ}}$ in range)\n\nAll solutions: x = $0^{{\\circ}}$, $30^{{\\circ}}$, $90^{{\\circ}}$, $150^{{\\circ}}$, $180^{{\\circ}}$",
@@ -4548,7 +4548,7 @@ const QUESTION_BANK = [
 { id: "q_574", topic: "statistics", subtopic: "Normal Distribution", difficulty: 2, source: "Educate Sample 4 P2 Q4", question: "In a normal distribution with mean $m = 175$ cm and upper quartile (UQ) = $180$ cm, find the lower quartile (LQ).", hints: ["In a normal distribution, the median = mean = $175$", "The UQ is $180$, which is $5$ cm above the median", "The LQ is equally spaced below the median"], answer: "$\\text{LQ} = 170$", solution: "For a normal distribution:\nMedian $M$ = mean = $175$ cm\nUpper Quartile UQ = $180$ cm\n\nDistance from median to UQ = $180 - 175 = 5$ cm\n\nLower Quartile is symmetrically placed:\n$\\text{LQ} = M - (\\text{UQ} - M) = 175 - 5 = 170$ cm", acceptedAnswers: ["$170$", "$\\text{LQ} = 170$"], xp: 10, year: "Sample" },
 { id: "q_575", topic: "probability", subtopic: "Expected Value", difficulty: 2, source: "Educate Sample 4 P2 Q5", question: "(a)(i) The probability distribution of students forgetting their textbook is: $P(1) = 0.1$, $P(2) = 0.2$, $P(3) = 0.3$, $P(4) = 0.3$, $P(5) = 0.1$. Find the probability that at least 3 students forget their textbook.\n\n(a)(ii) Find the mean (expected value) of the number of students who forget their textbook, given: $P(1) = 0.1$, $P(2) = 0.2$, $P(3) = 0.3$, $P(4) = 0.3$, $P(5) = 0.1$.", hints: ["'At least 3' means $P(X \\geq 3)$", "This is $P(3) + P(4) + P(5)$", "Add the probabilities"], answer: "(a)(i) $0.7$\n(a)(ii) $3.2$", solution: "(a)(i) $P(X \\geq 3) = P(3) + P(4) + P(5)$\n$= 0.3 + 0.3 + 0.1$\n$= 0.7$\n\n---\n\n(a)(ii) $E(X) = 1(0.1) + 2(0.2) + 3(0.3) + 4(0.3) + 5(0.1)$\n$= 0.1 + 0.4 + 0.9 + 1.2 + 0.5$\n$= 3.2$", acceptedAnswers: ["$0.7$", "$70\\%$"], xp: 20, year: "Sample" },
 { id: "q_577", topic: "geometry", subtopic: "Transformations", difficulty: 2, source: "Educate Sample 4 P2 Q6", question: "(a) A triangle ABC has vertices: $A(0, 0)$, $B(1, 4)$ and $C(4, 1)$. Find the area of the triangle.\n\n(b) Triangle ABC with vertices A(0,0), B(1,4), C(4,1) is enlarged with scale factor k = 3/2 and centre (−1, 3). Find the coordinates of A′.", hints: ["Use the formula: Area = $\\frac{1}{2}|x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)|$", "Substitute $A(0,0)$, $B(1,4)$, $C(4,1)$", "Area = $\\frac{1}{2}|0(4-1) + 1(1-0) + 4(0-4)|$"], answer: "(a) $7.5$\n(b) A′ = (1/2, -3/2)", solution: "(a) Area = $\\frac{1}{2}|x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)|$\n$= \\frac{1}{2}|0(4-1) + 1(1-0) + 4(0-4)|$\n$= \\frac{1}{2}|0 + 1 - 16|$\n$= \\frac{1}{2}|-15|$\n$= 7.5$ square units\n\n---\n\n(b) For enlargement with centre C(−1, 3) and scale factor k = 3/2:\nA' = C + k(A - C)\n= (−1, 3) + 3/2((0, 0) - (−1, 3))\n= (−1, 3) + 3/2(1, -3)\n= (−1, 3) + (3/2, -9/2)\n= (1/2, -3/2)", acceptedAnswers: ["$7.5$", "$\\frac{15}{2}$"], xp: 25, year: "Sample" },
-{ id: "q_579", topic: "complex_numbers", subtopic: "Argand Diagram", difficulty: 1, source: "Educate Sample 5 P1 Q1", question: "Plot $z = 3 + 4i$ on an Argand diagram and find $|z|$ (the modulus).", hints: ["The real part is 3 (x-axis)", "The imaginary part is 4 (y-axis)", "Use |z| = √(3² + 4²)"], answer: "|z| = 5", solution: "For z = 3 + 4i:\nReal part = 3\nImaginary part = 4\n\nModulus: |z| = √(3² + 4²) = √(9 + 16) = √25 = 5", acceptedAnswers: ["5", "|z| = 5"], xp: 10, year: "Sample" },
+{ id: "q_579", topic: "complex_numbers", subtopic: "Argand Diagram", difficulty: 1, source: "Educate Sample 5 P1 Q1", question: "Plot $z = 3 + 4i$ on an Argand diagram and find $|z|$ (the modulus).\n\n[diagram:argand_diagram_579]", hints: ["The real part is 3 (x-axis)", "The imaginary part is 4 (y-axis)", "Use |z| = √(3² + 4²)"], answer: "|z| = 5", solution: "For z = 3 + 4i:\nReal part = 3\nImaginary part = 4\n\nModulus: |z| = √(3² + 4²) = √(9 + 16) = √25 = 5", acceptedAnswers: ["5", "|z| = 5"], xp: 10, year: "Sample" },
 { id: "q_580", topic: "algebra", subtopic: "Simultaneous Equations", difficulty: 2, source: "Educate Sample 5 P1 Q2", question: "(a) Solve the simultaneous equations: $x^{2}$ - 2 = 2$y^{2}$ and 3x = y + 7.\n\n(b) If (x + 4) is a factor of P(x) = $x^{3}$ - k$x^{2}$ - 22x + 56, find k and all roots of P(x) = 0.", hints: ["From the second equation: y = 3x - 7", "Substitute into the first equation", "Solve the resulting equation in x"], answer: "(a) x = 3, y = 2\n(b) k = 1; roots are -4, 2, 7", solution: "(a) From 3x = y + 7:\ny = 3x - 7\n\nSubstitute into x² - 2 = 2y²:\nx² - 2 = 2(3x - 7)²\nx² - 2 = 2(9x² - 42x + 49)\nx² - 2 = 18x² - 84x + 98\n0 = 17x² - 84x + 100\n\nUsing quadratic formula or factoring:\nx = 3 (which gives y = 2) or x = 100/17\n\nThe solution is x = 3, y = 2\n\n---\n\n(b) If (x + 4) is a factor, then P(-4) = 0:\n(-4)³ - k(-4)² - 22(-4) + 56 = 0\n-64 - 16k + 88 + 56 = 0\n80 - 16k = 0\nk = 5\n\nActually: P(x) = x³ - kx² - 22x + 56\nP(-4) = -64 - 16k + 88 + 56 = 0\n-16k + 80 = 0\nk = 5\n\nWith k = 5: P(x) = (x+4)(x²-9x+14) = (x+4)(x-2)(x-7)\nRoots: x = -4, 2, 7", acceptedAnswers: ["x = 3, y = 2"], xp: 30, year: "Sample" },
 { id: "q_582", topic: "logs_indices", subtopic: "Laws of Logarithms", difficulty: 2, source: "Educate Sample 5 P1 Q3", question: "If $f(x) = \frac{b^x + b^{-x}}{b^x - b^{-x}}$ and $f(a) = 3$, show that $b^{2a} = 2$.", hints: ["Let y = bˣ in the expression", "Substitute a for x: f(a) = (b^a + b^(-a))/(b^a - b^(-a)) = 3", "Let u = b^a and solve for u in terms of b"], answer: "Shown", solution: "Let u = b^a. Then:\nf(a) = (u + 1/u)/(u - 1/u) = 3\n\n(u + 1/u)/(u - 1/u) = 3\n(u² + 1)/(u² - 1) = 3\nu² + 1 = 3(u² - 1)\nu² + 1 = 3u² - 3\n4 = 2u²\nu² = 2\n(b^a)² = 2\nb^(2a) = 2", acceptedAnswers: ["Shown", "Proof complete"], xp: 15, year: "Sample" },
 { id: "q_583", topic: "induction", subtopic: "Inequality Proofs", difficulty: 3, source: "Educate Sample 5 P1 Q4", question: "Prove by induction that n! > 3ⁿ for all n $\geq$ 7, n $\in$ $\mathbb{N}$.", hints: ["Base case: Check n = 7", "Assume true for n = k: k! > 3ᵏ", "Prove for n = k+1: (k+1)! > 3^(k+1)"], answer: "Proven by induction", solution: "Base case n = 7: 7! = 5040 and 3⁷ = 2187, so 7! > 3⁷ ✓\n\nAssume k! > 3ᵏ for some k ≥ 7\n\nFor n = k+1:\n(k+1)! = (k+1)·k! > (k+1)·3ᵏ\n\nWe need to show (k+1)·3ᵏ > 3^(k+1) = 3·3ᵏ\nThis requires k+1 > 3, which is true for k ≥ 7\n\nTherefore n! > 3ⁿ for all n ≥ 7 by induction", acceptedAnswers: ["Proven", "Proof complete"], xp: 20, year: "Sample" },
@@ -4574,7 +4574,7 @@ const QUESTION_BANK = [
 { id: "q_611", topic: "geometry", subtopic: "Geometric Proofs", difficulty: 2, source: "Educate Sample 7 P2 Q1", question: "Triangle $ABC$ has vertices $A(-5, 8)$, $B(3, -8)$, $C(6, 2)$. Find its area and if $D$ is a vertex such that $ABCD$ is a parallelogram, find $D$.", hints: ["Area = 1/2|x₁(y₂-y₃) + x₂(y₃-y₁) + x₃(y₁-y₂)|", "For parallelogram: D = A + C - B (diagonals bisect each other)", "D = (-5+6-3, 8+2-(-8)) = (-2, 18)"], answer: "Area = 77, D = (-2, 18)", solution: "Area = 1/2|(-5)(-8-2) + 3(2-8) + 6(8-(-8))|\n= 1/2|(-5)(-10) + 3(-6) + 6(16)|\n= 1/2|50 - 18 + 96|\n= 1/2|128|\n= 64\n\nFor parallelogram ABCD:\nD = A + C - B = (-5 + 6 - 3, 8 + 2 - (-8))\n= (-2, 18)", acceptedAnswers: ["Area=64, D=(-2,18)", "Area = 64, D = (-2, 18)"], xp: 15, year: "Sample" },
 { id: "q_612", topic: "trigonometry", subtopic: "Solving Trig Equations", difficulty: 2, source: "Educate Sample 7 P2 Q3", question: "If $\cos(x) = \frac{1}{5}$, find $\tan(2x)$. Do not use a calculator.", hints: ["Use cos(2x) = 2cos²(x) - 1", "Use sin²(x) + cos²(x) = 1 to find sin(x)", "Use tan(2x) = 2tan(x) / (1 - tan²(x)) or tan(2x) = sin(2x) / cos(2x)"], answer: "tan(2x) = -24/7", solution: "Given cos(x) = 1/5\n\nsin²(x) = 1 - cos²(x) = 1 - 1/25 = 24/25\nsin(x) = ±√(24/25) = ±(2√6)/5\n\ncos(2x) = 2cos²(x) - 1 = 2(1/25) - 1 = 2/25 - 1 = -23/25\nsin(2x) = 2sin(x)cos(x) = 2(±2√6/5)(1/5) = ±4√6/25\n\ntan(2x) = sin(2x) / cos(2x) = (±4√6/25) / (-23/25) = ∓4√6/23\n\nIf sin(x) = 2√6/5: tan(2x) = -4√6/23 ... (doesn't match -24/7)\n\nLet me recalculate more carefully:\ntan(x) = sin(x)/cos(x) = (2√6/5) / (1/5) = 2√6\n\ntan(2x) = 2tan(x) / (1 - tan²(x))\n= 2(2√6) / (1 - (2√6)²)\n= 4√6 / (1 - 24)\n= 4√6 / (-23)\n= -4√6/23\n\nHmm, this doesn't give -24/7. Let me reconsider the problem statement or check if there's a different approach.", acceptedAnswers: ["-24/7", "tan(2x) = -24/7"], xp: 20, year: "Sample" },
 { id: "q_613", topic: "probability", subtopic: "Counting Principles", difficulty: 2, source: "Educate Sample 7 P2 Q4", question: "(a) A spinner has 9 equal segments numbered 1-9. Numbers 2,3,6,8,9 are blue, others are red. What is the probability that the pointer lands on an even number?\n\n(b) A spinner has 9 equal segments numbered 1-9. Numbers 2,3,6,8,9 are blue, others are red. What is the probability that the pointer lands on a red colour?", hints: ["Even numbers from 1-9 are: 2, 4, 6, 8", "Count how many are even", "P(even) = 4/9"], answer: "(a) P(E) = 4/9\n(b) P(R) = 4/9", solution: "(a) Even numbers in 1-9: {2, 4, 6, 8}\nTotal segments = 9\n\nP(even) = 4/9\n\n---\n\n(b) Blue numbers: {2, 3, 6, 8, 9} (5 numbers)\nRed numbers: {1, 4, 5, 7} (4 numbers)\nTotal: 9\n\nP(red) = 4/9", acceptedAnswers: ["4/9"], xp: 20, year: "Sample" },
-{ id: "q_615", topic: "statistics", subtopic: "Normal Distribution", difficulty: 2, source: "Educate Sample 7 P2 Q5", question: "From a cumulative frequency diagram of birth weights, the median is estimated at approximately $3500$g and the interquartile range is $800$g. Find $Q_1$ and $Q_3$.", hints: ["$Q_1$ is the lower quartile", "$Q_3$ is the upper quartile", "IQR = Q₃ - Q₁ = 800, and Median = (Q₁ + Q₃)/2 ≈ 3500"], answer: "$Q_1 \approx 3100, Q_3 \approx 3900$", solution: "Given: Median ≈ 3500, IQR = 800\n\nIQR = Q₃ - Q₁ = 800\nMedian ≈ (Q₁ + Q₃)/2 = 3500\nSo Q₁ + Q₃ = 7000\n\nFrom the two equations:\nQ₃ - Q₁ = 800\nQ₃ + Q₁ = 7000\n\nAdding: 2Q₃ = 7800, so Q₃ = 3900\nSubtracting: 2Q₁ = 6200, so Q₁ = 3100", acceptedAnswers: ["$Q_1=3100, Q_3=3900$"], xp: 10, year: "Sample" }
+{ id: "q_615", topic: "statistics", subtopic: "Normal Distribution", difficulty: 2, source: "Educate Sample 7 P2 Q5", question: "From a cumulative frequency diagram of birth weights, the median is estimated at approximately $3500$g and the interquartile range is $800$g.\n\n[diagram:cumulative_frequency] Find $Q_1$ and $Q_3$.", hints: ["$Q_1$ is the lower quartile", "$Q_3$ is the upper quartile", "IQR = Q₃ - Q₁ = 800, and Median = (Q₁ + Q₃)/2 ≈ 3500"], answer: "$Q_1 \approx 3100, Q_3 \approx 3900$", solution: "Given: Median ≈ 3500, IQR = 800\n\nIQR = Q₃ - Q₁ = 800\nMedian ≈ (Q₁ + Q₃)/2 = 3500\nSo Q₁ + Q₃ = 7000\n\nFrom the two equations:\nQ₃ - Q₁ = 800\nQ₃ + Q₁ = 7000\n\nAdding: 2Q₃ = 7800, so Q₃ = 3900\nSubtracting: 2Q₁ = 6200, so Q₁ = 3100", acceptedAnswers: ["$Q_1=3100, Q_3=3900$"], xp: 10, year: "Sample" }
 ];
 
 
@@ -4649,11 +4649,15 @@ function MathText({ text, style = {} }) {
         }
         ref.current.appendChild(mathSpan);
       } else if (part.startsWith('[diagram:') && part.endsWith(']')) {
-        // SVG diagram placeholder — handled by DiagramRenderer
+        // SVG diagram — render inline from DIAGRAMS library
         const diagramName = part.slice(9, -1);
         const container = document.createElement('div');
-        container.setAttribute('data-diagram', diagramName);
-        container.style.margin = '12px 0';
+        container.style.margin = '16px 0';
+        container.style.textAlign = 'center';
+        if (DIAGRAMS[diagramName]) {
+          const svg = typeof DIAGRAMS[diagramName] === 'function' ? DIAGRAMS[diagramName]() : DIAGRAMS[diagramName];
+          container.innerHTML = svg;
+        }
         ref.current.appendChild(container);
       } else {
         // Regular text — preserve newlines and format question parts
@@ -5012,6 +5016,948 @@ const DIAGRAMS = {
   <!-- Angle at f -->
   <path d='M 100,220 Q 110,210 120,200' fill='none' stroke='#ea580c' stroke-width='1.5'/>
   <text x='95' y='195' font-size='10' fill='#ea580c'>$\\angle afe$</text>
+</svg>`,
+
+  // semicircle_chord - for 2007 P2 Q4(c)
+  semicircle_chord: () => `<svg viewBox="0 0 340 190" style="max-width:320px;margin:8px auto;display:block">
+    <path d="M 30,150 A 140,140 0 0,1 310,150" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <line x1="30" y1="150" x2="310" y2="150" stroke="#1e293b" stroke-width="2"/>
+    <line x1="30" y1="150" x2="260" y2="30" stroke="#3B82F6" stroke-width="2"/>
+    <line x1="170" y1="150" x2="260" y2="30" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="170" cy="150" r="4" fill="#1e293b"/>
+    <path d="M 60,150 A 30,30 0 0,1 54,133" fill="none" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="65" y="138" font-size="14" fill="#EF4444" font-style="italic">α</text>
+    <text x="15" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">a</text>
+    <text x="164" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">o</text>
+    <text x="310" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">b</text>
+    <text x="265" y="25" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">c</text>
+  </svg>`,
+
+  // argand_q007 - for q_007
+  argand_q007: () => `<svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 14px; font-style: italic; fill: #1e293b; } .point-label { font-size: 13px; font-style: italic; fill: #1e293b; } .value { font-size: 12px; fill: #3B82F6; }</style></defs><g><line x1='160' y1='20' x2='160' y2='300' stroke='#1e293b' stroke-width='2'/><line x1='20' y1='160' x2='300' y2='160' stroke='#1e293b' stroke-width='2'/><text x='285' y='150' class='axis-label'>Re</text><text x='155' y='35' class='axis-label'>Im</text><circle cx='160' cy='160' r='2' fill='#1e293b'/><text x='162' y='173' class='point-label'>O</text><g><circle cx='80' cy='120' r='3' fill='#1e293b'/><text x='70' y='105' class='point-label'>w = -2+2i</text></g><g><circle cx='245' cy='105' r='3' fill='#1e293b'/><text x='235' y='90' class='point-label'>u = 2√3+2i</text></g><g><text x='25' y='165' class='value'>-3</text><text x='50' y='165' class='value'>-2</text><text x='80' y='165' class='value'>-1</text><text x='200' y='165' class='value'>1</text><text x='230' y='165' class='value'>2</text><text x='260' y='165' class='value'>3</text><text x='285' y='165' class='value'>4</text></g><g><text x='155' y='290' class='value'>-1</text><text x='155' y='200' class='value'>1</text><text x='155' y='145' class='value'>2</text><text x='155' y='85' class='value'>3</text></g><g><line x1='155' y1='155' x2='160' y2='160' stroke='#1e293b' stroke-width='1'/><line x1='160' y1='160' x2='165' y2='155' stroke='#1e293b' stroke-width='1'/></g></g></svg>`,
+
+  // graph_q022 - for q_022
+  graph_q022: () => `<svg viewBox='0 0 340 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 13px; font-style: italic; fill: #1e293b; } .region-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .grid-text { font-size: 11px; fill: #666; }</style></defs><g><line x1='40' y1='250' x2='320' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='310' y='270' class='axis-label'>x</text><text x='20' y='25' class='axis-label'>y</text><g stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2' opacity='0.5'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='40' y1='210' x2='320' y2='210'/><line x1='40' y1='170' x2='320' y2='170'/><line x1='40' y1='130' x2='320' y2='130'/><line x1='40' y1='90' x2='320' y2='90'/><line x1='40' y1='50' x2='320' y2='50'/></g><g><path d='M 80 230 Q 160 100 280 80' stroke='#1e293b' stroke-width='2.5' fill='none'/><text x='85' y='255' class='grid-text'>0</text><text x='155' y='255' class='grid-text'>2</text><text x='195' y='255' class='grid-text'>4</text><text x='235' y='255' class='grid-text'>6</text><text x='35' y='255' class='grid-text'>-1</text><text x='35' y='215' class='grid-text'>1</text><text x='35' y='175' class='grid-text'>2</text><text x='35' y='135' class='grid-text'>3</text><text x='30' y='95' class='grid-text'>4</text></g><g><rect x='80' y='170' width='80' height='80' fill='#3B82F6' opacity='0.15' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3,3'/><text x='100' y='220' class='region-label'>K</text></g><g><rect x='160' y='100' width='80' height='70' fill='#EF4444' opacity='0.15' stroke='#EF4444' stroke-width='1' stroke-dasharray='3,3'/><text x='180' y='145' class='region-label'>L</text></g><g><rect x='240' y='50' width='80' height='50' fill='#10B981' opacity='0.15' stroke='#10B981' stroke-width='1' stroke-dasharray='3,3'/><text x='255' y='85' class='region-label'>N</text></g></g></svg>`,
+
+  // cogs_q179 - for q_179
+  cogs_q179: () => `<svg viewBox='0 0 340 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 13px; font-style: italic; fill: #1e293b; } .center-point { font-size: 12px; font-style: italic; fill: #1e293b; font-weight: bold; }</style></defs><g><rect x='50' y='50' width='240' height='200' fill='none' stroke='#ddd' stroke-width='1' stroke-dasharray='2,2'/><text x='120' y='35' class='label'>12</text><text x='70' y='125' class='label'>9</text><text x='250' y='125' class='label'>3</text><text x='135' y='250' class='label'>6</text><circle cx='170' cy='120' r='50' fill='none' stroke='#1e293b' stroke-width='2.5'/><text x='140' y='155' class='center-point'>D</text><circle cx='100' cy='155' r='25' fill='none' stroke='#1e293b' stroke-width='2.5'/><text x='85' y='175' class='center-point'>E</text><circle cx='110' cy='120' r='3' fill='#1e293b'/><line x1='170' y1='120' x2='100' y2='155' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/><text x='125' y='130' class='label' font-size='11'>distance</text><g stroke='#1e293b' stroke-width='1.5'><line x1='170' y1='65' x2='170' y2='55'/><line x1='170' y1='175' x2='170' y2='185'/><line x1='125' y1='120' x2='115' y2='120'/><line x1='215' y1='120' x2='225' y2='120'/></g><g><path d='M 170 70 L 175 68 L 173 73 Z' fill='#1e293b'/></g></g></svg>`,
+
+  // tree_q180 - for q_180
+  tree_q180: () => `<svg viewBox='0 0 360 240' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; fill: #1e293b; } .prob { font-size: 11px; fill: #3B82F6; font-weight: bold; } .event { font-size: 11px; fill: #1e293b; }</style></defs><g><circle cx='30' cy='120' r='8' fill='#1e293b'/><text x='50' y='125' class='label'>Random person</text><line x1='38' y1='110' x2='90' y2='80' stroke='#1e293b' stroke-width='2'/><line x1='38' y1='130' x2='90' y2='160' stroke='#1e293b' stroke-width='2'/><text x='50' y='85' class='prob'>0.003</text><text x='50' y='165' class='prob'>0.997</text><circle cx='100' cy='80' r='6' fill='#1e293b'/><circle cx='100' cy='160' r='6' fill='#1e293b'/><text x='110' y='75' class='event'>Has disease</text><text x='110' y='165' class='event'>No disease</text><line x1='106' y1='75' x2='150' y2='50' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='85' x2='150' y2='110' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='155' x2='150' y2='130' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='165' x2='150' y2='190' stroke='#1e293b' stroke-width='2'/><text x='120' y='55' class='prob'>0.99</text><text x='120' y='105' class='prob'>0.01</text><text x='120' y='140' class='prob'>0.04</text><text x='120' y='185' class='prob'>0.96</text><circle cx='160' cy='50' r='5' fill='#1e293b'/><circle cx='160' cy='110' r='5' fill='#1e293b'/><circle cx='160' cy='130' r='5' fill='#1e293b'/><circle cx='160' cy='190' r='5' fill='#1e293b'/><text x='170' y='53' class='event'>Test +</text><text x='170' y='113' class='event'>Test -</text><text x='170' y='133' class='event'>Test +</text><text x='170' y='193' class='event'>Test -</text></g></svg>`,
+
+  // golf_q191 - for q_191
+  golf_q191: () => `<svg viewBox='0 0 340 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .measure { font-size: 11px; fill: #3B82F6; font-weight: bold; } .angle { font-size: 11px; fill: #EF4444; font-weight: bold; }</style></defs><g><circle cx='170' cy='150' r='70' fill='none' stroke='#1e293b' stroke-width='2.5'/><circle cx='170' cy='150' r='3' fill='#1e293b'/><text x='175' y='155' class='label'>O (center)</text><line x1='50' y1='150' x2='170' y2='150' stroke='#1e293b' stroke-width='2'/><text x='80' y='140' class='measure'>150 m</text><circle cx='50' cy='150' r='4' fill='#1e293b'/><text x='35' y='155' class='label'>Joan</text><g><path d='M 70 150 A 20 20 0 0 0 78 105' stroke='#EF4444' stroke-width='2' fill='none'/><text x='70' y='120' class='angle'>α</text></g><line x1='170' y1='150' x2='160' y2='75' stroke='#1e293b' stroke-width='2'/><line x1='170' y1='150' x2='180' y2='75' stroke='#1e293b' stroke-width='2'/><text x='165' y='65' class='measure'>30 m diam</text><path d='M 160 75 A 20 20 0 0 0 180 75' stroke='#1e293b' stroke-width='2' fill='none'/><g stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'><line x1='170' y1='150' x2='160' y2='75'/><line x1='170' y1='150' x2='180' y2='75'/></g></g></svg>`,
+
+  // trajectory_q198 - for q_198
+  trajectory_q198: () => `<svg viewBox='0 0 360 260' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .coord { font-size: 10px; fill: #3B82F6; } .axis-label { font-size: 12px; font-style: italic; fill: #1e293b; }</style></defs><g><line x1='30' y1='220' x2='340' y2='220' stroke='#1e293b' stroke-width='2'/><line x1='30' y1='220' x2='30' y2='20' stroke='#1e293b' stroke-width='2'/><text x='330' y='240' class='axis-label'>x</text><text x='10' y='25' class='axis-label'>y</text><g stroke='#1e293b' stroke-width='1' opacity='0.3'><line x1='80' y1='220' x2='80' y2='20'/><line x1='130' y1='220' x2='130' y2='20'/><line x1='180' y1='220' x2='180' y2='20'/><line x1='230' y1='220' x2='230' y2='20'/><line x1='280' y1='220' x2='280' y2='20'/><line x1='30' y1='180' x2='340' y2='180'/><line x1='30' y1='140' x2='340' y2='140'/><line x1='30' y1='100' x2='340' y2='100'/><line x1='30' y1='60' x2='340' y2='60'/></g><g><text x='75' y='235' class='coord'>1</text><text x='125' y='235' class='coord'>2</text><text x='175' y='235' class='coord'>3</text><text x='225' y='235' class='coord'>4</text><text x='275' y='235' class='coord'>5</text><text x='10' y='225' class='coord'>0</text><text x='10' y='185' class='coord'>1</text><text x='10' y='145' class='coord'>2</text><text x='10' y='105' class='coord'>3</text><text x='10' y='65' class='coord'>4</text></g><path d='M 25 150 Q 150 50 310 190' stroke='#1e293b' stroke-width='2.5' fill='none'/><circle cx='25' cy='150' r='4' fill='#1e293b'/><circle cx='310' cy='190' r='4' fill='#1e293b'/><text x='15' y='165' class='label'>A</text><text x='310' y='210' class='label'>B</text></g></svg>`,
+
+  // cubic_curve_q211 - for q_211
+  cubic_curve_q211: () => `<svg viewBox='0 0 360 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .tick { font-size: 10px; fill: #666; } .curve-label { font-size: 11px; fill: #1e293b; font-weight: bold; }</style></defs><g><line x1='40' y1='250' x2='340' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='330' y='270' class='label'>x</text><text x='20' y='25' class='label'>y</text><g stroke='#1e293b' stroke-width='0.8' opacity='0.2'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='320' y1='250' x2='320' y2='20'/><line x1='40' y1='210' x2='340' y2='210'/><line x1='40' y1='170' x2='340' y2='170'/><line x1='40' y1='130' x2='340' y2='130'/><line x1='40' y1='90' x2='340' y2='90'/><line x1='40' y1='50' x2='340' y2='50'/></g><g><text x='75' y='265' class='tick'>2</text><text x='115' y='265' class='tick'>4</text><text x='155' y='265' class='tick'>6</text><text x='195' y='265' class='tick'>8</text><text x='235' y='265' class='tick'>10</text><text x='30' y='255' class='tick'>-1</text><text x='30' y='215' class='tick'>1</text><text x='30' y='175' class='tick'>2</text><text x='30' y='135' class='tick'>3</text><text x='30' y='95' class='tick'>4</text><text x='30' y='55' class='tick'>5</text></g><path d='M 60 220 Q 120 140 200 130 Q 240 125 280 160' stroke='#1e293b' stroke-width='2.5' fill='none'/><path d='M 280 160 Q 310 190 330 230' stroke='#1e293b' stroke-width='2.5' fill='none'/><line x1='120' y1='250' x2='120' y2='140' stroke='#3B82F6' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='240' y1='250' x2='240' y2='160' stroke='#3B82F6' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='40' y1='140' x2='120' y2='140' stroke='#3B82F6' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='40' y1='160' x2='240' y2='160' stroke='#3B82F6' stroke-width='1.5' stroke-dasharray='2,2'/><text x='100' y='110' class='curve-label'>p(x)</text><text x='260' y='120' class='curve-label'>l(x)</text></g></svg>`,
+
+  // argand_circle_q273 - for q_273
+  argand_circle_q273: () => `<svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 14px; font-style: italic; fill: #1e293b; } .point-label { font-size: 13px; font-style: italic; fill: #1e293b; } .value { font-size: 12px; fill: #3B82F6; }</style></defs><g><line x1='160' y1='20' x2='160' y2='300' stroke='#1e293b' stroke-width='2'/><line x1='20' y1='160' x2='300' y2='160' stroke='#1e293b' stroke-width='2'/><text x='285' y='150' class='axis-label'>Re</text><text x='155' y='35' class='axis-label'>Im</text><circle cx='160' cy='160' r='2' fill='#1e293b'/><text x='162' y='175' class='point-label'>O</text><g><circle cx='120' cy='180' r='3' fill='#1e293b'/><text x='105' y='195' class='point-label'>z = 6+2i</text></g><g><circle cx='200' cy='120' r='3' fill='#1e293b'/><text x='210' y='105' class='point-label'>iz</text></g><circle cx='160' cy='150' r='30' fill='none' stroke='#1e293b' stroke-width='2' stroke-dasharray='2,2'/><text x='150' y='110' class='point-label'>c</text><g><text x='25' y='165' class='value'>-3</text><text x='50' y='165' class='value'>-2</text><text x='80' y='165' class='value'>-1</text><text x='200' y='165' class='value'>1</text><text x='230' y='165' class='value'>2</text><text x='260' y='165' class='value'>3</text></g><g><text x='155' y='290' class='value'>-1</text><text x='155' y='200' class='value'>1</text><text x='155' y='150' class='value'>2</text><text x='155' y='90' class='value'>3</text><text x='155' y='50' class='value'>4</text></g><line x1='160' y1='160' x2='120' y2='180' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='160' y1='160' x2='200' y2='120' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/></g></svg>`,
+
+  // exponential_linear_q282 - for q_282
+  exponential_linear_q282: () => `<svg viewBox='0 0 360 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .graph-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .tick { font-size: 10px; fill: #666; }</style></defs><g><line x1='40' y1='250' x2='340' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='330' y='270' class='label'>x</text><text x='15' y='25' class='label'>y</text><g stroke='#1e293b' stroke-width='0.8' opacity='0.2'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='40' y1='200' x2='340' y2='200'/><line x1='40' y1='150' x2='340' y2='150'/><line x1='40' y1='100' x2='340' y2='100'/><line x1='40' y1='50' x2='340' y2='50'/></g><g><text x='75' y='265' class='tick'>0.5</text><text x='115' y='265' class='tick'>1</text><text x='155' y='265' class='tick'>1.5</text><text x='195' y='265' class='tick'>2</text><text x='235' y='265' class='tick'>2.5</text><text x='30' y='255' class='tick'>0</text><text x='25' y='205' class='tick'>1</text><text x='25' y='155' class='tick'>2</text><text x='25' y='105' class='tick'>3</text><text x='25' y='55' class='tick'>4</text></g><path d='M 60 240 Q 120 180 200 100 Q 240 60 280 40' stroke='#1e293b' stroke-width='2.5' fill='none'/><text x='220' y='70' class='graph-label'>f(x) = e^(2x)</text><line x1='60' y1='220' x2='280' y2='100' stroke='#3B82F6' stroke-width='2'/><text x='160' y='180' class='graph-label'>g(x) = 2x - 1</text><circle cx='115' cy='178' r='3' fill='#EF4444'/><text x='110' y='155' class='label'>≈1.9</text></g></svg>`,
+
+  // flight_path_q299 - for q_299
+  flight_path_q299: () => `<svg viewBox='0 0 360 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .point-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .distance { font-size: 10px; fill: #3B82F6; } .angle-text { font-size: 10px; fill: #EF4444; }</style></defs><g><g><circle cx='60' cy='220' r='4' fill='#1e293b'/><text x='40' y='240' class='point-label'>A</text><circle cx='200' cy='100' r='4' fill='#1e293b'/><text x='200' y='80' class='point-label'>B</text><circle cx='320' cy='200' r='4' fill='#1e293b'/><text x='320' y='220' class='point-label'>C</text></g><line x1='60' y1='220' x2='200' y2='100' stroke='#1e293b' stroke-width='2'/><line x1='200' y1='100' x2='320' y2='200' stroke='#1e293b' stroke-width='2'/><line x1='60' y1='220' x2='320' y2='200' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><text x='110' y='140' class='distance'>840 km</text><text x='240' y='130' class='distance'>840 km</text><text x='180' y='220' class='distance'>1450 km</text><g><path d='M 85 195 A 25 25 0 0 0 115 185' stroke='#EF4444' stroke-width='2' fill='none'/><text x='90' y='175' class='angle-text'>8.57°</text></g><g><path d='M 210 125 A 20 20 0 0 0 240 110' stroke='#EF4444' stroke-width='2' fill='none'/><text x='215' y='105' class='angle-text'>20°</text></g></g></svg>`,
+
+  // norman_window_q300 - for q_300
+  norman_window_q300: () => `<svg viewBox='0 0 280 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .dimension { font-size: 11px; fill: #3B82F6; }</style></defs><g><g><rect x='50' y='120' width='180' height='120' fill='none' stroke='#1e293b' stroke-width='2'/><path d='M 50 120 A 90 90 0 0 1 230 120' fill='none' stroke='#1e293b' stroke-width='2'/></g><g><line x1='140' y1='240' x2='140' y2='260' stroke='#1e293b' stroke-width='1.5'/><line x1='130' y1='260' x2='150' y2='260' stroke='#1e293b' stroke-width='1.5'/><text x='115' y='280' class='dimension'>y</text><line x1='50' y1='145' x2='230' y2='145' stroke='#1e293b' stroke-width='1.5'/><line x1='50' y1='135' x2='50' y2='155' stroke='#1e293b' stroke-width='1.5'/><line x1='230' y1='135' x2='230' y2='155' stroke='#1e293b' stroke-width='1.5'/><text x='130' y='160' class='dimension'>2x</text></g><g><line x1='140' y1='80' x2='140' y2='120' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='130' y1='80' x2='150' y2='80' stroke='#1e293b' stroke-width='1.5'/><line x1='130' y1='120' x2='150' y2='120' stroke='#1e293b' stroke-width='1.5'/><text x='150' y='105' class='dimension'>x</text></g><circle cx='140' cy='120' r='3' fill='#1e293b'/><text x='145' y='115' class='label'>C</text><line x1='50' y1='120' x2='140' y2='120' stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'/><line x1='230' y1='120' x2='140' y2='120' stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'/></g></svg>`,
+
+  // triangle_geometry_q326 - for q_326
+  triangle_geometry_q326: () => `<svg viewBox='0 0 340 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .side-label { font-size: 11px; fill: #3B82F6; } .angle-label { font-size: 11px; fill: #EF4444; }</style></defs><g><g><circle cx='80' cy='240' r='3' fill='#1e293b'/><text x='60' y='260' class='label'>A</text><circle cx='280' cy='240' r='3' fill='#1e293b'/><text x='280' y='260' class='label'>B</text><circle cx='180' cy='60' r='3' fill='#1e293b'/><text x='180' y='40' class='label'>C</text></g><line x1='80' y1='240' x2='280' y2='240' stroke='#1e293b' stroke-width='2.5'/><line x1='280' y1='240' x2='180' y2='60' stroke='#1e293b' stroke-width='2.5'/><line x1='180' y1='60' x2='80' y2='240' stroke='#1e293b' stroke-width='2.5'/><text x='170' y='255' class='side-label'>10√2-√2</text><text x='220' y='140' class='side-label'>|AC|</text><text x='100' y='140' class='side-label'>|BC|</text><g><path d='M 95 240 A 15 15 0 0 0 87 225' stroke='#EF4444' stroke-width='2' fill='none'/><text x='85' y='235' class='angle-label'>45°</text></g><text x='160' y='200' class='label'>|AC| = |BC|</text></g></svg>`,
+
+  // quadrilateral_circle_q328 - for q_328
+  quadrilateral_circle_q328: () => `<svg viewBox='0 0 340 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .point-label { font-size: 11px; fill: #1e293b; font-weight: bold; }</style></defs><g><circle cx='170' cy='160' r='100' fill='none' stroke='#1e293b' stroke-width='2'/><g><circle cx='80' cy='100' r='3' fill='#1e293b'/><text x='65' y='95' class='point-label'>A</text><circle cx='260' cy='80' r='3' fill='#1e293b'/><text x='265' y='75' class='point-label'>B</text><circle cx='270' cy='220' r='3' fill='#1e293b'/><text x='275' y='220' class='point-label'>C</text><circle cx='60' cy='210' r='3' fill='#1e293b'/><text x='40' y='220' class='point-label'>D</text></g><line x1='80' y1='100' x2='260' y2='80' stroke='#1e293b' stroke-width='2'/><line x1='260' y1='80' x2='270' y2='220' stroke='#1e293b' stroke-width='2'/><line x1='270' y1='220' x2='60' y2='210' stroke='#1e293b' stroke-width='2'/><line x1='60' y1='210' x2='80' y2='100' stroke='#1e293b' stroke-width='2'/><line x1='80' y1='100' x2='270' y2='220' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><line x1='260' y1='80' x2='60' y2='210' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><circle cx='170' cy='160' r='3' fill='#1e293b'/><text x='175' y='165' class='point-label'>O</text></g></svg>`,
+
+  // function_mapping_diagram - for q_332
+  function_mapping_diagram: () => `<svg viewBox='0 0 400 250' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='200' y='25' font-size='16' font-weight='bold' text-anchor='middle' fill='#1e293b'>Function Mapping: f: A → B, g: B → C</text>
+  
+  <!-- Set A (left) -->
+  <circle cx='80' cy='130' r='50' fill='none' stroke='#1e293b' stroke-width='2'/>
+  <text x='50' y='200' font-size='14' font-weight='bold' fill='#1e293b'>A</text>
+  <text x='70' y='120' font-size='12' fill='#1e293b'>1</text>
+  <text x='70' y='145' font-size='12' fill='#1e293b'>2</text>
+  <text x='75' y='155' font-size='12' fill='#1e293b'>3</text>
+  <text x='70' y='170' font-size='12' fill='#1e293b'>4</text>
+  
+  <!-- Set B (middle) -->
+  <circle cx='200' cy='130' r='40' fill='none' stroke='#1e293b' stroke-width='2'/>
+  <text x='170' y='200' font-size='14' font-weight='bold' fill='#1e293b'>B</text>
+  <text x='190' y='125' font-size='12' fill='#1e293b'>a</text>
+  <text x='190' y='145' font-size='12' fill='#1e293b'>b</text>
+  <text x='190' y='165' font-size='12' fill='#1e293b'>c</text>
+  
+  <!-- Set C (right) -->
+  <circle cx='320' cy='130' r='50' fill='none' stroke='#1e293b' stroke-width='2'/>
+  <text x='340' y='200' font-size='14' font-weight='bold' fill='#1e293b'>C</text>
+  <text x='310' y='115' font-size='12' fill='#1e293b'>x</text>
+  <text x='310' y='135' font-size='12' fill='#1e293b'>w</text>
+  <text x='310' y='155' font-size='12' fill='#1e293b'>y</text>
+  <text x='310' y='175' font-size='12' fill='#1e293b'>z</text>
+  
+  <!-- Arrows f: A → B -->
+  <path d='M 120 115 L 165 120' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  <path d='M 125 130 L 165 130' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  <path d='M 125 148 L 168 145' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  <path d='M 120 160 L 165 155' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  
+  <!-- Arrows g: B → C -->
+  <path d='M 235 120 L 280 115' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  <path d='M 238 135 L 280 135' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  <path d='M 235 150 L 280 160' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
+  
+  <!-- Labels -->
+  <text x='140' y='105' font-size='11' fill='#1e293b'>f</text>
+  <text x='260' y='105' font-size='11' fill='#1e293b'>g</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id='arrowhead' markerWidth='10' markerHeight='10' refX='9' refY='3' orient='auto'>
+      <polygon points='0 0, 10 3, 0 6' fill='#1e293b'/>
+    </marker>
+  </defs>
+</svg>`,
+
+  // cubic_graph - for q_336
+  cubic_graph: () => `<svg viewBox='0 0 360 300' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Grid background -->
+  <rect width='360' height='300' fill='#f8f9fa'/>
+  
+  <!-- Axes -->
+  <line x1='40' y1='250' x2='340' y2='250' stroke='#1e293b' stroke-width='2'/>
+  <line x1='40' y1='30' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='330' y='270' font-size='12' fill='#1e293b'>x</text>
+  <text x='20' y='40' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- Tick marks and labels on x-axis -->
+  <line x1='60' y1='245' x2='60' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='55' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-3</text>
+  <line x1='100' y1='245' x2='100' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='100' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-2</text>
+  <line x1='140' y1='245' x2='140' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='140' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-1</text>
+  <line x1='180' y1='245' x2='180' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='180' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>0</text>
+  <line x1='220' y1='245' x2='220' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='220' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>1</text>
+  <line x1='260' y1='245' x2='260' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='260' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>2</text>
+  
+  <!-- Tick marks and labels on y-axis -->
+  <line x1='35' y1='230' x2='45' y2='230' stroke='#1e293b' stroke-width='1'/>
+  <text x='28' y='235' font-size='10' text-anchor='end' fill='#1e293b'>5</text>
+  <line x1='35' y1='190' x2='45' y2='190' stroke='#1e293b' stroke-width='1'/>
+  <line x1='35' y1='150' x2='45' y2='150' stroke='#1e293b' stroke-width='1'/>
+  <line x1='35' y1='110' x2='45' y2='110' stroke='#1e293b' stroke-width='1'/>
+  <line x1='35' y1='70' x2='45' y2='70' stroke='#1e293b' stroke-width='1'/>
+  <text x='28' y='75' font-size='10' text-anchor='end' fill='#1e293b'>-5</text>
+  
+  <!-- Cubic curve f(x) = x³ + 2x² - 5x - 6 -->
+  <!-- Points plotted: (-3,0), (-1,0), (2,0), (0,-6) -->
+  <path d='M 60 250 Q 80 160 100 110 Q 120 80 140 250 Q 160 350 180 250 Q 200 180 220 120 Q 240 90 260 130 Q 280 200 300 290' 
+        stroke='#1e293b' stroke-width='2' fill='none'/>
+  
+  <!-- Points where curve crosses x-axis -->
+  <circle cx='60' cy='250' r='3' fill='#EF4444'/>
+  <text x='60' y='285' font-size='9' text-anchor='middle' fill='#EF4444' font-style='italic'>-3</text>
+  
+  <circle cx='140' cy='250' r='3' fill='#EF4444'/>
+  <text x='140' y='285' font-size='9' text-anchor='middle' fill='#EF4444' font-style='italic'>-1</text>
+  
+  <circle cx='260' cy='250' r='3' fill='#EF4444'/>
+  <text x='260' y='285' font-size='9' text-anchor='middle' fill='#EF4444' font-style='italic'>2</text>
+  
+  <!-- y-intercept -->
+  <circle cx='180' cy='106' r='3' fill='#3B82F6'/>
+  <text x='195' y='106' font-size='9' fill='#3B82F6' font-style='italic'>(0,-6)</text>
+</svg>`,
+
+  // rectangle_distances - for q_341
+  rectangle_distances: () => `<svg viewBox='0 0 360 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Rectangle ADEC -->
+  <rect x='80' y='100' width='200' height='100' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Vertices labels -->
+  <text x='70' y='110' font-size='13' font-weight='bold' fill='#1e293b'>A</text>
+  <text x='70' y='215' font-size='13' font-weight='bold' fill='#1e293b'>D</text>
+  <text x='285' y='215' font-size='13' font-weight='bold' fill='#1e293b'>E</text>
+  <text x='285' y='110' font-size='13' font-weight='bold' fill='#1e293b'>C</text>
+  
+  <!-- Point B on AC, 5m from A -->
+  <circle cx='145' cy='100' r='4' fill='#3B82F6'/>
+  <text x='145' y='85' font-size='13' font-weight='bold' fill='#1e293b'>B</text>
+  
+  <!-- Point P on DE, x metres from D -->
+  <circle cx='130' cy='200' r='4' fill='#3B82F6'/>
+  <text x='130' y='225' font-size='13' font-weight='bold' fill='#1e293b'>P</text>
+  
+  <!-- Distance labels -->
+  <text x='105' y='92' font-size='11' fill='#3B82F6' font-style='italic'>5 m</text>
+  <text x='225' y='92' font-size='11' fill='#3B82F6' font-style='italic'>2 m</text>
+  <text x='30' y='155' font-size='11' fill='#3B82F6' font-style='italic'>2 m</text>
+  <text x='115' y='220' font-size='11' fill='#3B82F6' font-style='italic'>x m</text>
+  
+  <!-- Dimension annotations -->
+  <!-- Top edge: 7m total -->
+  <line x1='80' y1='85' x2='280' y2='85' stroke='#3B82F6' stroke-width='1'/>
+  <line x1='80' y1='80' x2='80' y2='90' stroke='#3B82F6' stroke-width='1'/>
+  <line x1='280' y1='80' x2='280' y2='90' stroke='#3B82F6' stroke-width='1'/>
+  <text x='180' y='75' font-size='10' text-anchor='middle' fill='#3B82F6'>|AC| = 7 m</text>
+  
+  <!-- Right edge: 2m height -->
+  <line x1='295' y1='100' x2='295' y2='200' stroke='#3B82F6' stroke-width='1'/>
+  <line x1='290' y1='100' x2='300' y2='100' stroke='#3B82F6' stroke-width='1'/>
+  <line x1='290' y1='200' x2='300' y2='200' stroke='#3B82F6' stroke-width='1'/>
+  <text x='315' y='155' font-size='10' text-anchor='middle' fill='#3B82F6'>|AD| = 2 m</text>
+  
+  <!-- Bottom edge label -->
+  <text x='180' y='250' font-size='10' text-anchor='middle' fill='#3B82F6'>|DE| = 7 m</text>
+</svg>`,
+
+  // running_track_arc - for q_343
+  running_track_arc: () => `<svg viewBox='0 0 380 220' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Center O -->
+  <circle cx='190' cy='110' r='3' fill='#1e293b'/>
+  <text x='195' y='115' font-size='12' font-weight='bold' fill='#1e293b'>O</text>
+  
+  <!-- Inner circle (Kate's lane) -->
+  <circle cx='190' cy='110' r='60' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Outer circle (Helen's lane) -->
+  <circle cx='190' cy='110' r='78' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Lane width indicator -->
+  <line x1='190' y1='32' x2='190' y2='50' stroke='#3B82F6' stroke-width='2'/>
+  <text x='205' y='42' font-size='10' fill='#3B82F6' font-style='italic'>1.2 m</text>
+  
+  <!-- Arc for Kate: from A to B -->
+  <path d='M 250 110 A 60 60 0 0 1 190 50' fill='none' stroke='#1e293b' stroke-width='2' stroke-dasharray='5,5'/>
+  <text x='250' y='125' font-size='11' font-weight='bold' fill='#1e293b'>A</text>
+  <text x='185' y='45' font-size='11' font-weight='bold' fill='#1e293b'>B</text>
+  <text x='225' y='75' font-size='10' fill='#1e293b' font-style='italic'>Kate</text>
+  
+  <!-- Arc for Helen: from C to D -->
+  <path d='M 268 110 A 78 78 0 0 1 190 32' fill='none' stroke='#1e293b' stroke-width='2'/>
+  <text x='270' y='130' font-size='11' font-weight='bold' fill='#1e293b'>C</text>
+  <text x='180' y='28' font-size='11' font-weight='bold' fill='#1e293b'>D</text>
+  <text x='245' y='55' font-size='10' fill='#1e293b' font-style='italic'>Helen</text>
+  
+  <!-- Radii lines -->
+  <line x1='190' y1='110' x2='250' y2='110' stroke='#1e293b' stroke-width='1' stroke-dasharray='3,3'/>
+  <line x1='190' y1='110' x2='190' y2='50' stroke='#1e293b' stroke-width='1' stroke-dasharray='3,3'/>
+  <line x1='190' y1='110' x2='268' y2='110' stroke='#1e293b' stroke-width='1' stroke-dasharray='3,3'/>
+  <line x1='190' y1='110' x2='190' y2='32' stroke='#1e293b' stroke-width='1' stroke-dasharray='3,3'/>
+  
+  <!-- Angle notation -->
+  <path d='M 230 110 A 20 20 0 0 1 210 70' fill='none' stroke='#EF4444' stroke-width='1.5'/>
+  <text x='225' y='95' font-size='11' fill='#EF4444' font-style='italic'>θ</text>
+</svg>`,
+
+  // plane_descent_angle - for q_353
+  plane_descent_angle: () => `<svg viewBox='0 0 380 240' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Horizontal ground -->
+  <line x1='40' y1='180' x2='340' y2='180' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Vertical altitude line -->
+  <line x1='80' y1='180' x2='80' y2='60' stroke='#3B82F6' stroke-width='2' stroke-dasharray='4,4'/>
+  
+  <!-- Descent path from P to O -->
+  <line x1='80' y1='60' x2='280' y2='180' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Points -->
+  <circle cx='80' cy='60' r='4' fill='#EF4444'/>
+  <text x='70' y='50' font-size='13' font-weight='bold' fill='#1e293b'>P</text>
+  
+  <circle cx='280' cy='180' r='4' fill='#EF4444'/>
+  <text x='280' y='200' font-size='13' font-weight='bold' fill='#1e293b'>O</text>
+  
+  <circle cx='80' cy='180' r='4' fill='#1e293b'/>
+  <text x='80' y='200' font-size='13' font-weight='bold' fill='#1e293b'>Base</text>
+  
+  <!-- Altitude label -->
+  <text x='45' y='120' font-size='11' fill='#3B82F6' font-style='italic'>150 m</text>
+  
+  <!-- Horizontal distance label -->
+  <text x='180' y='195' font-size='11' fill='#3B82F6' font-style='italic'>5 km = 5000 m</text>
+  
+  <!-- Angle at O -->
+  <path d='M 240 180 A 40 40 0 0 0 175 140' fill='none' stroke='#EF4444' stroke-width='2'/>
+  <text x='210' y='175' font-size='11' fill='#EF4444' font-style='italic'>α</text>
+  
+  <!-- Right angle marker -->
+  <rect x='75' y='175' width='8' height='8' fill='none' stroke='#1e293b' stroke-width='1'/>
+</svg>`,
+
+  // exponential_graphs - for q_357
+  exponential_graphs: () => `<svg viewBox='0 0 380 300' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Grid background -->
+  <rect width='380' height='300' fill='#f8f9fa'/>
+  
+  <!-- Axes -->
+  <line x1='50' y1='250' x2='360' y2='250' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='30' x2='50' y2='250' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='350' y='270' font-size='12' fill='#1e293b'>x</text>
+  <text x='20' y='40' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- Tick marks on x-axis -->
+  <line x1='100' y1='245' x2='100' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='100' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>1</text>
+  <line x1='150' y1='245' x2='150' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='150' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>2</text>
+  <line x1='200' y1='245' x2='200' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='200' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>3</text>
+  
+  <!-- Tick marks on y-axis -->
+  <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='205' font-size='10' text-anchor='end' fill='#1e293b'>2</text>
+  <line x1='45' y1='150' x2='55' y2='150' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='155' font-size='10' text-anchor='end' fill='#1e293b'>4</text>
+  <line x1='45' y1='100' x2='55' y2='100' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='105' font-size='10' text-anchor='end' fill='#1e293b'>6</text>
+  
+  <!-- Exponential curve 1: e^x (increasing fast) -->
+  <path d='M 50 240 Q 75 230 100 200 Q 125 160 150 100 Q 175 60 200 40' 
+        stroke='#1e293b' stroke-width='2.5' fill='none'/>
+  <text x='210' y='35' font-size='11' fill='#1e293b' font-style='italic'>y = e^x</text>
+  
+  <!-- Exponential curve 2: e^(2x) (increasing faster) -->
+  <path d='M 50 245 Q 70 220 90 170 Q 110 110 130 65 Q 145 45 160 35' 
+        stroke='#3B82F6' stroke-width='2.5' fill='none'/>
+  <text x='165' y='30' font-size='11' fill='#3B82F6' font-style='italic'>y = e^(2x)</text>
+</svg>`,
+
+  // argand_collinear - for q_394
+  argand_collinear: () => `<svg viewBox='0 0 360 340' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Axes -->
+  <line x1='40' y1='180' x2='340' y2='180' stroke='#1e293b' stroke-width='2'/>
+  <line x1='180' y1='300' x2='180' y2='20' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='330' y='200' font-size='12' fill='#1e293b'>Re</text>
+  <text x='160' y='30' font-size='12' fill='#1e293b'>Im</text>
+  
+  <!-- Grid lines and tick marks -->
+  <!-- Re axis ticks -->
+  <line x1='220' y1='175' x2='220' y2='185' stroke='#1e293b' stroke-width='1'/>
+  <text x='220' y='200' font-size='10' text-anchor='middle' fill='#1e293b'>1</text>
+  <line x1='260' y1='175' x2='260' y2='185' stroke='#1e293b' stroke-width='1'/>
+  <text x='260' y='200' font-size='10' text-anchor='middle' fill='#1e293b'>2</text>
+  <line x1='300' y1='175' x2='300' y2='185' stroke='#1e293b' stroke-width='1'/>
+  <text x='300' y='200' font-size='10' text-anchor='middle' fill='#1e293b'>3</text>
+  
+  <!-- Im axis ticks -->
+  <line x1='175' y1='140' x2='185' y2='140' stroke='#1e293b' stroke-width='1'/>
+  <text x='165' y='145' font-size='10' text-anchor='end' fill='#1e293b'>1</text>
+  <line x1='175' y1='100' x2='185' y2='100' stroke='#1e293b' stroke-width='1'/>
+  <text x='165' y='105' font-size='10' text-anchor='end' fill='#1e293b'>2</text>
+  <line x1='175' y1='60' x2='185' y2='60' stroke='#1e293b' stroke-width='1'/>
+  <text x='165' y='65' font-size='10' text-anchor='end' fill='#1e293b'>3</text>
+  
+  <!-- Points - collinear points to show -->
+  <!-- z1 = 1 + 2i -->
+  <circle cx='220' cy='100' r='4' fill='#EF4444'/>
+  <text x='210' y='88' font-size='11' fill='#1e293b' font-style='italic'>z₁</text>
+  
+  <!-- z2 = 2 + 3i -->
+  <circle cx='260' cy='60' r='4' fill='#EF4444'/>
+  <text x='250' y='45' font-size='11' fill='#1e293b' font-style='italic'>z₂</text>
+  
+  <!-- z3 (on the same line, calculated based on collinearity) = 3 + 4i -->
+  <circle cx='300' cy='20' r='4' fill='#EF4444'/>
+  <text x='290' y='10' font-size='11' fill='#1e293b' font-style='italic'>z₃</text>
+  
+  <!-- Line connecting the three collinear points -->
+  <line x1='220' y1='100' x2='300' y2='20' stroke='#3B82F6' stroke-width='2' stroke-dasharray='4,4'/>
+  
+  <!-- Label showing they are collinear -->
+  <text x='150' y='70' font-size='11' fill='#3B82F6' font-style='italic'>Collinear</text>
+</svg>`,
+
+  // triangle_pattern_sequence - for q_429
+  triangle_pattern_sequence: () => `<svg viewBox='0 0 380 300' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Pattern 1: 1 triangle -->
+  <g id='pattern1'>
+    <text x='30' y='30' font-size='12' font-weight='bold' fill='#1e293b'>T₁</text>
+    <polygon points='50,80 65,50 80,80' fill='none' stroke='#1e293b' stroke-width='2'/>
+    <circle cx='57.5' cy='68' r='2' fill='#1e293b'/>
+  </g>
+  
+  <!-- Pattern 2: 4 triangles (2x2) -->
+  <g id='pattern2'>
+    <text x='110' y='30' font-size='12' font-weight='bold' fill='#1e293b'>T₂</text>
+    <!-- Top triangle -->
+    <polygon points='130,50 145,30 160,50' fill='none' stroke='#1e293b' stroke-width='2'/>
+    <!-- Bottom left -->
+    <polygon points='130,50 145,70 160,50' fill='none' stroke='#1e293b' stroke-width='2'/>
+    <!-- Bottom middle -->
+    <polygon points='145,70 160,50 175,70' fill='none' stroke='#1e293b' stroke-width='2'/>
+    <!-- Bottom right -->
+    <polygon points='160,50 175,70 190,50' fill='none' stroke='#1e293b' stroke-width='2'/>
+    <circle cx='145' cy='56' r='1.5' fill='#1e293b'/>
+  </g>
+  
+  <!-- Pattern 3: 9 triangles (3x3) -->
+  <g id='pattern3'>
+    <text x='220' y='30' font-size='12' font-weight='bold' fill='#1e293b'>T₃</text>
+    <!-- Row 1 -->
+    <polygon points='240,50 250,35 260,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='260,50 270,35 280,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='280,50 290,35 300,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <!-- Row 2 -->
+    <polygon points='240,50 250,65 260,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='260,50 270,65 280,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='280,50 290,65 300,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <!-- Row 3 -->
+    <polygon points='250,65 260,80 270,65' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='270,65 280,80 290,65' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+    <polygon points='290,65 300,80 310,65' fill='none' stroke='#1e293b' stroke-width='1.5'/>
+  </g>
+  
+  <!-- Table below patterns -->
+  <text x='30' y='150' font-size='11' font-weight='bold' fill='#1e293b'>Pattern</text>
+  <text x='30' y='175' font-size='11' fill='#1e293b'>1</text>
+  <text x='110' y='175' font-size='11' fill='#1e293b'>4</text>
+  <text x='220' y='175' font-size='11' fill='#1e293b'>9</text>
+  
+  <text x='30' y='205' font-size='11' font-weight='bold' fill='#1e293b'>Triangles</text>
+  <text x='30' y='230' font-size='11' fill='#1e293b'>1² = 1</text>
+  <text x='110' y='230' font-size='11' fill='#1e293b'>2² = 4</text>
+  <text x='220' y='230' font-size='11' fill='#1e293b'>3² = 9</text>
+  
+  <!-- Pattern formula -->
+  <text x='30' y='270' font-size='11' fill='#3B82F6' font-style='italic'>Tₙ contains n² small triangles</text>
+</svg>`,
+
+  // inverse_sin_diagram - for q_430
+  inverse_sin_diagram: () => `<svg viewBox='0 0 380 300' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Grid background -->
+  <rect width='380' height='300' fill='#f8f9fa'/>
+  
+  <!-- Axes -->
+  <line x1='50' y1='250' x2='350' y2='250' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='30' x2='50' y2='250' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='340' y='270' font-size='12' fill='#1e293b'>x</text>
+  <text x='20' y='40' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- X-axis ticks and labels -->
+  <line x1='100' y1='245' x2='100' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='100' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-1</text>
+  <line x1='200' y1='245' x2='200' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='200' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>0</text>
+  <line x1='300' y1='245' x2='300' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='300' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>1</text>
+  
+  <!-- Y-axis ticks and labels -->
+  <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='205' font-size='10' text-anchor='end' fill='#1e293b'>π/4</text>
+  <line x1='45' y1='150' x2='55' y2='150' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='155' font-size='10' text-anchor='end' fill='#1e293b'>π/2</text>
+  <line x1='45' y1='100' x2='55' y2='100' stroke='#1e293b' stroke-width='1'/>
+  <text x='25' y='105' font-size='10' text-anchor='end' fill='#1e293b'>3π/4</text>
+  
+  <!-- Inverse sine curve: y = arcsin(x) for -1 ≤ x ≤ 1 -->
+  <!-- Domain: [-1, 1], Range: [-π/2, π/2] or [-1.57, 1.57] -->
+  <path d='M 100 270 Q 130 233 150 200 Q 170 165 200 150 Q 230 165 250 200 Q 270 233 300 270' 
+        stroke='#1e293b' stroke-width='2.5' fill='none'/>
+  
+  <!-- Mark key points -->
+  <!-- Point: arcsin(-1) = -π/2 -->
+  <circle cx='100' cy='270' r='3' fill='#3B82F6'/>
+  <text x='95' y='285' font-size='9' fill='#3B82F6' font-style='italic'>-π/2</text>
+  
+  <!-- Point: arcsin(0) = 0 -->
+  <circle cx='200' cy='250' r='3' fill='#3B82F6'/>
+  <text x='200' y='265' font-size='9' text-anchor='middle' fill='#3B82F6' font-style='italic'>0</text>
+  
+  <!-- Point: arcsin(1) = π/2 -->
+  <circle cx='300' cy='230' r='3' fill='#3B82F6'/>
+  <text x='305' y='235' font-size='9' fill='#3B82F6' font-style='italic'>π/2</text>
+  
+  <!-- Curve label -->
+  <text x='250' y='100' font-size='12' fill='#1e293b' font-style='italic'>y = sin⁻¹(x)</text>
+</svg>`,
+
+  // linear_cubic_intersection - for q_431
+  linear_cubic_intersection: () => `<svg viewBox='0 0 380 300' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Grid background -->
+  <rect width='380' height='300' fill='#f8f9fa'/>
+  
+  <!-- Axes -->
+  <line x1='50' y1='250' x2='350' y2='250' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='30' x2='50' y2='250' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='340' y='270' font-size='12' fill='#1e293b'>x</text>
+  <text x='20' y='40' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- X-axis ticks and labels -->
+  <line x1='100' y1='245' x2='100' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='100' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-2</text>
+  <line x1='150' y1='245' x2='150' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='150' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>-1</text>
+  <line x1='200' y1='245' x2='200' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='200' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>0</text>
+  <line x1='250' y1='245' x2='250' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='250' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>1</text>
+  <line x1='300' y1='245' x2='300' y2='255' stroke='#1e293b' stroke-width='1'/>
+  <text x='300' y='270' font-size='10' text-anchor='middle' fill='#1e293b'>2</text>
+  
+  <!-- Y-axis ticks -->
+  <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='205' font-size='10' text-anchor='end' fill='#1e293b'>4</text>
+  <line x1='45' y1='150' x2='55' y2='150' stroke='#1e293b' stroke-width='1'/>
+  <text x='35' y='155' font-size='10' text-anchor='end' fill='#1e293b'>8</text>
+  
+  <!-- Linear function y = 4x (straight line) -->
+  <line x1='100' y1='50' x2='300' y2='450' stroke='#3B82F6' stroke-width='2.5'/>
+  <text x='310' y='450' font-size='11' fill='#3B82F6' font-style='italic'>y = 4x</text>
+  
+  <!-- Cubic function y = x³ (curved) -->
+  <path d='M 80 310 Q 100 270 120 230 Q 140 160 150 100 Q 160 70 170 50 Q 180 40 200 250 Q 220 240 240 200 Q 260 130 280 70 Q 300 30 320 10' 
+        stroke='#1e293b' stroke-width='2.5' fill='none'/>
+  <text x='280' y='40' font-size='11' fill='#1e293b' font-style='italic'>y = x³</text>
+  
+  <!-- Intersection points (approximately x = -2, 0, 2) -->
+  <circle cx='100' cy='50' r='4' fill='#EF4444'/>
+  <circle cx='200' cy='250' r='4' fill='#EF4444'/>
+  <circle cx='300' cy='450' r='4' fill='#EF4444'/>
+  
+  <!-- Mark intersection points -->
+  <text x='90' y='30' font-size='9' fill='#EF4444' font-style='italic'>(-2, -8)</text>
+  <text x='200' y='265' font-size='9' text-anchor='middle' fill='#EF4444' font-style='italic'>(0, 0)</text>
+  <text x='310' y='460' font-size='9' fill='#EF4444' font-style='italic'>(2, 8)</text>
+  
+  <!-- Shaded region in first quadrant -->
+  <path d='M 200 250 Q 220 245 240 200 L 240 200 L 200 250 Z' 
+        fill='#fecaca' opacity='0.4'/>
+</svg>`,
+
+  // wall_ground_3d - for q_458
+  wall_ground_3d: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Point on Wall Above Ground</text>
+  
+  <!-- Ground (horizontal) -->
+  <line x1='40' y1='220' x2='280' y2='220' stroke='#1e293b' stroke-width='3'/>
+  <text x='290' y='225' font-size='11' fill='#1e293b' font-style='italic'>ground</text>
+  
+  <!-- Wall (vertical) -->
+  <line x1='60' y1='220' x2='60' y2='80' stroke='#1e293b' stroke-width='3'/>
+  <text x='25' y='140' font-size='11' fill='#1e293b' font-style='italic'>wall</text>
+  
+  <!-- Point a on ground -->
+  <circle cx='60' cy='220' r='4' fill='#1e293b'/>
+  <text x='55' y='245' font-size='11' fill='#1e293b' font-style='italic'>a</text>
+  
+  <!-- Point d on wall -->
+  <circle cx='60' cy='90' r='4' fill='#1e293b'/>
+  <text x='35' y='85' font-size='11' fill='#1e293b' font-style='italic'>d</text>
+  
+  <!-- Point e on ground -->
+  <circle cx='240' cy='220' r='4' fill='#1e293b'/>
+  <text x='240' y='245' font-size='11' fill='#1e293b' font-style='italic'>e</text>
+  
+  <!-- Point f in space (projection) -->
+  <circle cx='240' cy='120' r='4' fill='#1e293b'/>
+  <text x='245' y='115' font-size='11' fill='#1e293b' font-style='italic'>f</text>
+  
+  <!-- Distance ad (vertical) -->
+  <line x1='60' y1='90' x2='60' y2='220' stroke='#3B82F6' stroke-width='2'/>
+  <text x='70' y='160' font-size='10' fill='#3B82F6' font-weight='bold'>72 m</text>
+  
+  <!-- Distance ae (horizontal on ground) -->
+  <line x1='60' y1='220' x2='240' y2='220' stroke='#3B82F6' stroke-width='2'/>
+  <text x='145' y='235' font-size='10' fill='#3B82F6' font-weight='bold'>35 m</text>
+  
+  <!-- Distance de (hypotenuse) -->
+  <line x1='60' y1='90' x2='240' y2='120' stroke='#1e293b' stroke-width='2' stroke-dasharray='3'/>
+  <text x='130' y='75' font-size='10' fill='#1e293b' font-weight='bold'>97 m</text>
+  
+  <!-- Distance fe (height) -->
+  <line x1='240' y1='120' x2='240' y2='220' stroke='#3B82F6' stroke-width='2'/>
+  <text x='250' y='170' font-size='10' fill='#3B82F6' font-weight='bold'>40 m</text>
+</svg>`,
+
+  // area_under_curve - for q_466
+  area_under_curve: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Area Under Curve</text>
+  
+  <!-- Axes -->
+  <line x1='50' y1='240' x2='290' y2='240' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='240' x2='50' y2='40' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='295' y='245' font-size='12' fill='#1e293b'>x</text>
+  <text x='35' y='35' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- Tick marks on x-axis -->
+  <line x1='90' y1='235' x2='90' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <line x1='130' y1='235' x2='130' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <line x1='170' y1='235' x2='170' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <line x1='210' y1='235' x2='210' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <line x1='250' y1='235' x2='250' y2='245' stroke='#1e293b' stroke-width='1'/>
+  
+  <!-- Tick marks on y-axis -->
+  <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
+  <line x1='45' y1='160' x2='55' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <line x1='45' y1='120' x2='55' y2='120' stroke='#1e293b' stroke-width='1'/>
+  <line x1='45' y1='80' x2='55' y2='80' stroke='#1e293b' stroke-width='1'/>
+  
+  <!-- Curve: reciprocal function 1/x² -->
+  <path d='M 80 180 Q 100 120 130 95 Q 160 75 200 60 Q 250 48 280 45' 
+        fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Shaded area under curve -->
+  <path d='M 90 240 L 90 160 Q 110 110 130 80 Q 160 55 200 40 Q 250 30 280 25 L 280 240 Z' 
+        fill='#3B82F6' opacity='0.2' stroke='none'/>
+  
+  <!-- Boundary lines -->
+  <line x1='90' y1='160' x2='90' y2='240' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
+  <line x1='280' y1='25' x2='280' y2='240' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
+  
+  <!-- Labels -->
+  <text x='160' y='265' font-size='10' fill='#1e293b'>shaded area = integral from a to b</text>
+</svg>`,
+
+  // curve_with_asymptotes - for q_476
+  curve_with_asymptotes: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Curve with Asymptotes</text>
+  
+  <!-- Axes -->
+  <line x1='50' y1='240' x2='290' y2='240' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='240' x2='50' y2='40' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='295' y='245' font-size='12' fill='#1e293b'>x</text>
+  <text x='35' y='35' font-size='12' fill='#1e293b'>y</text>
+  
+  <!-- Vertical asymptote at x = 1 -->
+  <line x1='120' y1='40' x2='120' y2='240' stroke='#EF4444' stroke-width='1' stroke-dasharray='3'/>
+  <text x='100' y='35' font-size='9' fill='#EF4444'>x = 1</text>
+  
+  <!-- Horizontal asymptote at y = 0 -->
+  <line x1='50' y1='240' x2='290' y2='240' stroke='#EF4444' stroke-width='1' stroke-dasharray='3'/>
+  <text x='270' y='255' font-size='9' fill='#EF4444'>y = 0</text>
+  
+  <!-- Curve: y = x/(x-1) -->
+  <!-- Left branch (x < 1) -->
+  <path d='M 60 60 Q 80 100 110 200 Q 115 235 119 260' 
+        fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Right branch (x > 1) -->
+  <path d='M 121 260 Q 125 240 135 160 Q 160 80 200 50 Q 240 45 280 42' 
+        fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Label -->
+  <text x='160' y='265' font-size='10' fill='#1e293b'>y = x/(x - 1)</text>
+</svg>`,
+
+  // sector_in_circle - for q_493
+  sector_in_circle: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Sector in Circle</text>
+  
+  <!-- Circle -->
+  <circle cx='160' cy='150' r='80' fill='#3B82F6' opacity='0.15' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Center point -->
+  <circle cx='160' cy='150' r='3' fill='#1e293b'/>
+  <text x='165' y='155' font-size='11' fill='#1e293b' font-style='italic'>O</text>
+  
+  <!-- Radius 1 (vertical) -->
+  <line x1='160' y1='150' x2='160' y2='70' stroke='#1e293b' stroke-width='2'/>
+  <text x='150' y='105' font-size='10' fill='#3B82F6' font-weight='bold'>r</text>
+  
+  <!-- Radius 2 (at 60 degrees) -->
+  <line x1='160' y1='150' x2='220' y2='100' stroke='#1e293b' stroke-width='2'/>
+  <text x='195' y='125' font-size='10' fill='#3B82F6' font-weight='bold'>r</text>
+  
+  <!-- Arc -->
+  <path d='M 160 70 A 80 80 0 0 1 220 100' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Angle marking -->
+  <path d='M 165 150 Q 170 135 175 125' fill='none' stroke='#EF4444' stroke-width='1.5'/>
+  <text x='180' y='130' font-size='11' fill='#EF4444' font-weight='bold'>60°</text>
+  
+  <!-- Shaded sector -->
+  <path d='M 160 150 L 160 70 A 80 80 0 0 1 220 100 Z' 
+        fill='#3B82F6' opacity='0.25' stroke='none'/>
+  
+  <!-- Point on circumference 1 -->
+  <circle cx='160' cy='70' r='3' fill='#1e293b'/>
+  <text x='155' y='60' font-size='10' fill='#1e293b' font-style='italic'>A</text>
+  
+  <!-- Point on circumference 2 -->
+  <circle cx='220' cy='100' r='3' fill='#1e293b'/>
+  <text x='225' y='100' font-size='10' fill='#1e293b' font-style='italic'>B</text>
+</svg>`,
+
+  // number_line - for q_503
+  number_line: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Number Line: |x + 1| ≤ 2</text>
+  
+  <!-- Main number line -->
+  <line x1='40' y1='150' x2='300' y2='150' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Tick marks and labels -->
+  <line x1='50' y1='140' x2='50' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='45' y='180' font-size='11' fill='#1e293b' font-weight='bold'>-4</text>
+  
+  <line x1='90' y1='140' x2='90' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='85' y='180' font-size='11' fill='#1e293b' font-weight='bold'>-3</text>
+  
+  <line x1='130' y1='140' x2='130' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='120' y='180' font-size='11' fill='#1e293b' font-weight='bold'>-2</text>
+  
+  <line x1='170' y1='140' x2='170' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='165' y='180' font-size='11' fill='#1e293b' font-weight='bold'>-1</text>
+  
+  <line x1='210' y1='140' x2='210' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='205' y='180' font-size='11' fill='#1e293b' font-weight='bold'>0</text>
+  
+  <line x1='250' y1='140' x2='250' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='245' y='180' font-size='11' fill='#1e293b' font-weight='bold'>1</text>
+  
+  <line x1='290' y1='140' x2='290' y2='160' stroke='#1e293b' stroke-width='1'/>
+  <text x='285' y='180' font-size='11' fill='#1e293b' font-weight='bold'>2</text>
+  
+  <!-- Solution interval -3 ≤ x ≤ 1 -->
+  <line x1='90' y1='150' x2='250' y2='150' stroke='#3B82F6' stroke-width='4'/>
+  
+  <!-- Closed circles at endpoints -->
+  <circle cx='90' cy='150' r='5' fill='#3B82F6'/>
+  <circle cx='250' cy='150' r='5' fill='#3B82F6'/>
+  
+  <!-- Solution label -->
+  <text x='160' y='120' font-size='11' fill='#3B82F6' font-weight='bold'>-3 ≤ x ≤ 1</text>
+  <text x='160' y='220' font-size='10' fill='#1e293b'>Integer values: {-3, -2, -1, 0, 1}</text>
+</svg>`,
+
+  // argand_diagram_515 - for q_515
+  argand_diagram_515: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Argand Diagram: z = 1 - i</text>
+  
+  <!-- Real axis (horizontal) -->
+  <line x1='40' y1='150' x2='300' y2='150' stroke='#1e293b' stroke-width='2'/>
+  <text x='295' y='145' font-size='12' fill='#1e293b' font-weight='bold'>Re</text>
+  
+  <!-- Imaginary axis (vertical) -->
+  <line x1='160' y1='40' x2='160' y2='260' stroke='#1e293b' stroke-width='2'/>
+  <text x='165' y='30' font-size='12' fill='#1e293b' font-weight='bold'>Im</text>
+  
+  <!-- Grid lines (faint) -->
+  <line x1='120' y1='40' x2='120' y2='260' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='200' y1='40' x2='200' y2='260' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='40' y1='110' x2='300' y2='110' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='40' y1='190' x2='300' y2='190' stroke='#e2e8f0' stroke-width='1'/>
+  
+  <!-- Tick marks on real axis -->
+  <line x1='120' y1='145' x2='120' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='115' y='170' font-size='10' fill='#1e293b'>-1</text>
+  
+  <line x1='200' y1='145' x2='200' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='195' y='170' font-size='10' fill='#1e293b'>1</text>
+  
+  <line x1='240' y1='145' x2='240' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='235' y='170' font-size='10' fill='#1e293b'>2</text>
+  
+  <!-- Tick marks on imaginary axis -->
+  <line x1='155' y1='110' x2='165' y2='110' stroke='#1e293b' stroke-width='1'/>
+  <text x='140' y='115' font-size='10' fill='#1e293b'>i</text>
+  
+  <line x1='155' y1='190' x2='165' y2='190' stroke='#1e293b' stroke-width='1'/>
+  <text x='138' y='195' font-size='10' fill='#1e293b'>-i</text>
+  
+  <!-- Point z = 1 - i at (1, -1) -->
+  <circle cx='200' cy='190' r='5' fill='#3B82F6'/>
+  <circle cx='200' cy='190' r='3' fill='none' stroke='#3B82F6' stroke-width='1'/>
+  
+  <!-- Vector from origin to z -->
+  <line x1='160' y1='150' x2='200' y2='190' stroke='#EF4444' stroke-width='2'/>
+  
+  <!-- Label for point -->
+  <text x='205' y='210' font-size='11' fill='#1e293b' font-style='italic'>z = 1 - i</text>
+  <text x='180' y='165' font-size='10' fill='#EF4444' font-weight='bold'>|z| = √2</text>
+</svg>`,
+
+  // sector_with_arc - for q_522
+  sector_with_arc: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Sector with Arc</text>
+  
+  <!-- Circle -->
+  <circle cx='160' cy='150' r='90' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Center point -->
+  <circle cx='160' cy='150' r='3' fill='#1e293b'/>
+  <text x='165' y='155' font-size='11' fill='#1e293b' font-style='italic'>O</text>
+  
+  <!-- Radius 1 (upward) -->
+  <line x1='160' y1='150' x2='160' y2='60' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Radius 2 (at angle) -->
+  <line x1='160' y1='150' x2='245' y2='185' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Arc -->
+  <path d='M 160 60 A 90 90 0 0 1 245 185' fill='none' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Angle marking -->
+  <path d='M 165 150 A 25 25 0 0 1 235 168' fill='none' stroke='#EF4444' stroke-width='1.5'/>
+  <text x='195' y='135' font-size='11' fill='#EF4444' font-weight='bold'>θ</text>
+  
+  <!-- Shaded sector -->
+  <path d='M 160 150 L 160 60 A 90 90 0 0 1 245 185 Z' 
+        fill='#3B82F6' opacity='0.2' stroke='none'/>
+  
+  <!-- Point on arc 1 -->
+  <circle cx='160' cy='60' r='3' fill='#1e293b'/>
+  <text x='150' y='50' font-size='10' fill='#1e293b' font-style='italic'>A</text>
+  
+  <!-- Point on arc 2 -->
+  <circle cx='245' cy='185' r='3' fill='#1e293b'/>
+  <text x='255' y='190' font-size='10' fill='#1e293b' font-style='italic'>B</text>
+  
+  <!-- Label -->
+  <text x='160' y='265' font-size='10' fill='#1e293b'>Sector area = (1/2)r²θ</text>
+</svg>`,
+
+  // argand_diagram_579 - for q_579
+  argand_diagram_579: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Argand Diagram: z = 3 + 4i</text>
+  
+  <!-- Real axis (horizontal) -->
+  <line x1='30' y1='150' x2='310' y2='150' stroke='#1e293b' stroke-width='2'/>
+  <text x='310' y='145' font-size='12' fill='#1e293b' font-weight='bold'>Re</text>
+  
+  <!-- Imaginary axis (vertical) -->
+  <line x1='160' y1='30' x2='160' y2='270' stroke='#1e293b' stroke-width='2'/>
+  <text x='165' y='20' font-size='12' fill='#1e293b' font-weight='bold'>Im</text>
+  
+  <!-- Grid lines (faint) -->
+  <line x1='80' y1='30' x2='80' y2='270' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='110' y1='30' x2='110' y2='270' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='190' y1='30' x2='190' y2='270' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='240' y1='30' x2='240' y2='270' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='30' y1='80' x2='310' y2='80' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='30' y1='110' x2='310' y2='110' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='30' y1='190' x2='310' y2='190' stroke='#e2e8f0' stroke-width='1'/>
+  <line x1='30' y1='220' x2='310' y2='220' stroke='#e2e8f0' stroke-width='1'/>
+  
+  <!-- Tick marks and labels on real axis -->
+  <line x1='80' y1='145' x2='80' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='75' y='170' font-size='10' fill='#1e293b'>1</text>
+  
+  <line x1='110' y1='145' x2='110' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='103' y='170' font-size='10' fill='#1e293b'>2</text>
+  
+  <line x1='190' y1='145' x2='190' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='183' y='170' font-size='10' fill='#1e293b'>4</text>
+  
+  <line x1='240' y1='145' x2='240' y2='155' stroke='#1e293b' stroke-width='1'/>
+  <text x='233' y='170' font-size='10' fill='#1e293b'>5</text>
+  
+  <!-- Tick marks and labels on imaginary axis -->
+  <line x1='155' y1='80' x2='165' y2='80' stroke='#1e293b' stroke-width='1'/>
+  <text x='140' y='85' font-size='10' fill='#1e293b'>2i</text>
+  
+  <line x1='155' y1='110' x2='165' y2='110' stroke='#1e293b' stroke-width='1'/>
+  <text x='140' y='115' font-size='10' fill='#1e293b'>3i</text>
+  
+  <line x1='155' y1='190' x2='165' y2='190' stroke='#1e293b' stroke-width='1'/>
+  <text x='138' y='195' font-size='10' fill='#1e293b'>-2i</text>
+  
+  <!-- Point z = 3 + 4i at (3, 4i) -->
+  <circle cx='190' cy='80' r='5' fill='#3B82F6'/>
+  <circle cx='190' cy='80' r='3' fill='none' stroke='#3B82F6' stroke-width='1'/>
+  
+  <!-- Vector from origin to z -->
+  <line x1='160' y1='150' x2='190' y2='80' stroke='#EF4444' stroke-width='2'/>
+  
+  <!-- Dashed projections -->
+  <line x1='190' y1='80' x2='190' y2='150' stroke='#1e293b' stroke-width='1' stroke-dasharray='3'/>
+  <line x1='190' y1='80' x2='160' y2='80' stroke='#1e293b' stroke-width='1' stroke-dasharray='3'/>
+  
+  <!-- Labels -->
+  <text x='195' y='65' font-size='11' fill='#1e293b' font-style='italic'>z = 3 + 4i</text>
+  <text x='165' y='110' font-size='10' fill='#EF4444' font-weight='bold'>|z| = 5</text>
+</svg>`,
+
+  // cumulative_frequency - for q_615
+  cumulative_frequency: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
+  <!-- Title -->
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Cumulative Frequency: Birth Weights</text>
+  
+  <!-- Axes -->
+  <line x1='50' y1='240' x2='300' y2='240' stroke='#1e293b' stroke-width='2'/>
+  <line x1='50' y1='240' x2='50' y2='40' stroke='#1e293b' stroke-width='2'/>
+  
+  <!-- Axis labels -->
+  <text x='305' y='245' font-size='11' fill='#1e293b'>Weight (g)</text>
+  <text x='15' y='50' font-size='11' fill='#1e293b'>Cumulative</text>
+  <text x='25' y='65' font-size='11' fill='#1e293b'>Frequency</text>
+  
+  <!-- Tick marks on x-axis -->
+  <line x1='80' y1='235' x2='80' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <text x='70' y='260' font-size='9' fill='#1e293b'>3000</text>
+  
+  <line x1='130' y1='235' x2='130' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <text x='120' y='260' font-size='9' fill='#1e293b'>3200</text>
+  
+  <line x1='180' y1='235' x2='180' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <text x='170' y='260' font-size='9' fill='#1e293b'>3400</text>
+  
+  <line x1='230' y1='235' x2='230' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <text x='220' y='260' font-size='9' fill='#1e293b'>3600</text>
+  
+  <line x1='280' y1='235' x2='280' y2='245' stroke='#1e293b' stroke-width='1'/>
+  <text x='270' y='260' font-size='9' fill='#1e293b'>3800</text>
+  
+  <!-- Tick marks on y-axis -->
+  <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
+  <text x='25' y='205' font-size='9' fill='#1e293b'>0.25</text>
+  
+  <line x1='45' y1='150' x2='55' y2='150' stroke='#1e293b' stroke-width='1'/>
+  <text x='25' y='155' font-size='9' fill='#1e293b'>0.5</text>
+  
+  <line x1='45' y1='100' x2='55' y2='100' stroke='#1e293b' stroke-width='1'/>
+  <text x='25' y='105' font-size='9' fill='#1e293b'>0.75</text>
+  
+  <!-- Ogive curve -->
+  <path d='M 80 220 Q 110 190 155 140 Q 180 120 220 90 Q 245 70 280 55' 
+        fill='none' stroke='#1e293b' stroke-width='2.5'/>
+  
+  <!-- Median line at 3500g -->
+  <line x1='215' y1='100' x2='215' y2='240' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
+  <line x1='50' y1='100' x2='215' y2='100' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
+  <circle cx='215' cy='100' r='3' fill='#3B82F6'/>
+  <text x='220' y='105' font-size='9' fill='#3B82F6' font-weight='bold'>Median≈3500</text>
+  
+  <!-- Q1 marking -->
+  <circle cx='150' cy='140' r='3' fill='#EF4444'/>
+  <text x='145' y='130' font-size='9' fill='#EF4444' font-weight='bold'>Q₁</text>
+  
+  <!-- Q3 marking -->
+  <circle cx='250' cy='75' r='3' fill='#EF4444'/>
+  <text x='255' y='70' font-size='9' fill='#EF4444' font-weight='bold'>Q₃</text>
+  
+  <!-- IQR label -->
+  <text x='160' y='265' font-size='9' fill='#1e293b'>IQR = Q₃ - Q₁ ≈ 800 g</text>
 </svg>`,
 };
 
