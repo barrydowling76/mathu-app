@@ -4990,6 +4990,9 @@ export default function MathU() {
   const [phone, setPhone] = useState(() => {
     try { return localStorage.getItem("mathu_phone") || ""; } catch { return ""; }
   });
+  const [phoneSaved, setPhoneSaved] = useState(() => {
+    try { const p = localStorage.getItem("mathu_phone"); return !!(p && p.replace(/\D/g, "").length >= 7); } catch { return false; }
+  });
   const [email, setEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [sentCode, setSentCode] = useState(null);
@@ -6256,7 +6259,7 @@ export default function MathU() {
 
   // ─── SIGN IN ───
   if (screen === "signin") {
-    const hasSavedPhone = phone && phone.replace(/\D/g, "").length >= 7;
+    const hasSavedPhone = phoneSaved && phone && phone.replace(/\D/g, "").length >= 7;
     return (
       <div style={styles.app}>
         <div style={{ padding: "40px 24px 24px" }}>
@@ -6272,7 +6275,7 @@ export default function MathU() {
           {hasSavedPhone ? (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 20 }}>
               <span style={{ fontSize: 15, color: colors.textLight }}>+353 {phone}</span>
-              <span onClick={() => { setPhone(""); try { localStorage.removeItem("mathu_phone"); } catch {} }} style={{ fontSize: 12, color: colors.primary, cursor: "pointer", fontWeight: 600 }}>Change</span>
+              <span onClick={() => { setPhone(""); setPhoneSaved(false); try { localStorage.removeItem("mathu_phone"); } catch {} }} style={{ fontSize: 12, color: colors.primary, cursor: "pointer", fontWeight: 600 }}>Change</span>
             </div>
           ) : (
             <>
