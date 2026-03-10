@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 
-const APP_VERSION = "0.5.1";
+const APP_VERSION = "1.0.0";
 
 // ─── TOPIC DATABASE ───
 const TOPICS = {
@@ -8070,10 +8070,16 @@ const BADGES = [
   { id: "streak_30", name: "Legend", icon: "👑", desc: "30-day streak", condition: s => s.streak >= 30 },
   { id: "xp_100", name: "Century", icon: "💯", desc: "Earn 100 XP", condition: s => s.totalXP >= 100 },
   { id: "xp_500", name: "Scholar", icon: "📚", desc: "Earn 500 XP", condition: s => s.totalXP >= 500 },
+  { id: "xp_1000", name: "Maths Master", icon: "🎓", desc: "Earn 1000 XP", condition: s => s.totalXP >= 1000 },
   { id: "speed_demon", name: "Speed Demon", icon: "⚡", desc: "Answer in under 60 seconds", condition: s => s.fastestTime > 0 && s.fastestTime < 60 },
+  { id: "speed_30", name: "Lightning", icon: "⚡", desc: "Answer correctly in under 30s", condition: s => s.fastestTime > 0 && s.fastestTime < 30 },
   { id: "no_hints", name: "No Help Needed", icon: "🧠", desc: "5 correct without hints", condition: s => s.noHintStreak >= 5 },
   { id: "perfect_week", name: "Perfect Week", icon: "✨", desc: "7 correct in a row", condition: s => s.correctStreak >= 7 },
   { id: "all_topics", name: "Well Rounded", icon: "🎯", desc: "Answer from every topic", condition: s => s.topicsAttempted >= 10 },
+  { id: "q_50", name: "Half Century", icon: "🏏", desc: "Answer 50 questions", condition: s => s.totalAttempted >= 50 },
+  { id: "q_100", name: "Centurion", icon: "🛡️", desc: "Answer 100 questions", condition: s => s.totalAttempted >= 100 },
+  { id: "daily_7", name: "Dedicated", icon: "📅", desc: "Complete 7 daily challenges", condition: s => s.dailyChallengesCompleted >= 7 },
+  { id: "bookmark_5", name: "Collector", icon: "📌", desc: "Bookmark 5 questions", condition: s => s.bookmarkCount >= 5 },
 ];
 
 // ─── LEVEL SYSTEM ───
@@ -8373,11 +8379,15 @@ export default function MathU() {
     totalXP: 0, streak: 0, totalCorrect: 0, totalAttempted: 0,
     fastestTime: 0, noHintStreak: 0, correctStreak: 0, topicsAttempted: 0,
     topicStats: {}, dailyCompleted: false, questionsToday: 0,
+    dailyChallengesCompleted: 0, bookmarkCount: 0,
   });
   const [earnedBadges, setEarnedBadges] = useState([]);
   const [newBadge, setNewBadge] = useState(null);
   const [xpAnimation, setXpAnimation] = useState(null);
   const [practiceMode, setPracticeMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [wrongAnswers, setWrongAnswers] = useState([]);
 
   // Check for existing session on load
   useEffect(() => {
@@ -8422,9 +8432,21 @@ export default function MathU() {
                 earnedBadges: statsData.earned_badges || [],
                 dailyCompleted: statsData.last_daily_date === today,
                 questionsToday: 0,
+                dailyChallengesCompleted: statsData.daily_challenges_completed || 0,
+                bookmarkCount: statsData.bookmark_count || 0,
               });
               setEarnedBadges(statsData.earned_badges || []);
             }
+
+            // Load dark mode, bookmarks, wrong answers from localStorage
+            const savedDarkMode = localStorage.getItem("mathu_darkMode");
+            if (savedDarkMode) setDarkMode(JSON.parse(savedDarkMode));
+
+            const savedBookmarks = localStorage.getItem("mathu_bookmarks");
+            if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks));
+
+            const savedWrongAnswers = localStorage.getItem("mathu_spaced");
+            if (savedWrongAnswers) setWrongAnswers(JSON.parse(savedWrongAnswers));
 
             if (profile.year && profile.topics?.length > 0) {
               setScreen("home");
@@ -8442,6 +8464,34 @@ export default function MathU() {
     };
     checkSession();
   }, []);
+
+  // Load and save dark mode preference
+  useEffect(() => {
+    try {
+      localStorage.setItem("mathu_darkMode", JSON.stringify(darkMode));
+    } catch (err) {
+      console.error("Dark mode save failed:", err);
+    }
+  }, [darkMode]);
+
+  // Save bookmarks to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("mathu_bookmarks", JSON.stringify(bookmarks));
+      setStats(prev => ({ ...prev, bookmarkCount: bookmarks.length }));
+    } catch (err) {
+      console.error("Bookmarks save failed:", err);
+    }
+  }, [bookmarks]);
+
+  // Save wrong answers to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("mathu_spaced", JSON.stringify(wrongAnswers));
+    } catch (err) {
+      console.error("Wrong answers save failed:", err);
+    }
+  }, [wrongAnswers]);
 
   // Save profile to Supabase
   const saveUser = async (data) => {
@@ -8650,11 +8700,40 @@ export default function MathU() {
     if (year === "5th") available = available.filter(q => q.year.includes("5th"));
     if (available.length === 0) available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
     if (available.length === 0) available = QUESTION_BANK;
+
+    // 40% of the time, focus on weakest topic (no topicFilter)
+    if (!topicFilter && Math.random() < 0.4 && Object.keys(stats.topicStats).length > 0) {
+      // Find weakest topic (lowest accuracy)
+      let weakestTopic = null;
+      let weakestAccuracy = 1;
+      Object.entries(stats.topicStats).forEach(([topicKey, stat]) => {
+        const accuracy = stat.attempted > 0 ? stat.correct / stat.attempted : 1;
+        if (accuracy < weakestAccuracy) {
+          weakestAccuracy = accuracy;
+          weakestTopic = topicKey;
+        }
+      });
+      if (weakestTopic) {
+        const weakAvailable = available.filter(q => q.topic === weakestTopic);
+        if (weakAvailable.length > 0) {
+          return weakAvailable[Math.floor(Math.random() * weakAvailable.length)];
+        }
+      }
+    }
+
     return available[Math.floor(Math.random() * available.length)];
   };
 
   const startDailyQuestion = () => {
-    const q = getRandomQuestion();
+    // Use today's date as seed to pick same question for everyone
+    const today = new Date().toISOString().split("T")[0];
+    const seed = today.split("-").reduce((acc, part) => acc + parseInt(part), 0);
+    let available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
+    if (year === "5th") available = available.filter(q => q.year.includes("5th"));
+    if (available.length === 0) available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
+    if (available.length === 0) available = QUESTION_BANK;
+    const q = available[seed % available.length];
+
     setCurrentQuestion(q);
     setUserAnswer("");
     setHintsUsed(0);
@@ -8736,7 +8815,23 @@ export default function MathU() {
         topicStats: newTopicStats,
         questionsToday: prev.questionsToday + 1,
         dailyCompleted: !practiceMode ? true : prev.dailyCompleted,
+        dailyChallengesCompleted: !practiceMode && correct ? prev.dailyChallengesCompleted + 1 : prev.dailyChallengesCompleted,
       };
+
+      // Handle spaced repetition: add to wrongAnswers if incorrect
+      if (!correct) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        setWrongAnswers(prev => [...prev, {
+          questionId: currentQuestion.id,
+          wrongDate: new Date().toISOString(),
+          nextReview: tomorrow.toISOString(),
+          interval: 1,
+        }]);
+      } else {
+        // If correct, remove from wrongAnswers if exists
+        setWrongAnswers(prev => prev.filter(w => w.questionId !== currentQuestion.id));
+      }
 
       // Check for new badges
       BADGES.forEach(badge => {
@@ -8757,7 +8852,19 @@ export default function MathU() {
   const toggleFreeze = () => setFrozen(!frozen);
 
   // ─── STYLES ───
-  const colors = {
+  const colors = darkMode ? {
+    primary: "#3B82F6",
+    primaryDark: "#2563EB",
+    secondary: "#10B981",
+    accent: "#F59E0B",
+    danger: "#EF4444",
+    bg: "#0F172A",
+    card: "#1E293B",
+    text: "#F1F5F9",
+    textLight: "#94A3B8",
+    success: "#22C55E",
+    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
+  } : {
     primary: "#3B82F6",
     primaryDark: "#2563EB",
     secondary: "#10B981",
@@ -8811,7 +8918,7 @@ export default function MathU() {
     },
     nav: {
       position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
-      width: "100%", maxWidth: 420, background: "white",
+      width: "100%", maxWidth: 420, background: darkMode ? "#1E293B" : "white",
       display: "flex", justifyContent: "space-around", padding: "8px 0 12px",
       boxShadow: "0 -2px 12px rgba(0,0,0,0.08)", borderRadius: "20px 20px 0 0",
       zIndex: 100,
@@ -9376,6 +9483,62 @@ export default function MathU() {
               ))}
             </div>
           </div>
+
+          {/* Topic Mastery Tracker */}
+          {Object.keys(stats.topicStats).length > 0 && (
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Topic Mastery 🎯</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+                {selectedTopics.slice(0, 9).map(topicKey => {
+                  const topic = allTopics[topicKey];
+                  const ts = stats.topicStats[topicKey];
+                  const accuracy = ts ? (ts.correct / ts.attempted) * 100 : 0;
+                  const barColor = accuracy >= 70 ? "#22C55E" : accuracy >= 40 ? "#F59E0B" : "#EF4444";
+                  return (
+                    <div key={topicKey} style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 20, marginBottom: 4 }}>{topic?.icon}</div>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: colors.text, marginBottom: 4 }}>
+                        {topic?.name.substring(0, 12)}
+                      </div>
+                      <div style={{
+                        width: "100%", height: 4, background: "#e2e8f0", borderRadius: 2, overflow: "hidden",
+                      }}>
+                        <div style={{
+                          height: "100%", width: `${accuracy}%`, background: barColor,
+                          transition: "width 0.5s ease",
+                        }} />
+                      </div>
+                      <div style={{ fontSize: 9, color: colors.textLight, marginTop: 2 }}>
+                        {Math.round(accuracy)}%
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Bookmarks & Formulas buttons */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "12px 16px" }}>
+            <button onClick={() => setScreen("bookmarks")}
+              style={{
+                ...styles.btn(colors.primary, true),
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+                padding: "16px 12px", fontSize: 13, fontWeight: 700,
+              }}>
+              <span style={{ fontSize: 24 }}>📌</span>
+              Saved ({bookmarks.length})
+            </button>
+            <button onClick={() => setScreen("formulas")}
+              style={{
+                ...styles.btn(colors.success, true),
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+                padding: "16px 12px", fontSize: 13, fontWeight: 700,
+              }}>
+              <span style={{ fontSize: 24 }}>📐</span>
+              Formulas
+            </button>
+          </div>
         </div>
 
         {/* Bottom Nav */}
@@ -9463,22 +9626,58 @@ export default function MathU() {
         )}
 
         <div style={{ padding: "0 0 40px", opacity: frozen ? 0.4 : 1, pointerEvents: frozen ? "none" : "auto" }}>
-          {/* Topic + Source badge */}
+          {/* Topic + Source badge + Difficulty + Bookmark */}
           <div style={{ ...styles.card, paddingBottom: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-              <span style={{
-                background: `${topic?.color || colors.primary}15`, color: topic?.color || colors.primary,
-                padding: "4px 12px", borderRadius: 12, fontSize: 12, fontWeight: 700,
-              }}>
-                {topic?.icon} {topic?.name}
-              </span>
-              <span style={{
-                background: currentQuestion.source === "Custom" ? "#f0fdf4" : "#eff6ff",
-                color: currentQuestion.source === "Custom" ? "#16a34a" : "#2563eb",
-                padding: "4px 10px", borderRadius: 10, fontSize: 11, fontWeight: 700,
-              }}>
-                {currentQuestion.source}
-              </span>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <span style={{
+                  background: `${topic?.color || colors.primary}15`, color: topic?.color || colors.primary,
+                  padding: "4px 12px", borderRadius: 12, fontSize: 12, fontWeight: 700,
+                }}>
+                  {topic?.icon} {topic?.name}
+                </span>
+                {/* Difficulty chip */}
+                {(() => {
+                  const diffColor = currentQuestion.difficulty === 1 ? "#22C55E" : currentQuestion.difficulty === 2 ? "#F59E0B" : "#EF4444";
+                  const diffLabel = ["", "Easy", "Medium", "Hard"][currentQuestion.difficulty];
+                  return (
+                    <span style={{
+                      background: diffColor,
+                      color: "white",
+                      padding: "2px 8px",
+                      borderRadius: 10,
+                      fontSize: 11,
+                      fontWeight: 700,
+                    }}>
+                      {diffLabel}
+                    </span>
+                  );
+                })()}
+              </div>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <button onClick={() => {
+                  if (bookmarks.includes(currentQuestion.id)) {
+                    setBookmarks(bookmarks.filter(id => id !== currentQuestion.id));
+                  } else {
+                    setBookmarks([...bookmarks, currentQuestion.id]);
+                  }
+                }}
+                  style={{
+                    background: bookmarks.includes(currentQuestion.id) ? colors.accent : "transparent",
+                    border: `2px solid ${bookmarks.includes(currentQuestion.id) ? colors.accent : colors.textLight}`,
+                    borderRadius: 8, padding: "4px 8px", cursor: "pointer",
+                    fontSize: 14, fontWeight: 700,
+                  }}>
+                  🔖
+                </button>
+                <span style={{
+                  background: currentQuestion.source === "Custom" ? "#f0fdf4" : "#eff6ff",
+                  color: currentQuestion.source === "Custom" ? "#16a34a" : "#2563eb",
+                  padding: "4px 10px", borderRadius: 10, fontSize: 11, fontWeight: 700,
+                }}>
+                  {currentQuestion.source}
+                </span>
+              </div>
             </div>
             <div style={{ display: "flex", gap: 4, marginBottom: 4 }}>
               {[1, 2, 3].map(d => (
@@ -9744,10 +9943,29 @@ export default function MathU() {
               )}
 
               {isCorrect && (
-                <div style={{ marginTop: 12, padding: "10px 14px", background: "#f0fdf4", borderRadius: 10 }}>
-                  <div style={{ fontSize: 13, color: colors.success, fontWeight: 600 }}>
-                    💪 Compare your workings with the solution above. Did you use the same method?
+                <div>
+                  <div style={{ marginTop: 12, padding: "10px 14px", background: "#f0fdf4", borderRadius: 10 }}>
+                    <div style={{ fontSize: 13, color: colors.success, fontWeight: 600 }}>
+                      💪 Compare your workings with the solution above. Did you use the same method?
+                    </div>
                   </div>
+
+                  {!practiceMode && (
+                    <button onClick={() => {
+                      const today = new Date().toISOString().split("T")[0];
+                      const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
+                      const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n✅ Got it right!\n⏱️ ${timeStr}\nCan you beat me? Try MathU!`;
+                      navigator.clipboard.writeText(shareText);
+                      alert("Share message copied to clipboard!");
+                    }}
+                      style={{
+                        ...styles.btn(colors.primary, true),
+                        marginTop: 16,
+                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                      }}>
+                      📤 Share Challenge
+                    </button>
+                  )}
                 </div>
               )}
 
@@ -10002,6 +10220,215 @@ export default function MathU() {
     );
   }
 
+  // ─── BOOKMARKS SCREEN ───
+  if (screen === "bookmarks") {
+    const allTopics = getAllTopics();
+    const bookmarkedQuestions = QUESTION_BANK.filter(q => bookmarks.includes(q.id));
+
+    return (
+      <div style={styles.app}>
+        <div style={styles.header}>
+          <button onClick={() => setScreen("home")}
+            style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
+            ← Back
+          </button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>📌 Saved Questions</h2>
+          <div style={{ width: 32 }} />
+        </div>
+        <div style={{ padding: "0 0 100px" }}>
+          {bookmarkedQuestions.length === 0 ? (
+            <div style={{ ...styles.card, textAlign: "center" }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>📌</div>
+              <h3 style={{ margin: "0 0 8px", fontSize: 16, fontWeight: 700, color: colors.text }}>No saved questions yet</h3>
+              <p style={{ margin: 0, fontSize: 13, color: colors.textLight }}>Bookmark questions while practicing to study them later</p>
+            </div>
+          ) : (
+            <div>
+              {bookmarkedQuestions.map(q => {
+                const qTopic = allTopics[q.topic];
+                return (
+                  <button key={q.id} onClick={() => {
+                    setCurrentQuestion(q);
+                    setUserAnswer("");
+                    setHintsUsed(0);
+                    setShowHint([false, false, false]);
+                    setShowSolution(false);
+                    setIsCorrect(null);
+                    setTimer(0);
+                    setTimerRunning(true);
+                    setFrozen(false);
+                    setPracticeMode(true);
+                    setScreen("question");
+                  }}
+                    style={{
+                      ...styles.card,
+                      textAlign: "left", cursor: "pointer", margin: "12px 16px",
+                      transition: "all 0.2s", boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                      border: "none",
+                    }}
+                    onMouseEnter={e => e.target.style.boxShadow = "0 4px 16px rgba(0,0,0,0.1)"}
+                    onMouseLeave={e => e.target.style.boxShadow = "0 2px 12px rgba(0,0,0,0.06)"}
+                  >
+                    <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                      <span style={{
+                        background: `${qTopic?.color || colors.primary}15`, color: qTopic?.color || colors.primary,
+                        padding: "2px 8px", borderRadius: 8, fontSize: 11, fontWeight: 700,
+                      }}>
+                        {qTopic?.icon} {qTopic?.name}
+                      </span>
+                      <span style={{
+                        background: q.difficulty === 1 ? "#dbeafe" : q.difficulty === 2 ? "#fef3c7" : "#fee2e2",
+                        color: q.difficulty === 1 ? "#0284c7" : q.difficulty === 2 ? "#b45309" : "#991b1b",
+                        padding: "2px 8px", borderRadius: 8, fontSize: 11, fontWeight: 700,
+                      }}>
+                        {["", "Easy", "Medium", "Hard"][q.difficulty]}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: colors.text, marginBottom: 4 }}>
+                      {q.question.substring(0, 60)}...
+                    </div>
+                    <div style={{ fontSize: 12, color: colors.textLight }}>
+                      {q.source}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── FORMULAS SCREEN ───
+  if (screen === "formulas") {
+    const formulas = [
+      {
+        title: "Algebra",
+        items: [
+          { name: "Quadratic Formula", formula: "x = (-b ± √(b² - 4ac)) / 2a" },
+          { name: "Factor Theorem", formula: "If f(a) = 0, then (x - a) is a factor of f(x)" },
+        ]
+      },
+      {
+        title: "Sequences & Series",
+        items: [
+          { name: "Arithmetic Sequence", formula: "Tₙ = a + (n-1)d" },
+          { name: "Arithmetic Series", formula: "Sₙ = n/2(2a + (n-1)d)" },
+          { name: "Geometric Sequence", formula: "Tₙ = ar^(n-1)" },
+          { name: "Geometric Series (infinite)", formula: "S∞ = a/(1-r), |r| < 1" },
+        ]
+      },
+      {
+        title: "Complex Numbers",
+        items: [
+          { name: "Modulus", formula: "|z| = √(a² + b²)" },
+          { name: "De Moivre's Theorem", formula: "zⁿ = rⁿ(cos(nθ) + i·sin(nθ))" },
+        ]
+      },
+      {
+        title: "Differentiation",
+        items: [
+          { name: "Power Rule", formula: "d/dx(xⁿ) = nx^(n-1)" },
+          { name: "Chain Rule", formula: "d/dx[f(g(x))] = f'(g(x))·g'(x)" },
+          { name: "Product Rule", formula: "d/dx[uv] = u'v + uv'" },
+          { name: "Quotient Rule", formula: "d/dx[u/v] = (u'v - uv')/v²" },
+        ]
+      },
+      {
+        title: "Integration",
+        items: [
+          { name: "Power Rule", formula: "∫xⁿ dx = x^(n+1)/(n+1) + C" },
+          { name: "Area Under Curve", formula: "A = ∫ₐᵇ f(x) dx" },
+        ]
+      },
+      {
+        title: "Trigonometry",
+        items: [
+          { name: "Sin/Cos/Tan Ratios", formula: "sin θ = O/H, cos θ = A/H, tan θ = O/A" },
+          { name: "Sine Rule", formula: "a/sin A = b/sin B = c/sin C" },
+          { name: "Cosine Rule", formula: "c² = a² + b² - 2ab·cos C" },
+          { name: "Area of Triangle", formula: "A = ½ab·sin C" },
+        ]
+      },
+      {
+        title: "Coordinate Geometry",
+        items: [
+          { name: "Distance Formula", formula: "d = √((x₂-x₁)² + (y₂-y₁)²)" },
+          { name: "Midpoint", formula: "M = ((x₁+x₂)/2, (y₁+y₂)/2)" },
+          { name: "Slope", formula: "m = (y₂-y₁)/(x₂-x₁)" },
+          { name: "Equation of Line", formula: "y - y₁ = m(x - x₁)" },
+          { name: "Equation of Circle", formula: "(x-h)² + (y-k)² = r²" },
+        ]
+      },
+      {
+        title: "Probability & Statistics",
+        items: [
+          { name: "P(A ∪ B)", formula: "P(A) + P(B) - P(A ∩ B)" },
+          { name: "P(A ∩ B)", formula: "P(A)·P(B|A)" },
+          { name: "Bayes' Theorem", formula: "P(A|B) = P(B|A)·P(A) / P(B)" },
+          { name: "Binomial Distribution", formula: "P(X=k) = C(n,k)·p^k·(1-p)^(n-k)" },
+          { name: "Normal Distribution Z-score", formula: "z = (x - μ) / σ" },
+        ]
+      },
+      {
+        title: "Financial Mathematics",
+        items: [
+          { name: "Compound Interest", formula: "F = P(1 + i)^t" },
+          { name: "Present Value", formula: "PV = F / (1 + i)^t" },
+        ]
+      },
+    ];
+
+    const [expandedSection, setExpandedSection] = useState(null);
+
+    return (
+      <div style={styles.app}>
+        <div style={styles.header}>
+          <button onClick={() => setScreen("home")}
+            style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
+            ← Back
+          </button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>📐 Formulas</h2>
+          <div style={{ width: 32 }} />
+        </div>
+        <div style={{ padding: "0 0 100px" }}>
+          {formulas.map((section, idx) => (
+            <div key={idx} style={styles.card}>
+              <button onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
+                style={{
+                  background: "none", border: "none", cursor: "pointer", width: "100%",
+                  textAlign: "left", padding: 0, display: "flex", justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: colors.text }}>
+                  {section.title}
+                </h3>
+                <span style={{ fontSize: 18 }}>
+                  {expandedSection === idx ? "▼" : "▶"}
+                </span>
+              </button>
+              {expandedSection === idx && (
+                <div style={{ marginTop: 12 }}>
+                  {section.items.map((item, iIdx) => (
+                    <div key={iIdx} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: iIdx < section.items.length - 1 ? `1px solid ${colors.textLight}20` : "none" }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: colors.text, marginBottom: 4 }}>
+                        {item.name}
+                      </div>
+                      <div style={{ fontSize: 12, color: colors.textLight, fontFamily: "monospace", padding: "8px 12px", background: `${colors.text}05`, borderRadius: 8 }}>
+                        {item.formula}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   // ─── SETTINGS ───
   if (screen === "settings") {
     const allTopics = getAllTopics();
@@ -10050,6 +10477,26 @@ export default function MathU() {
                   {y} Year
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Display Settings */}
+          <div style={styles.card}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Display</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>🌙 Dark Mode</span>
+              <button onClick={() => setDarkMode(!darkMode)}
+                style={{
+                  background: darkMode ? colors.primary : "#e2e8f0",
+                  border: "none", borderRadius: 20, cursor: "pointer",
+                  width: 44, height: 24, display: "flex", alignItems: "center",
+                  padding: darkMode ? "2px 2px 2px 22px" : "2px 22px 2px 2px",
+                }}>
+                <div style={{
+                  width: 18, height: 18, background: "white", borderRadius: 10,
+                  transition: "all 0.3s",
+                }} />
+              </button>
             </div>
           </div>
 
