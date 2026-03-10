@@ -5914,7 +5914,7 @@ export default function MathU() {
     text: "#F1F5F9",
     textLight: "#94A3B8",
     success: "#22C55E",
-    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 $50\%$, #EC4899 100%)",
+    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
   } : {
     primary: "#3B82F6",
     primaryDark: "#2563EB",
@@ -5926,7 +5926,7 @@ export default function MathU() {
     text: "#1E293B",
     textLight: "#64748B",
     success: "#22C55E",
-    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 $50\%$, #EC4899 100%)",
+    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
   };
 
   const styles = {
@@ -5968,7 +5968,7 @@ export default function MathU() {
       transition: "border-color 0.2s",
     },
     nav: {
-      position: "fixed", bottom: 0, left: "$50\%$", transform: "translateX(-50%)",
+      position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
       width: "100%", maxWidth: 420, background: darkMode ? "#1E293B" : "white",
       display: "flex", justifyContent: "space-around", padding: "8px 0 12px",
       boxShadow: "0 -2px 12px rgba(0,0,0,0.08)", borderRadius: "20px 20px 0 0",
@@ -7718,8 +7718,8 @@ export default function MathU() {
       {
         title: "Financial Mathematics",
         items: [
-          { name: "Compound Interest", formula: "F = P$(1 + i)^t" },
-          { name: "Present Value", formula: "PV = F / $(1 + i)^t" },
+          { name: "Compound Interest", formula: "$F = P(1 + i)^t$" },
+          { name: "Present Value", formula: "$PV = F / (1 + i)^t$" },
         ]
       },
     ];
