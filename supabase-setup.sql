@@ -45,3 +45,44 @@ CREATE POLICY "Allow public update stats" ON user_stats FOR UPDATE USING (true);
 
 -- Index for fast phone lookups
 CREATE INDEX idx_profiles_phone ON profiles(phone);
+
+-- Friends table
+CREATE TABLE friends (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  friend_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(user_id, friend_id)
+);
+
+-- Daily challenge results
+CREATE TABLE daily_results (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  question_id TEXT NOT NULL,
+  challenge_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  correct BOOLEAN NOT NULL,
+  time_taken INTEGER NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(user_id, challenge_date)
+);
+
+-- Enable Row Level Security for new tables
+ALTER TABLE friends ENABLE ROW LEVEL SECURITY;
+ALTER TABLE daily_results ENABLE ROW LEVEL SECURITY;
+
+-- Create policies for friends table
+CREATE POLICY "Allow public read friends" ON friends FOR SELECT USING (true);
+CREATE POLICY "Allow public insert friends" ON friends FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public delete friends" ON friends FOR DELETE USING (true);
+
+-- Create policies for daily_results table
+CREATE POLICY "Allow public read daily_results" ON daily_results FOR SELECT USING (true);
+CREATE POLICY "Allow public insert daily_results" ON daily_results FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update daily_results" ON daily_results FOR UPDATE USING (true);
+
+-- Create indexes for better query performance
+CREATE INDEX idx_friends_user ON friends(user_id);
+CREATE INDEX idx_friends_friend ON friends(friend_id);
+CREATE INDEX idx_daily_results_date ON daily_results(challenge_date);
+CREATE INDEX idx_daily_results_user ON daily_results(user_id);

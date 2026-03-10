@@ -8389,6 +8389,11 @@ export default function MathU() {
   const [bookmarks, setBookmarks] = useState([]);
   const [wrongAnswers, setWrongAnswers] = useState([]);
 
+  // Friends system
+  const [friends, setFriends] = useState([]);
+  const [dailyResults, setDailyResults] = useState([]);
+  const [friendCode, setFriendCode] = useState("");
+
   // Check for existing session on load
   useEffect(() => {
     const checkSession = async () => {
@@ -8465,6 +8470,7 @@ export default function MathU() {
     checkSession();
   }, []);
 
+
   // Load and save dark mode preference
   useEffect(() => {
     try {
@@ -8525,6 +8531,113 @@ export default function MathU() {
       }, { onConflict: "user_id" });
     } catch (err) {
       console.error("Stats save failed:", err);
+    }
+  };
+
+  // Generate invite code from user ID
+  const getInviteCode = (uid) => uid.slice(0, 8).toUpperCase();
+
+  // Load friends from Supabase
+  const loadFriends = async () => {
+    if (!userId) return;
+    try {
+      const { data: friendsList } = await supabase
+        .from("friends")
+        .select("friend_id, profiles!friends_friend_id_fkey(name, id)")
+        .eq("user_id", userId);
+
+      if (friendsList) {
+        setFriends(friendsList.map(f => ({
+          id: f.friend_id,
+          name: f.profiles?.name || "Unknown"
+        })));
+      }
+    } catch (err) {
+      console.error("Load friends failed:", err);
+    }
+  };
+
+  // Add friend by code
+  const addFriend = async (code) => {
+    if (!userId || !code) return;
+    try {
+      // Find user by matching ID prefix with the code
+      const { data: users } = await supabase
+        .from("profiles")
+        .select("id, name")
+        .filter("id", "ilike", code.toLowerCase() + "%")
+        .limit(1);
+
+      if (!users || users.length === 0) {
+        alert("Friend code not found. Please check and try again.");
+        return;
+      }
+
+      const friendId = users[0].id;
+      if (friendId === userId) {
+        alert("You cannot add yourself!");
+        return;
+      }
+
+      // Add bidirectional friendship
+      await supabase.from("friends").insert([
+        { user_id: userId, friend_id: friendId },
+        { user_id: friendId, friend_id: userId }
+      ]);
+
+      alert(`Added ${users[0].name} as a friend!`);
+      setFriendCode("");
+      await loadFriends();
+      await loadDailyResults();
+    } catch (err) {
+      console.error("Add friend failed:", err);
+      alert("Failed to add friend. Please try again.");
+    }
+  };
+
+  // Save daily result
+  const saveDailyResult = async (questionId, correct, timeTaken) => {
+    if (!userId) return;
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      await supabase.from("daily_results").upsert({
+        user_id: userId,
+        question_id: questionId,
+        challenge_date: today,
+        correct: correct,
+        time_taken: timeTaken,
+      }, { onConflict: "user_id,challenge_date" });
+    } catch (err) {
+      console.error("Save daily result failed:", err);
+    }
+  };
+
+  // Load today's daily results for all friends
+  const loadDailyResults = async () => {
+    if (!userId || friends.length === 0) return;
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      const friendIds = friends.map(f => f.id);
+
+      const { data: results } = await supabase
+        .from("daily_results")
+        .select("user_id, correct, time_taken, profiles!daily_results_user_id_fkey(name)")
+        .eq("challenge_date", today)
+        .in("user_id", friendIds);
+
+      if (results) {
+        // Map results with friend info and sort by time
+        const resultsWithNames = results.map(r => ({
+          name: r.profiles?.name || "Unknown",
+          correct: r.correct,
+          timeTaken: r.time_taken,
+          userId: r.user_id
+        })).sort((a, b) => a.timeTaken - b.timeTaken);
+
+        setDailyResults(resultsWithNames);
+      }
+    } catch (err) {
+      console.error("Load daily results failed:", err);
     }
   };
 
@@ -8726,13 +8839,10 @@ export default function MathU() {
 
   const startDailyQuestion = () => {
     // Use today's date as seed to pick same question for everyone
+    // Use FULL QUESTION_BANK (no filtering) so everyone gets the same daily question
     const today = new Date().toISOString().split("T")[0];
     const seed = today.split("-").reduce((acc, part) => acc + parseInt(part), 0);
-    let available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
-    if (year === "5th") available = available.filter(q => q.year.includes("5th"));
-    if (available.length === 0) available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
-    if (available.length === 0) available = QUESTION_BANK;
-    const q = available[seed % available.length];
+    const q = QUESTION_BANK[seed % QUESTION_BANK.length];
 
     setCurrentQuestion(q);
     setUserAnswer("");
@@ -8844,6 +8954,15 @@ export default function MathU() {
 
       // Save to Supabase
       saveStats(newStats);
+
+      // Save daily result if not in practice mode
+      if (!practiceMode) {
+        saveDailyResult(currentQuestion.id, correct, timer);
+        // Reload daily results for friends
+        if (friends.length > 0) {
+          setTimeout(() => loadDailyResults(), 500);
+        }
+      }
 
       return newStats;
     });
@@ -9384,6 +9503,14 @@ export default function MathU() {
             <div style={{ fontSize: 20, fontWeight: 800 }}>MathU</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <button onClick={() => setScreen("add_friend")}
+              style={{
+                background: "none", border: "none", color: colors.text, cursor: "pointer",
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 4
+              }}>
+              <div style={{ fontSize: 20 }}>👥</div>
+              <div style={{ fontSize: 9, opacity: 0.8 }}>{friends.length}</div>
+            </button>
             <div style={{ textAlign: "center" }}>
               <div style={{ fontSize: 20, fontWeight: 800 }}>🔥 {stats.streak}</div>
               <div style={{ fontSize: 10, opacity: 0.8 }}>Streak</div>
@@ -9423,10 +9550,55 @@ export default function MathU() {
               </div>
             </div>
             {!stats.dailyCompleted && (
-              <button onClick={startDailyQuestion}
-                style={{ ...styles.btn("white"), color: colors.primaryDark, width: "100%", marginTop: 16 }}>
-                Start Today's Challenge
-              </button>
+              <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+                <button onClick={startDailyQuestion}
+                  style={{ ...styles.btn("white"), color: colors.primaryDark, flex: 1 }}>
+                  Start Today's Challenge
+                </button>
+                <button onClick={() => {
+                  const today = new Date().toISOString().split("T")[0];
+                  const inviteCode = getInviteCode(userId);
+                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                  navigator.clipboard.writeText(shareText);
+                  alert("Invite message copied to clipboard!");
+                }}
+                  style={{ ...styles.btn("white"), color: colors.primaryDark, padding: "10px 14px" }}>
+                  📨 Invite Friends
+                </button>
+              </div>
+            )}
+
+            {stats.dailyCompleted && dailyResults.length > 0 && (
+              <div style={{ marginTop: 16, padding: 12, background: `${colors.primary}10`, borderRadius: 12 }}>
+                <h4 style={{ margin: "0 0 12px", fontSize: 14, fontWeight: 700, color: colors.text }}>Friends' Results</h4>
+                {dailyResults.map((result, idx) => (
+                  <div key={idx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: idx < dailyResults.length - 1 ? `1px solid ${colors.textLight}30` : "none" }}>
+                    <span style={{ fontSize: 13, color: colors.text }}>
+                      {result.name} <span style={{ marginLeft: 8, fontSize: 12, color: colors.textLight }}>{result.correct ? "✅" : "❌"}</span>
+                    </span>
+                    <span style={{ fontSize: 12, color: colors.textLight }}>
+                      ⏱️ {Math.floor(result.timeTaken / 60) > 0 ? `${Math.floor(result.timeTaken / 60)}m ${result.timeTaken % 60}s` : `${result.timeTaken}s`}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {stats.dailyCompleted && dailyResults.length === 0 && (
+              <div style={{ marginTop: 16, padding: 12, background: `${colors.primary}10`, borderRadius: 12 }}>
+                <p style={{ margin: 0, fontSize: 13, color: colors.textLight }}>
+                  Invite friends to compare scores!
+                </p>
+                <button onClick={() => {
+                  const inviteCode = getInviteCode(userId);
+                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                  navigator.clipboard.writeText(shareText);
+                  alert("Invite message copied to clipboard!");
+                }}
+                  style={{ ...styles.btn("white"), color: colors.primaryDark, width: "100%", marginTop: 8, padding: "8px" }}>
+                  📨 Invite Friends
+                </button>
+              </div>
             )}
           </div>
 
@@ -9952,11 +10124,17 @@ export default function MathU() {
 
                   {!practiceMode && (
                     <button onClick={() => {
-                      const today = new Date().toISOString().split("T")[0];
-                      const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
-                      const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n✅ Got it right!\n⏱️ ${timeStr}\nCan you beat me? Try MathU!`;
-                      navigator.clipboard.writeText(shareText);
-                      alert("Share message copied to clipboard!");
+                      try {
+                        const today = new Date().toISOString().split("T")[0];
+                        const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
+                        const inviteCode = getInviteCode(userId);
+                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n✅ Got it right!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app`;
+                        navigator.clipboard.writeText(shareText);
+                        alert("Share message copied to clipboard!");
+                      } catch (err) {
+                        console.error("Share failed:", err);
+                        alert("Failed to copy. Please try again.");
+                      }
                     }}
                       style={{
                         ...styles.btn(colors.primary, true),
@@ -9964,6 +10142,29 @@ export default function MathU() {
                         display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                       }}>
                       📤 Share Challenge
+                    </button>
+                  )}
+
+                  {!practiceMode && !isCorrect && (
+                    <button onClick={() => {
+                      try {
+                        const today = new Date().toISOString().split("T")[0];
+                        const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
+                        const inviteCode = getInviteCode(userId);
+                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n❌ Need more practice!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app`;
+                        navigator.clipboard.writeText(shareText);
+                        alert("Share message copied to clipboard!");
+                      } catch (err) {
+                        console.error("Share failed:", err);
+                        alert("Failed to copy. Please try again.");
+                      }
+                    }}
+                      style={{
+                        ...styles.btn(colors.primary, true),
+                        marginTop: 16,
+                        display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                      }}>
+                      📤 Share Attempt
                     </button>
                   )}
                 </div>
@@ -9979,6 +10180,119 @@ export default function MathU() {
                   Practice Another →
                 </button>
               </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── ADD FRIEND SCREEN ───
+  if (screen === "add_friend") {
+    const inviteCode = getInviteCode(userId);
+
+    return (
+      <div style={styles.app}>
+        <div style={styles.header}>
+          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 18 }}>←</button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800, flex: 1, textAlign: "center" }}>👥 Friends</h2>
+          <div style={{ width: 32 }} />
+        </div>
+
+        <div style={{ padding: "16px", paddingBottom: "100px" }}>
+          {/* Your invite code */}
+          <div style={{ ...styles.card, background: colors.gradient, color: "white", marginBottom: 16 }}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700 }}>Your Invite Code</h3>
+            <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "monospace", marginBottom: 12, textAlign: "center", letterSpacing: 4 }}>
+              {inviteCode}
+            </div>
+            <p style={{ margin: 0, fontSize: 12, opacity: 0.9 }}>
+              Share this code with friends so they can add you on MathU!
+            </p>
+            <button onClick={() => {
+              try {
+                navigator.clipboard.writeText(inviteCode);
+                alert("Code copied to clipboard!");
+              } catch (err) {
+                alert("Failed to copy. Please try again.");
+              }
+            }}
+              style={{
+                background: "white", color: colors.primaryDark, border: "none", borderRadius: 8,
+                padding: "10px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer", marginTop: 12,
+                width: "100%"
+              }}>
+              Copy Code
+            </button>
+          </div>
+
+          {/* Add friend section */}
+          <div style={styles.card}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700, color: colors.text }}>Add a Friend</h3>
+            <input
+              type="text"
+              placeholder="Enter friend's code..."
+              value={friendCode}
+              onChange={(e) => setFriendCode(e.target.value.toUpperCase())}
+              style={{
+                ...styles.input,
+                fontSize: 14,
+                letterSpacing: 2,
+                textAlign: "center",
+                marginBottom: 12
+              }}
+            />
+            <button onClick={() => addFriend(friendCode)}
+              style={{
+                ...styles.btn(colors.primary),
+                width: "100%"
+              }}>
+              Add Friend
+            </button>
+          </div>
+
+          {/* Friends list */}
+          {friends.length > 0 && (
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700, color: colors.text }}>
+                Your Friends ({friends.length})
+              </h3>
+              {friends.map((friend) => (
+                <div key={friend.id} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  padding: "12px", background: colors.bg, borderRadius: 8, marginBottom: 8
+                }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>👤 {friend.name}</span>
+                  <button onClick={() => {
+                    try {
+                      const inviteMsg = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                      navigator.clipboard.writeText(inviteMsg);
+                      alert("Invite message copied!");
+                    } catch (err) {
+                      alert("Failed to copy.");
+                    }
+                  }}
+                    style={{
+                      ...styles.btnOutline(colors.primary),
+                      padding: "6px 12px", fontSize: 11
+                    }}>
+                    Share
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {friends.length === 0 && (
+            <div style={{
+              ...styles.card,
+              textAlign: "center",
+              background: `${colors.primary}08`,
+              border: `1px dashed ${colors.primary}30`
+            }}>
+              <p style={{ fontSize: 13, color: colors.textLight, margin: 0 }}>
+                No friends yet. Add a friend to compare daily scores!
+              </p>
             </div>
           )}
         </div>
