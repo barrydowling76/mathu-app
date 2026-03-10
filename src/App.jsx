@@ -9633,6 +9633,21 @@ export default function MathU() {
             )}
           </div>
 
+          {/* Quick Practice button */}
+          <div style={styles.card}>
+            <button onClick={() => startPractice()}
+              style={{
+                ...styles.btn(colors.secondary, true),
+                fontSize: 18, padding: "18px 28px",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+              }}>
+              🚀 Quick Practice
+            </button>
+            <div style={{ textAlign: "center", fontSize: 12, color: colors.textLight, marginTop: 8 }}>
+              Jump into a random question from your topics
+            </div>
+          </div>
+
           {/* Practice by topic */}
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>
