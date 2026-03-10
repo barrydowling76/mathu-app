@@ -121,10 +121,10 @@ const QUESTION_BANK = [
     subtopic: "absolute value inequalities",
     difficulty: 1,
     source: "2025 P1 Q1",
-    question: "Solve |x - 3| ≤ 12",
-    hints: ["Absolute value inequality |a| ≤ b means -b ≤ a ≤ b", "Apply: -12 ≤ x - 3 ≤ 12", "Add 3 to all parts"],
+    question: "Solve $|x - 3| \\leq 12$",
+    hints: ["Absolute value inequality $|a| \\leq b$ means $-b \\leq a \\leq b$", "Apply: $-12 \\leq x - 3 \\leq 12$", "Add 3 to all parts"],
     answer: "-9 ≤ x ≤ 15",
-    solution: "Step 1: |x - 3| ≤ 12 means -12 ≤ x - 3 ≤ 12\\nStep 2: Add 3 to all parts: -12 + 3 ≤ x ≤ 12 + 3\\nStep 3: -9 ≤ x ≤ 15",
+    solution: "Step 1: $|x - 3| \\leq 12$ means $-12 \\leq x - 3 \\leq 12$\n\nStep 2: Add 3 to all parts: $-12 + 3 \\leq x \\leq 12 + 3$\n\nStep 3: $-9 \\leq x \\leq 15$",
     acceptedAnswers: ["-9 ≤ x ≤ 15", "x ≥ -9 and x ≤ 15", "[-9, 15]"],
     xp: 20,
     year: "5th & 6th"
@@ -149,10 +149,10 @@ const QUESTION_BANK = [
     subtopic: "completing the square",
     difficulty: 2,
     source: "2025 P1 Q5",
-    question: "Complete the square for 5x² + 20x - 12",
-    hints: ["Factor out coefficient of x² from first two terms", "5(x² + 4x) - 12", "Complete square: 5(x + 2)² - 20 - 12"],
+    question: "Complete the square for $5x^2 + 20x - 12$",
+    hints: ["Factor out coefficient of $x^2$ from first two terms", "$5(x^2 + 4x) - 12$", "Complete square: $5(x + 2)^2 - 20 - 12$"],
     answer: "5(x + 2)² - 32",
-    solution: "Step 1: 5x² + 20x - 12 = 5(x² + 4x) - 12\\nStep 2: x² + 4x = (x + 2)² - 4\\nStep 3: 5[(x + 2)² - 4] - 12 = 5(x + 2)² - 20 - 12\\nStep 4: 5(x + 2)² - 32",
+    solution: "Step 1: $5x^2 + 20x - 12 = 5(x^2 + 4x) - 12$\n\nStep 2: $x^2 + 4x = (x + 2)^2 - 4$\n\nStep 3: $5[(x + 2)^2 - 4] - 12 = 5(x + 2)^2 - 20 - 12$\n\nStep 4: $5(x + 2)^2 - 32$",
     acceptedAnswers: ["5(x + 2)² - 32", "5(x+2)² - 32"],
     xp: 30,
     year: "5th & 6th"
@@ -191,10 +191,10 @@ const QUESTION_BANK = [
     subtopic: "complex division",
     difficulty: 2,
     source: "2025 P1 Q4",
-    question: "Calculate (2 + 3i)/(4 - 5i), expressing in the form a + bi",
-    hints: ["Multiply by conjugate of denominator", "Conjugate of 4 - 5i is 4 + 5i", "(4-5i)(4+5i) = 16 + 25 = 41"],
+    question: "Calculate $\\frac{2 + 3i}{4 - 5i}$, expressing in the form $a + bi$",
+    hints: ["Multiply by conjugate of denominator", "Conjugate of $4 - 5i$ is $4 + 5i$", "$(4-5i)(4+5i) = 16 + 25 = 41$"],
     answer: "-7/41 + 22i/41",
-    solution: "Step 1: (2+3i)/(4-5i) × (4+5i)/(4+5i)\\nStep 2: Numerator: (2+3i)(4+5i) = 8+10i+12i+15i² = 8+22i-15 = -7+22i\\nStep 3: Denominator: (4-5i)(4+5i) = 16-25i² = 16+25 = 41\\nStep 4: Result: (-7+22i)/41 = -7/41 + 22i/41",
+    solution: "Step 1: $\\frac{2+3i}{4-5i} \\times \\frac{4+5i}{4+5i}$\n\nStep 2: Numerator: $(2+3i)(4+5i) = 8+10i+12i+15i^2 = 8+22i-15 = -7+22i$\n\nStep 3: Denominator: $(4-5i)(4+5i) = 16-25i^2 = 16+25 = 41$\n\nStep 4: Result: $\\frac{-7+22i}{41} = -\\frac{7}{41} + \\frac{22i}{41}$",
     acceptedAnswers: ["-7/41 + 22i/41", "(-7+22i)/41"],
     xp: 30,
     year: "5th & 6th"
@@ -205,10 +205,10 @@ const QUESTION_BANK = [
     subtopic: "De Moivre's theorem",
     difficulty: 3,
     source: "2024 P1 Q2",
-    question: "Calculate (1 - √3i)⁹ using De Moivre's theorem",
-    hints: ["Convert to polar form: z = r(cosθ + i sinθ)", "r = √(1² + (√3)²) = 2", "θ = -π/3 (or 5π/3)"],
+    question: "Calculate $(1 - \\sqrt{3}i)^9$ using De Moivre's theorem",
+    hints: ["Convert to polar form: $z = r(\\cos \\theta + i \\sin \\theta)$", "$r = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$", "$\\theta = -\\frac{\\pi}{3}$ (or $\\frac{5\\pi}{3}$)"],
     answer: "256",
-    solution: "Step 1: z = 1 - √3i, r = √(1+3) = 2\\nStep 2: arg(z) = -π/3\\nStep 3: z = 2(cos(-π/3) + i sin(-π/3))\\nStep 4: z⁹ = 2⁹(cos(-3π) + i sin(-3π))\\nStep 5: z⁹ = 512(cos(π) + i sin(π)) = 512(-1) = -512\\n\\nWait, recalculate: cos(-9π/3) = cos(-3π) = cos(π) = -1\\nsin(-9π/3) = sin(-3π) = 0\\nz⁹ = 512(-1 + 0i) = -512",
+    solution: "Step 1: $z = 1 - \\sqrt{3}i$, $r = \\sqrt{1+3} = 2$\n\nStep 2: $\\arg(z) = -\\frac{\\pi}{3}$\n\nStep 3: $z = 2(\\cos(-\\frac{\\pi}{3}) + i \\sin(-\\frac{\\pi}{3}))$\n\nStep 4: $z^9 = 2^9(\\cos(-3\\pi) + i \\sin(-3\\pi))$\n\nStep 5: $z^9 = 512(-1 + 0i) = -512$",
     acceptedAnswers: ["-512", "-512 + 0i"],
     xp: 50,
     year: "5th & 6th"
@@ -219,10 +219,10 @@ const QUESTION_BANK = [
     subtopic: "nth roots of complex numbers",
     difficulty: 3,
     source: "2025 P1 Q4",
-    question: "Find all solutions to z⁶ = -64i. Express in form a + bi.",
-    hints: ["-64i = 64(cos(3π/2) + i sin(3π/2))", "Use 6th root: z = 2(cos(θ/6) + i sin(θ/6))", "Find all 6 values with different angles"],
+    question: "Find all solutions to $z^6 = -64i$. Express in form $a + bi$.",
+    hints: ["$-64i = 64(\\cos(\\frac{3\\pi}{2}) + i \\sin(\\frac{3\\pi}{2}))$", "Use 6th root: $z = 2(\\cos(\\frac{\\theta}{6}) + i \\sin(\\frac{\\theta}{6}))$", "Find all 6 values with different angles"],
     answer: "Six solutions at angles π/4, 5π/12, 13π/12, 17π/12, 5π/4, 29π/12",
-    solution: "Step 1: -64i = 64e^(i3π/2)\\nStep 2: z = 64^(1/6) e^(i(3π/2+2πk)/6) = 2e^(i(π/4+πk/3))\\nStep 3: k=0,1,2,3,4,5 gives 6 solutions\\nStep 4: z₁ = 2e^(iπ/4) = √2 + i√2\\nz₂ = 2e^(i5π/12), z₃ = 2e^(i13π/12), etc.",
+    solution: "Step 1: $-64i = 64e^{i\\frac{3\\pi}{2}}$\n\nStep 2: $z = 64^{1/6} e^{i(\\frac{3\\pi}{2}+2\\pi k)/6} = 2e^{i(\\frac{\\pi}{4}+\\frac{\\pi k}{3})}$\n\nStep 3: $k=0,1,2,3,4,5$ gives 6 solutions\n\nStep 4: $z_1 = 2e^{i\\frac{\\pi}{4}} = \\sqrt{2} + i\\sqrt{2}$",
     acceptedAnswers: ["√2 + i√2", "approximately 1.414 + 1.414i"],
     xp: 50,
     year: "5th & 6th"
@@ -233,10 +233,10 @@ const QUESTION_BANK = [
     subtopic: "quadratic equations with complex roots",
     difficulty: 2,
     source: "2023 P1 Q4",
-    question: "If z = 1 + i is a root of z² + (3 - 2i)z + p = 0, find p",
-    hints: ["Substitute z = 1 + i into the equation", "(1+i)² = 1 + 2i + i² = 2i", "Rearrange to find p"],
+    question: "If $z = 1 + i$ is a root of $z^2 + (3 - 2i)z + p = 0$, find $p$",
+    hints: ["Substitute $z = 1 + i$ into the equation", "$(1+i)^2 = 1 + 2i + i^2 = 2i$", "Rearrange to find $p$"],
     answer: "p = -1 - 5i",
-    solution: "Step 1: Substitute z = 1 + i\\nStep 2: (1+i)² + (3-2i)(1+i) + p = 0\\nStep 3: 2i + (3-2i+3i-2i²) + p = 0\\nStep 4: 2i + (3+i+2) + p = 0\\nStep 5: 2i + 5 + i + p = 0\\nStep 6: p = -5 - 3i",
+    solution: "Step 1: Substitute $z = 1 + i$\n\nStep 2: $(1+i)^2 + (3-2i)(1+i) + p = 0$\n\nStep 3: $2i + (3-2i+3i-2i^2) + p = 0$\n\nStep 4: $2i + (3+i+2) + p = 0$\n\nStep 5: $p = -5 - 3i$",
     acceptedAnswers: ["-5 - 3i", "p = -5 - 3i"],
     xp: 30,
     year: "5th & 6th"
@@ -261,10 +261,10 @@ const QUESTION_BANK = [
     subtopic: "geometric sequences",
     difficulty: 2,
     source: "2024 P1 Q2",
-    question: "In a geometric series, G₇ = 6 and G₁₁ = 3/8. Find the common ratio r.",
-    hints: ["Gₙ = ar^(n-1)", "G₇ = ar⁶ = 6", "G₁₁ = ar¹⁰ = 3/8"],
+    question: "In a geometric series, $G_7 = 6$ and $G_{11} = \\frac{3}{8}$. Find the common ratio $r$.",
+    hints: ["$G_n = ar^{n-1}$", "$G_7 = ar^6 = 6$", "$G_{11} = ar^{10} = \\frac{3}{8}$"],
     answer: "r = 1/2",
-    solution: "Step 1: G₇/G₁₁ = (ar⁶)/(ar¹⁰) = 1/r⁴\\nStep 2: 6/(3/8) = 1/r⁴\\nStep 3: 16 = 1/r⁴\\nStep 4: r⁴ = 1/16\\nStep 5: r = 1/2 (taking positive real root)",
+    solution: "Step 1: $\\frac{G_7}{G_{11}} = \\frac{ar^6}{ar^{10}} = \\frac{1}{r^4}$\n\nStep 2: $\\frac{6}{\\frac{3}{8}} = \\frac{1}{r^4}$\n\nStep 3: $16 = \\frac{1}{r^4}$\n\nStep 4: $r^4 = \\frac{1}{16}$\n\nStep 5: $r = \\frac{1}{2}$ (taking positive real root)",
     acceptedAnswers: ["r = 1/2", "0.5"],
     xp: 30,
     year: "5th & 6th"
@@ -331,10 +331,10 @@ const QUESTION_BANK = [
     subtopic: "basic differentiation",
     difficulty: 1,
     source: "2025 P1 Q2",
-    question: "Find f'(x) if f(x) = 6 + x² + sin(4x)",
-    hints: ["Differentiate term by term", "d/dx(x²) = 2x", "d/dx(sin(4x)) = 4cos(4x) (chain rule)"],
+    question: "Find $f'(x)$ if $f(x) = 6 + x^2 + \\sin(4x)$",
+    hints: ["Differentiate term by term", "$\\frac{d}{dx}(x^2) = 2x$", "$\\frac{d}{dx}(\\sin(4x)) = 4\\cos(4x)$ (chain rule)"],
     answer: "f'(x) = 2x + 4cos(4x)",
-    solution: "Step 1: f(x) = 6 + x² + sin(4x)\\nStep 2: d/dx(6) = 0\\nStep 3: d/dx(x²) = 2x\\nStep 4: d/dx(sin(4x)) = 4cos(4x)\\nStep 5: f'(x) = 2x + 4cos(4x)",
+    solution: "Step 1: $f(x) = 6 + x^2 + \\sin(4x)$\n\nStep 2: $\\frac{d}{dx}(6) = 0$\n\nStep 3: $\\frac{d}{dx}(x^2) = 2x$\n\nStep 4: $\\frac{d}{dx}(\\sin(4x)) = 4\\cos(4x)$\n\nStep 5: $f'(x) = 2x + 4\\cos(4x)$",
     acceptedAnswers: ["f'(x) = 2x + 4cos(4x)", "2x + 4cos(4x)"],
     xp: 20,
     year: "5th & 6th"
@@ -345,10 +345,11 @@ const QUESTION_BANK = [
     subtopic: "tangent line equations",
     difficulty: 2,
     source: "2025 P1 Q2",
-    question: "For f(x) = 6 + x² + sin(4x), find the equation of the tangent line at x = 0",
-    hints: ["Find f(0): f(0) = 6 + 0 + sin(0) = 6", "Find f'(0): f'(0) = 0 + 4cos(0) = 4", "Tangent: y - 6 = 4(x - 0)"],
+    question: "For $f(x) = 6 + x^2 + \\sin(4x)$, find the equation of the tangent line at $x = 0$",
+    diagram: { type: "coord_axes" },
+    hints: ["Find $f(0)$: $f(0) = 6 + 0 + \\sin(0) = 6$", "Find $f'(0)$: $f'(0) = 0 + 4\\cos(0) = 4$", "Tangent: $y - 6 = 4(x - 0)$"],
     answer: "y = 4x + 6",
-    solution: "Step 1: f(0) = 6 + 0 + sin(0) = 6, point (0, 6)\\nStep 2: f'(x) = 2x + 4cos(4x)\\nStep 3: f'(0) = 0 + 4cos(0) = 4\\nStep 4: Tangent line: y - 6 = 4(x - 0)\\nStep 5: y = 4x + 6",
+    solution: "Step 1: $f(0) = 6 + 0 + \\sin(0) = 6$, point $(0, 6)$\n\nStep 2: $f'(x) = 2x + 4\\cos(4x)$\n\nStep 3: $f'(0) = 0 + 4\\cos(0) = 4$\n\nStep 4: Tangent line: $y - 6 = 4(x - 0)$\n\nStep 5: $y = 4x + 6$",
     acceptedAnswers: ["y = 4x + 6", "4x + 6"],
     xp: 30,
     year: "5th & 6th"
@@ -359,10 +360,10 @@ const QUESTION_BANK = [
     subtopic: "chain rule",
     difficulty: 2,
     source: "2025 P1 Q3",
-    question: "Find d/dx[(3x⁵ - 4)²⁸]",
-    hints: ["Use chain rule: d/dx[f(g(x))] = f'(g(x))·g'(x)", "f(u) = u²⁸, f'(u) = 28u²⁷", "g(x) = 3x⁵ - 4, g'(x) = 15x⁴"],
+    question: "Find $\\frac{d}{dx}[(3x^5 - 4)^{28}]$",
+    hints: ["Use chain rule: $\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$", "$f(u) = u^{28}$, $f'(u) = 28u^{27}$", "$g(x) = 3x^5 - 4$, $g'(x) = 15x^4$"],
     answer: "d/dx[(3x⁵ - 4)²⁸] = 420x⁴(3x⁵ - 4)²⁷",
-    solution: "Step 1: Let u = 3x⁵ - 4\\nStep 2: d/dx[u²⁸] = 28u²⁷ · du/dx\\nStep 3: du/dx = 15x⁴\\nStep 4: d/dx[(3x⁵ - 4)²⁸] = 28(3x⁵ - 4)²⁷ · 15x⁴\\nStep 5: = 420x⁴(3x⁵ - 4)²⁷",
+    solution: "Step 1: Let $u = 3x^5 - 4$\n\nStep 2: $\\frac{d}{dx}[u^{28}] = 28u^{27} \\cdot \\frac{du}{dx}$\n\nStep 3: $\\frac{du}{dx} = 15x^4$\n\nStep 4: $\\frac{d}{dx}[(3x^5 - 4)^{28}] = 28(3x^5 - 4)^{27} \\cdot 15x^4$\n\nStep 5: $= 420x^4(3x^5 - 4)^{27}$",
     acceptedAnswers: ["420x⁴(3x⁵ - 4)²⁷", "28(3x⁵-4)²⁷·15x⁴"],
     xp: 30,
     year: "5th & 6th"
@@ -373,10 +374,10 @@ const QUESTION_BANK = [
     subtopic: "first principles",
     difficulty: 2,
     source: "2020 P1 Q6",
-    question: "Find the derivative of f(x) = 2x² + 4x from first principles",
-    hints: ["f'(x) = lim(h→0) [f(x+h) - f(x)]/h", "f(x+h) = 2(x+h)² + 4(x+h)", "Expand and simplify"],
+    question: "Find the derivative of $f(x) = 2x^2 + 4x$ from first principles",
+    hints: ["$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$", "$f(x+h) = 2(x+h)^2 + 4(x+h)$", "Expand and simplify"],
     answer: "f'(x) = 4x + 4",
-    solution: "Step 1: f(x+h) = 2(x+h)² + 4(x+h) = 2(x² + 2xh + h²) + 4x + 4h\\nStep 2: = 2x² + 4xh + 2h² + 4x + 4h\\nStep 3: f(x+h) - f(x) = 4xh + 2h² + 4h\\nStep 4: [f(x+h) - f(x)]/h = 4x + 2h + 4\\nStep 5: lim(h→0) = 4x + 4",
+    solution: "Step 1: $f(x+h) = 2(x+h)^2 + 4(x+h) = 2(x^2 + 2xh + h^2) + 4x + 4h$\n\nStep 2: $= 2x^2 + 4xh + 2h^2 + 4x + 4h$\n\nStep 3: $f(x+h) - f(x) = 4xh + 2h^2 + 4h$\n\nStep 4: $\\frac{f(x+h) - f(x)}{h} = 4x + 2h + 4$\n\nStep 5: $\\lim_{h \\to 0} = 4x + 4$",
     acceptedAnswers: ["f'(x) = 4x + 4", "4x + 4"],
     xp: 30,
     year: "5th & 6th"
@@ -401,10 +402,10 @@ const QUESTION_BANK = [
     subtopic: "exponential integration",
     difficulty: 2,
     source: "2025 P1 Q3",
-    question: "Find the value of k if ∫₀ᵏ e^(5x) dx = 9",
-    hints: ["∫ e^(5x) dx = e^(5x)/5 + C", "Evaluate from 0 to k: [e^(5x)/5]₀ᵏ", "e^(5k)/5 - 1/5 = 9"],
+    question: "Find the value of $k$ if $\\int_0^k e^{5x} \\, dx = 9$",
+    hints: ["$\\int e^{5x} dx = \\frac{e^{5x}}{5} + C$", "Evaluate from $0$ to $k$: $\\left[\\frac{e^{5x}}{5}\\right]_0^k$", "$\\frac{e^{5k}}{5} - \\frac{1}{5} = 9$"],
     answer: "k = ln(46)/5 ≈ 0.773",
-    solution: "Step 1: ∫ e^(5x) dx = e^(5x)/5\\nStep 2: [e^(5x)/5]₀ᵏ = e^(5k)/5 - e⁰/5 = e^(5k)/5 - 1/5\\nStep 3: e^(5k)/5 - 1/5 = 9\\nStep 4: e^(5k)/5 = 45/5 = 9.2\\nStep 5: e^(5k) = 46\\nStep 6: 5k = ln(46)\\nStep 7: k = ln(46)/5 ≈ 0.773",
+    solution: "Step 1: $\\int e^{5x} dx = \\frac{e^{5x}}{5}$\n\nStep 2: $\\left[\\frac{e^{5x}}{5}\\right]_0^k = \\frac{e^{5k}}{5} - \\frac{e^0}{5} = \\frac{e^{5k}}{5} - \\frac{1}{5}$\n\nStep 3: $\\frac{e^{5k}}{5} - \\frac{1}{5} = 9$\n\nStep 4: $\\frac{e^{5k}}{5} = \\frac{46}{5}$\n\nStep 5: $e^{5k} = 46$\n\nStep 6: $5k = \\ln(46)$\n\nStep 7: $k = \\frac{\\ln(46)}{5} \\approx 0.773$",
     acceptedAnswers: ["k = ln(46)/5", "0.773"],
     xp: 30,
     year: "5th & 6th"
@@ -415,10 +416,10 @@ const QUESTION_BANK = [
     subtopic: "polynomial integration",
     difficulty: 1,
     source: "2022 P1 Q2",
-    question: "Find ∫(2x² + 5x + 6) dx",
-    hints: ["Integrate term by term", "∫ x² dx = x³/3", "∫ x dx = x²/2"],
+    question: "Find $\\int(2x^2 + 5x + 6) \\, dx$",
+    hints: ["Integrate term by term", "$\\int x^2 dx = \\frac{x^3}{3}$", "$\\int x dx = \\frac{x^2}{2}$"],
     answer: "(2/3)x³ + (5/2)x² + 6x + C",
-    solution: "Step 1: ∫ 2x² dx = 2·x³/3 = (2/3)x³\\nStep 2: ∫ 5x dx = 5·x²/2 = (5/2)x²\\nStep 3: ∫ 6 dx = 6x\\nStep 4: (2/3)x³ + (5/2)x² + 6x + C",
+    solution: "Step 1: $\\int 2x^2 dx = 2 \\cdot \\frac{x^3}{3} = \\frac{2x^3}{3}$\n\nStep 2: $\\int 5x dx = 5 \\cdot \\frac{x^2}{2} = \\frac{5x^2}{2}$\n\nStep 3: $\\int 6 dx = 6x$\n\nStep 4: $\\frac{2x^3}{3} + \\frac{5x^2}{2} + 6x + C$",
     acceptedAnswers: ["(2/3)x³ + (5/2)x² + 6x + C", "⅔x³ + 5/2x² + 6x + C"],
     xp: 20,
     year: "5th & 6th"
@@ -429,10 +430,10 @@ const QUESTION_BANK = [
     subtopic: "trigonometric integration",
     difficulty: 2,
     source: "2022 P1 Q2",
-    question: "Find ∫cos(6x) dx",
-    hints: ["∫ cos(ax) dx = sin(ax)/a + C", "Here a = 6"],
+    question: "Find $\\int \\cos(6x) \\, dx$",
+    hints: ["$\\int \\cos(ax) dx = \\frac{\\sin(ax)}{a} + C$", "Here $a = 6$"],
     answer: "sin(6x)/6 + C",
-    solution: "Step 1: ∫ cos(6x) dx = sin(6x)/6 + C",
+    solution: "Step 1: $\\int \\cos(6x) dx = \\frac{\\sin(6x)}{6} + C$",
     acceptedAnswers: ["sin(6x)/6 + C", "(1/6)sin(6x) + C"],
     xp: 20,
     year: "5th & 6th"
@@ -457,10 +458,10 @@ const QUESTION_BANK = [
     subtopic: "logarithmic equations",
     difficulty: 2,
     source: "2023 P1 Q3",
-    question: "Solve log₃(t) + log₉(t) + log₂₇(t) + log₈₁(t) = 10",
-    hints: ["Convert all logs to base 3", "log₉(t) = log₃(t)/log₃(9) = log₃(t)/2", "log₂₇(t) = log₃(t)/3, log₈₁(t) = log₃(t)/4"],
+    question: "Solve $\\log_3(t) + \\log_9(t) + \\log_{27}(t) + \\log_{81}(t) = 10$",
+    hints: ["Convert all logs to base 3", "$\\log_9(t) = \\frac{\\log_3(t)}{\\log_3(9)} = \\frac{\\log_3(t)}{2}$", "$\\log_{27}(t) = \\frac{\\log_3(t)}{3}$, $\\log_{81}(t) = \\frac{\\log_3(t)}{4}$"],
     answer: "t = 3⁴ = 81",
-    solution: "Step 1: log₃(t) + log₃(t)/2 + log₃(t)/3 + log₃(t)/4 = 10\\nStep 2: Let x = log₃(t)\\nStep 3: x(1 + 1/2 + 1/3 + 1/4) = 10\\nStep 4: x(12/12 + 6/12 + 4/12 + 3/12) = 10\\nStep 5: x(25/12) = 10\\nStep 6: x = 120/25 = 24/5\\nWait, let me recalculate: 1 + 0.5 + 0.333 + 0.25 = 2.083... Hmm\\nActually: 12 + 6 + 4 + 3 = 25, so x = 10·12/25 = 120/25 = 4.8",
+    solution: "Step 1: $\\log_3(t) + \\frac{\\log_3(t)}{2} + \\frac{\\log_3(t)}{3} + \\frac{\\log_3(t)}{4} = 10$\n\nStep 2: Let $x = \\log_3(t)$\n\nStep 3: $x(1 + \\frac{1}{2} + \\frac{1}{3} + \\frac{1}{4}) = 10$\n\nStep 4: $x(\\frac{25}{12}) = 10$\n\nStep 5: $x = \\frac{120}{25} = \\frac{24}{5}$",
     acceptedAnswers: ["t = 3^(24/5)", "approximately 135.7"],
     xp: 30,
     year: "5th & 6th"
@@ -527,10 +528,11 @@ const QUESTION_BANK = [
     subtopic: "circle equations",
     difficulty: 1,
     source: "2025 P2 Q2",
-    question: "Find the centre and radius of the circle (x - 2)² + (y + 3)² = 25",
-    hints: ["(x - h)² + (y - k)² = r²", "Centre: (h, k)", "Radius: √r²"],
+    question: "Find the centre and radius of the circle $(x - 2)^2 + (y + 3)^2 = 25$",
+    diagram: { type: "circle_cr", params: { h: "2", k: "-3", r: "5" } },
+    hints: ["$(x - h)^2 + (y - k)^2 = r^2$", "Centre: $(h, k)$", "Radius: $\\sqrt{r^2}$"],
     answer: "Centre (2, -3), radius 5",
-    solution: "Step 1: Standard form: (x - h)² + (y - k)² = r²\\nStep 2: h = 2, k = -3, r² = 25\\nStep 3: Centre: (2, -3)\\nStep 4: Radius: 5",
+    solution: "Step 1: Standard form: $(x - h)^2 + (y - k)^2 = r^2$\n\nStep 2: $h = 2$, $k = -3$, $r^2 = 25$\n\nStep 3: Centre: $(2, -3)$\n\nStep 4: Radius: $5$",
     acceptedAnswers: ["(2, -3), radius 5", "centre (2,-3), r=5"],
     xp: 20,
     year: "5th & 6th"
@@ -541,10 +543,11 @@ const QUESTION_BANK = [
     subtopic: "tangent to circle",
     difficulty: 2,
     source: "2025 P2 Q2",
-    question: "Find the equation of the tangent to circle x² + y² = 13 at point (2, 3)",
-    hints: ["Tangent at (a,b) on x²+y²=r² is ax+by=r²", "Here a=2, b=3, r²=13", "Check: 2² + 3² = 4 + 9 = 13 ✓"],
+    question: "Find the equation of the tangent to circle $x^2 + y^2 = 13$ at point $(2, 3)$",
+    diagram: { type: "coord_axes" },
+    hints: ["Tangent at $(a,b)$ on $x^2+y^2=r^2$ is $ax+by=r^2$", "Here $a=2$, $b=3$, $r^2=13$", "Check: $2^2 + 3^2 = 4 + 9 = 13$ ✓"],
     answer: "2x + 3y = 13",
-    solution: "Step 1: Point (2,3) is on circle: 2² + 3² = 13 ✓\\nStep 2: Tangent formula at (a,b): ax + by = r²\\nStep 3: 2x + 3y = 13",
+    solution: "Step 1: Point $(2,3)$ is on circle: $2^2 + 3^2 = 13$ ✓\n\nStep 2: Tangent formula at $(a,b)$: $ax + by = r^2$\n\nStep 3: $2x + 3y = 13$",
     acceptedAnswers: ["2x + 3y = 13", "2x + 3y - 13 = 0"],
     xp: 30,
     year: "5th & 6th"
@@ -555,10 +558,11 @@ const QUESTION_BANK = [
     subtopic: "sine rule",
     difficulty: 2,
     source: "2025 P2 Q6",
-    question: "In triangle ABC, if sin(A) = 1/2, find all solutions for angle A where 0° < A < 180°",
-    hints: ["sin(A) = 1/2", "A = 30° or A = 150°", "Both valid for 0° < A < 180°"],
+    question: "In triangle $ABC$, if $\\sin(A) = \\frac{1}{2}$, find all solutions for angle $A$ where $0° < A < 180°$",
+    diagram: { type: "unit_circle" },
+    hints: ["$\\sin(A) = \\frac{1}{2}$", "$A = 30°$ or $A = 150°$", "Both valid for $0° < A < 180°$"],
     answer: "A = 30° or A = 150°",
-    solution: "Step 1: sin(A) = 1/2\\nStep 2: Reference angle: sin⁻¹(1/2) = 30°\\nStep 3: In range 0° to 180°: A = 30° or A = 180° - 30° = 150°",
+    solution: "Step 1: $\\sin(A) = \\frac{1}{2}$\n\nStep 2: Reference angle: $\\sin^{-1}(\\frac{1}{2}) = 30°$\n\nStep 3: In range $0°$ to $180°$: $A = 30°$ or $A = 180° - 30° = 150°$",
     acceptedAnswers: ["30° or 150°", "π/6 or 5π/6"],
     xp: 30,
     year: "5th & 6th"
@@ -569,10 +573,11 @@ const QUESTION_BANK = [
     subtopic: "cosine rule",
     difficulty: 2,
     source: "2025 P2 Q6",
-    question: "In triangle ABC: a = 5, b = 7, C = 60°. Find side c using the cosine rule.",
-    hints: ["c² = a² + b² - 2ab·cos(C)", "c² = 25 + 49 - 2(5)(7)cos(60°)", "cos(60°) = 1/2"],
+    question: "In triangle $ABC$: $a = 5$, $b = 7$, $C = 60°$. Find side $c$ using the cosine rule.",
+    diagram: { type: "triangle_abc", params: { A: "A", B: "B", C: "C", a: "5", b: "7", c: "c" } },
+    hints: ["$c^2 = a^2 + b^2 - 2ab\\cos(C)$", "$c^2 = 25 + 49 - 2(5)(7)\\cos(60°)$", "$\\cos(60°) = \\frac{1}{2}$"],
     answer: "c = √39 ≈ 6.24",
-    solution: "Step 1: c² = a² + b² - 2ab·cos(C)\\nStep 2: c² = 5² + 7² - 2(5)(7)cos(60°)\\nStep 3: c² = 25 + 49 - 70(1/2)\\nStep 4: c² = 74 - 35 = 39\\nStep 5: c = √39 ≈ 6.24",
+    solution: "Step 1: $c^2 = a^2 + b^2 - 2ab\\cos(C)$\n\nStep 2: $c^2 = 5^2 + 7^2 - 2(5)(7)\\cos(60°)$\n\nStep 3: $c^2 = 25 + 49 - 70(\\frac{1}{2})$\n\nStep 4: $c^2 = 74 - 35 = 39$\n\nStep 5: $c = \\sqrt{39} \\approx 6.24$",
     acceptedAnswers: ["√39", "6.24"],
     xp: 30,
     year: "5th & 6th"
@@ -583,10 +588,11 @@ const QUESTION_BANK = [
     subtopic: "trigonometric equations",
     difficulty: 2,
     source: "2025 P2 Q6",
-    question: "If cos(2X) = √3/2 and 0 < X < π/2, find tan(X)",
-    hints: ["cos(2X) = √3/2, so 2X = π/6 or 2X = 11π/6", "For 0 < X < π/2: X = π/12", "tan(π/12) can be found using half-angle formula"],
+    question: "If $\\cos(2X) = \\frac{\\sqrt{3}}{2}$ and $0 < X < \\frac{\\pi}{2}$, find $\\tan(X)$",
+    diagram: { type: "unit_circle" },
+    hints: ["$\\cos(2X) = \\frac{\\sqrt{3}}{2}$ gives $2X = \\frac{\\pi}{6}$", "For $0 < X < \\frac{\\pi}{2}$: $X = \\frac{\\pi}{12}$", "$\\tan(\\frac{\\pi}{12}) = \\tan(15°) = 2 - \\sqrt{3}$"],
     answer: "tan(X) = 2 - √3",
-    solution: "Step 1: cos(2X) = √3/2 gives 2X = π/6\\nStep 2: X = π/12\\nStep 3: tan(π/12) = tan(15°) = 2 - √3 ≈ 0.268",
+    solution: "Step 1: $\\cos(2X) = \\frac{\\sqrt{3}}{2}$ gives $2X = \\frac{\\pi}{6}$\n\nStep 2: $X = \\frac{\\pi}{12}$\n\nStep 3: $\\tan(\\frac{\\pi}{12}) = \\tan(15°) = 2 - \\sqrt{3} \\approx 0.268$",
     acceptedAnswers: ["2 - √3", "0.268"],
     xp: 30,
     year: "5th & 6th"
@@ -8149,6 +8155,141 @@ const getLevel = (xp) => {
   return { level: 1, name: "Newcomer", xpForNext: 20, xpForCurrent: 0 };
 };
 
+// ─── MATH TEXT RENDERER ───
+function MathText({ text, style = {} }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current || !text) return;
+
+    // Split text by $...$ for inline math
+    const parts = text.split(/(\$[^$]+\$)/g);
+    ref.current.innerHTML = '';
+
+    parts.forEach(part => {
+      if (part.startsWith('$') && part.endsWith('$')) {
+        // Render LaTeX
+        const mathSpan = document.createElement('span');
+        try {
+          if (window.katex) {
+            window.katex.render(part.slice(1, -1), mathSpan, {
+              throwOnError: false,
+              displayMode: false
+            });
+          } else {
+            mathSpan.textContent = part.slice(1, -1);
+          }
+        } catch (e) {
+          mathSpan.textContent = part.slice(1, -1);
+        }
+        ref.current.appendChild(mathSpan);
+      } else if (part.startsWith('[diagram:') && part.endsWith(']')) {
+        // SVG diagram placeholder — handled by DiagramRenderer
+        const diagramName = part.slice(9, -1);
+        const container = document.createElement('div');
+        container.setAttribute('data-diagram', diagramName);
+        container.style.margin = '12px 0';
+        ref.current.appendChild(container);
+      } else {
+        // Regular text — preserve newlines
+        const lines = part.split('\n');
+        lines.forEach((line, i) => {
+          const textNode = document.createTextNode(line);
+          ref.current.appendChild(textNode);
+          if (i < lines.length - 1) {
+            ref.current.appendChild(document.createElement('br'));
+          }
+        });
+      }
+    });
+  }, [text]);
+
+  return <div ref={ref} style={{ lineHeight: 1.8, ...style }} />;
+}
+
+// ─── DIAGRAMS LIBRARY ───
+const DIAGRAMS = {
+  // Right-angled triangle with sides a, b, c
+  right_triangle: (a="a", b="b", c="c", angle="θ") => `
+    <svg viewBox="0 0 200 160" style="max-width:200px;margin:8px auto;display:block">
+      <polygon points="20,140 180,140 20,20" fill="none" stroke="#1e293b" stroke-width="2"/>
+      <rect x="20" y="120" width="20" height="20" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+      <text x="100" y="158" text-anchor="middle" font-size="14" fill="#3B82F6" font-weight="700">${a}</text>
+      <text x="6" y="80" text-anchor="middle" font-size="14" fill="#3B82F6" font-weight="700">${b}</text>
+      <text x="110" y="72" text-anchor="middle" font-size="14" fill="#3B82F6" font-weight="700">${c}</text>
+      <text x="155" y="136" text-anchor="middle" font-size="13" fill="#EF4444" font-weight="600">${angle}</text>
+    </svg>`,
+
+  // General triangle ABC with sides a, b, c
+  triangle_abc: (A="A", B="B", C="C", a="a", b="b", c="c") => `
+    <svg viewBox="0 0 220 180" style="max-width:220px;margin:8px auto;display:block">
+      <polygon points="110,15 20,160 200,160" fill="none" stroke="#1e293b" stroke-width="2"/>
+      <text x="110" y="12" text-anchor="middle" font-size="14" fill="#1e293b" font-weight="700">${A}</text>
+      <text x="12" y="175" text-anchor="middle" font-size="14" fill="#1e293b" font-weight="700">${B}</text>
+      <text x="208" y="175" text-anchor="middle" font-size="14" fill="#1e293b" font-weight="700">${C}</text>
+      <text x="110" y="175" text-anchor="middle" font-size="13" fill="#3B82F6" font-weight="600">${a}</text>
+      <text x="160" y="85" text-anchor="middle" font-size="13" fill="#3B82F6" font-weight="600">${b}</text>
+      <text x="58" y="85" text-anchor="middle" font-size="13" fill="#3B82F6" font-weight="600">${c}</text>
+    </svg>`,
+
+  // Unit circle
+  unit_circle: () => `
+    <svg viewBox="0 0 240 240" style="max-width:220px;margin:8px auto;display:block">
+      <line x1="20" y1="120" x2="220" y2="120" stroke="#cbd5e1" stroke-width="1"/>
+      <line x1="120" y1="20" x2="120" y2="220" stroke="#cbd5e1" stroke-width="1"/>
+      <circle cx="120" cy="120" r="90" fill="none" stroke="#1e293b" stroke-width="2"/>
+      <line x1="120" y1="120" x2="198" y2="68" stroke="#3B82F6" stroke-width="2"/>
+      <circle cx="198" cy="68" r="3" fill="#3B82F6"/>
+      <text x="165" y="60" font-size="12" fill="#3B82F6" font-weight="600">(cos θ, sin θ)</text>
+      <text x="155" y="105" font-size="12" fill="#EF4444" font-weight="600">θ</text>
+      <text x="225" y="118" font-size="11" fill="#64748B">0°</text>
+      <text x="115" y="15" font-size="11" fill="#64748B">90°</text>
+      <text x="2" y="118" font-size="11" fill="#64748B">180°</text>
+      <text x="112" y="235" font-size="11" fill="#64748B">270°</text>
+    </svg>`,
+
+  // Coordinate axes with point
+  coord_axes: () => `
+    <svg viewBox="0 0 200 200" style="max-width:180px;margin:8px auto;display:block">
+      <line x1="20" y1="180" x2="20" y2="10" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <line x1="10" y1="170" x2="190" y2="170" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1e293b"/></marker></defs>
+      <text x="195" y="175" font-size="12" fill="#1e293b" font-weight="600">x</text>
+      <text x="25" y="12" font-size="12" fill="#1e293b" font-weight="600">y</text>
+      <text x="12" y="182" font-size="11" fill="#64748B">O</text>
+    </svg>`,
+
+  // Circle with centre and radius
+  circle_cr: (h="h", k="k", r="r") => `
+    <svg viewBox="0 0 200 200" style="max-width:180px;margin:8px auto;display:block">
+      <line x1="20" y1="180" x2="20" y2="10" stroke="#cbd5e1" stroke-width="1"/>
+      <line x1="10" y1="170" x2="190" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+      <circle cx="110" cy="90" r="60" fill="none" stroke="#1e293b" stroke-width="2"/>
+      <circle cx="110" cy="90" r="3" fill="#3B82F6"/>
+      <line x1="110" y1="90" x2="170" y2="90" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="110" y="108" text-anchor="middle" font-size="12" fill="#3B82F6" font-weight="600">(${h},${k})</text>
+      <text x="140" y="85" text-anchor="middle" font-size="12" fill="#EF4444" font-weight="600">${r}</text>
+    </svg>`,
+
+  // Normal distribution curve
+  normal_dist: () => `
+    <svg viewBox="0 0 240 120" style="max-width:220px;margin:8px auto;display:block">
+      <path d="M20,100 Q60,100 80,80 Q100,40 120,20 Q140,40 160,80 Q180,100 220,100" fill="none" stroke="#1e293b" stroke-width="2"/>
+      <line x1="20" y1="100" x2="220" y2="100" stroke="#cbd5e1" stroke-width="1"/>
+      <line x1="120" y1="100" x2="120" y2="18" stroke="#3B82F6" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="120" y="115" text-anchor="middle" font-size="11" fill="#3B82F6" font-weight="600">μ</text>
+      <text x="80" y="115" text-anchor="middle" font-size="10" fill="#64748B">μ-σ</text>
+      <text x="160" y="115" text-anchor="middle" font-size="10" fill="#64748B">μ+σ</text>
+    </svg>`,
+};
+
+// ─── DIAGRAM SVG COMPONENT ───
+function DiagramSVG({ name, params = {} }) {
+  if (!DIAGRAMS[name]) return null;
+  const svg = typeof DIAGRAMS[name] === 'function' ? DIAGRAMS[name](...Object.values(params)) : DIAGRAMS[name];
+  return <div dangerouslySetInnerHTML={{ __html: svg }} />;
+}
+
 // ─── DRAWING CANVAS COMPONENT ───
 function DrawingCanvas({ onClear }) {
   const canvasRef = useRef(null);
@@ -10250,9 +10391,10 @@ export default function MathU() {
 
           {/* Question */}
           <div style={styles.card}>
-            <div style={{ fontSize: 16, lineHeight: 1.6, color: colors.text, whiteSpace: "pre-line", fontWeight: 500 }}>
-              {currentQuestion.question}
-            </div>
+            <MathText text={currentQuestion.question} style={{ fontSize: 16, color: colors.text, fontWeight: 500 }} />
+            {currentQuestion.diagram && (
+              <DiagramSVG name={currentQuestion.diagram.type} params={currentQuestion.diagram.params || {}} />
+            )}
           </div>
 
           {/* Hints */}
@@ -10267,7 +10409,7 @@ export default function MathU() {
                     background: "#FEF3C7", padding: "10px 14px", borderRadius: 10,
                     fontSize: 13, color: "#92400E", lineHeight: 1.5,
                   }}>
-                    <strong>Hint {i + 1}:</strong> {hint}
+                    <strong>Hint {i + 1}:</strong> <MathText text={hint} style={{ display: "inline" }} />
                   </div>
                 ) : (
                   <button onClick={() => useHint(i)}
@@ -10456,10 +10598,9 @@ export default function MathU() {
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: 12, fontWeight: 800, marginTop: 2,
                     }}>{i + 1}</div>
-                    <div style={{
-                      fontSize: 13, lineHeight: 1.7, whiteSpace: "pre-line", color: colors.text,
-                      fontFamily: "'SF Mono', 'Fira Code', monospace", flex: 1,
-                    }}>{step.trim()}</div>
+                    <div style={{ flex: 1 }}>
+                      <MathText text={step.trim()} style={{ fontSize: 13, fontFamily: "'SF Mono', 'Fira Code', monospace" }} />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -10486,10 +10627,9 @@ export default function MathU() {
                     📝 Simpler Explanation
                   </div>
                   {simpleExplanation.split("\n\n").map((para, i) => (
-                    <div key={i} style={{
-                      fontSize: 13, lineHeight: 1.7, color: colors.text, marginBottom: 10,
-                      whiteSpace: "pre-line",
-                    }}>{para}</div>
+                    <div key={i} style={{ marginBottom: 10 }}>
+                      <MathText text={para} style={{ fontSize: 13, color: colors.text }} />
+                    </div>
                   ))}
                 </div>
               )}
