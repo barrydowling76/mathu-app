@@ -8393,6 +8393,21 @@ export default function MathU() {
   const [friends, setFriends] = useState([]);
   const [dailyResults, setDailyResults] = useState([]);
   const [friendCode, setFriendCode] = useState("");
+  const [pendingInvite, setPendingInvite] = useState(null);
+
+  // Check URL for invite code on mount
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const invite = params.get("invite");
+      if (invite) {
+        setPendingInvite(invite.toUpperCase());
+        setFriendCode(invite.toUpperCase());
+        // Clean the URL so it doesn't stick around
+        window.history.replaceState({}, "", window.location.pathname);
+      }
+    } catch (e) {}
+  }, []);
 
   // Check for existing session on load
   useEffect(() => {
@@ -8470,6 +8485,13 @@ export default function MathU() {
     checkSession();
   }, []);
 
+
+  // If user just landed on home and has a pending invite, go to add_friend
+  useEffect(() => {
+    if (screen === "home" && pendingInvite && isLoggedIn) {
+      setScreen("add_friend");
+    }
+  }, [screen, pendingInvite, isLoggedIn]);
 
   // Load and save dark mode preference
   useEffect(() => {
@@ -8587,8 +8609,11 @@ export default function MathU() {
 
       alert(`Added ${users[0].name} as a friend!`);
       setFriendCode("");
+      setPendingInvite(null);
       await loadFriends();
       await loadDailyResults();
+      // If they came from an invite link, go to home
+      if (pendingInvite) setScreen("home");
     } catch (err) {
       console.error("Add friend failed:", err);
       alert("Failed to add friend. Please try again.");
@@ -9071,7 +9096,13 @@ export default function MathU() {
           <div style={{ fontSize: 72, marginBottom: 8 }}>📐</div>
           <h1 style={{ fontSize: 48, fontWeight: 900, margin: "0 0 4px", letterSpacing: -2 }}>MathU</h1>
           <p style={{ fontSize: 16, opacity: 0.9, margin: "0 0 8px" }}>Your Daily Maths Challenge</p>
-          <p style={{ fontSize: 13, opacity: 0.7, margin: "0 0 40px" }}>Leaving Cert Honours Maths</p>
+          <p style={{ fontSize: 13, opacity: 0.7, margin: "0 0 20px" }}>Leaving Cert Honours Maths</p>
+          {pendingInvite && (
+            <div style={{ background: "rgba(255,255,255,0.2)", borderRadius: 12, padding: "10px 16px", marginBottom: 20 }}>
+              <div style={{ fontSize: 14, fontWeight: 700 }}>🎉 You've been invited by a friend!</div>
+              <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>Sign up to connect and compete</div>
+            </div>
+          )}
           <button
             onClick={() => setScreen("signup_phone")}
             style={{ ...styles.btn("white"), color: colors.primaryDark, fontSize: 18, padding: "16px 48px" }}
@@ -9558,7 +9589,7 @@ export default function MathU() {
                 <button onClick={() => {
                   const today = new Date().toISOString().split("T")[0];
                   const inviteCode = getInviteCode(userId);
-                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                   navigator.clipboard.writeText(shareText);
                   alert("Invite message copied to clipboard!");
                 }}
@@ -9591,7 +9622,7 @@ export default function MathU() {
                 </p>
                 <button onClick={() => {
                   const inviteCode = getInviteCode(userId);
-                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                  const shareText = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                   navigator.clipboard.writeText(shareText);
                   alert("Invite message copied to clipboard!");
                 }}
@@ -10128,7 +10159,7 @@ export default function MathU() {
                         const today = new Date().toISOString().split("T")[0];
                         const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
                         const inviteCode = getInviteCode(userId);
-                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n✅ Got it right!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app`;
+                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n✅ Got it right!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                         navigator.clipboard.writeText(shareText);
                         alert("Share message copied to clipboard!");
                       } catch (err) {
@@ -10151,7 +10182,7 @@ export default function MathU() {
                         const today = new Date().toISOString().split("T")[0];
                         const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
                         const inviteCode = getInviteCode(userId);
-                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n❌ Need more practice!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app`;
+                        const shareText = `📐 MathU Daily Challenge\n🗓️ ${today}\n❌ Need more practice!\n⏱️ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                         navigator.clipboard.writeText(shareText);
                         alert("Share message copied to clipboard!");
                       } catch (err) {
@@ -10228,6 +10259,13 @@ export default function MathU() {
 
           {/* Add friend section */}
           <div style={styles.card}>
+            {pendingInvite && (
+              <div style={{ background: `${colors.success}15`, border: `2px solid ${colors.success}40`, borderRadius: 10, padding: "10px 14px", marginBottom: 12, textAlign: "center" }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: colors.success }}>
+                  🎉 You've been invited! Tap "Add Friend" to connect.
+                </div>
+              </div>
+            )}
             <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700, color: colors.text }}>Add a Friend</h3>
             <input
               type="text"
@@ -10265,7 +10303,7 @@ export default function MathU() {
                   <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>👤 {friend.name}</span>
                   <button onClick={() => {
                     try {
-                      const inviteMsg = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app`;
+                      const inviteMsg = `📐 Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                       navigator.clipboard.writeText(inviteMsg);
                       alert("Invite message copied!");
                     } catch (err) {
