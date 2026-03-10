@@ -8369,6 +8369,7 @@ export default function MathU() {
   const [showAnswerKeyboard, setShowAnswerKeyboard] = useState(false);
   const workingsTextRef = useRef(null);
   const answerInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // Timer
   const [timer, setTimer] = useState(0);
@@ -8394,6 +8395,24 @@ export default function MathU() {
   const [dailyResults, setDailyResults] = useState([]);
   const [friendCode, setFriendCode] = useState("");
   const [pendingInvite, setPendingInvite] = useState(null);
+
+  // FEATURE 1: Explain Differently
+  const [simpleExplanation, setSimpleExplanation] = useState(null);
+
+  // FEATURE 2: Weekly Streak Challenges
+  const [weeklyChallenge, setWeeklyChallenge] = useState({
+    target: 5,
+    daysCompleted: 0,
+    currentWeekStart: null,
+    lastCompletedDate: null
+  });
+
+  // FEATURE 3: Sound Effects
+  const [soundEnabled, setSoundEnabled] = useState(true);
+
+  // FEATURE 4: Avatar System
+  const [avatar, setAvatar] = useState(null);
+  const [customPhoto, setCustomPhoto] = useState(null);
 
   // Check URL for invite code on mount
   useEffect(() => {
@@ -8468,6 +8487,20 @@ export default function MathU() {
             const savedWrongAnswers = localStorage.getItem("mathu_spaced");
             if (savedWrongAnswers) setWrongAnswers(JSON.parse(savedWrongAnswers));
 
+            // Load FEATURE 2: Weekly Challenge
+            const savedWeekly = localStorage.getItem("mathu_weekly");
+            if (savedWeekly) setWeeklyChallenge(JSON.parse(savedWeekly));
+
+            // Load FEATURE 3: Sound Effects
+            const savedSound = localStorage.getItem("mathu_sound");
+            if (savedSound !== null) setSoundEnabled(JSON.parse(savedSound));
+
+            // Load FEATURE 4: Avatar System
+            const savedAvatar = localStorage.getItem("mathu_avatar");
+            if (savedAvatar) setAvatar(savedAvatar);
+            const savedPhoto = localStorage.getItem("mathu_photo");
+            if (savedPhoto) setCustomPhoto(savedPhoto);
+
             if (profile.year && profile.topics?.length > 0) {
               setScreen("home");
             } else if (profile.year) {
@@ -8501,6 +8534,34 @@ export default function MathU() {
       console.error("Dark mode save failed:", err);
     }
   }, [darkMode]);
+
+  // FEATURE 2: Save weekly challenge to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("mathu_weekly", JSON.stringify(weeklyChallenge));
+    } catch (err) {
+      console.error("Weekly challenge save failed:", err);
+    }
+  }, [weeklyChallenge]);
+
+  // FEATURE 3: Save sound preference to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("mathu_sound", JSON.stringify(soundEnabled));
+    } catch (err) {
+      console.error("Sound preference save failed:", err);
+    }
+  }, [soundEnabled]);
+
+  // FEATURE 4: Save avatar system to localStorage
+  useEffect(() => {
+    try {
+      if (avatar) localStorage.setItem("mathu_avatar", avatar);
+      if (customPhoto) localStorage.setItem("mathu_photo", customPhoto);
+    } catch (err) {
+      console.error("Avatar save failed:", err);
+    }
+  }, [avatar, customPhoto]);
 
   // Save bookmarks to localStorage
   useEffect(() => {
@@ -8878,6 +8939,7 @@ export default function MathU() {
     setTimer(0);
     setTimerRunning(true);
     setFrozen(false);
+    setSimpleExplanation(null);
     setScreen("question");
   };
 
@@ -8893,7 +8955,105 @@ export default function MathU() {
     setTimer(0);
     setTimerRunning(true);
     setFrozen(false);
+    setSimpleExplanation(null);
     setScreen("question");
+  };
+
+  // FEATURE 1: Explain Differently - simplify solution
+  const explainSimply = (question) => {
+    const steps = question.solution.split("\n\n");
+    const simplified = steps.map((step, i) => {
+      const prefixes = [
+        "First, let's understand what we're being asked:",
+        "Now, here's the key idea:",
+        "Next step — and this is the important bit:",
+        "Nearly there! Now we:",
+        "Finally:",
+        "And we're done:"
+      ];
+      const prefix = prefixes[Math.min(i, prefixes.length - 1)];
+      return `${prefix}\n${step.trim()}`;
+    }).join("\n\n");
+
+    const tips = {
+      algebra: "💡 Tip: Always check your answer by substituting back into the original equation.",
+      differentiation: "💡 Tip: Remember — differentiation finds the rate of change. Think of it as 'how fast is y changing as x changes?'",
+      integration: "💡 Tip: Integration is the reverse of differentiation. Always add +C for indefinite integrals!",
+      trigonometry: "💡 Tip: Draw a diagram! Trig questions almost always become clearer with a picture.",
+      coord_line: "💡 Tip: Sketch the points on a rough graph first — it helps you check if your answer makes sense.",
+      coord_circle: "💡 Tip: The equation of a circle is (x-h)² + (y-k)² = r². Centre is (h,k), radius is r.",
+      complex_numbers: "💡 Tip: Plot complex numbers on an Argand diagram to visualise what's happening.",
+      sequences_series: "💡 Tip: Always identify if it's arithmetic (common difference) or geometric (common ratio) first.",
+      probability: "💡 Tip: Draw a tree diagram or Venn diagram — it makes the logic much clearer.",
+      geometry: "💡 Tip: Label all angles and sides you know. Look for similar triangles or known theorems.",
+      functions: "💡 Tip: Try sketching the graph to get a feel for the function's behaviour.",
+      financial_maths: "💡 Tip: Write down what each variable represents before plugging into the formula.",
+      statistics: "💡 Tip: Always state the null hypothesis clearly before starting any test.",
+      induction: "💡 Tip: The three steps: prove base case, assume true for n=k, prove for n=k+1.",
+      logs_indices: "💡 Tip: Remember log rules: log(ab) = log(a) + log(b), log(a/b) = log(a) - log(b).",
+      length_area_volume: "💡 Tip: Always draw the shape and label dimensions. Check units!"
+    };
+
+    return simplified + "\n\n" + (tips[question.topic] || "💡 Tip: Read the question carefully twice before starting. Underline the key information.");
+  };
+
+  // FEATURE 3: Sound Effects using Web Audio API
+  const playSound = (type) => {
+    if (!soundEnabled) return;
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      if (type === "correct") {
+        // Happy ascending chime
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(523, ctx.currentTime); // C5
+        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1); // E5
+        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2); // G5
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.5);
+      } else if (type === "wrong") {
+        // Sad descending tone
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(400, ctx.currentTime);
+        osc.frequency.setValueAtTime(300, ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+      } else if (type === "applause") {
+        // Applause-like sound: multiple short bursts of noise
+        const bufferSize = ctx.sampleRate * 1.5;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 0.5) * 0.3;
+        }
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        const applauseGain = ctx.createGain();
+        applauseGain.gain.setValueAtTime(0.15, ctx.currentTime);
+        applauseGain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
+
+        // Add a bandpass filter to make it sound more like clapping
+        const filter = ctx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.value = 3000;
+        filter.Q.value = 0.5;
+
+        source.connect(filter);
+        filter.connect(applauseGain);
+        applauseGain.connect(ctx.destination);
+        source.start(ctx.currentTime);
+      }
+    } catch (e) {
+      // Silently fail if audio not available
+    }
   };
 
   const useHint = (idx) => {
@@ -8912,6 +9072,14 @@ export default function MathU() {
     const correct = currentQuestion.acceptedAnswers.some(a => normalise(a) === userNorm);
     setIsCorrect(correct);
     setShowSolution(true);
+
+    // FEATURE 3: Play sound effects
+    if (correct) {
+      playSound("correct");
+      setTimeout(() => playSound("applause"), 300);
+    } else {
+      playSound("wrong");
+    }
 
     const topicKey = currentQuestion.topic;
     const allTopics = getAllTopics();
@@ -8968,6 +9136,41 @@ export default function MathU() {
         setWrongAnswers(prev => prev.filter(w => w.questionId !== currentQuestion.id));
       }
 
+      // FEATURE 2: Weekly Challenge logic
+      const today = new Date().toISOString().split("T")[0];
+      const lastCompleted = weeklyChallenge.lastCompletedDate;
+      if (correct && newStats.questionsToday >= weeklyChallenge.target) {
+        // Check if it's a new day and we haven't already completed today
+        if (lastCompleted !== today) {
+          const weekStart = new Date();
+          weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+          const weekStartStr = weekStart.toISOString().split("T")[0];
+
+          let newWeeklyChallenge = { ...weeklyChallenge };
+          // If we're starting a new week, reset the counter
+          if (!weeklyChallenge.currentWeekStart || weeklyChallenge.currentWeekStart !== weekStartStr) {
+            newWeeklyChallenge = {
+              target: 5,
+              daysCompleted: 1,
+              currentWeekStart: weekStartStr,
+              lastCompletedDate: today
+            };
+          } else {
+            // Same week, increment days
+            newWeeklyChallenge.daysCompleted = Math.min(weeklyChallenge.daysCompleted + 1, 7);
+            newWeeklyChallenge.lastCompletedDate = today;
+          }
+
+          // Check if week is complete (7 days)
+          if (newWeeklyChallenge.daysCompleted >= 7) {
+            setXpAnimation((prev) => (prev || 0) + 50); // Add 50 bonus XP
+            newStats.totalXP += 50;
+          }
+
+          setWeeklyChallenge(newWeeklyChallenge);
+        }
+      }
+
       // Check for new badges
       BADGES.forEach(badge => {
         if (!earnedBadges.includes(badge.id) && badge.condition(newStats)) {
@@ -8994,6 +9197,47 @@ export default function MathU() {
   };
 
   const toggleFreeze = () => setFrozen(!frozen);
+
+  // FEATURE 4: Avatar System - preset avatars
+  const AVATARS = [
+    "😎", "🧠", "🎓", "📐", "🚀", "🦊", "🐱", "🐶",
+    "🦁", "🐼", "🦄", "🎮", "⚽", "🏀", "🎸", "🎨",
+    "🌟", "💪", "🔥", "👑", "🎯", "💎", "🌈", "☘️"
+  ];
+
+  // FEATURE 4: Avatar Display component
+  const AvatarDisplay = ({ size = 48 }) => {
+    if (customPhoto) {
+      return (
+        <div style={{
+          width: size, height: size, borderRadius: size / 2,
+          backgroundImage: `url(${customPhoto})`,
+          backgroundSize: "cover", backgroundPosition: "center",
+          border: `3px solid ${colors.primary}`,
+        }} />
+      );
+    }
+    if (avatar) {
+      return (
+        <div style={{
+          width: size, height: size, borderRadius: size / 2,
+          background: colors.gradient, display: "flex", alignItems: "center",
+          justifyContent: "center", fontSize: size * 0.6, fontWeight: 800,
+        }}>
+          {avatar}
+        </div>
+      );
+    }
+    return (
+      <div style={{
+        width: size, height: size, borderRadius: size / 2, background: colors.gradient,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        color: "white", fontSize: size * 0.4, fontWeight: 800,
+      }}>
+        {username[0]?.toUpperCase() || "U"}
+      </div>
+    );
+  };
 
   // ─── STYLES ───
   const colors = darkMode ? {
@@ -9633,6 +9877,47 @@ export default function MathU() {
             )}
           </div>
 
+          {/* FEATURE 2: Weekly Challenge card */}
+          <div style={{...styles.card, background: `${colors.primary}10`, border: `2px solid ${colors.primary}30`}}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 32 }}>📅</div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>
+                  Weekly Challenge
+                </h3>
+                <p style={{ margin: 0, fontSize: 13, color: colors.textLight }}>
+                  Answer {weeklyChallenge.target} questions every day this week
+                </p>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 12 }}>
+              {Array.from({length: 7}).map((_, i) => (
+                <div key={i} style={{
+                  width: 28, height: 28, borderRadius: 14,
+                  background: i < weeklyChallenge.daysCompleted ? colors.primary : "#e2e8f0",
+                  color: i < weeklyChallenge.daysCompleted ? "white" : colors.textLight,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 11, fontWeight: 700
+                }}>
+                  {i < weeklyChallenge.daysCompleted ? "✓" : ["M", "T", "W", "T", "F", "S", "S"][i]}
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: "center", marginBottom: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>
+                Day {weeklyChallenge.daysCompleted}/7
+              </span>
+              {weeklyChallenge.daysCompleted > 0 && (
+                <span style={{ fontSize: 12, color: colors.primary, fontWeight: 600, marginLeft: 8 }}>
+                  {weeklyChallenge.daysCompleted === 7 ? "🎉 Complete!" : "Keep it up!"}
+                </span>
+              )}
+            </div>
+            <div style={{ textAlign: "center", fontSize: 12, color: colors.textLight }}>
+              Bonus: <span style={{ fontWeight: 700, color: colors.accent }}>+50 XP</span> if you complete the week!
+            </div>
+          </div>
+
           {/* Quick Practice button */}
           <div style={styles.card}>
             <button onClick={() => startPractice()}
@@ -10125,6 +10410,36 @@ export default function MathU() {
                   </div>
                 ))}
               </div>
+
+              {/* FEATURE 1: Explain Differently button */}
+              <button onClick={() => setSimpleExplanation(simpleExplanation ? null : explainSimply(currentQuestion))}
+                style={{
+                  background: simpleExplanation ? colors.accent : `${colors.accent}15`,
+                  color: simpleExplanation ? "white" : colors.accent,
+                  border: `2px solid ${colors.accent}`,
+                  borderRadius: 12, padding: "10px 16px", fontSize: 13, fontWeight: 700,
+                  cursor: "pointer", width: "100%", marginTop: 12,
+                  transition: "all 0.2s",
+                }}>
+                {simpleExplanation ? "Hide Simple Explanation" : "🤔 Explain it Differently"}
+              </button>
+
+              {simpleExplanation && (
+                <div style={{
+                  background: `${colors.accent}08`, border: `2px solid ${colors.accent}25`,
+                  borderRadius: 12, padding: 16, marginTop: 12,
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: colors.accent, marginBottom: 8 }}>
+                    📝 Simpler Explanation
+                  </div>
+                  {simpleExplanation.split("\n\n").map((para, i) => (
+                    <div key={i} style={{
+                      fontSize: 13, lineHeight: 1.7, color: colors.text, marginBottom: 10,
+                      whiteSpace: "pre-line",
+                    }}>{para}</div>
+                  ))}
+                </div>
+              )}
 
               {/* Self-assessment: where did you go wrong? */}
               {!isCorrect && (
@@ -10808,17 +11123,58 @@ export default function MathU() {
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Profile</h3>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-              <div style={{
-                width: 48, height: 48, borderRadius: 24, background: colors.gradient,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "white", fontSize: 20, fontWeight: 800,
-              }}>
-                {username[0]?.toUpperCase()}
-              </div>
+              <AvatarDisplay size={48} />
               <div>
                 <div style={{ fontSize: 16, fontWeight: 700, color: colors.text }}>{username}</div>
                 <div style={{ fontSize: 13, color: colors.textLight }}>{year} Year · Honours Maths</div>
               </div>
+            </div>
+
+            {/* FEATURE 4: Avatar customization */}
+            <div style={{ marginTop: 16, paddingTop: 16, borderTop: `1px solid ${colors.textLight}20` }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: colors.text, marginBottom: 12 }}>
+                Choose Your Avatar 🎨
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 8, marginBottom: 12 }}>
+                {AVATARS.map(emoji => (
+                  <button key={emoji} onClick={() => {
+                    setAvatar(emoji);
+                    setCustomPhoto(null);
+                  }} style={{
+                    fontSize: 24, padding: 8, borderRadius: 8, border: avatar === emoji ? `3px solid ${colors.primary}` : `2px solid ${colors.textLight}30`,
+                    background: avatar === emoji ? `${colors.primary}15` : "transparent", cursor: "pointer",
+                    transition: "all 0.2s"
+                  }}>
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button onClick={() => fileInputRef.current?.click()} style={{
+                  ...styles.btn(colors.secondary, true), flex: 1, fontSize: 13, padding: "10px 12px"
+                }}>
+                  📷 Upload Photo
+                </button>
+                <button onClick={() => {
+                  setAvatar(null);
+                  setCustomPhoto(null);
+                }} style={{
+                  ...styles.btnOutline(colors.textLight), flex: 1, fontSize: 13, padding: "10px 12px"
+                }}>
+                  Reset
+                </button>
+              </div>
+              <input type="file" accept="image/*" style={{display:"none"}} ref={fileInputRef} onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (ev) => {
+                    setCustomPhoto(ev.target.result);
+                    setAvatar(null);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }} />
             </div>
           </div>
 
@@ -10849,8 +11205,8 @@ export default function MathU() {
 
           {/* Display Settings */}
           <div style={styles.card}>
-            <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Display</h3>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Display & Sound</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>🌙 Dark Mode</span>
               <button onClick={() => setDarkMode(!darkMode)}
                 style={{
@@ -10858,6 +11214,22 @@ export default function MathU() {
                   border: "none", borderRadius: 20, cursor: "pointer",
                   width: 44, height: 24, display: "flex", alignItems: "center",
                   padding: darkMode ? "2px 2px 2px 22px" : "2px 22px 2px 2px",
+                }}>
+                <div style={{
+                  width: 18, height: 18, background: "white", borderRadius: 10,
+                  transition: "all 0.3s",
+                }} />
+              </button>
+            </div>
+            {/* FEATURE 3: Sound Effects toggle */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>🔊 Sound Effects</span>
+              <button onClick={() => setSoundEnabled(!soundEnabled)}
+                style={{
+                  background: soundEnabled ? colors.primary : "#e2e8f0",
+                  border: "none", borderRadius: 20, cursor: "pointer",
+                  width: 44, height: 24, display: "flex", alignItems: "center",
+                  padding: soundEnabled ? "2px 2px 2px 22px" : "2px 22px 2px 2px",
                 }}>
                 <div style={{
                   width: 18, height: 18, background: "white", borderRadius: 10,
