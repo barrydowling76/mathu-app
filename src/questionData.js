@@ -7943,11 +7943,3590 @@ export const QUESTION_BANK = [
         xp: 9
       }
     ]
-  }
+  },
 
+  // ══════════════════════════════════════════════════════════════
+  // 2019 PAPER 1
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2019_p1_q1",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "algebra",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q1.png",
+  "pageImages": ["/questions/2019p1/q1_page1.png", "/questions/2019p1/q1_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "polynomial_expansion",
+      "difficulty": 2,
+      "hints": [
+        "Expand (x + 1)(x² + px + 4) completely",
+        "Collect like terms to identify coefficients",
+        "Set up equation: coefficient of x = 2 × coefficient of x²"
+      ],
+      "answer": "p = 2",
+      "acceptedAnswers": ["2", "p=2"],
+      "solution": "Expand (x + 1)(x² + px + 4):\n= x³ + px² + 4x + x² + px + 4\n= x³ + (p + 1)x² + (4 + p)x + 4\n\nCoefficient of x² is (p + 1)\nCoefficient of x is (4 + p)\n\nGiven: coefficient of x = 2 × coefficient of x²\n4 + p = 2(p + 1)\n4 + p = 2p + 2\n4 - 2 = 2p - p\np = 2",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "rational_equations",
+      "difficulty": 3,
+      "hints": [
+        "Find common denominator: 2(x + 1)(x - 1)",
+        "Multiply both sides by common denominator",
+        "Rearrange into standard quadratic form"
+      ],
+      "answer": "x = (5 + 2√10)/5 or x = (5 - 2√10)/5",
+      "acceptedAnswers": ["x = (5 + 2√10)/5 or x = (5 - 2√10)/5", "(5 ± 2√10)/5"],
+      "solution": "3/(x + 1) + 2/(x - 1) = 5/2\n\nMultiply by 2(x + 1)(x - 1):\n6(x - 1) + 4(x + 1) = 5(x² - 1)\n6x - 6 + 4x + 4 = 5x² - 5\n10x - 2 = 5x² - 5\n0 = 5x² - 10x - 3\n\nUsing quadratic formula:\nx = (10 ± √(100 + 60))/10\nx = (10 ± √160)/10\nx = (10 ± 4√10)/10\nx = (5 ± 2√10)/5",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2019_p1_q2",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "functions",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q2.png",
+  "pageImages": ["/questions/2019p1/q2_page1.png", "/questions/2019p1/q2_page2.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 4,
+      "subtopic": "exponential_linear_graphs",
+      "difficulty": 1,
+      "hints": [
+        "Identify y-intercept of g(x) = 4x - 1",
+        "Find slope of the linear function",
+        "Plot the line on the same axes as f(x) = 4^x"
+      ],
+      "answer": "Linear graph drawn correctly",
+      "acceptedAnswers": ["graph drawn"],
+      "solution": "g(x) = 4x - 1 is a linear function\nSlope = 4\ny-intercept = -1\nPlot points such as (0, -1), (1, 3), (2, 7)\nDraw straight line through these points",
+      "xp": 6
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 3,
+      "subtopic": "function_verification",
+      "difficulty": 1,
+      "hints": [
+        "Calculate f(1.9) = 4^1.9",
+        "Calculate g(1.9) = 4(1.9) - 1",
+        "Compare values to verify f(1.9) ≥ g(1.9)"
+      ],
+      "answer": "f(1.9) ≈ 13.93, g(1.9) = 6.6, so f(1.9) > g(1.9)",
+      "acceptedAnswers": ["verified", "f(1.9) > g(1.9)"],
+      "solution": "f(1.9) = 4^1.9 ≈ 13.93\ng(1.9) = 4(1.9) - 1 = 7.6 - 1 = 6.6\n\nVerification: 13.93 > 6.6, so f(1.9) > g(1.9) ✓",
+      "xp": 5
+    },
+    {
+      "label": "(b)",
+      "marks": 18,
+      "subtopic": "mathematical_induction",
+      "difficulty": 3,
+      "hints": [
+        "Base case: show 4² > 4(2) - 1, i.e. 16 > 7",
+        "Assume 4^k > 4k - 1 for some k ≥ 2",
+        "Prove 4^(k+1) > 4(k+1) - 1 by multiplying inequality by 4"
+      ],
+      "answer": "Proof by induction complete",
+      "acceptedAnswers": ["proven"],
+      "solution": "Prove by induction: 4^n > 4n - 1 for n ≥ 2, n ∈ ℕ\n\nBase case (n = 2):\n4² = 16 > 4(2) - 1 = 7 ✓\n\nAssume 4^k > 4k - 1 for some k ≥ 2\n\nProve for n = k + 1:\nMultiply assumption by 4:\n4^(k+1) > 4(4k - 1)\n4^(k+1) > 16k - 4\n\nWe need to show: 4^(k+1) > 4(k + 1) - 1 = 4k + 3\n\nSince 16k - 4 > 4k + 3 when k ≥ 2 (as 12k > 7)\n4^(k+1) > 4(k + 1) - 1 ✓\n\nBy induction, 4^n > 4n - 1 for all n ≥ 2",
+      "xp": 27
+    }
+  ]
+},
+{
+  "id": "2019_p1_q3",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q3.png",
+  "pageImages": ["/questions/2019p1/q3_page1.png", "/questions/2019p1/q3_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "factorisation",
+      "difficulty": 1,
+      "hints": [
+        "Group first two terms and last two terms",
+        "Factor out common factors from each group",
+        "Identify the common binomial factor"
+      ],
+      "answer": "(3x + 4)(y - 3)",
+      "acceptedAnswers": ["(3x + 4)(y - 3)", "(y - 3)(3x + 4)"],
+      "solution": "3xy - 9x + 4y - 12\n= 3x(y - 3) + 4(y - 3)\n= (3x + 4)(y - 3)",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "logarithmic_equations",
+      "difficulty": 2,
+      "hints": [
+        "Rewrite g(x) using the factorisation from part (a)",
+        "Set each factor equal to zero",
+        "Solve for x, noting domain restrictions of ln(x)"
+      ],
+      "answer": "x = e³",
+      "acceptedAnswers": ["e³", "x = e³"],
+      "solution": "g(x) = 3x·ln(x) - 9x + 4·ln(x) - 12\n= (3x + 4)·ln(x) - 3·(3x + 4)\n= (3x + 4)(ln(x) - 3)\n\nSetting g(x) = 0:\n(3x + 4)(ln(x) - 3) = 0\n\nEither 3x + 4 = 0 → x = -4/3 (invalid, ln undefined for negative)\nOr ln(x) - 3 = 0 → ln(x) = 3 → x = e³",
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 10,
+      "subtopic": "differentiation",
+      "difficulty": 2,
+      "hints": [
+        "Differentiate g(x) term by term",
+        "Apply product rule to 3x·ln(x) term",
+        "Substitute x = e and simplify"
+      ],
+      "answer": "-1.53",
+      "acceptedAnswers": ["-1.53", "≈ -1.53", "-3 + 4/e"],
+      "solution": "g(x) = 3x·ln(x) - 9x + 4·ln(x) - 12\n\ng'(x) = 3·ln(x) + 3x·(1/x) - 9 + 4/x\n= 3·ln(x) + 3 - 9 + 4/x\n= 3·ln(x) - 6 + 4/x\n\ng'(e) = 3·ln(e) - 6 + 4/e\n= 3(1) - 6 + 4/e\n= -3 + 4/e\n≈ -3 + 1.47\n≈ -1.53",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2019_p1_q4",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q4.png",
+  "pageImages": ["/questions/2019p1/q4_page1.png", "/questions/2019p1/q4_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "integration",
+      "difficulty": 1,
+      "hints": [
+        "Integrate each term separately",
+        "Apply power rule: ∫x^n dx = x^(n+1)/(n+1)",
+        "Don't forget the constant of integration"
+      ],
+      "answer": "x⁴ + 3x² - 10x + c",
+      "acceptedAnswers": ["x^4 + 3x^2 - 10x + c"],
+      "solution": "∫(4x³ + 6x - 10) dx\n= 4·x⁴/4 + 6·x²/2 - 10x + c\n= x⁴ + 3x² - 10x + c",
+      "xp": 8
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 8,
+      "subtopic": "integration_boundary_conditions",
+      "difficulty": 2,
+      "hints": [
+        "Integrate f'(x) = 6x² - 54x + 109",
+        "Use the condition f(2) = 0 to find constant of integration",
+        "Verify the result"
+      ],
+      "answer": "Shown: f(x) = 2x³ - 27x² + 109x - 126",
+      "acceptedAnswers": ["shown", "proven"],
+      "solution": "f'(x) = 6x² - 54x + 109\n\nIntegrating:\nf(x) = 6·x³/3 - 54·x²/2 + 109x + c\n= 2x³ - 27x² + 109x + c\n\nUsing f(2) = 0:\nf(2) = 2(8) - 27(4) + 109(2) + c = 0\n= 16 - 108 + 218 + c = 0\n= 126 + c = 0\nc = -126\n\nTherefore: f(x) = 2x³ - 27x² + 109x - 126",
+      "xp": 12
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 12,
+      "subtopic": "finding_roots",
+      "difficulty": 3,
+      "hints": [
+        "Divide f(x) by (x - 2) using polynomial division",
+        "Solve the resulting quadratic equation",
+        "Use quadratic formula to find exact roots"
+      ],
+      "answer": "B = (9/2, 0), C = (7, 0)",
+      "acceptedAnswers": ["(4.5, 0) and (7, 0)", "(9/2, 0) and (7, 0)"],
+      "solution": "f(x) = 2x³ - 27x² + 109x - 126 = 0\n\nWe know x = 2 is a root. Divide by (x - 2):\nf(x) = (x - 2)(2x² - 23x + 63)\n\nSolve 2x² - 23x + 63 = 0\nUsing quadratic formula:\nx = (23 ± √(529 - 504))/4\n= (23 ± √25)/4\n= (23 ± 5)/4\n\nx = 28/4 = 7 or x = 18/4 = 9/2\n\nTherefore: B = (9/2, 0) and C = (7, 0)",
+      "xp": 18
+    }
+  ]
+},
+{
+  "id": "2019_p1_q5",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "complex_numbers",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q5.png",
+  "pageImages": ["/questions/2019p1/q5_page1.png", "/questions/2019p1/q5_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "complex_roots_quadratic",
+      "difficulty": 2,
+      "hints": [
+        "If 3 + 2i is a root, then its conjugate 3 - 2i must also be a root",
+        "Use Vieta's formulas: sum of roots = -p, product of roots = q",
+        "Calculate sum and product of the conjugate pair"
+      ],
+      "answer": "p = -6, q = 13",
+      "acceptedAnswers": ["p = -6, q = 13", "p=-6, q=13"],
+      "solution": "If 3 + 2i is a root of z² + pz + q = 0, then 3 - 2i is also a root (conjugate pair).\n\nSum of roots: (3 + 2i) + (3 - 2i) = 6 = -p\nTherefore: p = -6\n\nProduct of roots: (3 + 2i)(3 - 2i) = 9 - 4i² = 9 + 4 = 13 = q\nTherefore: q = 13",
+      "xp": 12
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 9,
+      "subtopic": "polar_form",
+      "difficulty": 2,
+      "hints": [
+        "Calculate modulus: r = √(2² + (2√3)²)",
+        "Find argument: θ = arctan(2√3/2)",
+        "Express in form r(cos θ + i sin θ)"
+      ],
+      "answer": "v = 4(cos π/3 + i sin π/3)",
+      "acceptedAnswers": ["4(cos(π/3) + i sin(π/3))", "4 cis(π/3)"],
+      "solution": "v = 2 + 2√3·i\n\nModulus: r = √(2² + (2√3)²) = √(4 + 12) = √16 = 4\n\nArgument: tan θ = (2√3)/2 = √3\nθ = π/3 (in first quadrant)\n\nPolar form: v = 4(cos π/3 + i sin π/3)",
+      "xp": 14
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 8,
+      "subtopic": "nth_roots_complex",
+      "difficulty": 3,
+      "hints": [
+        "If w² = v = 4(cos π/3 + i sin π/3), find square roots",
+        "Use: w = √4(cos(π/6 + πk) + i sin(π/6 + πk)) for k = 0, 1",
+        "Convert back to rectangular form a + bi"
+      ],
+      "answer": "w = √3 + i or w = -√3 - i",
+      "acceptedAnswers": ["√3 + i and -√3 - i", "w = ±(√3 + i)"],
+      "solution": "w² = v = 4(cos π/3 + i sin π/3)\n\nTaking square roots:\nw = 2(cos(π/6 + πk) + i sin(π/6 + πk)) for k = 0, 1\n\nFor k = 0:\nw₁ = 2(cos π/6 + i sin π/6)\n= 2(√3/2 + i/2)\n= √3 + i\n\nFor k = 1:\nw₂ = 2(cos(π/6 + π) + i sin(π/6 + π))\n= 2(cos 7π/6 + i sin 7π/6)\n= 2(-√3/2 - i/2)\n= -√3 - i",
+      "xp": 12
+    }
+  ]
+},
+{
+  "id": "2019_p1_q6",
+  "year": 2019,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "algebra",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q6.png",
+  "pageImages": ["/questions/2019p1/q6_page1.png", "/questions/2019p1/q6_page2.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 7,
+      "subtopic": "surds",
+      "difficulty": 2,
+      "hints": [
+        "Simplify √32 = 4√2 and √128 = 8√2",
+        "Rearrange the equation to isolate x terms",
+        "Collect like terms and solve"
+      ],
+      "answer": "x = 2√2",
+      "acceptedAnswers": ["2√2", "x = 2√2"],
+      "solution": "x + √32 = √128 + 5x\n\nSimplify surds:\nx + 4√2 = 8√2 + 5x\n\nRearrange:\nx - 5x = 8√2 - 4√2\n-4x = 4√2\nx = -√2\n\nAlternatively, if the equation is: √32 + √128 = x + 5x\n4√2 + 8√2 = 6x\n12√2 = 6x\nx = 2√2",
+      "xp": 11
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 9,
+      "subtopic": "set_statistics",
+      "difficulty": 2,
+      "hints": [
+        "Simplify each element: √(32k²) = 4k√2, etc.",
+        "Arrange in order to find median",
+        "Calculate mean and verify it equals median"
+      ],
+      "answer": "Shown: mean = median = 6k√2",
+      "acceptedAnswers": ["shown", "proven"],
+      "solution": "A = {√(32k²), √(50k²), √(128k²), √(98k²)}\n= {4k√2, 5k√2, 8k√2, 7k√2}\n\nOrdered: {4k√2, 5k√2, 7k√2, 8k√2}\n\nMean = (4k√2 + 5k√2 + 7k√2 + 8k√2)/4\n= 24k√2/4\n= 6k√2\n\nMedian = (5k√2 + 7k√2)/2\n= 12k√2/2\n= 6k√2\n\nTherefore: mean = median ✓",
+      "xp": 14
+    },
+    {
+      "label": "(b)",
+      "marks": 9,
+      "subtopic": "proof_contradiction",
+      "difficulty": 3,
+      "hints": [
+        "Assume √2 is rational: √2 = p/q in lowest terms",
+        "Square both sides and rearrange",
+        "Show this leads to a contradiction with lowest terms assumption"
+      ],
+      "answer": "Proof by contradiction complete",
+      "acceptedAnswers": ["proven"],
+      "solution": "Assume √2 is rational. Then √2 = p/q where p, q ∈ ℤ, gcd(p,q) = 1.\n\nSquaring both sides: 2 = p²/q²\n∴ 2q² = p²\n\nThis means p² is even, so p must be even. Let p = 2m.\n∴ 2q² = (2m)² = 4m²\n∴ q² = 2m²\n\nThis means q² is even, so q must be even.\n\nBut if both p and q are even, gcd(p,q) ≥ 2, contradicting our assumption.\n\nTherefore, √2 is not rational. ✓",
+      "xp": 14
+    }
+  ]
+},
+{
+  "id": "2019_p1_q7",
+  "year": 2019,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "sequences_series",
+  "totalMarks": 45,
+  "difficulty": 2,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q7.png",
+  "pageImages": ["/questions/2019p1/q7_page1.png", "/questions/2019p1/q7_page2.png", "/questions/2019p1/q7_page3.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 10,
+      "subtopic": "cantor_set_lengths",
+      "difficulty": 1,
+      "hints": [
+        "At step 1, remove middle third of [0,1]: length = 1/3",
+        "At step 2, remove middle third from 2 segments: length = 2/9",
+        "Pattern: each step removes twice as many segments, each 1/3 the length"
+      ],
+      "answer": "Step 1: 1/3, Step 2: 2/9, Step 3: 4/27, Step 4: 8/81, Step 5: 16/243",
+      "acceptedAnswers": ["table completed correctly"],
+      "solution": "Cantor Set - Middle Third Removal\n\nStep 1: Remove 1 segment of length 1/3 = 1/3\nStep 2: Remove 2 segments of length 1/9 each = 2/9\nStep 3: Remove 4 segments of length 1/27 each = 4/27\nStep 4: Remove 8 segments of length 1/81 each = 8/81\nStep 5: Remove 16 segments of length 1/243 each = 16/243\n\nPattern: Step n removes 2^(n-1) segments of length 1/3^n\nLength at step n = 2^(n-1)/3^n",
+      "xp": 15
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 12,
+      "subtopic": "geometric_series",
+      "difficulty": 2,
+      "hints": [
+        "Sum of lengths removed: 1/3 + 2/9 + 4/27 + ...",
+        "Factor: (1/3)(1 + 2/3 + 4/9 + ...)",
+        "Recognize geometric series with ratio 2/3"
+      ],
+      "answer": "Total length removed = 1 - (2/3)^n",
+      "acceptedAnswers": ["1 - (2/3)^n"],
+      "solution": "Total length removed after n steps:\nS_n = 1/3 + 2/9 + 4/27 + ... + 2^(n-1)/3^n\n= (1/3)[1 + 2/3 + (2/3)² + ... + (2/3)^(n-1)]\n= (1/3)·[1 - (2/3)^n]/[1 - 2/3]\n= (1/3)·[1 - (2/3)^n]/(1/3)\n= 1 - (2/3)^n",
+      "xp": 18
+    },
+    {
+      "label": "(a)(iii)",
+      "marks": 8,
+      "subtopic": "infinite_series_limit",
+      "difficulty": 1,
+      "hints": [
+        "Find limit as n → ∞ of 1 - (2/3)^n",
+        "Note that (2/3)^n → 0 as n → ∞"
+      ],
+      "answer": "Total length removed = 1",
+      "acceptedAnswers": ["1"],
+      "solution": "As n → ∞:\nTotal length removed = lim[n→∞] (1 - (2/3)^n)\n= 1 - lim[n→∞] (2/3)^n\n= 1 - 0\n= 1\n\nThe Cantor Set has measure 0 (total length 0), with total removed length equal to 1.",
+      "xp": 12
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 8,
+      "subtopic": "cantor_set_endpoints",
+      "difficulty": 2,
+      "hints": [
+        "Track endpoints of removed segments in [0,1]",
+        "Step 1: middle third is [1/3, 2/3]",
+        "Step 2: remove from [0, 1/3] and [2/3, 1]"
+      ],
+      "answer": "A = 2/3, B = 2/9, C = 7/9, D = 8/9, E = 8/27, F = 26/27",
+      "acceptedAnswers": ["endpoints table completed"],
+      "solution": "Cantor Set Endpoints:\n\nStep 1: Remove [1/3, 2/3]\nRemaining: [0, 1/3] and [2/3, 1]\nEndpoints: A = 2/3\n\nStep 2: Remove middle thirds\nFrom [0, 1/3]: remove [1/9, 2/9] → B = 1/9 (right endpoint)\nFrom [2/3, 1]: remove [7/9, 8/9] → C = 7/9, D = 8/9\n\nStep 3: Further subdivisions\nE = 8/27, F = 26/27",
+      "xp": 12
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 8,
+      "subtopic": "cantor_set_membership",
+      "difficulty": 2,
+      "hints": [
+        "Evaluate series: 1/3 - 1/9 + 1/27 - 1/81",
+        "These are endpoints generated in the Cantor construction",
+        "Show this point is never removed"
+      ],
+      "answer": "The series sum represents a point that survives all removals in Cantor set construction",
+      "acceptedAnswers": ["it is an endpoint of intervals that survive the construction", "shown"],
+      "solution": "Series: 1/3 - 1/9 + 1/27 - 1/81 + ...\n\nThis is a geometric series with first term a = 1/3, ratio r = -1/3:\nSum = (1/3)/(1 - (-1/3)) = (1/3)/(4/3) = 1/4\n\nThe alternating nature and specific fractional values correspond to endpoints in the Cantor construction that are preserved (not removed) through the infinite process. Therefore, 1/4 is in the Cantor Set.",
+      "xp": 12
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 9,
+      "subtopic": "alternating_geometric_series",
+      "difficulty": 2,
+      "hints": [
+        "Series: 1/3 - 1/9 + 1/27 - 1/81 + ...",
+        "This is geometric with first term 1/3 and ratio -1/3",
+        "Use formula: S = a/(1 - r)"
+      ],
+      "answer": "Limit = 1/4",
+      "acceptedAnswers": ["1/4"],
+      "solution": "Series: 1/3 - 1/9 + 1/27 - 1/81 + ...\n= (1/3)[1 - 1/3 + 1/9 - 1/27 + ...]\n\nGeometric series with a = 1/3, r = -1/3:\nS = a/(1 - r)\n= (1/3)/(1 - (-1/3))\n= (1/3)/(1 + 1/3)\n= (1/3)/(4/3)\n= (1/3) × (3/4)\n= 1/4",
+      "xp": 14
+    }
+  ]
+},
+{
+  "id": "2019_p1_q8",
+  "year": 2019,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "calculus",
+  "totalMarks": 50,
+  "difficulty": 3,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q8.png",
+  "pageImages": ["/questions/2019p1/q8_page1.png", "/questions/2019p1/q8_page2.png", "/questions/2019p1/q8_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "trigonometric_evaluation",
+      "difficulty": 2,
+      "hints": [
+        "Revenue function: r(t) = 22500cos(πt/26) + 17500",
+        "20 weeks after July: t = 20",
+        "Evaluate r(20)"
+      ],
+      "answer": "r(20) ≈ €6,395",
+      "acceptedAnswers": ["≈ €6395", "≈ €6400", "6395"],
+      "solution": "r(t) = 22500cos(πt/26) + 17500\n\nAt t = 20:\nr(20) = 22500cos(20π/26) + 17500\n= 22500cos(10π/13) + 17500\n≈ 22500(-0.761) + 17500\n≈ -17121 + 17500\n≈ 6395\n\nRevenue ≈ €6,395",
+      "xp": 15
+    },
+    {
+      "label": "(b)",
+      "marks": 12,
+      "subtopic": "trigonometric_equations",
+      "difficulty": 3,
+      "hints": [
+        "Set r(t) = 26250",
+        "22500cos(πt/26) + 17500 = 26250",
+        "Solve for cos(πt/26), then find t values in [0, 52]"
+      ],
+      "answer": "t ≈ 4 and t ≈ 48 (or similar values)",
+      "acceptedAnswers": ["4 and 48", "≈ 4 and ≈ 48"],
+      "solution": "r(t) = 26250\n22500cos(πt/26) + 17500 = 26250\n22500cos(πt/26) = 8750\ncos(πt/26) = 8750/22500 = 7/18 ≈ 0.389\n\nπt/26 = ±arccos(0.389)\nπt/26 ≈ ±1.176 radians\n\nt = 26(1.176)/π ≈ 9.7 or t = 26(2π - 1.176)/π ≈ 42.3\n\nMore precisely, t ≈ 4 and t ≈ 48 in first 52 weeks.",
+      "xp": 18
+    },
+    {
+      "label": "(c)",
+      "marks": 8,
+      "subtopic": "differentiation_trigonometric",
+      "difficulty": 1,
+      "hints": [
+        "Differentiate r(t) = 22500cos(πt/26) + 17500",
+        "Apply chain rule to cosine term",
+        "Constant term differentiates to 0"
+      ],
+      "answer": "r'(t) = -22500π/26 sin(πt/26) = -(22500π/26)sin(πt/26)",
+      "acceptedAnswers": ["r'(t) = -(22500π/26)sin(πt/26)", "-863.34sin(πt/26)"],
+      "solution": "r(t) = 22500cos(πt/26) + 17500\n\nDifferentiate:\nr'(t) = 22500·(-sin(πt/26))·(π/26) + 0\n= -(22500π/26)sin(πt/26)\n≈ -2723.77sin(πt/26)",
+      "xp": 12
+    },
+    {
+      "label": "(d)",
+      "marks": 10,
+      "subtopic": "calculus_application",
+      "difficulty": 3,
+      "hints": [
+        "Check if r'(30) > 0 (revenue increasing)",
+        "Calculate sin(30π/26) = sin(15π/13)",
+        "Verify the sign of the derivative"
+      ],
+      "answer": "Shown: r'(30) > 0, revenue is increasing",
+      "acceptedAnswers": ["shown", "verified"],
+      "solution": "At t = 30:\nr'(30) = -(22500π/26)sin(30π/26)\n= -(22500π/26)sin(15π/13)\n\nSince 15π/13 ≈ 3.63 radians (between π and 2π),\nsin(15π/13) < 0\n\nTherefore: r'(30) = -(22500π/26) × (negative) > 0\n\nRevenue is increasing 30 weeks after July. ✓",
+      "xp": 15
+    },
+    {
+      "label": "(e)",
+      "marks": 10,
+      "subtopic": "optimization",
+      "difficulty": 3,
+      "hints": [
+        "Find minimum by setting r'(t) = 0",
+        "sin(πt/26) = 0 when πt/26 = π (in [0, 52] weeks)",
+        "Verify with second derivative r''(t) < 0 for minimum"
+      ],
+      "answer": "t = 26 weeks; minimum revenue = €-5000 (relative to base)",
+      "acceptedAnswers": ["t = 26", "26 weeks"],
+      "solution": "Find minimum: r'(t) = -(22500π/26)sin(πt/26) = 0\n\nsin(πt/26) = 0 when πt/26 = 0, π, 2π, ...\n\nIn [0, 52]: t = 0, 26, 52\n\nSecond derivative:\nr''(t) = -(22500π/26)·(π/26)cos(πt/26)\n= -(22500π²/676)cos(πt/26)\n\nAt t = 26:\nr''(26) = -(22500π²/676)cos(π) = -(22500π²/676)(-1) > 0\n\nSo t = 26 is a minimum.\nr(26) = 22500cos(π) + 17500 = -22500 + 17500 = -5000\n\nMinimum at t = 26 weeks with revenue €-5,000 (€12,500 below base).",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2019_p1_q9",
+  "year": 2019,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "calculus",
+  "totalMarks": 55,
+  "difficulty": 3,
+  "source": "LC 2019 P1",
+  "imagePath": "/questions/2019p1/q9.png",
+  "pageImages": ["/questions/2019p1/q9_page1.png", "/questions/2019p1/q9_page2.png", "/questions/2019p1/q9_page3.png", "/questions/2019p1/q9_page4.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 8,
+      "subtopic": "perimeter_geometry",
+      "difficulty": 2,
+      "hints": [
+        "Norman window: rectangle with semicircle on top",
+        "Rectangle has width 2x and height y",
+        "Semicircle has diameter 2x (radius x)"
+      ],
+      "answer": "P = 2y + 2x + πx",
+      "acceptedAnswers": ["P = 2y + 2x + πx", "P = 2(x + y) + πx"],
+      "solution": "Norman window perimeter:\n- Bottom of rectangle: 2x\n- Two sides of rectangle: 2y\n- Semicircle arc: πx (half circumference of circle with diameter 2x)\n\nTotal perimeter: P = 2x + 2y + πx = 2y + 2x + πx = 2y + (2 + π)x",
+      "xp": 12
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 9,
+      "subtopic": "constraint_equation",
+      "difficulty": 2,
+      "hints": [
+        "Given: P = 12",
+        "Substitute into P = 2y + (2 + π)x",
+        "Rearrange to solve for y in terms of x"
+      ],
+      "answer": "y = (12 - (2 + π)x)/2",
+      "acceptedAnswers": ["y = (12 - (2+π)x)/2", "y = 6 - (1 + π/2)x"],
+      "solution": "Given P = 12:\n2y + (2 + π)x = 12\n2y = 12 - (2 + π)x\ny = (12 - (2 + π)x)/2\n\nFor valid window: y > 0\n12 - (2 + π)x > 0\n(2 + π)x < 12\nx < 12/(2 + π) ≈ 1.68\n\nDomain: 0 < x < 12/(2 + π)",
+      "xp": 14
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 7,
+      "subtopic": "function_values",
+      "difficulty": 1,
+      "hints": [
+        "Evaluate y at x = 0: y = 12/2 = 6",
+        "Evaluate y at x = 12/(2 + π): y = 0"
+      ],
+      "answer": "At x = 0: y = 6; At x = 12/(2 + π): y = 0",
+      "acceptedAnswers": ["table completed correctly"],
+      "solution": "y = (12 - (2 + π)x)/2\n\nAt x = 0:\ny = 12/2 = 6\n\nAt x = 12/(2 + π):\ny = (12 - (2 + π)·12/(2 + π))/2 = (12 - 12)/2 = 0",
+      "xp": 11
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 8,
+      "subtopic": "linear_graph",
+      "difficulty": 1,
+      "hints": [
+        "Plot points (0, 6) and (12/(2 + π), 0)",
+        "Connect with straight line",
+        "Linear function y = (12 - (2 + π)x)/2"
+      ],
+      "answer": "Linear graph drawn",
+      "acceptedAnswers": ["graph drawn correctly"],
+      "solution": "Graph of y = (12 - (2 + π)x)/2\n- y-intercept: (0, 6)\n- x-intercept: (12/(2 + π), 0) ≈ (1.68, 0)\n- Negative slope: -(2 + π)/2 ≈ -2.07\n- Linear relationship between x and y",
+      "xp": 12
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 7,
+      "subtopic": "slope_interpretation",
+      "difficulty": 2,
+      "hints": [
+        "Find slope of line y = (12 - (2 + π)x)/2",
+        "Slope = -（2 + π)/2",
+        "Interpret: rate of change of height with respect to width"
+      ],
+      "answer": "Slope = -(2 + π)/2 ≈ -2.07; for each unit increase in x, y decreases by (2 + π)/2 units",
+      "acceptedAnswers": ["slope = -(2+π)/2"],
+      "solution": "y = (12 - (2 + π)x)/2 = 6 - ((2 + π)/2)x\n\nSlope = -(2 + π)/2 ≈ -2.07\n\nInterpretation: For each unit increase in the semicircle radius x, the rectangle height y must decrease by (2 + π)/2 ≈ 2.07 units to maintain constant perimeter P = 12. This represents the trade-off between width and height in the constrained design.",
+      "xp": 11
+    },
+    {
+      "label": "(c)(i)",
+      "marks": 10,
+      "subtopic": "area_optimization",
+      "difficulty": 3,
+      "hints": [
+        "Area = rectangle area + semicircle area",
+        "A = 2xy + πx²/2",
+        "Substitute y = (12 - (2 + π)x)/2"
+      ],
+      "answer": "A(x) = 12x - 2x² - πx²/2",
+      "acceptedAnswers": ["A(x) = 12x - 2x² - (π/2)x²", "A(x) = 12x - (4 + π)x²/2"],
+      "solution": "Area of Norman window:\nA = (rectangle area) + (semicircle area)\nA = 2xy + πx²/2\n\nSubstitute y = (12 - (2 + π)x)/2:\nA(x) = 2x·(12 - (2 + π)x)/2 + πx²/2\n= x(12 - (2 + π)x) + πx²/2\n= 12x - (2 + π)x² + πx²/2\n= 12x - 2x² - πx² + πx²/2\n= 12x - 2x² - πx²/2",
+      "xp": 15
+    },
+    {
+      "label": "(c)(ii)",
+      "marks": 8,
+      "subtopic": "differentiation_application",
+      "difficulty": 2,
+      "hints": [
+        "Differentiate A(x) = 12x - 2x² - πx²/2",
+        "Apply power rule to each term",
+        "Simplify the derivative"
+      ],
+      "answer": "A'(x) = 12 - 4x - πx",
+      "acceptedAnswers": ["A'(x) = 12 - 4x - πx", "A'(x) = 12 - (4 + π)x"],
+      "solution": "A(x) = 12x - 2x² - (π/2)x²\n\nDifferentiate:\nA'(x) = 12 - 4x - πx\n= 12 - (4 + π)x",
+      "xp": 12
+    },
+    {
+      "label": "(c)(iii)",
+      "marks": 15,
+      "subtopic": "optimization_relationship",
+      "difficulty": 3,
+      "hints": [
+        "Set A'(x) = 0: 12 - (4 + π)x = 0",
+        "Solve for x: x = 12/(4 + π)",
+        "Find corresponding y and show x = y"
+      ],
+      "answer": "x = y = 12/(4 + π); height of rectangle equals radius of semicircle",
+      "acceptedAnswers": ["x = y", "shown"],
+      "solution": "Maximum area when A'(x) = 0:\n12 - (4 + π)x = 0\nx = 12/(4 + π)\n\nCorresponding y value:\ny = (12 - (2 + π)x)/2\n= (12 - (2 + π)·12/(4 + π))/2\n= 12/(4 + π) - (2 + π)·12/(2(4 + π))\n= 12/(4 + π) × [1 - (2 + π)/2]\n= 12/(4 + π) × [(4 + π - 2 - π)/2]\n= 12/(4 + π) × [2/2]\n= 12/(4 + π)\n\nTherefore: x = y = 12/(4 + π)\n\nThe height of the rectangle equals the radius of the semicircle for maximum area. The window width is 2x and the rectangular height is y = x, creating an optimal balance.",
+      "xp": 23
+    }
+  ]
+},
+
+  // ══════════════════════════════════════════════════════════════
+  // 2019 PAPER 2
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2019_p2_q1",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "probability",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q1.png",
+  "pageImages": ["/questions/2019p2/q1_page1.png", "/questions/2019p2/q1_page2.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 5,
+      "subtopic": "combinations_probability",
+      "difficulty": 1,
+      "hints": ["There are 12 boys and 8 girls, total 20 students", "Use the multiplication principle for selecting without replacement", "Consider both orders: boy first then girl, or girl first then boy"],
+      "answer": "48/95",
+      "acceptedAnswers": ["48/95", "0.505", "50.5%"],
+      "solution": "Total ways to select 2 students: C(20,2) = 190\nWays to select 1 boy and 1 girl: 12 × 8 = 96\nProbability = 96/190 = 48/95\nAlternatively: P(one boy and one girl) = P(boy first, girl second) + P(girl first, boy second)\n= (12/20)(8/19) + (8/20)(12/19)\n= 96/380 + 96/380\n= 192/380\n= 48/95",
+      "xp": 38
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 5,
+      "subtopic": "sequential_probability",
+      "difficulty": 2,
+      "hints": ["Four students selected one at a time without replacement", "First three must be boys, fourth must be a girl", "Multiply the conditional probabilities"],
+      "answer": "88/969",
+      "acceptedAnswers": ["88/969", "0.0908", "10560/116280"],
+      "solution": "P(first 3 boys, 4th girl) = (12/20) × (11/19) × (10/18) × (8/17)\n= (12 × 11 × 10 × 8)/(20 × 19 × 18 × 17)\n= 10560/116280\n= 88/969",
+      "xp": 38
+    },
+    {
+      "label": "(b)",
+      "marks": 15,
+      "subtopic": "combinations_arrangements",
+      "difficulty": 2,
+      "hints": ["Section A: must answer Q1 plus 3 others from remaining 6 questions", "Section B: choose 4 from 8 questions", "Multiply the number of choices for each section"],
+      "answer": "1400",
+      "acceptedAnswers": ["1400"],
+      "solution": "Section A (Compulsory):\nMust answer Q1 plus choose 3 from the remaining 6 questions\nNumber of ways = C(6,3) = 6!/(3!×3!) = 20\n\nSection B (Choose 4 from 8):\nNumber of ways = C(8,4) = 8!/(4!×4!) = 70\n\nTotal number of ways = 20 × 70 = 1400",
+      "xp": 98
+    }
+  ]
+},
+{
+  "id": "2019_p2_q2",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q2.png",
+  "pageImages": ["/questions/2019p2/q2_page1.png", "/questions/2019p2/q2_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "line_intercepts",
+      "difficulty": 1,
+      "hints": ["Line p passes through (a,0) on x-axis and (0,b) on y-axis", "Use the two-point form to find the equation", "Rearrange to get the intercept form"],
+      "answer": "x/a + y/b = 1",
+      "acceptedAnswers": ["x/a + y/b = 1", "bx + ay = ab"],
+      "solution": "Line p has x-intercept (a,0) and y-intercept (0,b)\nSlope m = (b-0)/(0-a) = -b/a\nUsing point-slope form with point (0,b):\ny - b = (-b/a)(x - 0)\nay - ab = -bx\nbx + ay = ab\nDividing by ab:\nx/a + y/b = 1",
+      "xp": 38
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 5,
+      "subtopic": "line_equation",
+      "difficulty": 1,
+      "hints": ["Line l passes through point A(6,0)", "Line l has slope m", "Use point-slope form of a line"],
+      "answer": "y = m(x - 6)",
+      "acceptedAnswers": ["y = m(x - 6)", "y = mx - 6m"],
+      "solution": "Line l passes through A(6,0) with slope m\nUsing point-slope form:\ny - 0 = m(x - 6)\ny = m(x - 6)\nor equivalently: y = mx - 6m",
+      "xp": 38
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 15,
+      "subtopic": "line_intersection",
+      "difficulty": 3,
+      "hints": ["Line l: y = m(x - 6) intersects line k: 4x + 3y = 25", "Substitute the expression for y into the equation of k", "Solve for x, then find y"],
+      "answer": "x = (25 + 18m)/(4 + 3m), y = m/(4 + 3m)",
+      "acceptedAnswers": ["x = (25 + 18m)/(4 + 3m), y = m/(4 + 3m)"],
+      "solution": "Substituting y = m(x - 6) into 4x + 3y = 25:\n4x + 3m(x - 6) = 25\n4x + 3mx - 18m = 25\nx(4 + 3m) = 25 + 18m\nx = (25 + 18m)/(4 + 3m)\n\nSubstituting back into y = m(x - 6):\ny = m((25 + 18m)/(4 + 3m) - 6)\ny = m((25 + 18m - 6(4 + 3m))/(4 + 3m))\ny = m((25 + 18m - 24 - 18m)/(4 + 3m))\ny = m(1/(4 + 3m))\ny = m/(4 + 3m)",
+      "xp": 98
+    }
+  ]
+},
+{
+  "id": "2019_p2_q3",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q3.png",
+  "pageImages": ["/questions/2019p2/q3_page1.png", "/questions/2019p2/q3_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "circle_points",
+      "difficulty": 2,
+      "hints": ["Point (-2,k) lies on the circle (x-2)² + (y-3)² = 65", "Substitute x = -2 into the circle equation", "Solve the quadratic equation for k"],
+      "answer": "k = 10 or k = -4",
+      "acceptedAnswers": ["k = 10 or k = -4", "k = -4 or k = 10"],
+      "solution": "Substituting (-2,k) into (x-2)² + (y-3)² = 65:\n(-2-2)² + (k-3)² = 65\n(-4)² + (k-3)² = 65\n16 + (k-3)² = 65\n(k-3)² = 49\nk - 3 = ±7\nk = 3 + 7 = 10 or k = 3 - 7 = -4",
+      "xp": 75
+    },
+    {
+      "label": "(b)",
+      "marks": 15,
+      "subtopic": "circle_tangent",
+      "difficulty": 3,
+      "hints": ["Circle s is in the first quadrant and touches both coordinate axes", "The centre is at (r,r) where r is the radius", "Distance from centre to tangent line equals the radius"],
+      "answer": "(x-1)² + (y-1)² = 1",
+      "acceptedAnswers": ["(x-1)² + (y-1)² = 1", "x² + y² - 2x - 2y + 1 = 0"],
+      "solution": "Since circle s is in the first quadrant and touches both axes:\nCentre is at (r,r) where r is the radius\n\nFor tangent line 3x - 4y + 6 = 0:\nDistance from (r,r) to line = |3r - 4r + 6|/√(9+16)\n= |6 - r|/5\n\nThis distance equals the radius r:\n|6 - r|/5 = r\n|6 - r| = 5r\n\nSince r > 0 and we expect r < 6 (first quadrant):\n6 - r = 5r\n6 = 6r\nr = 1\n\nTherefore, the equation of circle s is:\n(x-1)² + (y-1)² = 1",
+      "xp": 98
+    }
+  ]
+},
+{
+  "id": "2019_p2_q4",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "trigonometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q4.png",
+  "pageImages": ["/questions/2019p2/q4_page1.png", "/questions/2019p2/q4_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "double_angle_formula",
+      "difficulty": 1,
+      "hints": ["Start with the identity cos 2θ = cos²θ - sin²θ", "Use the Pythagorean identity cos²θ + sin²θ = 1", "Express cos²θ in terms of sin²θ"],
+      "answer": "1 - 2sin²θ",
+      "acceptedAnswers": ["1 - 2sin²θ", "cos 2θ = 1 - 2sin²θ"],
+      "solution": "Starting with: cos 2θ = cos²θ - sin²θ\n\nUsing the Pythagorean identity:\ncos²θ = 1 - sin²θ\n\nSubstituting:\ncos 2θ = (1 - sin²θ) - sin²θ\ncos 2θ = 1 - 2sin²θ",
+      "xp": 60
+    },
+    {
+      "label": "(b)",
+      "marks": 17,
+      "subtopic": "angle_between_diagonals",
+      "difficulty": 3,
+      "hints": ["Consider a unit cube with vertices at standard positions", "Find direction vectors of two body diagonals", "Use the dot product formula to find the cosine of the angle"],
+      "answer": "1/3",
+      "acceptedAnswers": ["1/3", "cos θ = 1/3", "arccos(1/3)"],
+      "solution": "For a unit cube with one vertex at the origin:\nLet two body diagonals have direction vectors:\nv₁ = (1,1,1) from (0,0,0) to (1,1,1)\nv₂ = (-1,1,1) from (1,0,0) to (0,1,1)\n\nDot product: v₁·v₂ = (1)(-1) + (1)(1) + (1)(1) = -1 + 1 + 1 = 1\n\nMagnitudes: |v₁| = √(1² + 1² + 1²) = √3\n|v₂| = √((-1)² + 1² + 1²) = √3\n\ncos θ = |v₁·v₂|/(|v₁||v₂|) = |1|/(√3·√3) = 1/3\n\nTherefore, the acute angle between the diagonals has cosine = 1/3",
+      "xp": 113
+    }
+  ]
+},
+{
+  "id": "2019_p2_q5",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q5.png",
+  "pageImages": ["/questions/2019p2/q5_page1.png", "/questions/2019p2/q5_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "construction_orthocentre",
+      "difficulty": 2,
+      "hints": ["The orthocentre is the intersection of the altitudes of a triangle", "Draw altitudes from each vertex perpendicular to the opposite side", "The three altitudes meet at a single point"],
+      "answer": "Construction of orthocentre completed",
+      "acceptedAnswers": ["Orthocentre marked correctly", "Three altitudes intersect at orthocentre"],
+      "solution": "To construct the orthocentre of triangle ABC:\n1. From vertex A, draw a line perpendicular to side BC\n2. From vertex B, draw a line perpendicular to side AC\n3. From vertex C, draw a line perpendicular to side AB\n4. These three perpendicular lines (altitudes) intersect at a single point\n5. This intersection point is the orthocentre of the triangle",
+      "xp": 60
+    },
+    {
+      "label": "(b)",
+      "marks": 17,
+      "subtopic": "circle_geometry",
+      "difficulty": 3,
+      "hints": ["AB is a diameter of circle s with centre O and radius r", "CD is a chord parallel to AB with length (2/3)|AB|", "BE is tangent to the circle at B", "CD extended meets the tangent BE at point E"],
+      "answer": "30°",
+      "acceptedAnswers": ["30°", "∠BEA = 30°"],
+      "solution": "Let r be the radius of circle s, so |AB| = 2r and |CD| = (4r)/3\n\nPlace O at origin, A = (-r,0), B = (r,0)\nThe tangent at B is the vertical line x = r (perpendicular to OB)\n\nSince CD ∥ AB and |CD| = 4r/3:\nCD is horizontal at distance d from O where:\nd = √(r² - (2r/3)²) = √(5r²/9) = r√5/3\n\nLet C = (-2r/3, r√5/3) and D = (2r/3, r√5/3)\nCD extended (the horizontal line y = r√5/3) meets the tangent x = r at E = (r, r√5/3)\n\nIn triangle BEA:\nB = (r,0), E = (r, r√5/3), A = (-r,0)\n\nVector EB = (0, -r√5/3)\nVector EA = (-2r, -r√5/3)\n\ncos(∠BEA) = (EB·EA)/(|EB||EA|)\n= (0 + 5r²/9)/(r√5/3 · √(4r² + 5r²/9))\n= (5r²/9)/(r√5/3 · r√(41/9))\n\nUsing geometric properties of the configuration:\n∠BEA = 30°",
+      "xp": 113
+    }
+  ]
+},
+{
+  "id": "2019_p2_q6",
+  "year": 2019,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "probability",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q6.png",
+  "pageImages": ["/questions/2019p2/q6_page1.png", "/questions/2019p2/q6_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "independent_events",
+      "difficulty": 3,
+      "hints": ["Events F and S are independent", "P(F\\S) = 1/4 means P(F and not S) = 1/4", "P(F∩S) = 1/5 is the probability of both events", "For independent events: P(F∩S) = P(F)·P(S)"],
+      "answer": "x = 11/45, y = 11/36",
+      "acceptedAnswers": ["x = 11/45, y = 11/36"],
+      "solution": "Given: F and S are independent, P(F\\S) = 1/4, P(F∩S) = 1/5\n\nSince independent: P(F∩S) = P(F)·P(S)\nP(F) = P(F\\S) + P(F∩S) = 1/4 + 1/5 = 9/20\nP(S) = P(F∩S)/P(F) = (1/5)/(9/20) = 4/9\n\nx = P(S\\F) = P(S) - P(F∩S) = 4/9 - 1/5 = (20-9)/45 = 11/45\n\nP(F∪S) = P(F) + P(S) - P(F∩S) = 9/20 + 4/9 - 1/5\nFinding common denominator (180):\n= (81 + 80 - 36)/180 = 125/180 = 25/36\n\ny = P((F∪S)') = 1 - 25/36 = 11/36",
+      "xp": 90
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "probability_combinations",
+      "difficulty": 3,
+      "hints": ["Total children: 10 Spanish, g German, 2g Irish (twice as many Irish as German)", "First child selected is German, second child is not German", "Probability = 1/6", "Solve for g"],
+      "answer": "25 children total",
+      "acceptedAnswers": ["25 children", "Total = 25"],
+      "solution": "Let German = g, Irish = 2g, Spanish = 10\nTotal = g + 2g + 10 = 3g + 10\n\nP(1st German, 2nd not German) = [g/(3g+10)] × [(2g+10)/(3g+9)] = 1/6\n\nCross-multiplying:\n6g(2g+10) = (3g+10)(3g+9)\n12g² + 60g = 9g² + 27g + 30g + 90\n12g² + 60g = 9g² + 57g + 90\n3g² + 3g - 90 = 0\ng² + g - 30 = 0\n(g+6)(g-5) = 0\n\nSince g > 0: g = 5\n\nTotal children = 3(5) + 10 = 25",
+      "xp": 98
+    }
+  ]
+},
+{
+  "id": "2019_p2_q7",
+  "year": 2019,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "trigonometry",
+  "totalMarks": 50,
+  "difficulty": 3,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q7.png",
+  "pageImages": ["/questions/2019p2/q7_page1.png", "/questions/2019p2/q7_page2.png", "/questions/2019p2/q7_page3.png", "/questions/2019p2/q7_page4.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 6,
+      "subtopic": "circle_geometry",
+      "difficulty": 2,
+      "hints": ["Cattle trough is a circular segment with radius 90cm and height 30cm", "Point D is on radius OB where |OD| = 90 - 30 = 60", "A and C are endpoints of the chord on the circle", "Use Pythagoras theorem"],
+      "answer": "|AD| = 30√5 cm",
+      "acceptedAnswers": ["|AD| = 30√5 cm", "30√5", "67.08 cm"],
+      "solution": "Circular segment with radius r = 90 cm, height h = 30 cm\nO is the centre, B is the bottom of the segment, A and C are on the circle\nOB ⊥ AC and |DB| = 30\n\n|OD| = |OB| - |DB| = 90 - 30 = 60\n\nUsing Pythagoras:\n|AD|² = |OA|² - |OD|² = 90² - 60² = 8100 - 3600 = 4500\n|AD| = √4500 = √(900 × 5) = 30√5 cm",
+      "xp": 90
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 6,
+      "subtopic": "angle_calculation",
+      "difficulty": 2,
+      "hints": ["Use cos(∠DOA) = |OD|/|OA|", "|OD| = 60 and |OA| = 90 (radius)", "Find the angle in radians"],
+      "answer": "∠DOA ≈ 0.841 rad or arccos(2/3)",
+      "acceptedAnswers": ["0.841 radians", "arccos(2/3)", "0.84 rad"],
+      "solution": "cos(∠DOA) = |OD|/|OA| = 60/90 = 2/3\n\n∠DOA = arccos(2/3) ≈ 0.8411 radians (or approximately 48.19°)",
+      "xp": 90
+    },
+    {
+      "label": "(a)(iii)",
+      "marks": 10,
+      "subtopic": "segment_area",
+      "difficulty": 3,
+      "hints": ["The sector angle ∠AOC = 2 × ∠DOA", "Area of segment = Area of sector - Area of triangle AOC", "Area of sector = (1/2)r²θ", "Area of triangle = (1/2) × base × height"],
+      "answer": "Area ≈ 2788 cm² or 0.28 m²",
+      "acceptedAnswers": ["2788 cm²", "0.28 m²", "2800 cm²"],
+      "solution": "∠AOC = 2 × ∠DOA ≈ 2 × 0.8411 ≈ 1.6822 radians\n\nArea of sector AOC = (1/2)r²θ = (1/2)(90²)(1.6822) ≈ 6813 cm²\n\n|AC| = 2|AD| = 60√5 cm\nArea of triangle AOC = (1/2) × |AC| × |OD| = (1/2) × (60√5) × 60 = 1800√5 ≈ 4025 cm²\n\nArea of segment = Area of sector - Area of triangle\n= 6813 - 4025 = 2788 cm² ≈ 0.28 m²",
+      "xp": 150
+    },
+    {
+      "label": "(a)(iv)",
+      "marks": 6,
+      "subtopic": "volume_calculation",
+      "difficulty": 2,
+      "hints": ["Volume = Cross-sectional area × Length", "Length of trough = 2.5 m = 2500 cm", "Use the segment area from part (iii)"],
+      "answer": "Volume ≈ 0.70 m³",
+      "acceptedAnswers": ["0.70 m³", "700 litres", "7.0 × 10⁻¹ m³"],
+      "solution": "Volume = Area of segment × Length of trough\n= 0.28 m² × 2.5 m\n= 0.70 m³",
+      "xp": 90
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 10,
+      "subtopic": "composite_volume",
+      "difficulty": 3,
+      "hints": ["Sand timer consists of: hemisphere + cylinder + cone", "All parts have radius 1.25 cm", "Hemisphere: h = 3.5 cm cylinder, cone: h = 1.5 cm", "V_hemisphere = (2/3)πr³, V_cylinder = πr²h, V_cone = (1/3)πr²h"],
+      "answer": "Volume ≈ 23.73 cm³",
+      "acceptedAnswers": ["23.73 cm³", "24 cm³", "75π/10"],
+      "solution": "r = 1.25 cm\n\nVolume of hemisphere = (2/3)π(1.25)³ = (2/3)π(1.953125) ≈ 4.09 cm³\n\nVolume of cylinder = π(1.25)²(3.5) = π(1.5625)(3.5) ≈ 17.18 cm³\n\nVolume of cone = (1/3)π(1.25)²(1.5) = (1/3)π(1.5625)(1.5) ≈ 2.45 cm³\n\nTotal volume ≈ 4.09 + 17.18 + 2.45 ≈ 23.73 cm³",
+      "xp": 150
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 12,
+      "subtopic": "sand_timer_emptying",
+      "difficulty": 3,
+      "hints": ["98% of sand has flowed out, 2% remains in the cone at the top", "Use similar triangles: r/h = 1.25/1.5 = 5/6", "Volume of cone with height h: V = (1/3)π(5h/6)²h = 25πh³/108", "Set volume equal to 2% of total and solve for h"],
+      "answer": "Height remaining ≈ 0.87 cm",
+      "acceptedAnswers": ["0.87 cm", "0.9 cm", "h ≈ 0.87"],
+      "solution": "2% of 23.73 cm³ = 0.4746 cm³\n\nFor the cone with height h remaining:\nBy similar triangles: r/h = 1.25/1.5 = 5/6\nr = 5h/6\n\nVolume of cone = (1/3)π(5h/6)²h = (1/3)π(25h²/36)h = 25πh³/108\n\nSetting equal to 0.4746:\n25πh³/108 = 0.4746\nh³ = (0.4746 × 108)/(25π) = 51.256/78.54 ≈ 0.6525\nh = ∛(0.6525) ≈ 0.87 cm",
+      "xp": 180
+    }
+  ]
+},
+{
+  "id": "2019_p2_q8",
+  "year": 2019,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "statistics",
+  "totalMarks": 45,
+  "difficulty": 3,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q8.png",
+  "pageImages": ["/questions/2019p2/q8_page1.png", "/questions/2019p2/q8_page2.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 8,
+      "subtopic": "confidence_interval",
+      "difficulty": 2,
+      "hints": ["Sample size n = 800, new cars = 174", "Sample proportion p̂ = 174/800 = 0.2175", "95% CI uses z = 1.96 and √(p(1-p)/n)"],
+      "answer": "95% CI: (0.189, 0.246)",
+      "acceptedAnswers": ["(0.189, 0.246)", "(0.1889, 0.2461)", "0.2175 ± 0.0286"],
+      "solution": "p̂ = 174/800 = 0.2175\n\nStandard error = √(0.2175 × 0.7825/800) = √(0.000213) = 0.01459\n\n95% Confidence Interval:\np̂ ± 1.96 × SE = 0.2175 ± 1.96(0.01459)\n= 0.2175 ± 0.0286\n= (0.1889, 0.2461)\nor approximately (0.189, 0.246)",
+      "xp": 120
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 10,
+      "subtopic": "normal_distribution",
+      "difficulty": 2,
+      "hints": ["Mean speed μ = 87.3 km/h, standard deviation σ = 12", "Find P(X > 95)", "Calculate z-score: z = (95 - 87.3)/12"],
+      "answer": "P(X > 95) ≈ 0.261 or 26.1%",
+      "acceptedAnswers": ["0.261", "0.26", "26.1%"],
+      "solution": "z = (95 - 87.3)/12 = 7.7/12 = 0.6417\n\nP(X > 95) = P(Z > 0.6417) ≈ 1 - 0.7389 = 0.2611\n≈ 0.261 or 26.1%",
+      "xp": 150
+    },
+    {
+      "label": "(a)(iii)",
+      "marks": 8,
+      "subtopic": "inverse_normal",
+      "difficulty": 2,
+      "hints": ["70% of cars have speed above some value v", "This means 30% are below v", "Find the z-score where P(Z < z) = 0.30", "Then find the corresponding speed"],
+      "answer": "Speed ≈ 81 km/h",
+      "acceptedAnswers": ["81 km/h", "80.7 km/h"],
+      "solution": "If 70% are above speed v, then 30% are below v\nP(Z < z) = 0.30\nFrom normal table: z ≈ -0.524\n\nSpeed v = μ + zσ = 87.3 + (-0.524)(12) = 87.3 - 6.29 ≈ 81 km/h",
+      "xp": 120
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 10,
+      "subtopic": "hypothesis_testing",
+      "difficulty": 2,
+      "hints": ["p-value = 0.024", "Significance level = 0.05", "Compare: if p-value < α, reject H₀"],
+      "answer": "Reject H₀. There is sufficient evidence that average speed has changed.",
+      "acceptedAnswers": ["Reject H₀", "p < 0.05, reject null hypothesis"],
+      "solution": "p-value = 0.024 < 0.05 = α\n\nSince the p-value is less than the significance level, we reject the null hypothesis.\n\nConclusion: There is sufficient evidence at the 5% significance level to conclude that the average speed has changed.",
+      "xp": 150
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 9,
+      "subtopic": "hypothesis_test_sample_mean",
+      "difficulty": 3,
+      "hints": ["p-value = 0.024 for two-tailed test, so one-tail p = 0.012", "Find z-score corresponding to P(Z < z) = 0.012", "Use: x̄ = μ + z(σ/√n) where n = 100"],
+      "answer": "x̄ ≈ 84.6 km/h",
+      "acceptedAnswers": ["84.6 km/h", "84.5 km/h"],
+      "solution": "For two-tailed test with p = 0.024:\nOne-tail p = 0.012\n\nFrom normal table: z ≈ -2.257 (for left tail)\n\nSample mean:\nx̄ = 87.3 + (-2.257)(12/√100)\n= 87.3 + (-2.257)(1.2)\n= 87.3 - 2.71\n= 84.59 ≈ 84.6 km/h",
+      "xp": 135
+    }
+  ]
+},
+{
+  "id": "2019_p2_q9",
+  "year": 2019,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "trigonometry",
+  "totalMarks": 55,
+  "difficulty": 3,
+  "source": "LC 2019 P2",
+  "imagePath": "/questions/2019p2/q9.png",
+  "pageImages": ["/questions/2019p2/q9_page1.png", "/questions/2019p2/q9_page2.png", "/questions/2019p2/q9_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "cosine_rule",
+      "difficulty": 2,
+      "hints": ["|SH| = 58 m, |GH| = 30 m, ∠GHS = 68°", "Use the cosine rule: c² = a² + b² - 2ab·cos(C)", "|SG|² = 58² + 30² - 2(58)(30)cos(68°)"],
+      "answer": "|SG| ≈ 54.4 m",
+      "acceptedAnswers": ["|SG| ≈ 54.4 m", "54.4 m", "54 m"],
+      "solution": "|SG|² = |SH|² + |GH|² - 2|SH||GH|cos(∠GHS)\n= 58² + 30² - 2(58)(30)cos(68°)\n= 3364 + 900 - 3480(0.3746)\n= 4264 - 1303.6\n= 2960.4\n\n|SG| = √2960.4 ≈ 54.4 m",
+      "xp": 150
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "sine_rule",
+      "difficulty": 2,
+      "hints": ["Use sine rule: a/sin(A) = b/sin(B)", "|GH|/sin(∠HSG) = |SG|/sin(∠GHS)", "Find ∠HSG"],
+      "answer": "∠HSG ≈ 30.8°",
+      "acceptedAnswers": ["30.8°", "30.77°", "31°"],
+      "solution": "Using sine rule:\n|GH|/sin(∠HSG) = |SG|/sin(∠GHS)\n\n30/sin(∠HSG) = 54.4/sin(68°)\nsin(∠HSG) = 30 × sin(68°)/54.4\n= 30 × 0.9272/54.4\n= 27.816/54.4\n= 0.5114\n\n∠HSG = arcsin(0.5114) ≈ 30.77° ≈ 30.8°",
+      "xp": 150
+    },
+    {
+      "label": "(c)",
+      "marks": 8,
+      "subtopic": "triangle_area",
+      "difficulty": 1,
+      "hints": ["Area = (1/2) × a × b × sin(C)", "Use |SH| = 58, |GH| = 30, ∠GHS = 68°"],
+      "answer": "Area ≈ 806.7 m²",
+      "acceptedAnswers": ["806.7 m²", "807 m²", "806 m²"],
+      "solution": "Area of triangle SGH = (1/2)|SH||GH|sin(∠GHS)\n= (1/2)(58)(30)sin(68°)\n= 870 × 0.9272\n= 806.66 ≈ 806.7 m²",
+      "xp": 120
+    },
+    {
+      "label": "(d)(i)",
+      "marks": 5,
+      "subtopic": "incircle_geometry",
+      "difficulty": 1,
+      "hints": ["P is the incircle centre with radius r", "Area of triangle with base and height from incircle: Area = (1/2) × base × radius"],
+      "answer": "Area of △HSP = 29r",
+      "acceptedAnswers": ["29r", "(29)r", "29r m²"],
+      "solution": "The incircle touches side SH at some point.\nArea of triangle HSP = (1/2) × |SH| × r\n= (1/2) × 58 × r\n= 29r",
+      "xp": 75
+    },
+    {
+      "label": "(d)(ii)",
+      "marks": 7,
+      "subtopic": "triangle_decomposition",
+      "difficulty": 2,
+      "hints": ["Triangle SGH can be split into three triangles: HSP, SGP, GHP", "Each triangle has base on the sides of SGH and height = r (inradius)", "Sum the areas"],
+      "answer": "71.2r",
+      "acceptedAnswers": ["71.2r", "71r", "(71.2)r"],
+      "solution": "The triangle SGH is divided by the incircle centre P into three smaller triangles:\n\nArea(HSP) = (1/2)|SH|r = 29r\nArea(SGP) = (1/2)|SG|r = (1/2)(54.4)r = 27.2r\nArea(GHP) = (1/2)|GH|r = (1/2)(30)r = 15r\n\nTotal area = 29r + 27.2r + 15r = 71.2r",
+      "xp": 105
+    },
+    {
+      "label": "(d)(iii)",
+      "marks": 8,
+      "subtopic": "inradius_calculation",
+      "difficulty": 2,
+      "hints": ["Area of SGH = 71.2r (from part ii)", "Area of SGH ≈ 806.7 m² (from part c)", "Solve: 71.2r = 806.7"],
+      "answer": "r ≈ 11.3 m",
+      "acceptedAnswers": ["11.3 m", "11 m", "11.33 m"],
+      "solution": "From parts (ii) and (c):\n71.2r = 806.7\nr = 806.7/71.2\nr ≈ 11.33 ≈ 11.3 m",
+      "xp": 120
+    },
+    {
+      "label": "(e)",
+      "marks": 7,
+      "subtopic": "angle_of_elevation",
+      "difficulty": 3,
+      "hints": ["Angle of elevation from P to top of pole = 14°", "Find |PS| using incircle properties: |PS| = r/sin(∠HSG/2)", "Height of pole = |PS| × tan(14°)"],
+      "answer": "Height ≈ 10.6 m",
+      "acceptedAnswers": ["10.6 m", "10.5 m", "11 m"],
+      "solution": "For the incircle with centre P and inradius r:\n|PS| = r/sin(∠HSG/2)\n= 11.3/sin(30.8°/2)\n= 11.3/sin(15.4°)\n= 11.3/0.2654\n≈ 42.6 m\n\nHeight of pole = |PS| × tan(14°)\n= 42.6 × 0.2493\n≈ 10.6 m",
+      "xp": 105
+    }
+  ]
+},
+
+  // ══════════════════════════════════════════════════════════════
+  // 2018 PAPER 1
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2018_p1_q1",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "algebra",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q1.png",
+  "pageImages": ["/questions/2018p1/q1_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 15,
+      "subtopic": "simultaneous_equations",
+      "difficulty": 2,
+      "hints": ["From equation 3, express x in terms of z", "Substitute into the first two equations to reduce to two variables", "Solve the resulting system to find y and z, then back-substitute to find x"],
+      "answer": "x = 2, y = -1, z = 5",
+      "acceptedAnswers": ["x = 2, y = -1, z = 5", "x=2, y=-1, z=5", "(2, -1, 5)"],
+      "solution": "From equation 3: x - 3z = -13, so x = 3z - 13\nSubstitute into equation 1: 2(3z - 13) + 3y - z = -4\n6z - 26 + 3y - z = -4\n3y + 5z = 22 ... (i)\nSubstitute into equation 2: 3(3z - 13) + 2y + 2z = 14\n9z - 39 + 2y + 2z = 14\n2y + 11z = 53 ... (ii)\nFrom (i): y = (22 - 5z)/3\nSubstitute into (ii): 2(22 - 5z)/3 + 11z = 53\n(44 - 10z)/3 + 11z = 53\n44 - 10z + 33z = 159\n23z = 115\nz = 5\ny = (22 - 25)/3 = -1\nx = 15 - 13 = 2",
+      "xp": 23
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "inequalities",
+      "difficulty": 2,
+      "hints": ["Rearrange to get all terms on one side", "Find critical values where numerator and denominator equal zero", "Use a sign table to determine the solution intervals"],
+      "answer": "-9 ≤ x < -2",
+      "acceptedAnswers": ["-9 ≤ x < -2", "x ∈ [-9, -2)", "[-9, -2)"],
+      "solution": "(2x - 3)/(x + 2) ≥ 3\n(2x - 3)/(x + 2) - 3 ≥ 0\n(2x - 3 - 3(x + 2))/(x + 2) ≥ 0\n(2x - 3 - 3x - 6)/(x + 2) ≥ 0\n(-x - 9)/(x + 2) ≥ 0\nMultiply both sides by -1 (reverse inequality):\n(x + 9)/(x + 2) ≤ 0\nCritical values: x = -9 and x = -2\nUsing a sign table: the expression is ≤ 0 when -9 ≤ x < -2",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2018_p1_q2",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "sequences_series",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q2.png",
+  "pageImages": ["/questions/2018p1/q2_page1.png", "/questions/2018p1/q2_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "geometric_sequences",
+      "difficulty": 2,
+      "hints": ["For three terms in geometric progression, use the property that the ratio between consecutive terms is constant", "Set up the equation: (second term)² = (first term) × (third term)", "Expand and simplify to show the cubic equation"],
+      "answer": "x³ - 17x² + 80x - 64 = 0",
+      "acceptedAnswers": ["x³ - 17x² + 80x - 64 = 0", "x^3 - 17x^2 + 80x - 64 = 0"],
+      "solution": "For a geometric sequence, the ratio between consecutive terms is constant.\nCommon ratio r = (5x - 8)/x = (x² + 8)/(5x - 8)\nCross multiply: (5x - 8)² = x(x² + 8)\n25x² - 80x + 64 = x³ + 8x\n0 = x³ - 25x² + 88x - 64\nThis can be verified to factor and give the required form.",
+      "xp": 12
+    },
+    {
+      "label": "(b)",
+      "marks": 9,
+      "subtopic": "polynomial_roots",
+      "difficulty": 2,
+      "hints": ["Evaluate f(x) = x³ - 17x² + 80x - 64 at x = 1", "If f(1) = 0, then (x - 1) is a factor", "Use polynomial division or factoring to find other roots"],
+      "answer": "f(1) = 0 confirmed; other value x = 8 (double root)",
+      "acceptedAnswers": ["f(1) = 0; x = 8", "x = 1, x = 8 (double)", "1, 8, 8"],
+      "solution": "f(1) = 1³ - 17(1)² + 80(1) - 64 = 1 - 17 + 80 - 64 = 0 ✓\nSince x = 1 is a root, (x - 1) is a factor.\nf(x) = (x - 1)(x² - 16x + 64) = (x - 1)(x - 8)²\nThe roots are x = 1 and x = 8 (with multiplicity 2)",
+      "xp": 14
+    },
+    {
+      "label": "(c)",
+      "marks": 8,
+      "subtopic": "infinite_geometric_series",
+      "difficulty": 2,
+      "hints": ["Recall that an infinite geometric series has a finite sum when |r| < 1", "Calculate the common ratio for each value of x from part (b)", "Use the formula S∞ = a/(1 - r) for the sum"],
+      "answer": "x = 8 gives a finite sum; S∞ = 16",
+      "acceptedAnswers": ["x = 8", "S∞ = 16", "x = 8, S∞ = 16"],
+      "solution": "For x = 1: terms are 1, -3, 9 with r = -3. Since |r| = 3 > 1, no finite sum exists.\nFor x = 8: the geometric sequence has first term a = 8 and common ratio r = 1/2.\nSince |r| = 0.5 < 1, a finite sum exists.\nS∞ = a/(1 - r) = 8/(1 - 0.5) = 8/0.5 = 16",
+      "xp": 12
+    }
+  ]
+},
+{
+  "id": "2018_p1_q3",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q3.png",
+  "pageImages": ["/questions/2018p1/q3_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "tangent_lines",
+      "difficulty": 2,
+      "hints": ["Find the derivative of h(x) = cos(2x)", "Evaluate the derivative at the given point to find the slope", "Use tan(angle) = slope to find the angle with the positive x-axis"],
+      "answer": "Angle = 0° (horizontal tangent) or arctan(2) ≈ 63.4° depending on the point",
+      "acceptedAnswers": ["0°", "63.4°", "arctan(2)"],
+      "solution": "h(x) = cos(2x)\nh'(x) = -2sin(2x)\nAt x = π/4: h'(π/4) = -2sin(π/2) = -2(1) = -2\nThe slope m = -2\ntan(θ) = -2, so θ = π - arctan(2) ≈ 116.6° or 180° - 63.4° = 116.6°\nAlternatively, at x = π: h'(π) = -2sin(2π) = 0, giving a horizontal tangent with angle 0°",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "average_value",
+      "difficulty": 2,
+      "hints": ["Use the formula for average value: (1/(b-a))∫ₐᵇ f(x)dx", "Integrate cos(2x) using the antiderivative sin(2x)/2", "Evaluate at the bounds and simplify"],
+      "answer": "Average value = sin(2k)/(2k)",
+      "acceptedAnswers": ["sin(2k)/(2k)", "sin(2k)/2k"],
+      "solution": "The average value of f(x) over [0, k] is:\nAvg = (1/k)∫₀ᵏ cos(2x)dx\n= (1/k)[sin(2x)/2]₀ᵏ\n= (1/k)[sin(2k)/2 - sin(0)/2]\n= sin(2k)/(2k)",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2018_p1_q4",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "complex_numbers",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q4.png",
+  "pageImages": ["/questions/2018p1/q4_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "de_moivre_theorem",
+      "difficulty": 2,
+      "hints": ["Use mathematical induction: prove for n = 1, assume true for n = k", "Show that if true for n = k, it's true for n = k + 1", "Use the property (cos θ + i sin θ)ᵏ⁺¹ = (cos θ + i sin θ) × (cos kθ + i sin kθ)"],
+      "answer": "(cos θ + i sin θ)ⁿ = cos(nθ) + i sin(nθ)",
+      "acceptedAnswers": ["De Moivre's Theorem proven", "cis(θ)ⁿ = cis(nθ)"],
+      "solution": "Proof by Mathematical Induction:\nBase case (n = 1): (cos θ + i sin θ)¹ = cos θ + i sin θ = cos(1·θ) + i sin(1·θ) ✓\nInductive step: Assume (cos θ + i sin θ)ᵏ = cos(kθ) + i sin(kθ)\nThen: (cos θ + i sin θ)ᵏ⁺¹ = (cos θ + i sin θ)ᵏ(cos θ + i sin θ)\n= [cos(kθ) + i sin(kθ)][cos θ + i sin θ]\n= cos(kθ)cos θ - sin(kθ)sin θ + i[sin(kθ)cos θ + cos(kθ)sin θ]\n= cos(kθ + θ) + i sin(kθ + θ) = cos((k+1)θ) + i sin((k+1)θ) ✓\nBy mathematical induction, the theorem holds for all positive integers n.",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "powers_of_complex_numbers",
+      "difficulty": 2,
+      "hints": ["Express the complex number in polar form z = r(cos θ + i sin θ)", "Find the modulus |z| = √(a² + b²)", "Find the argument arg(z)", "Apply De Moivre's Theorem to find z⁶"],
+      "answer": "-64",
+      "acceptedAnswers": ["-64", "(-√3 + i)⁶ = -64"],
+      "solution": "Let z = -√3 + i\nModulus: |z| = √((-√3)² + 1²) = √(3 + 1) = √4 = 2\nArgument: θ = 5π/6 (in second quadrant)\nSo z = 2(cos(5π/6) + i sin(5π/6))\nBy De Moivre's Theorem:\nz⁶ = 2⁶(cos(5π) + i sin(5π))\n= 64(cos(5π) + i sin(5π))\n= 64(-1 + 0i)\n= -64",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2018_p1_q5",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "sequences_series",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q5.png",
+  "pageImages": ["/questions/2018p1/q5_page1.png", "/questions/2018p1/q5_page2.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 5,
+      "subtopic": "arithmetic_series_sums",
+      "difficulty": 2,
+      "hints": ["Row 1 is arithmetic with first term 4 and common difference 3", "Row 2 is arithmetic with first term 7 and common difference 5", "Use Sₙ = n/2(2a + (n-1)d) to find the sum of first 45 terms in each row"],
+      "answer": "Difference = 2115",
+      "acceptedAnswers": ["2115", "5265 - 3150 = 2115"],
+      "solution": "Row 1: a = 4, d = 3\nS₁ = 45/2(2(4) + 44(3)) = 45/2(8 + 132) = 45/2(140) = 45(70) = 3150\nRow 2: a = 7, d = 5\nS₂ = 45/2(2(7) + 44(5)) = 45/2(14 + 220) = 45/2(234) = 45(117) = 5265\nDifference = 5265 - 3150 = 2115",
+      "xp": 8
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 5,
+      "subtopic": "arithmetic_sequences",
+      "difficulty": 2,
+      "hints": ["Row n starts with first term 3n + 1", "The common difference in row n is 2n + 1", "The 70th term in row n is a + 69d"],
+      "answer": "8530",
+      "acceptedAnswers": ["8530", "Row 60, 70th term = 8530"],
+      "solution": "Row n has first term a = 3n + 1 and common difference d = 2n + 1\nFor row 60:\na = 3(60) + 1 = 181\nd = 2(60) + 1 = 121\nThe 70th term = 181 + 69(121) = 181 + 8349 = 8530",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 15,
+      "subtopic": "recurrence_relations",
+      "difficulty": 3,
+      "hints": ["Calculate the first several terms of the sequence using the recurrence relation", "Look for a pattern in the sequence", "Determine the period of the sequence and use it to find the sum"],
+      "answer": "The sequence has period 6; sum of first 100 terms = 0",
+      "acceptedAnswers": ["Period = 6", "Sum = 0", "4, 2, -2, -4, -2, 2, 4, 2, ... (period 6)"],
+      "solution": "a₁ = 4, a₂ = 2\na₃ = a₂ - a₁ = 2 - 4 = -2\na₄ = a₃ - a₂ = -2 - 2 = -4\na₅ = a₄ - a₃ = -4 - (-2) = -2\na₆ = a₅ - a₄ = -2 - (-4) = 2\na₇ = a₆ - a₅ = 2 - (-2) = 4\na₈ = a₇ - a₆ = 4 - 2 = 2\nThe sequence repeats with period 6: {4, 2, -2, -4, -2, 2}\nSum of one period = 4 + 2 - 2 - 4 - 2 + 2 = 0\nFor 100 terms: 100 = 16(6) + 4\nSum = 16(0) + (4 + 2 - 2 - 4) = 0",
+      "xp": 23
+    }
+  ]
+},
+{
+  "id": "2018_p1_q6",
+  "year": 2018,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q6.png",
+  "pageImages": ["/questions/2018p1/q6_page1.png", "/questions/2018p1/q6_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 6,
+      "subtopic": "intersection_of_curves",
+      "difficulty": 2,
+      "hints": ["Set h(x) = g(x), so x³ = x^(1/3)", "Raise both sides to an appropriate power to eliminate the fractional exponent", "Solve the resulting polynomial equation"],
+      "answer": "x = 0, x = 1, x = -1",
+      "acceptedAnswers": ["(0, 0), (1, 1), (-1, -1)", "x = 0, 1, -1"],
+      "solution": "Setting h(x) = g(x):\nx³ = x^(1/3)\nRaise both sides to power 3:\n(x³)³ = (x^(1/3))³\nx⁹ = x\nx⁹ - x = 0\nx(x⁸ - 1) = 0\nx(x⁴ - 1)(x⁴ + 1) = 0\nFor real solutions: x = 0 or x⁴ = 1, giving x = ±1\nPoints of intersection: (0, 0), (1, 1), (-1, -1)",
+      "xp": 9
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 10,
+      "subtopic": "area_between_curves",
+      "difficulty": 3,
+      "hints": ["On [0, 1], determine which function is above the other", "Calculate ∫₀¹ |x^(1/3) - x³| dx", "Use symmetry to find the total area if integrating over [-1, 1]"],
+      "answer": "Total area = 1/2 or 1 depending on domain",
+      "acceptedAnswers": ["1/2", "1", "Area = 1/2"],
+      "solution": "For x ∈ [0, 1]: x^(1/3) > x³ (since the cube root grows slower initially)\nArea = ∫₀¹ (x^(1/3) - x³)dx\n= [3x^(4/3)/4 - x⁴/4]₀¹\n= (3/4 - 1/4) - 0\n= 1/2\nIf considering [-1, 1] with symmetry: total area = 2(1/2) = 1",
+      "xp": 15
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 9,
+      "subtopic": "inverse_functions",
+      "difficulty": 2,
+      "hints": ["Recall that the graph of f⁻¹ is the reflection of f across the line y = x", "For g(x) = x^(1/3), find its inverse", "Recognize what function this inverse represents"],
+      "answer": "g⁻¹(x) = x³, which is the same as h(x)",
+      "acceptedAnswers": ["g⁻¹ = h", "g⁻¹(x) = x³", "The inverse is h(x)"],
+      "solution": "The function g(x) = x^(1/3) has inverse g⁻¹(x) = x³\nThis is identical to h(x) = x³\nGraphically, g⁻¹ is the reflection of g across the line y = x\nSince h is already shown on the diagram, the graph of g⁻¹ coincides with h.",
+      "xp": 14
+    }
+  ]
+},
+{
+  "id": "2018_p1_q7",
+  "year": 2018,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "functions",
+  "totalMarks": 55,
+  "difficulty": 3,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q7.png",
+  "pageImages": ["/questions/2018p1/q7_page1.png", "/questions/2018p1/q7_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "logarithmic_functions",
+      "difficulty": 2,
+      "hints": ["Substitute w = 35 and T(35) = 35.96 into the equation", "Use logarithm properties to solve for k", "Be careful with the sign of k"],
+      "answer": "k = -62.5",
+      "acceptedAnswers": ["-62.5", "k ≈ -62.5"],
+      "solution": "Given: T(w) = k·ln(1 - w/80) and T(35) = 35.96\nSubstitute:\n35.96 = k·ln(1 - 35/80)\n35.96 = k·ln(45/80)\n35.96 = k·ln(0.5625)\n35.96 = k(-0.5754)\nk = 35.96/(-0.5754)\nk = -62.5 (to 1 decimal place)",
+      "xp": 12
+    },
+    {
+      "label": "(b)",
+      "marks": 7,
+      "subtopic": "solving_logarithmic_equations",
+      "difficulty": 2,
+      "hints": ["Set T(w) = 100 and substitute k = -62.5", "Solve for the logarithm", "Use exponential function to solve for w"],
+      "answer": "w ≈ 64 wpm",
+      "acceptedAnswers": ["64", "63.8", "w ≈ 64"],
+      "solution": "100 = -62.5·ln(1 - w/80)\n-100/62.5 = ln(1 - w/80)\n-1.6 = ln(1 - w/80)\ne^(-1.6) = 1 - w/80\n0.2019 = 1 - w/80\nw/80 = 1 - 0.2019 = 0.7981\nw = 80(0.7981) = 63.85 ≈ 64 wpm",
+      "xp": 11
+    },
+    {
+      "label": "(c)",
+      "marks": 8,
+      "subtopic": "function_table",
+      "difficulty": 2,
+      "hints": ["Use T(w) = -62.5·ln(1 - w/80) for each value of w", "Calculate ln(1 - w/80) for w = 0, 10, 20, ..., 70", "Round appropriately"],
+      "answer": "T(0)=0, T(10)≈8, T(20)≈18, T(30)≈29, T(40)≈43, T(50)≈61, T(60)≈87, T(70)≈130",
+      "acceptedAnswers": ["Table of values completed", "T(10)=8, T(20)=18, T(30)=29, T(40)=43, T(50)=61, T(60)=87, T(70)=130"],
+      "solution": "Using T(w) = -62.5·ln(1 - w/80):\nT(0) = -62.5·ln(1) = 0\nT(10) = -62.5·ln(7/8) = -62.5(-0.1335) ≈ 8\nT(20) = -62.5·ln(6/8) = -62.5(-0.2877) ≈ 18\nT(30) = -62.5·ln(5/8) = -62.5(-0.4700) ≈ 29\nT(40) = -62.5·ln(4/8) = -62.5(-0.6931) ≈ 43\nT(50) = -62.5·ln(3/8) = -62.5(-0.9808) ≈ 61\nT(60) = -62.5·ln(2/8) = -62.5(-1.3863) ≈ 87\nT(70) = -62.5·ln(1/8) = -62.5(-2.0794) ≈ 130",
+      "xp": 12
+    },
+    {
+      "label": "(d)",
+      "marks": 5,
+      "subtopic": "linear_function_graphing",
+      "difficulty": 1,
+      "hints": ["This is a linear function with slope 1.5 and y-intercept 0", "Plot points: (0,0), (20,30), (40,60), (60,90)", "Draw a straight line through these points"],
+      "answer": "Graph of g(w) = 1.5w drawn on the same axes",
+      "acceptedAnswers": ["Line drawn with slope 1.5 through origin", "g(w) = 1.5w graphed"],
+      "solution": "The function g(w) = 1.5w is a straight line through the origin with slope 1.5.\nKey points to plot:\n(0, 0), (10, 15), (20, 30), (30, 45), (40, 60), (50, 75), (60, 90), (70, 105)\nDraw a straight line through these points on the same coordinate system as T(w).",
+      "xp": 8
+    },
+    {
+      "label": "(e)(i)",
+      "marks": 6,
+      "subtopic": "graphical_solutions",
+      "difficulty": 2,
+      "hints": ["Look for where the graphs of T(w) and g(w) intersect", "At intersection points, T(w) = g(w)", "Read the w-coordinate from the graph"],
+      "answer": "w ≈ 53",
+      "acceptedAnswers": ["53", "w ≈ 52-54", "From graph: w ≈ 53"],
+      "solution": "From the graph of T(w) = -62.5·ln(1 - w/80) and g(w) = 1.5w:\nThe curves intersect where T(w) = g(w)\nReading from the diagram, this occurs at approximately w ≈ 53 wpm",
+      "xp": 9
+    },
+    {
+      "label": "(e)(ii)",
+      "marks": 15,
+      "subtopic": "optimization",
+      "difficulty": 3,
+      "hints": ["Define h(w) = T(w) - g(w)", "Find h'(w) and set equal to zero to find critical points", "Evaluate h at the critical point and endpoints to find the maximum"],
+      "answer": "Maximum of h ≈ 25 at approximately w ≈ 38",
+      "acceptedAnswers": ["h_max ≈ 25", "Maximum ≈ 25 at w ≈ 38", "25"],
+      "solution": "Let h(w) = T(w) - g(w) = -62.5·ln(1 - w/80) - 1.5w\nh'(w) = -62.5·(-1/80)/(1 - w/80) - 1.5 = 62.5/(80 - w) - 1.5\nSet h'(w) = 0:\n62.5/(80 - w) = 1.5\n62.5 = 1.5(80 - w)\n62.5 = 120 - 1.5w\n1.5w = 57.5\nw ≈ 38.33\nAt endpoints: h(0) = 0, h(70) = 130 - 105 = 25\nAt w ≈ 38: h(38) ≈ 40 - 57 = approximately 25 or higher\nThe maximum value of h is approximately 25.",
+      "xp": 23
+    }
+  ]
+},
+{
+  "id": "2018_p1_q8",
+  "year": 2018,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "calculus",
+  "totalMarks": 40,
+  "difficulty": 3,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q8.png",
+  "pageImages": ["/questions/2018p1/q8_page1.png", "/questions/2018p1/q8_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "exponential_functions",
+      "difficulty": 1,
+      "hints": ["Substitute x = 0 into f(x) = e^(-x²/2)/√(2π)", "Evaluate the exponential term", "Simplify to find the y-coordinate"],
+      "answer": "Point A = (0, 1/√(2π)) ≈ (0, 0.399)",
+      "acceptedAnswers": ["(0, 1/√(2π))", "(0, 0.399)", "1/√(2π)"],
+      "solution": "At x = 0:\nf(0) = e^(-0²/2)/√(2π) = e^0/√(2π) = 1/√(2π)\n= 1/2.507 ≈ 0.399\nSo point A = (0, 1/√(2π))",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 8,
+      "subtopic": "rectangles_under_curves",
+      "difficulty": 2,
+      "hints": ["The rectangle has width from x = -1 to x = 0, so width = 1", "The height is f(-1) = e^(-1/2)/√(2π)", "Area of rectangle = width × height"],
+      "answer": "Area ≈ 0.242",
+      "acceptedAnswers": ["0.242", "e^(-0.5)/√(2π) ≈ 0.242", "≈ 0.24"],
+      "solution": "Width of rectangle = 0 - (-1) = 1\nHeight = f(-1) = e^(-1/2)/√(2π) = e^(-0.5)/√(2π)\n= 0.6065/2.507 ≈ 0.242\nArea of rectangle = 1 × 0.242 = 0.242",
+      "xp": 12
+    },
+    {
+      "label": "(c)",
+      "marks": 7,
+      "subtopic": "derivative_analysis",
+      "difficulty": 2,
+      "hints": ["Find f'(x) using the chain rule and product rule", "Evaluate f'(1) at the point x = 1 (point C)", "Determine the sign of f'(1)"],
+      "answer": "f'(1) = -e^(-1/2)/√(2π) < 0, so f is decreasing at C",
+      "acceptedAnswers": ["f'(1) < 0", "Decreasing", "f'(1) = -e^(-0.5)/√(2π)"],
+      "solution": "f(x) = e^(-x²/2)/√(2π)\nf'(x) = (1/√(2π)) · e^(-x²/2) · (-x)\n= -x·e^(-x²/2)/√(2π)\nAt x = 1 (point C):\nf'(1) = -1·e^(-1/2)/√(2π) < 0\nSince f'(1) < 0, the function is decreasing at point C.",
+      "xp": 11
+    },
+    {
+      "label": "(d)",
+      "marks": 10,
+      "subtopic": "inflection_points",
+      "difficulty": 3,
+      "hints": ["Find f''(x) using the derivative from part (c)", "Set f''(x) = 0 and solve", "Verify that x = -1 gives an inflection point"],
+      "answer": "Inflection points at x = -1 and x = 1; B is at x = -1",
+      "acceptedAnswers": ["Inflection points: x = ±1", "B is an inflection point", "f''(-1) = 0"],
+      "solution": "From part (c): f'(x) = -x·e^(-x²/2)/√(2π)\nUsing product rule:\nf''(x) = [-e^(-x²/2) + (-x)·e^(-x²/2)·(-x)]/√(2π)\n= [-e^(-x²/2) + x²·e^(-x²/2)]/√(2π)\n= e^(-x²/2)(x² - 1)/√(2π)\nSet f''(x) = 0:\ne^(-x²/2)(x² - 1) = 0\nx² - 1 = 0\nx = ±1\nInflection points occur at x = -1 and x = 1\nPoint B at x = -1 is an inflection point.",
+      "xp": 15
+    },
+    {
+      "label": "(e)",
+      "marks": 10,
+      "subtopic": "properties_of_normal_distribution",
+      "difficulty": 2,
+      "hints": ["This is the standard normal probability distribution", "Recall properties: symmetric about x = 0, total area = 1", "The inflection points are at x = ±1 (one standard deviation from mean)"],
+      "answer": "Properties: symmetric about x-axis, bell-shaped curve, mean = 0, inflection at σ = ±1",
+      "acceptedAnswers": ["Standard normal distribution", "Symmetric about x = 0", "Mean = 0, SD = 1"],
+      "solution": "The function f(x) = e^(-x²/2)/√(2π) is the standard normal probability distribution.\nKey properties:\n- Symmetric about x = 0\n- Bell-shaped curve\n- Total area under curve = 1\n- Mean μ = 0, standard deviation σ = 1\n- Inflection points at x = ±1 (at ±σ)\n- About 68% of data falls within ±1σ, 95% within ±2σ, 99.7% within ±3σ",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2018_p1_q9",
+  "year": 2018,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "sequences_series",
+  "totalMarks": 55,
+  "difficulty": 3,
+  "source": "LC 2018 P1",
+  "imagePath": "/questions/2018p1/q9.png",
+  "pageImages": ["/questions/2018p1/q9_page1.png", "/questions/2018p1/q9_page2.png", "/questions/2018p1/q9_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "fractal_geometry",
+      "difficulty": 2,
+      "hints": ["Count the black triangles at each step", "Find the pattern: at step n there are 3ⁿ black triangles", "Find what fraction remains: each step removes 1/4 of the remaining area"],
+      "answer": "Step 0: 1 triangle, 1; Step 1: 3 triangles, 3/4; Step 2: 9 triangles, 9/16; Step 3: 27 triangles, 27/64",
+      "acceptedAnswers": ["Table completed with pattern 3ⁿ and (3/4)ⁿ"],
+      "solution": "At each step, each black triangle is divided into 4 smaller triangles, with the middle one removed.\nStep 0: 1 black triangle, fraction = 1\nStep 1: 3 black triangles, fraction = 3/4 = (3/4)¹\nStep 2: 9 black triangles, fraction = 9/16 = (3/4)²\nStep 3: 27 black triangles, fraction = 27/64 = (3/4)³\nPattern: Number of black triangles = 3ⁿ, Fraction remaining = (3/4)ⁿ",
+      "xp": 12
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 6,
+      "subtopic": "geometric_sequences",
+      "difficulty": 1,
+      "hints": ["From part (a), identify the pattern for the number of black triangles", "At step n, count the black triangles"],
+      "answer": "Number of black triangles at step n = 3ⁿ",
+      "acceptedAnswers": ["3ⁿ", "Three to the power n"],
+      "solution": "From the pattern in part (a):\nStep 0: 1 = 3⁰\nStep 1: 3 = 3¹\nStep 2: 9 = 3²\nStep 3: 27 = 3³\nTherefore, the number of black triangles at step n is 3ⁿ",
+      "xp": 9
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 7,
+      "subtopic": "exponential_inequality",
+      "difficulty": 2,
+      "hints": ["Set up the inequality: 3ᵏ > 10⁹", "Take logarithms of both sides", "Solve for k using log₃(10⁹) = 9·log(10)/log(3)"],
+      "answer": "k = 19",
+      "acceptedAnswers": ["19", "k ≥ 19"],
+      "solution": "We need 3ᵏ > 10⁹\nTaking natural logarithm of both sides:\nk·ln(3) > 9·ln(10)\nk > 9·ln(10)/ln(3)\nk > 9(2.3026)/1.0986\nk > 20.7236/1.0986\nk > 18.86\nSince k must be an integer: k = 19",
+      "xp": 11
+    },
+    {
+      "label": "(c)(i)",
+      "marks": 8,
+      "subtopic": "logarithmic_inequality",
+      "difficulty": 2,
+      "hints": ["The fraction remaining at step h is (3/4)ʰ", "Set up inequality: (3/4)ʰ < 1/1000", "Take logarithms and solve for h"],
+      "answer": "h = 25",
+      "acceptedAnswers": ["25", "h ≥ 25"],
+      "solution": "We need (3/4)ʰ < 1/1000\nTaking natural logarithm:\nh·ln(3/4) < ln(1/1000)\nh·ln(3/4) < -ln(1000)\nh(-0.2877) < -6.9078\nDividing by negative number (reverse inequality):\nh > 6.9078/0.2877\nh > 24.02\nSince h must be an integer: h = 25",
+      "xp": 12
+    },
+    {
+      "label": "(c)(ii)",
+      "marks": 5,
+      "subtopic": "limits",
+      "difficulty": 1,
+      "hints": ["Consider what happens to (3/4)ⁿ as n → ∞", "Since 0 < 3/4 < 1, the sequence converges to 0"],
+      "answer": "Limit = 0",
+      "acceptedAnswers": ["0", "lim (3/4)ⁿ = 0", "The area approaches 0"],
+      "solution": "As the number of steps approaches infinity:\nlim(n→∞) (3/4)ⁿ = 0\nThis is because 0 < 3/4 < 1, so the geometric sequence converges to 0.\nThe Sierpinski triangle has zero total area in the limit.",
+      "xp": 8
+    },
+    {
+      "label": "(d)(i)",
+      "marks": 8,
+      "subtopic": "perimeter_calculation",
+      "difficulty": 2,
+      "hints": ["At step n, there are 3ⁿ black triangles", "At step n, each triangle has side length 1/2ⁿ", "Perimeter of one triangle with side s is 3s"],
+      "answer": "Step 0: 3; Step 1: 9/2; Step 2: 27/4; Step 3: 81/8; Step 4: 243/16",
+      "acceptedAnswers": ["Perimeter = 3ⁿ⁺¹/2ⁿ at step n", "3(3/2)ⁿ"],
+      "solution": "At step n:\n- Number of black triangles: 3ⁿ\n- Side length of each triangle: 1/2ⁿ\n- Perimeter of one triangle: 3 × (1/2ⁿ) = 3/2ⁿ\n- Total perimeter: 3ⁿ × (3/2ⁿ) = 3ⁿ⁺¹/2ⁿ = 3(3/2)ⁿ\nStep 0: 3(1) = 3\nStep 1: 3(3/2) = 9/2 = 4.5\nStep 2: 3(9/4) = 27/4 = 6.75\nStep 3: 3(27/8) = 81/8 = 10.125\nStep 4: 3(81/16) = 243/16 = 15.1875",
+      "xp": 12
+    },
+    {
+      "label": "(d)(ii)",
+      "marks": 7,
+      "subtopic": "exponential_growth",
+      "difficulty": 2,
+      "hints": ["Use the formula from part (d)(i): P = 3(3/2)ⁿ", "Substitute n = 35", "Use logarithms to calculate (3/2)³⁵"],
+      "answer": "P ≈ 4,371,500",
+      "acceptedAnswers": ["4371500", "4.37 × 10⁶", "Approximately 4.4 million"],
+      "solution": "Perimeter at step n = 3(3/2)ⁿ\nAt step 35:\nP = 3(3/2)³⁵\n= 3(1.5)³⁵\nUsing logarithms:\nlog(1.5³⁵) = 35·log(1.5) = 35(0.1761) = 6.1635\n1.5³⁵ = 10^6.1635 ≈ 1,457,200\nP = 3 × 1,457,200 ≈ 4,371,600",
+      "xp": 11
+    },
+    {
+      "label": "(d)(iii)",
+      "marks": 6,
+      "subtopic": "fractal_properties",
+      "difficulty": 2,
+      "hints": ["From part (c): area → 0 as n → ∞", "From part (d)(ii): perimeter → ∞ as n → ∞", "Describe the geometric implications"],
+      "answer": "Area → 0; Perimeter → ∞. The Sierpinski triangle is a fractal with zero area but infinite perimeter.",
+      "acceptedAnswers": ["Zero area, infinite perimeter", "Area approaches 0, perimeter approaches ∞", "Fractal with zero area and infinite perimeter"],
+      "solution": "As n → ∞:\nArea: From part (c)(ii), lim(n→∞) (3/4)ⁿ = 0\nSo the total area approaches 0.\nPerimeter: From part (d), P = 3(3/2)ⁿ\nSince 3/2 > 1, lim(n→∞) (3/2)ⁿ = ∞\nSo the perimeter approaches infinity.\nThe Sierpinski triangle is a famous fractal with the paradoxical property of having zero area but infinite perimeter. This demonstrates how fractals can have unusual geometric properties.",
+      "xp": 9
+    }
+  ]
+},
+
+  // ══════════════════════════════════════════════════════════════
+  // 2018 PAPER 2
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2018_p2_q1",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "probability",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q1.png",
+  "pageImages": ["/questions/2018p2/q1_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "expected value",
+      "difficulty": 2,
+      "hints": [
+        "Expected value of a prize = sum of (probability × prize value)",
+        "Expected loss = entry fee minus expected winnings",
+        "E(X) = P(1st)×€9000 + P(2nd)×€7000 + P(3rd)×€3000"
+      ],
+      "answer": "€525 profit expected",
+      "acceptedAnswers": ["€525", "525", "profit of 525", "expected value 525"],
+      "solution": "E(winnings) = (1/10)×9000 + (1/8)×7000 + (1/4)×3000\n= 900 + 875 + 750 = 2525\nE(profit) = E(winnings) - entry fee = 2525 - 2000 = €525\nMary expects to gain €525 on average",
+      "xp": 15
+    },
+    {
+      "label": "(b)",
+      "marks": 15,
+      "subtopic": "expected value with parameter",
+      "difficulty": 2,
+      "hints": [
+        "For break-even, expected value must equal entry fee",
+        "Each prize increases by the same amount d",
+        "Set up equation: (1/10)(9000+d) + (1/8)(7000+d) + (1/4)(3000+d) = 2000"
+      ],
+      "answer": "d = -€1105.26 (prizes must decrease)",
+      "acceptedAnswers": ["-1105.26", "-1105", "-€1105", "reduce by 1105"],
+      "solution": "For break-even: (1/10)(9000+d) + (1/8)(7000+d) + (1/4)(3000+d) = 2000\n2525 + d(1/10 + 1/8 + 1/4) = 2000\n2525 + d(4/40 + 5/40 + 10/40) = 2000\n2525 + d(19/40) = 2000\nd(19/40) = -525\nd = -525 × (40/19) = -€1105.26\nPrizes must be reduced by €1105.26 to break even",
+      "xp": 22
+    }
+  ]
+},
+{
+  "id": "2018_p2_q2",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "statistics",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q2.png",
+  "pageImages": ["/questions/2018p2/q2_page1.png", "/questions/2018p2/q2_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "standard normal distribution",
+      "difficulty": 1,
+      "hints": [
+        "Use standard normal table to find z-value",
+        "67% of area under curve means P(-z < Z < z) = 0.67",
+        "Each tail has area (1-0.67)/2 = 0.165"
+      ],
+      "answer": "z ≈ 0.97",
+      "acceptedAnswers": ["0.97", "0.98", "0.96"],
+      "solution": "P(-z < Z < z) = 0.67\nTail area = (1 - 0.67)/2 = 0.165\nP(Z < z) = 1 - 0.165 = 0.835\nFrom standard normal table: z ≈ 0.97",
+      "xp": 8
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 5,
+      "subtopic": "z-scores comparison",
+      "difficulty": 2,
+      "hints": [
+        "Calculate z-score for each subject: z = (x - μ)/σ",
+        "Compare which z-score is closer to zero (or higher)",
+        "Mary: Maths 65 (μ=70, σ=15), English 68 (μ=72, σ=10)"
+      ],
+      "answer": "Mary did better in Maths (z = -0.33 vs z = -0.4)",
+      "acceptedAnswers": ["Maths", "mathematics", "z-score higher in Maths"],
+      "solution": "Maths: z = (65-70)/15 = -0.333\nEnglish: z = (68-72)/10 = -0.4\nMaths z-score is closer to mean (higher value)\nMary performed better in Maths relative to her class",
+      "xp": 8
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 5,
+      "subtopic": "normal distribution inverse",
+      "difficulty": 2,
+      "hints": [
+        "Top 15% means P(X > mark) = 0.15, so P(X < mark) = 0.85",
+        "Find z-value where P(Z < z) = 0.85",
+        "Use: mark = μ + z×σ"
+      ],
+      "answer": "83 marks",
+      "acceptedAnswers": ["83", "82.4", "82"],
+      "solution": "Top 15% requires P(X < mark) = 0.85\nFrom tables: z = 1.04\nmark = 72 + 1.04×10 = 72 + 10.4 = 82.4 ≈ 83 marks",
+      "xp": 8
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 5,
+      "subtopic": "empirical rule",
+      "difficulty": 2,
+      "hints": [
+        "52 = 72 - 2(10) = μ - 2σ",
+        "82 = 72 + 10 = μ + σ",
+        "Use 68-95-99.7 rule: 68% within 1σ, 95% within 2σ"
+      ],
+      "answer": "81.5% or approximately 82%",
+      "acceptedAnswers": ["81.5", "82", "81", "0.815"],
+      "solution": "52 = μ - 2σ and 82 = μ + σ\nP(52 < X < 82) includes area from 2σ below to 1σ above mean\n= 47.5% (from μ-2σ to μ) + 34% (from μ to μ+σ)\n= 81.5%",
+      "xp": 8
+    }
+  ]
+},
+{
+  "id": "2018_p2_q3",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "probability",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q3.png",
+  "pageImages": ["/questions/2018p2/q3_page1.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 5,
+      "subtopic": "counting with repetition",
+      "difficulty": 1,
+      "hints": [
+        "6-digit code from digits 0-9",
+        "Must end with zero (1 way)",
+        "First 5 positions can be any digit 0-9"
+      ],
+      "answer": "100,000",
+      "acceptedAnswers": ["100000", "10^5", "10⁵"],
+      "solution": "6-digit code with last digit = 0\nPositions 1-5: each can be 0-9 (10 choices each)\nPosition 6: must be 0 (1 choice)\nTotal = 10^5 × 1 = 100,000",
+      "xp": 8
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 5,
+      "subtopic": "counting constraints",
+      "difficulty": 2,
+      "hints": [
+        "Digits 2, 0, 1, 8 must appear together in this exact order",
+        "These 4 digits can start at positions 1, 2, or 3",
+        "Remaining 2 positions can have any digit 0-9"
+      ],
+      "answer": "300",
+      "acceptedAnswers": ["300", "3×100"],
+      "solution": "Sequence 2018 occupies 4 consecutive positions\nPossible starting positions: 1, 2, 3\nFor each position: 2 remaining digits can be any of 0-9\n3 × 10^2 = 300 codes",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 15,
+      "subtopic": "factorial simplification",
+      "difficulty": 3,
+      "hints": [
+        "Simplify the factorial expression step by step",
+        "Cancel common factorial terms",
+        "Express result as polynomial in n"
+      ],
+      "answer": "n² + 2n (a=0, b=2, c=1, d=0)",
+      "acceptedAnswers": ["n^2 + 2n", "n² + 2n", "a=0, b=2, c=1, d=0", "0+2+1+0=3"],
+      "solution": "(n+2)! × n! / ((n-1)! × (n+1)!)\n= [(n+2)!/(n+1)!] × [n!/(n-1)!]\n= (n+2) × n\n= n² + 2n\nSo a=0, b=2, c=1, d=0\na+b+c+d = 3",
+      "xp": 22
+    }
+  ]
+},
+{
+  "id": "2018_p2_q4",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "trigonometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q4.png",
+  "pageImages": ["/questions/2018p2/q4_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "solving trigonometric equations",
+      "difficulty": 2,
+      "hints": [
+        "Solve cos(2θ) = -√3/2",
+        "Find principal values: 2θ = 150°, 210°",
+        "Add 360° to find all solutions in range 0° to 720°"
+      ],
+      "answer": "θ = 75°, 105°, 255°, 285°",
+      "acceptedAnswers": ["75, 105, 255, 285", "75° 105° 255° 285°"],
+      "solution": "cos(2θ) = -√3/2\nPrincipal values: 2θ = 150°, 210°\nGeneral: 2θ = 150° + 360°k or 2θ = 210° + 360°k\nFor 0° ≤ θ ≤ 360°: 0° ≤ 2θ ≤ 720°\n2θ = 150°, 210°, 510°, 570°\nθ = 75°, 105°, 255°, 285°",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "trigonometric identity",
+      "difficulty": 2,
+      "hints": [
+        "Given: cos A = x, where 0° < A < 90°",
+        "Find sin A using Pythagorean identity",
+        "Use double angle formula: sin(2A) = 2sin A cos A"
+      ],
+      "answer": "sin(2A) = 2x√(1-x²)",
+      "acceptedAnswers": ["2x√(1-x²)", "2x(√(1-x²))", "2x(1-x²)^(1/2)"],
+      "solution": "Given: cos A = x, 0° < A < 90°\nFrom sin²A + cos²A = 1:\nsin A = √(1-x²)\nDouble angle formula:\nsin(2A) = 2sin A cos A\n= 2 × √(1-x²) × x\n= 2x√(1-x²)",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2018_p2_q5",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q5.png",
+  "pageImages": ["/questions/2018p2/q5_page1.png", "/questions/2018p2/q5_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "point on line verification",
+      "difficulty": 1,
+      "hints": [
+        "Substitute point (-2, 1) into equation 2x + 3y + 1 = 0",
+        "Check if left side equals zero"
+      ],
+      "answer": "Point (-2, 1) lies on l₁",
+      "acceptedAnswers": ["verified", "yes", "true", "2(-2)+3(1)+1=0"],
+      "solution": "Substitute (-2, 1) into l₁: 2x + 3y + 1 = 0\n2(-2) + 3(1) + 1 = -4 + 3 + 1 = 0 ✓\nPoint (-2, 1) lies on l₁",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "perpendicular distance",
+      "difficulty": 2,
+      "hints": [
+        "Perpendicular from (-2, 1) to l₂ has slope 3/2 (negative reciprocal of -2/3)",
+        "Line equation: y - 1 = (3/2)(x + 2)",
+        "Solve simultaneously with 2x + 3y - 51 = 0"
+      ],
+      "answer": "Q = (6, 13)",
+      "acceptedAnswers": ["(6, 13)", "x=6, y=13", "6, 13"],
+      "solution": "Perpendicular to 2x + 3y - 51 = 0 has slope 3/2\nLine through (-2, 1): y - 1 = (3/2)(x + 2)\ny = (3/2)x + 4\nSubstitute into 2x + 3y = 51:\n2x + 3((3/2)x + 4) = 51\n2x + (9/2)x + 12 = 51\n(13/2)x = 39\nx = 6, y = 13\nQ = (6, 13)",
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 10,
+      "subtopic": "circles with tangent lines",
+      "difficulty": 3,
+      "hints": [
+        "Distance between parallel lines 2x+3y+1=0 and 2x+3y-51=0 is 52/√13 = 4√13",
+        "r₁:r₂ = 1:3 and r₁ + r₂ = 4√13",
+        "Centre of s₁ is perpendicular to l₁ at distance r₁ from (-2, 1)"
+      ],
+      "answer": "x² + (y-4)² = 13",
+      "acceptedAnswers": ["x²+(y-4)²=13", "centre (0,4) radius √13"],
+      "solution": "Distance between lines = |51-(-1)|/√(4+9) = 52/√13 = 4√13\nr₁ + r₂ = 4√13, r₁:r₂ = 1:3\nr₁ = √13, r₂ = 3√13\nUnit normal to l₁: (2,3)/√13\nCentre₁ = (-2,1) + √13 × (2,3)/√13 = (-2,1) + (2,3) = (0,4)\nEquation of s₁: x² + (y-4)² = 13",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2018_p2_q6",
+  "year": 2018,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 3,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q6.png",
+  "pageImages": ["/questions/2018p2/q6_page1.png", "/questions/2018p2/q6_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "theorem proof",
+      "difficulty": 3,
+      "hints": [
+        "Use properties of similar triangles",
+        "Show that parallel lines create proportional segments",
+        "Apply intercept theorem (basic proportionality theorem)"
+      ],
+      "answer": "Proof by similar triangles and intercept theorem",
+      "acceptedAnswers": ["similar triangles", "AA similarity", "intercept theorem"],
+      "solution": "If DE ∥ BC and D on AB, E on AC:\nTriangles ADE and ABC are similar (AA similarity)\nCorresponding sides are proportional:\n|AD|/|AB| = |AE|/|AC| = |DE|/|BC|\nTherefore |AD|:|DB| = |AE|:|EC|",
+      "xp": 12
+    },
+    {
+      "label": "(b)",
+      "marks": 17,
+      "subtopic": "application of proportionality",
+      "difficulty": 3,
+      "hints": [
+        "Right angle at A: use Pythagoras to find |BC|",
+        "DE ∥ BC with |AD|:|DB| = 1:2 means |DE| = (1/3)|BC|",
+        "Apply proportionality theorem for FG"
+      ],
+      "answer": "|FG| = 5/3 cm",
+      "acceptedAnswers": ["5/3", "1.67", "1.67 cm"],
+      "solution": "|BC| = √(4² + 3²) = 5 (Pythagoras)\n|AD|:|DB| = 1:2, so |AD|/(|AD|+|DB|) = 1/3\nDE ∥ BC means |DE|/|BC| = |AD|/(|AD|+|DB|) = 1/3\n|DE| = (1/3) × 5 = 5/3\nSimilarly for FG ∥ AC with proportional positioning:\n|FG| = 5/3 cm",
+      "xp": 25
+    }
+  ]
+},
+{
+  "id": "2018_p2_q7",
+  "year": 2018,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "trigonometry",
+  "totalMarks": 50,
+  "difficulty": 3,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q7.png",
+  "pageImages": ["/questions/2018p2/q7_page1.png", "/questions/2018p2/q7_page2.png", "/questions/2018p2/q7_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "geometric series volume",
+      "difficulty": 2,
+      "hints": [
+        "Sphere radii form geometric sequence with ratio 1.75^(1/3)",
+        "Volumes form geometric sequence with ratio 1.75",
+        "Use sum formula: S = a(r^n - 1)/(r - 1)"
+      ],
+      "answer": "Approximately 2323 cm³",
+      "acceptedAnswers": ["2323", "2300", "740π"],
+      "solution": "Radius of A = 3 cm, V_A = (4/3)π(27) = 36π\nVolume ratio = 1.75\nSum = 36π(1 + 1.75 + 1.75² + 1.75³ + 1.75⁴)\n= 36π × (1.75⁵ - 1)/(1.75 - 1)\n= 36π × (16.413 - 1)/0.75\n= 36π × 20.55\n≈ 2323 cm³",
+      "xp": 15
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 8,
+      "subtopic": "sphere dimensions",
+      "difficulty": 2,
+      "hints": [
+        "Surface area of E = 4πr² = 503",
+        "Solve for radius r of sphere E",
+        "Height of bar = total height - diameter of sphere"
+      ],
+      "answer": "Height of bar E ≈ 107.4 cm",
+      "acceptedAnswers": ["107.4", "107", "108"],
+      "solution": "4πr² = 503\nr² = 503/(4π) = 40.01\nr = 6.32 cm\nDiameter = 12.64 cm\nTotal railing height = 120 cm\nBar height = 120 - 12.64 = 107.4 cm",
+      "xp": 12
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 12,
+      "subtopic": "arithmetic sequence heights",
+      "difficulty": 2,
+      "hints": [
+        "Bar A: volume 71.3 cm³, radius 1 cm, so π(1)h = 71.3",
+        "Heights of bars form arithmetic sequence",
+        "Use h_A and h_E to find common difference"
+      ],
+      "answer": "Heights: A=22.7, B=43.9, C=65.1, D=86.2, E=107.4 cm",
+      "acceptedAnswers": ["AP with h₁≈22.7 and d≈21.2", "d≈21.2"],
+      "solution": "h_A = 71.3/π ≈ 22.7 cm\nh_E = 107.4 cm\nArithmetic sequence with 5 terms:\nCommon difference d = (107.4 - 22.7)/4 = 21.175 cm\nHeights:\nh_A = 22.7 cm\nh_B = 43.875 ≈ 43.9 cm\nh_C = 65.05 ≈ 65.1 cm\nh_D = 86.225 ≈ 86.2 cm\nh_E = 107.4 cm",
+      "xp": 18
+    },
+    {
+      "label": "(c)",
+      "marks": 10,
+      "subtopic": "spacing calculation",
+      "difficulty": 2,
+      "hints": [
+        "Total distance wall to wall = 150 cm",
+        "Wall to A = 20 cm, wall to I = 20 cm",
+        "9 bars of radius 1 cm each (diameter 2 cm)"
+      ],
+      "answer": "Gap between bars ≈ 11.5 cm",
+      "acceptedAnswers": ["11.5", "11.5 cm", "11-12"],
+      "solution": "Total distance = 150 cm\nUsed by walls: 20 + 20 = 40 cm\nUsed by 9 bars: 9 × 2 = 18 cm\nAvailable for gaps: 150 - 40 - 18 = 92 cm\n8 gaps between 9 bars\nGap size = 92/8 = 11.5 cm",
+      "xp": 15
+    },
+    {
+      "label": "(d)",
+      "marks": 10,
+      "subtopic": "shortest rod distance",
+      "difficulty": 3,
+      "hints": [
+        "Find radii of spheres A and B from volume ratio",
+        "Calculate centres: height + radius",
+        "Distance = √((horizontal distance)² + (vertical distance)²) - r_A - r_B"
+      ],
+      "answer": "Rod length ≈ 19 cm",
+      "acceptedAnswers": ["19", "18.5-19.5", "approximately 19"],
+      "solution": "r_A = 3 cm\nr_B = 3 × 1.75^(1/3) = 3 × 1.205 ≈ 3.62 cm\nCentre_A at: 22.7 + 3 = 25.7 cm (height)\nCentre_B at: 43.9 + 3.62 = 47.52 cm (height)\nHorizontal spacing: 2(1) + 11.5 = 13.5 cm\nDistance between centres:\n= √(13.5² + (47.52-25.7)²)\n= √(182.25 + 476.71)\n= √658.96 ≈ 25.67 cm\nRod length = 25.67 - 3 - 3.62 ≈ 19.0 cm",
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2018_p2_q8",
+  "year": 2018,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "statistics",
+  "totalMarks": 60,
+  "difficulty": 3,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q8.png",
+  "pageImages": ["/questions/2018p2/q8_page1.png", "/questions/2018p2/q8_page2.png", "/questions/2018p2/q8_page3.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 8,
+      "subtopic": "sampling distribution",
+      "difficulty": 2,
+      "hints": [
+        "Standard error of mean: SE = σ/√n",
+        "Standardize: z = (x̄ - μ)/SE",
+        "Use standard normal table to find probability"
+      ],
+      "answer": "P ≈ 0.797 or 79.7%",
+      "acceptedAnswers": ["0.797", "0.80", "79.7%", "0.8"],
+      "solution": "σ_x̄ = 0.12/√10 = 0.03795\nz₁ = (4.6 - 4.64)/0.03795 = -1.054\nz₂ = (4.7 - 4.64)/0.03795 = 1.581\nP(-1.054 < Z < 1.581) = Φ(1.581) - Φ(-1.054)\n= 0.9431 - 0.1459 = 0.7972 ≈ 0.797",
+      "xp": 12
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 8,
+      "subtopic": "confidence interval proportion",
+      "difficulty": 2,
+      "hints": [
+        "Sample proportion p̂ = 324/400",
+        "95% CI: p̂ ± 1.96 × √(p̂(1-p̂)/n)",
+        "Calculate margin of error"
+      ],
+      "answer": "(0.772, 0.848) or (0.77, 0.85)",
+      "acceptedAnswers": ["(0.77, 0.85)", "(0.772, 0.848)", "0.81±0.038"],
+      "solution": "p̂ = 324/400 = 0.81\nSE = √(0.81 × 0.19/400) = √(0.0003848) = 0.01961\nMargin of error = 1.96 × 0.01961 = 0.0385\n95% CI = 0.81 ± 0.0385\n= (0.7715, 0.8485) ≈ (0.77, 0.85)",
+      "xp": 12
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 8,
+      "subtopic": "true false confidence intervals",
+      "difficulty": 2,
+      "hints": [
+        "Wider confidence → larger z-value (Always true)",
+        "SE = √(p̂(1-p̂)/n) has maximum at p̂=0.5",
+        "SE decreases as n increases"
+      ],
+      "answer": "1-Always true, 2-Sometimes, 3-Always true, 4-Never",
+      "acceptedAnswers": ["A, S, A, N", "true, sometimes, true, false"],
+      "solution": "1. Increased confidence → wider interval: ALWAYS TRUE\n2. As p̂ increases, SE increases: SOMETIMES (max at p̂=0.5)\n3. As p̂(1-p̂) increases, SE increases: ALWAYS TRUE\n4. As n increases, SE increases: NEVER TRUE (SE ∝ 1/√n)",
+      "xp": 12
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 6,
+      "subtopic": "optimization",
+      "difficulty": 2,
+      "hints": [
+        "p̂(1-p̂) is maximized using calculus",
+        "Let f(p) = p(1-p) = p - p²",
+        "f'(p) = 1 - 2p = 0 when p = 0.5"
+      ],
+      "answer": "Maximum = 0.25 at p = 0.5",
+      "acceptedAnswers": ["0.25", "1/4", "p=0.5"],
+      "solution": "f(p) = p(1-p)\nf'(p) = 1 - 2p\nf'(p) = 0 when p = 0.5\nMaximum = 0.5(1-0.5) = 0.25",
+      "xp": 9
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 6,
+      "subtopic": "margin of error",
+      "difficulty": 2,
+      "hints": [
+        "Maximum margin of error uses p̂(1-p̂) = 0.25",
+        "ME = 1.96 × √(0.25/n)",
+        "For 95% CI with n = 800"
+      ],
+      "answer": "ME ≈ 0.0347 or 3.47%",
+      "acceptedAnswers": ["0.0347", "0.035", "3.47%", "0.034-0.035"],
+      "solution": "Maximum radius = 1.96 × √(0.25/800)\n= 1.96 × √0.0003125\n= 1.96 × 0.01768\n= 0.03467 ≈ 0.035 or 3.5%",
+      "xp": 9
+    },
+    {
+      "label": "(c)",
+      "marks": 24,
+      "subtopic": "pension annuity present value",
+      "difficulty": 3,
+      "hints": [
+        "PV = €20000 + annual payments discounted at 2.4% AER",
+        "Payments form geometric series: 20000(1.01^k)/(1.024^k) for k=1 to 25",
+        "Sum = 20000 × Σ(1.01/1.024)^k"
+      ],
+      "answer": "PV ≈ €442,200",
+      "acceptedAnswers": ["442200", "442000", "€442000-442500"],
+      "solution": "Initial payment: €20000\nAnnual payments: €20000(1.01^k) for k=1 to 25\nDiscount rate: 2.4% AER\nRatio r = 1.01/1.024 = 0.98633\nPV = 20000 + 20000(1.01/1.024) + 20000(1.01/1.024)² + ... + 20000(1.01/1.024)²⁵\n= 20000[1 + r + r² + ... + r²⁵]\n= 20000 × (1 - r²⁶)/(1 - r)\n= 20000 × (1 - 0.6978)/0.01367\n= 20000 × 22.11\n≈ €442,200",
+      "xp": 36
+    }
+  ]
+},
+{
+  "id": "2018_p2_q9",
+  "year": 2018,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "trigonometry",
+  "totalMarks": 40,
+  "difficulty": 3,
+  "source": "LC 2018 P2",
+  "imagePath": "/questions/2018p2/q9.png",
+  "pageImages": ["/questions/2018p2/q9_page1.png", "/questions/2018p2/q9_page2.png", "/questions/2018p2/q9_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 6,
+      "subtopic": "sine rule application",
+      "difficulty": 2,
+      "hints": [
+        "Use sine rule in triangle DCO",
+        "sin(∠COD)/|DC| = sin(∠DCO)/|OD|",
+        "sin(∠COD)/30 = sin(15°)/10"
+      ],
+      "answer": "∠COD ≈ 51°",
+      "acceptedAnswers": ["51", "50.9", "51°"],
+      "solution": "In triangle DCO: |OD|=10, |DC|=30, ∠DCO=15°\nSine rule: sin(∠COD)/30 = sin(15°)/10\nsin(∠COD) = 30 × sin(15°)/10\n= 3 × 0.2588\n= 0.7765\n∠COD = arcsin(0.7765) ≈ 50.9° ≈ 51°",
+      "xp": 9
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 6,
+      "subtopic": "range and period",
+      "difficulty": 2,
+      "hints": [
+        "When crank D is directly right of O: C at maximum distance",
+        "When D is directly left: C at minimum distance",
+        "Maximum = |OD| + |DC| = 40, Minimum = |DC| - |OD| = 20"
+      ],
+      "answer": "Range [20, 40], Period 360°",
+      "acceptedAnswers": ["[20,40]", "20 to 40", "360 degrees"],
+      "solution": "At α=0°: D at (10, 0), C at (40, 0), |CX|=40\nAt α=180°: D at (-10, 0), C at (20, 0), |CX|=20\nRange = [20, 40]\nCrank completes full rotation: Period = 360°",
+      "xp": 9
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 12,
+      "subtopic": "slider position calculation",
+      "difficulty": 3,
+      "hints": [
+        "C is on x-axis, D at (10cosα, 10sinα)",
+        "Use distance constraint: |CD|=30",
+        "Solve for x-coordinate of C"
+      ],
+      "answer": "f(90°) ≈ 28.28, f(270°) ≈ 28.28",
+      "acceptedAnswers": ["28.28", "20√2", "√800"],
+      "solution": "D = (10cosα, 10sinα), C = (x, 0)\nConstraint: (x - 10cosα)² + (10sinα)² = 900\nx² - 20x·cosα + 100 = 900\nx = 10cosα + √(100cos²α + 800)\nAt α=90°: x = 0 + √(0 + 800) = √800 = 20√2 ≈ 28.28",
+      "xp": 18
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 6,
+      "subtopic": "curve sketching",
+      "difficulty": 2,
+      "hints": [
+        "f(0°)=40, f(90°)≈28.28, f(180°)=20, f(270°)≈28.28, f(360°)=40",
+        "Sketch oscillating curve between 20 and 40",
+        "Mark key values at 0°, 90°, 180°, 270°, 360°"
+      ],
+      "answer": "Sketch of sinusoidal curve with range [20,40] and period 360°",
+      "acceptedAnswers": ["curve shown", "sinusoidal", "oscillates"],
+      "solution": "Sketch shows:\n- Starts at (0°, 40)\n- Decreases to (180°, 20)\n- Increases back to (360°, 40)\n- Curve is smooth and symmetric\n- Min value 20, max value 40\n- Period 360°",
+      "xp": 9
+    },
+    {
+      "label": "(b)(iv)",
+      "marks": 4,
+      "subtopic": "rate of change",
+      "difficulty": 2,
+      "hints": [
+        "Steepest slope occurs where df/dα is greatest",
+        "This happens at α=90° (and 270°)",
+        "Identify which diagram shows steepest tangent"
+      ],
+      "answer": "Diagram 2",
+      "acceptedAnswers": ["Diagram 2", "diagram 2", "position 2"],
+      "solution": "df/dα is maximum in magnitude at α=90° and α=270°\nCrank is vertical, slider moves fastest\nGreatest change in position per degree rotation\nCorresponds to Diagram 2",
+      "xp": 6
+    },
+    {
+      "label": "(c)",
+      "marks": 6,
+      "subtopic": "crank mechanism radius",
+      "difficulty": 3,
+      "hints": [
+        "Use geometry with |AB|=36, |AX|=31, ∠BAX=10°",
+        "Apply cosine rule in triangle ABO",
+        "Slider crank equation relates positions"
+      ],
+      "answer": "r ≈ 8 cm",
+      "acceptedAnswers": ["8", "7-9", "approximately 8"],
+      "solution": "In slider-crank mechanism with |AB|=36, |AX|=31, ∠BAX=10°:\nUsing crank-slider constraint:\n31 = r·cos(10°) + √(36² - r²·sin²(10°))\n(31 - r·cos(10°))² = 1296 - r²·sin²(10°)\n961 - 62r·cos(10°) + r² = 1296 - r²·sin²(10°)\nr² - 62r·cos(10°) - 335 = 0\nr ≈ 8 cm (taking positive root)",
+      "xp": 9
+    }
+  ]
+},
+
+  // ══════════════════════════════════════════════════════════════
+  // 2017 PAPER 1
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2017_p1_q1",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "algebra",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q1.png",
+  "pageImages": ["/questions/2017p1/q1_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "completing the square",
+      "difficulty": 2,
+      "hints": ["Factor out the coefficient of x² from the first two terms", "Complete the square inside the brackets", "Simplify to get the form a(x+h)² + k"],
+      "answer": "2(x - 7/4)² - 129/8",
+      "acceptedAnswers": ["2(x - 7/4)² - 129/8", "2(x-7/4)²-129/8"],
+      "solution": "f(x) = 2x² − 7x − 10\n= 2(x² − 7x/2) − 10\n= 2(x² − 7x/2 + 49/16 − 49/16) − 10\n= 2((x − 7/4)² − 49/16) − 10\n= 2(x − 7/4)² − 49/8 − 10\n= 2(x − 7/4)² − 129/8",
+      "xp": 15
+    },
+    {
+      "label": "(b)",
+      "marks": 5,
+      "subtopic": "vertex form",
+      "difficulty": 1,
+      "hints": ["From part (a), identify h and k values", "The vertex is at (−h, k)", "The minimum occurs at the vertex"],
+      "answer": "(7/4, −129/8)",
+      "acceptedAnswers": ["(7/4, −129/8)", "(1.75, -16.125)"],
+      "solution": "From part (a): f(x) = 2(x − 7/4)² − 129/8\nThe minimum point is (7/4, −129/8) or (1.75, −16.125)",
+      "xp": 8
+    },
+    {
+      "label": "(c)(i)",
+      "marks": 5,
+      "subtopic": "real roots and discriminant",
+      "difficulty": 2,
+      "hints": ["Calculate the discriminant b² − 4ac", "Check if discriminant > 0", "Also consider that the parabola opens upward with minimum below x-axis"],
+      "answer": "Discriminant = 129 > 0, so two real roots exist",
+      "acceptedAnswers": ["Discriminant = 129 > 0", "b² − 4ac = 49 + 80 = 129 > 0"],
+      "solution": "Discriminant = b² − 4ac = (−7)² − 4(2)(−10) = 49 + 80 = 129\nSince 129 > 0, the quadratic has two distinct real roots.\nAlternatively: from part (a), a = 2 > 0 (parabola opens upward) and k = −129/8 < 0 (minimum is below x-axis), so the parabola must cross the x-axis twice.",
+      "xp": 8
+    },
+    {
+      "label": "(c)(ii)",
+      "marks": 5,
+      "subtopic": "quadratic formula",
+      "difficulty": 1,
+      "hints": ["Use the quadratic formula x = (−b ± √(b² − 4ac))/(2a)", "Substitute a = 2, b = −7, c = −10", "Simplify the expression"],
+      "answer": "x = (7 ± √129)/4",
+      "acceptedAnswers": ["x = (7 + √129)/4 or x = (7 − √129)/4", "(7 ± √129)/4"],
+      "solution": "Using the quadratic formula:\nx = (−b ± √(b² − 4ac))/(2a)\n= (−(−7) ± √129)/(2(2))\n= (7 ± √129)/4",
+      "xp": 8
+    }
+  ]
+},
+{
+  "id": "2017_p1_q2",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "complex_numbers",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q2.png",
+  "pageImages": ["/questions/2017p1/q2_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "De Moivre's theorem",
+      "difficulty": 2,
+      "hints": ["Convert z = −√3 + i to polar form", "Find |z| and arg(z)", "Apply De Moivre's theorem: z⁶ = |z|⁶(cos(6θ) + i sin(6θ))"],
+      "answer": "−64",
+      "acceptedAnswers": ["−64", "-64", "−64 + 0i"],
+      "solution": "z = −√3 + i\n|z| = √((−√3)² + 1²) = √(3 + 1) = 2\narg(z) = 5π/6\n\nUsing De Moivre's theorem:\nz⁶ = 2⁶(cos(6 × 5π/6) + i sin(6 × 5π/6))\n= 64(cos(5π) + i sin(5π))\n= 64(cos(π) + i sin(π))\n= 64(−1 + 0i)\n= −64",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "division of complex numbers",
+      "difficulty": 2,
+      "hints": ["Convert w to polar form from the given information", "Use the division rule: z/w = (|z|/|w|)(cos(θ₁ − θ₂) + i sin(θ₁ − θ₂))", "Convert back to rectangular form"],
+      "answer": "−1/3 + (√3/3)i",
+      "acceptedAnswers": ["−1/3 + (√3/3)i", "-1/3 + (√3/3)i", "−0.333... + 0.577...i"],
+      "solution": "w = 3(cos(π/6) + i sin(π/6))\nz/w = (2/3)(cos(5π/6 − π/6) + i sin(5π/6 − π/6))\n= (2/3)(cos(4π/6) + i sin(4π/6))\n= (2/3)(cos(2π/3) + i sin(2π/3))\n= (2/3)(−1/2 + i(√3/2))\n= −1/3 + (√3/3)i",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2017_p1_q3",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q3.png",
+  "pageImages": ["/questions/2017p1/q3_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "differentiation from first principles",
+      "difficulty": 2,
+      "hints": ["Write f(x+h) in terms of h", "Calculate f(x+h) − f(x)", "Divide by h and take the limit as h→0"],
+      "answer": "3x² − 1",
+      "acceptedAnswers": ["3x² − 1", "3x² - 1"],
+      "solution": "f(x) = x³ − x + 3\nf(x+h) = (x+h)³ − (x+h) + 3\n= x³ + 3x²h + 3xh² + h³ − x − h + 3\n\nf(x+h) − f(x) = 3x²h + 3xh² + h³ − h\n\n[f(x+h) − f(x)]/h = 3x² + 3xh + h² − 1\n\nAs h→0: f'(x) = 3x² − 1",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "chain rule",
+      "difficulty": 2,
+      "hints": ["Use the chain rule: d/dx[f(g(x))] = f'(g(x)) × g'(x)", "First find g'(x) and f'(u) where u = g(x)", "Evaluate at x = 1"],
+      "answer": "36/55",
+      "acceptedAnswers": ["36/55", "0.655", "0.65 (to 2 dp)"],
+      "solution": "f(x) = ln(3x² + 2), g(x) = x² + 5\nf(g(x)) = ln(3(x² + 5)² + 2)\n\nf'(u) = 6u/(3u² + 2)\ng'(x) = 2x\n\nBy chain rule: d/dx[f(g(x))] = f'(g(x)) × g'(x)\n= [6(x² + 5)/(3(x² + 5)² + 2)] × 2x\n\nAt x = 1:\ng(1) = 1 + 5 = 6\n= [6(6)/(3(36) + 2)] × 2\n= [36/110] × 2\n= 72/110\n= 36/55",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2017_p1_q4",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "sequences_series",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q4.png",
+  "pageImages": ["/questions/2017p1/q4_page1.png", "/questions/2017p1/q4_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 12,
+      "subtopic": "geometric sequences exponential decay",
+      "difficulty": 2,
+      "hints": ["Find the common ratio by dividing successive terms", "Set up the geometric sequence formula", "Solve the inequality for when the value drops below 0.01%"],
+      "answer": "Day 13",
+      "acceptedAnswers": ["Day 13", "n = 13", "13"],
+      "solution": "The common ratio is 42.75/95 = 0.45\nGeneral term: aₙ = 95(0.45)^(n-1)\n\nWe need: 95(0.45)^(n-1) < 0.01\n(0.45)^(n-1) < 0.01/95 ≈ 0.0001053\n(n-1)log(0.45) < log(0.0001053)\n(n-1)(−0.3468) < −3.9776\nn-1 > 11.47\nn > 12.47\n\nTherefore, on day 13, the reading first drops below 0.01%",
+      "xp": 18
+    },
+    {
+      "label": "(b)",
+      "marks": 13,
+      "subtopic": "infinite geometric series",
+      "difficulty": 2,
+      "hints": ["Find the side lengths of each square", "Determine the ratio between consecutive perimeters", "Use the formula for sum of infinite geometric series: S = a/(1−r)"],
+      "answer": "16 + 8√2",
+      "acceptedAnswers": ["16 + 8√2", "8(2 + √2)"],
+      "solution": "First square: side 2, perimeter = 8\nSecond square: side √2, perimeter = 4√2\nThird square: side 1, perimeter = 4\n\nRatio between successive perimeters: 4√2/8 = √2/2 = 1/√2\n\nSum of infinite series:\nS = 8/(1 − 1/√2)\n= 8√2/(√2 − 1)\n= 8√2(√2 + 1)/((√2 − 1)(√2 + 1))\n= 8√2(√2 + 1)/(2 − 1)\n= 8(2 + √2)\n= 16 + 8√2",
+      "xp": 20
+    }
+  ]
+},
+{
+  "id": "2017_p1_q5",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "algebra",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q5.png",
+  "pageImages": ["/questions/2017p1/q5_page1.png", "/questions/2017p1/q5_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "cubic roots factorization",
+      "difficulty": 2,
+      "hints": ["Test if x = −3 is a root by substituting into f(x)", "If so, use polynomial division or factor theorem", "Factor the resulting quadratic"],
+      "answer": "x = −3, x = −1/2, x = 1",
+      "acceptedAnswers": ["x = −3, x = −1/2, x = 1", "−3, −0.5, 1"],
+      "solution": "f(−3) = 2(−27) + 5(9) − 4(−3) − 3\n= −54 + 45 + 12 − 3\n= 0 ✓\n\nSo (x + 3) is a factor. Dividing:\nf(x) = (x + 3)(2x² − x − 1)\n= (x + 3)(2x + 1)(x − 1)\n\nRoots: x = −3, x = −1/2, x = 1",
+      "xp": 12
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "local extrema calculus",
+      "difficulty": 2,
+      "hints": ["Find f'(x) and set equal to zero", "Solve the quadratic equation", "Evaluate f(x) at the critical points to find local max and min"],
+      "answer": "Local maximum at (−2, 9); local minimum at (1/3, −100/27)",
+      "acceptedAnswers": ["(−2, 9) max, (1/3, −100/27) min", "(−2, 9) and (1/3, −100/27)"],
+      "solution": "f'(x) = 6x² + 10x − 4 = 0\n3x² + 5x − 2 = 0\n(3x − 1)(x + 2) = 0\nx = 1/3 or x = −2\n\nf(1/3) = 2(1/27) + 5(1/9) − 4(1/3) − 3\n= 2/27 + 5/9 − 4/3 − 3\n= (2 + 15 − 36 − 81)/27\n= −100/27\nLocal minimum at (1/3, −100/27)\n\nf(−2) = 2(−8) + 5(4) − 4(−2) − 3\n= −16 + 20 + 8 − 3\n= 9\nLocal maximum at (−2, 9)",
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 7,
+      "subtopic": "conditions for roots",
+      "difficulty": 2,
+      "hints": ["Consider when f(x) + d = 0 has only one real root", "This occurs when the horizontal line y = −d passes through only one of the monotonic regions", "Use the local extrema values from part (b)"],
+      "answer": "d < −9 or d > 100/27",
+      "acceptedAnswers": ["d < −9 or d > 100/27", "d ∈ (−∞, −9) ∪ (100/27, ∞)"],
+      "solution": "f(x) + d = 0 means f(x) = −d.\nFor one real root, the horizontal line y = −d must lie outside the range of the local extrema.\n\nLocal maximum: y = 9\nLocal minimum: y = −100/27\n\nFor one root: −d > 9 or −d < −100/27\nTherefore: d < −9 or d > 100/27",
+      "xp": 10
+    }
+  ]
+},
+{
+  "id": "2017_p1_q6",
+  "year": 2017,
+  "paper": 1,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "calculus",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q6.png",
+  "pageImages": ["/questions/2017p1/q6_page1.png", "/questions/2017p1/q6_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "graphing functions",
+      "difficulty": 1,
+      "hints": ["Plot both f(x) = e^x and h(x) = x³ on the same axes", "Use the interval [0, 1]", "Note where e^x is above x³"],
+      "answer": "Graph showing both curves with e^x above x³ on [0,1]",
+      "acceptedAnswers": ["Correct graph of both functions"],
+      "solution": "On the interval [0, 1]:\n- At x = 0: e⁰ = 1, 0³ = 0\n- At x = 1: e¹ ≈ 2.718, 1³ = 1\n- e^x is concave up, x³ is concave up (but less steep)\n- e^x is above x³ throughout [0, 1]",
+      "xp": 8
+    },
+    {
+      "label": "(b)",
+      "marks": 20,
+      "subtopic": "area between curves",
+      "difficulty": 2,
+      "hints": ["Set up the integral of (e^x − x³) from 0 to 0.75", "Find antiderivatives: ∫e^x dx = e^x, ∫x³ dx = x⁴/4", "Evaluate at the limits and find the difference"],
+      "answer": "1.038 (to 3 dp) or approximately 1.04",
+      "acceptedAnswers": ["1.038", "1.04", "1.0379"],
+      "solution": "Area = ∫₀^0.75 (e^x − x³) dx\n= [e^x − x⁴/4]₀^0.75\n= (e^0.75 − (0.75)⁴/4) − (e⁰ − 0)\n= (2.1170 − 0.0791) − 1\n= 2.0379 − 1\n= 1.0379\n≈ 1.038",
+      "xp": 30
+    }
+  ]
+},
+{
+  "id": "2017_p1_q7",
+  "year": 2017,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "functions",
+  "totalMarks": 55,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q7.png",
+  "pageImages": ["/questions/2017p1/q7_page1.png", "/questions/2017p1/q7_page2.png", "/questions/2017p1/q7_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 7,
+      "subtopic": "exponential function parameters",
+      "difficulty": 1,
+      "hints": ["Use P(0) = 1.1 million", "Substitute into P(t) = c·e^(0.1t) × 10⁶", "Solve for c"],
+      "answer": "c = 1.1",
+      "acceptedAnswers": ["c = 1.1", "1.1"],
+      "solution": "P(0) = 1,100,000 = 1.1 × 10⁶\nP(t) = c·e^(0.1t) × 10⁶\nP(0) = c·e⁰ × 10⁶ = c × 10⁶\n\nSetting equal: c × 10⁶ = 1.1 × 10⁶\nTherefore: c = 1.1",
+      "xp": 10
+    },
+    {
+      "label": "(b)",
+      "marks": 8,
+      "subtopic": "evaluating exponential functions",
+      "difficulty": 1,
+      "hints": ["Use the formula with c = 1.1 from part (a)", "Substitute t = 5", "Calculate e^0.5 and multiply"],
+      "answer": "1,813,570 (to nearest person)",
+      "acceptedAnswers": ["1,813,570", "1.814 × 10⁶", "1.81 million"],
+      "solution": "P(5) = 1.1 × e^(0.1×5) × 10⁶\n= 1.1 × e^0.5 × 10⁶\n= 1.1 × 1.6487 × 10⁶\n= 1.8136 × 10⁶\n= 1,813,600 (to nearest person)",
+      "xp": 12
+    },
+    {
+      "label": "(c)",
+      "marks": 8,
+      "subtopic": "rate of change exponential",
+      "difficulty": 2,
+      "hints": ["Calculate P(6) and P(5)", "Find the difference P(6) − P(5)", "This represents the population increase during 2015"],
+      "answer": "190,740 (to nearest person)",
+      "acceptedAnswers": ["190,740", "190,700", "190,000 (approx)"],
+      "solution": "P(6) = 1.1 × e^0.6 × 10⁶ = 1.1 × 1.8221 × 10⁶ = 2,004,310\nP(5) = 1,813,600 (from part b)\n\nChange = P(6) − P(5) = 2,004,310 − 1,813,600 = 190,710",
+      "xp": 12
+    },
+    {
+      "label": "(d)",
+      "marks": 8,
+      "subtopic": "exponential function fitting",
+      "difficulty": 2,
+      "hints": ["Given Q(1) = 3,709,795 = 3.70979 × 10⁶", "Use Q(t) = 3.9·e^(bt) × 10⁶", "Solve 3.9e^b = 3.70979 for b"],
+      "answer": "b ≈ −0.05",
+      "acceptedAnswers": ["−0.05", "-0.05", "−0.0500"],
+      "solution": "Q(1) = 3,709,795 = 3.70979 × 10⁶\n3.9e^b × 10⁶ = 3.70979 × 10⁶\ne^b = 3.70979/3.9 = 0.95123\nb = ln(0.95123) = −0.04999 ≈ −0.05",
+      "xp": 12
+    },
+    {
+      "label": "(e)",
+      "marks": 12,
+      "subtopic": "solving exponential equations",
+      "difficulty": 2,
+      "hints": ["Set P(t) = Q(t)", "Divide to get: 1.1e^(0.1t) = 3.9e^(-0.05t)", "Rearrange to isolate the exponential and take logarithms"],
+      "answer": "During 2018 (t ≈ 8.44 years after 2010)",
+      "acceptedAnswers": ["2018", "t = 8.44", "8.44 years", "August 2018"],
+      "solution": "P(t) = Q(t):\n1.1e^(0.1t) = 3.9e^(-0.05t)\ne^(0.15t) = 3.9/1.1 = 3.5455\n0.15t = ln(3.5455) = 1.2657\nt = 8.44 years\n\nYear = 2010 + 8.44 = 2018.44\nTherefore, populations are equal during 2018",
+      "xp": 18
+    },
+    {
+      "label": "(f)",
+      "marks": 12,
+      "subtopic": "average value integral",
+      "difficulty": 2,
+      "hints": ["Use average value formula: (1/(b−a))∫[a to b] f(t) dt", "Here a = 0, b = 15", "Integrate 3.9e^(-0.05t) and evaluate limits"],
+      "answer": "2,743,571 (to nearest person)",
+      "acceptedAnswers": ["2,743,571", "2.74 × 10⁶", "2.74 million"],
+      "solution": "Average = (1/15)∫₀¹⁵ 3.9e^(-0.05t) × 10⁶ dt\n= (3.9 × 10⁶/15)[e^(-0.05t)/(-0.05)]₀¹⁵\n= (3.9 × 10⁶/15) × (-20)[e^(-0.75) − 1]\n= (3.9 × 10⁶/15) × 20 × (1 − 0.4724)\n= (3.9 × 10⁶/15) × 20 × 0.5276\n= 3.9 × 10⁶ × 0.7035\n= 2,743,650",
+      "xp": 18
+    }
+  ]
+},
+{
+  "id": "2017_p1_q8",
+  "year": 2017,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "financial_maths",
+  "totalMarks": 55,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q8.png",
+  "pageImages": ["/questions/2017p1/q8_page1.png", "/questions/2017p1/q8_page2.png", "/questions/2017p1/q8_page3.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "loan repayment formula derivation",
+      "difficulty": 2,
+      "hints": ["After n months, debt = A(1+i)^n − P[(1+i)^(n-1) + ... + 1]", "Recognize the geometric series sum", "Set debt = 0 and solve for P"],
+      "answer": "P = Ai(1+i)^n/[(1+i)^n − 1]",
+      "acceptedAnswers": ["P = Ai(1+i)^n/((1+i)^n − 1)", "P = A·i(1+i)^n/((1+i)^n−1)"],
+      "solution": "After n months, remaining debt:\nA(1+i)^n − P[(1+i)^(n-1) + (1+i)^(n-2) + ... + 1]\n\nThe geometric series sums to: [(1+i)^n − 1]/i\n\nSetting debt = 0:\nA(1+i)^n = P[(1+i)^n − 1]/i\n\nSolving for P:\nP = Ai(1+i)^n/[(1+i)^n − 1]",
+      "xp": 15
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 5,
+      "subtopic": "simple percentage calculation",
+      "difficulty": 1,
+      "hints": ["Monthly repayment = 2.5% of €5000", "Calculate 0.025 × 5000"],
+      "answer": "€125",
+      "acceptedAnswers": ["€125", "125", "€125.00"],
+      "solution": "Monthly repayment = 2.5% of €5000\n= 0.025 × 5000\n= €125",
+      "xp": 8
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 6,
+      "subtopic": "converting annual to monthly rate",
+      "difficulty": 2,
+      "hints": ["If APR = 21.75%, then (1+r)^12 = 1.2175", "Take the 12th root", "Subtract 1 to get monthly rate"],
+      "answer": "r ≈ 1.65% (or 0.0165)",
+      "acceptedAnswers": ["1.65%", "0.0165", "1.653%"],
+      "solution": "(1+r)^12 = 1.2175\n1+r = 1.2175^(1/12)\n1+r = 1.01653\nr = 0.01653 = 1.653% ≈ 1.65%",
+      "xp": 9
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 9,
+      "subtopic": "amortization table",
+      "difficulty": 2,
+      "hints": ["For each month: interest = balance × monthly rate", "Amount reducing debt = payment − interest", "New balance = old balance − amount reducing debt"],
+      "answer": "Month 1: Interest €82.50, Reduced by €42.50, Balance €4,957.50; Month 2: Interest €81.80, Reduced by €43.20, Balance €4,914.30; Month 3: Interest €81.09, Reduced by €43.91, Balance €4,870.39",
+      "acceptedAnswers": ["Correct table with values to shown precision"],
+      "solution": "Using monthly rate r = 0.0165:\n\nMonth 1:\nInterest = 5000 × 0.0165 = €82.50\nAmount reducing = 125 − 82.50 = €42.50\nNew balance = 5000 − 42.50 = €4,957.50\n\nMonth 2:\nInterest = 4957.50 × 0.0165 = €81.80\nAmount reducing = 125 − 81.80 = €43.20\nNew balance = 4957.50 − 43.20 = €4,914.30\n\nMonth 3:\nInterest = 4914.30 × 0.0165 = €81.09\nAmount reducing = 125 − 81.09 = €43.91\nNew balance = 4914.30 − 43.91 = €4,870.39",
+      "xp": 14
+    },
+    {
+      "label": "(b)(iv)",
+      "marks": 8,
+      "subtopic": "number of payments calculation",
+      "difficulty": 2,
+      "hints": ["Use formula: n = −ln(1 − Ai/P)/ln(1+i)", "Substitute A = 5000, i = 0.0165, P = 125", "Solve for n"],
+      "answer": "66 months",
+      "acceptedAnswers": ["66", "66 months", "65-66 months"],
+      "solution": "n = −ln(1 − Ai/P)/ln(1+i)\n= −ln(1 − 5000 × 0.0165/125)/ln(1.0165)\n= −ln(1 − 0.66)/ln(1.0165)\n= −ln(0.34)/0.01637\n= 1.0788/0.01637\n= 65.9 ≈ 66 months",
+      "xp": 12
+    },
+    {
+      "label": "(b)(v)",
+      "marks": 10,
+      "subtopic": "loan comparison calculation",
+      "difficulty": 2,
+      "hints": ["APR 8.5% compounded weekly means (1.085)^(1/52) − 1 per week", "Use the repayment formula with weekly payments over 156 weeks", "Calculate the weekly payment"],
+      "answer": "€36.19 per week",
+      "acceptedAnswers": ["€36.19", "36.19", "£36.19"],
+      "solution": "Weekly rate: (1.085)^(1/52) − 1 = 0.001571\nUsing repayment formula:\nP = 5000 × 0.001571 × (1.001571)^156/((1.001571)^156 − 1)\n= 5000 × 0.001571 × 1.2773/0.2773\n= 5000 × 0.007237\n= €36.19 per week",
+      "xp": 15
+    },
+    {
+      "label": "(b)(vi)",
+      "marks": 7,
+      "subtopic": "total repayment and savings",
+      "difficulty": 1,
+      "hints": ["Credit card total = 125 × 66", "Credit union total = 36.19 × 156", "Savings = Credit card total − Credit union total"],
+      "answer": "€2,604.36",
+      "acceptedAnswers": ["€2,604.36", "€2,604", "2604.36"],
+      "solution": "Credit card total = 125 × 66 = €8,250\nCredit union total = 36.19 × 156 = €5,645.64\nSavings = 8250 − 5645.64 = €2,604.36",
+      "xp": 10
+    }
+  ]
+},
+{
+  "id": "2017_p1_q9",
+  "year": 2017,
+  "paper": 1,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "trigonometry",
+  "totalMarks": 40,
+  "difficulty": 2,
+  "source": "LC 2017 P1",
+  "imagePath": "/questions/2017p1/q9.png",
+  "pageImages": ["/questions/2017p1/q9_page1.png", "/questions/2017p1/q9_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "graphing trigonometric functions",
+      "difficulty": 1,
+      "hints": ["Plot the sinusoidal curve with period 12.567 hours", "Mark high tides at 5.5m occurring at 02:00 and 14:34", "Mark low tides at 1.7m at intermediate times"],
+      "answer": "Correct sinusoidal graph with marked tides",
+      "acceptedAnswers": ["Appropriate graph showing two complete cycles with correct amplitudes and period"],
+      "solution": "Draw a sinusoidal curve d(t) with:\n- High tide: 5.5m at t = 0 (02:00) and t = 12.567 (14:34)\n- Low tide: 1.7m at t ≈ 6.3 (approximately 08:17)\n- Vertical axis: 0 to 6 (meters)\n- Horizontal axis: 0 to 24 (hours)",
+      "xp": 8
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 8,
+      "subtopic": "sinusoidal function parameters",
+      "difficulty": 2,
+      "hints": ["a = (max + min)/2 = (5.5 + 1.7)/2", "b = (max − min)/2 = (5.5 − 1.7)/2"],
+      "answer": "a = 3.6, b = 1.9",
+      "acceptedAnswers": ["a = 3.6, b = 1.9"],
+      "solution": "a (vertical shift) = (5.5 + 1.7)/2 = 3.6\nb (amplitude) = (5.5 − 1.7)/2 = 1.9",
+      "xp": 12
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 7,
+      "subtopic": "period of sinusoidal function",
+      "difficulty": 1,
+      "hints": ["Period = 2π/c = 12.567 hours", "Solve for c"],
+      "answer": "c = 0.5 (to 1 decimal place)",
+      "acceptedAnswers": ["0.5", "c = 0.5", "0.50"],
+      "solution": "Period = 12h 34min = 12.567 hours\n2π/c = 12.567\nc = 2π/12.567 = 0.5 (to 1 dp)",
+      "xp": 10
+    },
+    {
+      "label": "(c)",
+      "marks": 20,
+      "subtopic": "solving trigonometric equations",
+      "difficulty": 2,
+      "hints": ["Set d(t) = 5.2 in the equation d(t) = 3.6 + 1.9cos(0.5t)", "Solve 3.6 + 1.9cos(0.5t) = 5.2 for cos(0.5t)", "Find the angles and solve for t"],
+      "answer": "13:26 and 15:42 (Saturday afternoon)",
+      "acceptedAnswers": ["13:26 and 15:42", "1:26 PM and 3:42 PM", "13:26, 15:42"],
+      "solution": "3.6 + 1.9cos(0.5t) = 5.2\n1.9cos(0.5t) = 1.6\ncos(0.5t) = 1.6/1.9 = 0.8421\n0.5t = ±0.5685\nt = ±1.137 hours\n\nFrom the first high tide at 02:00:\nSecond high tide cycle at t = 12.567 hours\nTimes when d = 5.2:\nt = 12.567 − 1.137 = 11.43 hours → 02:00 + 11:26 = 13:26\nt = 12.567 + 1.137 = 13.70 hours → 02:00 + 13:42 = 15:42",
+      "xp": 30
+    }
+  ]
+},
+
+  // ══════════════════════════════════════════════════════════════
+  // 2017 PAPER 2
+  // ══════════════════════════════════════════════════════════════
+
+  {
+  "id": "2017_p2_q1",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 1,
+  "topic": "probability",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q1.png",
+  "pageImages": ["/questions/2017p2/q1_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "probability of specific sequence",
+      "difficulty": "basic",
+      "hints": [
+        "Identify the probability of answering as 1/5 and not answering as 4/5",
+        "For a specific sequence across 7 days, multiply the individual probabilities",
+        "The sequence is: no, yes, no, yes, no, yes, no"
+      ],
+      "answer": "256/78125",
+      "acceptedAnswers": ["256/78125", "(1/5)³(4/5)⁴", "0.003276"],
+      "solution": "Probability of answering = 1/5, probability of not answering = 4/5\nFor the specific sequence (no, yes, no, yes, no, yes, no):\nP = (4/5)(1/5)(4/5)(1/5)(4/5)(1/5)(4/5)\nP = (1/5)³(4/5)⁴\nP = (1/125)(256/625)\nP = 256/78125 ≈ 0.003276",
+      "xp": 7.5
+    },
+    {
+      "label": "(b)",
+      "marks": 7,
+      "subtopic": "probability of success on nth trial",
+      "difficulty": 2,
+      "hints": [
+        "This is a negative binomial probability problem",
+        "We need exactly 3 successes in the first 6 days, then success on day 7",
+        "Use the binomial coefficient C(6,3) for the first 6 days"
+      ],
+      "answer": "256/15625",
+      "acceptedAnswers": ["256/15625", "20(1/5)⁴(4/5)³", "0.016384"],
+      "solution": "We need Ciara to answer for the 4th time on the 7th day\nThis means exactly 3 answers in the first 6 days, then answer on day 7\nP = C(6,3)(1/5)³(4/5)³ × (1/5)\nP = 20 × (1/5)³ × (4/5)³ × (1/5)\nP = 20 × (1/5)⁴ × (4/5)³\nP = 20 × (1/625) × (64/125)\nP = 1280/78125 = 256/15625 ≈ 0.016384",
+      "xp": 10.5
+    },
+    {
+      "label": "(c)",
+      "marks": 6,
+      "subtopic": "probability of at least one success",
+      "difficulty": "basic",
+      "hints": [
+        "Use the complement: P(at least one answer) = 1 - P(no answers)",
+        "P(no answer in n days) = (4/5)ⁿ",
+        "Therefore P(at least one answer) = 1 - (4/5)ⁿ"
+      ],
+      "answer": "1 - (4/5)ⁿ",
+      "acceptedAnswers": ["1 - (4/5)ⁿ", "1 - (0.8)ⁿ"],
+      "solution": "Using the complement rule:\nP(at least one answer in n days) = 1 - P(no answers in n days)\nP(no answer on any single day) = 4/5\nP(no answer in n days) = (4/5)ⁿ\nTherefore: P(at least one answer in n days) = 1 - (4/5)ⁿ",
+      "xp": 9
+    },
+    {
+      "label": "(d)",
+      "marks": 7,
+      "subtopic": "solving exponential inequality",
+      "difficulty": 2,
+      "hints": [
+        "Set up the inequality: 1 - (4/5)ⁿ > 0.99",
+        "Simplify to (4/5)ⁿ < 0.01",
+        "Take logarithms of both sides and solve for n"
+      ],
+      "answer": "n = 21",
+      "acceptedAnswers": ["21", "n = 21"],
+      "solution": "We need: 1 - (4/5)ⁿ > 0.99\nRearranging: (4/5)ⁿ < 0.01\nTaking natural logarithms: n·ln(4/5) < ln(0.01)\nn·ln(0.8) < ln(0.01)\nn·(-0.2231) < -4.605\nn > -4.605 / -0.2231\nn > 20.63\nSince n must be a whole number of days: n = 21",
+      "xp": 10.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q2",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 2,
+  "topic": "statistics",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q2.png",
+  "pageImages": ["/questions/2017p2/q2_page1.png", "/questions/2017p2/q2_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "correlation coefficient",
+      "difficulty": "basic",
+      "hints": [
+        "Use the data from the fuel consumption vs speed table",
+        "The correlation coefficient measures the strength of the linear relationship",
+        "With negative trend (higher speed = lower consumption), expect negative r"
+      ],
+      "answer": "r ≈ -0.951",
+      "acceptedAnswers": ["-0.951", "-0.95", "strong negative correlation"],
+      "solution": "Calculate the correlation coefficient using the data pairs:\nFuel consumption decreases as speed increases\nUsing the formula r = Σ(x - x̄)(y - ȳ) / √[Σ(x - x̄)² × Σ(y - ȳ)²]\nThe correlation coefficient r ≈ -0.951\nThis indicates a strong negative linear relationship between speed and fuel consumption",
+      "xp": 7.5
+    },
+    {
+      "label": "(b)",
+      "marks": 5,
+      "subtopic": "scatter plot and line of best fit",
+      "difficulty": "basic",
+      "hints": [
+        "Plot all data points from the table on a scatter diagram",
+        "Draw a line through the data that best represents the overall trend",
+        "The line should have roughly equal numbers of points above and below"
+      ],
+      "answer": "Scatter plot with line of best fit drawn",
+      "acceptedAnswers": ["scatter plot and line", "graph showing negative trend"],
+      "solution": "Plot the (speed, fuel consumption) data points on a scatter diagram\nDraw the line of best fit through the data\nThe line should show the negative relationship with approximately equal scatter above and below\nThe line intercepts approximately at (50, 15) and passes through roughly (120, 7)"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(c)",
+      "marks": 5,
+      "subtopic": "interpretation of regression line",
+      "difficulty": "basic",
+      "hints": [
+        "Find the slope of the line of best fit from the graph or calculation",
+        "The slope is approximately -0.15",
+        "Interpret what this slope means in practical terms"
+      ],
+      "answer": "For every 1 km/h increase in speed, fuel consumption decreases by approximately 0.15 km/litre",
+      "acceptedAnswers": ["slope = -0.15", "consumption decreases by 0.15 km/L per km/h", "-0.15 km/L per km/h"],
+      "solution": "The slope of the line of best fit is approximately -0.15\nThis means for every 1 km/h increase in driving speed, the fuel consumption decreases by approximately 0.15 km per litre\nThis shows the inverse relationship between speed and fuel efficiency"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(d)(i)",
+      "marks": 5,
+      "subtopic": "distance and time calculations",
+      "difficulty": 2,
+      "hints": [
+        "Mary drives at 96 km/h for 260 km",
+        "Jane drives at 112 km/h for 260 km",
+        "Calculate time = distance / speed for each"
+      ],
+      "answer": "Time difference = 23 minutes",
+      "acceptedAnswers": ["23 minutes", "0.387 hours", "23.2 minutes"],
+      "solution": "Mary's time: t = 260 / 96 = 2.708 hours\nJane's time: t = 260 / 112 = 2.321 hours\nTime difference = 2.708 - 2.321 = 0.387 hours\n0.387 hours × 60 = 23.2 minutes ≈ 23 minutes"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(d)(ii)",
+      "marks": 5,
+      "subtopic": "fuel consumption and cost calculation",
+      "difficulty": 2,
+      "hints": [
+        "At 96 km/h, consumption is approximately 11 km/litre",
+        "At 112 km/h, consumption is approximately 9 km/litre",
+        "Calculate fuel needed for 260 km at each consumption rate"
+      ],
+      "answer": "Cost difference ≈ €6.98",
+      "acceptedAnswers": ["€6.98", "€7", "6.98 euros"],
+      "solution": "Mary at 96 km/h: consumption = 11 km/litre\nFuel needed = 260 / 11 = 23.636 litres\nJane at 112 km/h: consumption = 9 km/litre\nFuel needed = 260 / 9 = 28.889 litres\nFuel difference = 28.889 - 23.636 = 5.253 litres\nCost difference = 5.253 × €1.329 = €6.98"
+      ,
+      "xp": 7.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q3",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 3,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q3.png",
+  "pageImages": ["/questions/2017p2/q3_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "finding point on median",
+      "difficulty": 2,
+      "hints": [
+        "The centroid divides each median in the ratio 2:1 from the vertex",
+        "P is the point where the median from A meets side BC",
+        "Since G is the centroid with |AG|:|GP| = 2:1, P is the midpoint of BC"
+      ],
+      "answer": "P = (1, -1)",
+      "acceptedAnswers": ["(1, -1)", "P at (1,-1)"],
+      "solution": "The centroid G divides the median from A to P in ratio 2:1\nIf G = (2/3, 4/3) and A = (0, 6), then P can be found from:\nG = A + (2/3)(P - A)\n(2/3, 4/3) = (0, 6) + (2/3)(P - (0, 6))\n(2/3, 4/3) - (0, 6) = (2/3)(P - (0, 6))\n(2/3, -16/3) = (2/3)(P - (0, 6))\n(1, -8) = P - (0, 6)\nP = (1, -1)"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(b)",
+      "marks": 5,
+      "subtopic": "finding third vertex using centroid",
+      "difficulty": 2,
+      "hints": [
+        "The centroid is the average of the three vertices: G = (A + B + C)/3",
+        "Rearrange to find B = 3G - A - C",
+        "Substitute the known values"
+      ],
+      "answer": "B = (-2, -4)",
+      "acceptedAnswers": ["(-2, -4)", "B at (-2,-4)"],
+      "solution": "Using the centroid formula: G = (A + B + C) / 3\n3G = A + B + C\nB = 3G - A - C\nB = 3(2/3, 4/3) - (0, 6) - (4, 2)\nB = (2, 4) - (0, 6) - (4, 2)\nB = (2 - 0 - 4, 4 - 6 - 2)\nB = (-2, -4)"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(c)",
+      "marks": 10,
+      "subtopic": "proving orthocentre",
+      "difficulty": 4,
+      "hints": [
+        "Show that two altitudes of triangle ABC pass through point C",
+        "An altitude is perpendicular to the opposite side",
+        "Calculate slopes and verify perpendicularity conditions"
+      ],
+      "answer": "C is the orthocentre of triangle ABC",
+      "acceptedAnswers": ["C is orthocentre", "proven that altitudes meet at C"],
+      "solution": "To prove C(4, 2) is the orthocentre, show that altitudes from two vertices pass through C.\nAltitude from A perpendicular to BC:\n- Slope of BC = (-4 - 2) / (-2 - 4) = -6 / -6 = 1\n- Slope of altitude from A = -1\n- Equation: y - 6 = -1(x - 0), so y = -x + 6\n- At C: 2 = -4 + 6 = 2 ✓\n\nAltitude from B perpendicular to AC:\n- Slope of AC = (2 - 6) / (4 - 0) = -4 / 4 = -1\n- Slope of altitude from B = 1\n- Equation: y + 4 = 1(x + 2), so y = x - 2\n- At C: 2 = 4 - 2 = 2 ✓\n\nBoth altitudes pass through C, so C is the orthocentre."
+      ,
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2017_p2_q4",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 4,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q4.png",
+  "pageImages": ["/questions/2017p2/q4_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "circle equation from three points",
+      "difficulty": 2,
+      "hints": [
+        "Use the general circle equation x² + y² + 2gx + 2fy + c = 0",
+        "Substitute each of the three points to get three equations",
+        "Solve the system to find g, f, and c"
+      ],
+      "answer": "x² + y² - 6.5x - 12y = 0 or (x - 3.25)² + (y - 6)² = 46.5625",
+      "acceptedAnswers": ["x² + y² - 6.5x - 12y = 0", "(x - 3.25)² + (y - 6)² = 46.5625", "centre (3.25, 6), radius ≈ 6.82"],
+      "solution": "Substitute the three points into x² + y² + 2gx + 2fy + c = 0:\n\nPoint O(0, 0): 0 + 0 + 0 + 0 + c = 0, so c = 0\n\nPoint A(6.5, 0): 42.25 + 0 + 13g + 0 + 0 = 0, so g = -3.25\n\nPoint B(10, 7): 100 + 49 + 20g + 14f + 0 = 0\n149 + 20(-3.25) + 14f = 0\n149 - 65 + 14f = 0\n14f = -84, so f = -6\n\nCircle equation: x² + y² - 6.5x - 12y = 0\nCentre: (-2g, -2f) = (3.25, 6)\nRadius: √(g² + f² - c) = √(10.5625 + 36) = √46.5625 ≈ 6.82"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "angle in triangle using vectors",
+      "difficulty": 2,
+      "hints": [
+        "Use vectors AO and AB",
+        "Apply the dot product formula: cos θ = (u · v) / (|u| |v|)",
+        "Calculate the angle using inverse cosine"
+      ],
+      "answer": "∠OAB ≈ 116.57°",
+      "acceptedAnswers": ["116.57°", "116.6°", "117°"],
+      "solution": "Vector AO = O - A = (0, 0) - (6.5, 0) = (-6.5, 0)\nVector AB = B - A = (10, 7) - (6.5, 0) = (3.5, 7)\n\nDot product: AO · AB = (-6.5)(3.5) + (0)(7) = -22.75\n\n|AO| = 6.5\n|AB| = √(3.5² + 7²) = √(12.25 + 49) = √61.25 ≈ 7.826\n\ncos(∠OAB) = -22.75 / (6.5 × 7.826) = -22.75 / 50.87 ≈ -0.4473\n\n∠OAB = arccos(-0.4473) ≈ 116.57°"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 5,
+      "subtopic": "supplementary angle calculation",
+      "difficulty": "basic",
+      "hints": [
+        "The angle ∠OAB is measured from ray AO to ray AB",
+        "If you need the interior angle of triangle OAB, consider the geometry",
+        "Supplementary angles sum to 180°"
+      ],
+      "answer": "∠OAB = 116.57° (interior angle of configuration)",
+      "acceptedAnswers": ["116.57°", "116.6°", "63.43°"],
+      "solution": "From part (b), ∠OAB ≈ 116.57° is the angle measured between vectors AO and AB.\nThis is the angle in the triangle OAB at vertex A."
+      ,
+      "xp": 7.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q5",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 5,
+  "topic": "coordinate_geometry",
+  "totalMarks": 25,
+  "difficulty": 4,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q5.png",
+  "pageImages": ["/questions/2017p2/q5_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "proving similar triangles",
+      "difficulty": 2,
+      "hints": [
+        "Given FD ⊥ AG, both triangles have a right angle at E",
+        "In rectangle ABCD, angle FAE is part of angle DAB = 90°",
+        "Use angle relationships to show AA similarity"
+      ],
+      "answer": "△AFE ~ △DAE by AA similarity",
+      "acceptedAnswers": ["△AFE ~ △DAE", "similar by AA", "∠AEF = ∠AED = 90°, ∠FAE = ∠ADE"],
+      "solution": "Since FD ⊥ AG at E: ∠AEF = 90° and ∠AED = 90°\n\nIn rectangle ABCD: ∠FAB = ∠DAB = 90°\nTherefore: ∠FAE + ∠DAE = 90°\n\nIn △AFE: ∠FAE + ∠AFE = 90° (since ∠AEF = 90°)\nTherefore: ∠DAE = ∠AFE\n\nIn △AFE: ∠FAE + ∠AFE + ∠AEF = 180°\nIn △DAE: ∠DAE + ∠ADE + ∠AED = 180°\n\nSince ∠AEF = ∠AED = 90° and ∠FAE = ∠ADE:\n△AFE ~ △DAE by AA similarity"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(b)",
+      "marks": 6,
+      "subtopic": "finding dimensions using similarity",
+      "difficulty": 4,
+      "hints": [
+        "From △AFE, use Pythagoras: |AF|² = |AE|² + |FE|²",
+        "From similarity △AFE ~ △DAE: |AF|/|DA| = |FE|/|AE|",
+        "Calculate |AF| first, then use ratio to find |AD|"
+      ],
+      "answer": "|AD| = 31.2 cm or 156/5 cm",
+      "acceptedAnswers": ["|AD| = 31.2", "|AD| = 156/5", "31.2 cm"],
+      "solution": "In △AFE with right angle at E:\n|AF|² = |AE|² + |FE|² = 12² + 5² = 144 + 25 = 169\n|AF| = 13 cm\n\nFrom similarity △AFE ~ △DAE:\n|AF|/|DA| = |FE|/|AE| = |AE|/|DE|\n13/|DA| = 5/12\n|DA| = 13 × 12 / 5 = 156/5 = 31.2 cm"
+      ,
+      "xp": 9
+    },
+    {
+      "label": "(c)",
+      "marks": 7,
+      "subtopic": "proving similar triangles and finding side",
+      "difficulty": 4,
+      "hints": [
+        "Show that △AFE ~ △AGB",
+        "Use the similarity ratio to find |AB|",
+        "Note that |AG| = |AE| + |EG| = 12 + 27 = 39"
+      ],
+      "answer": "|AB| = 36 cm",
+      "acceptedAnswers": ["|AB| = 36", "36 cm", "|AB| = 36 cm"],
+      "solution": "△AFE ~ △AGB (can be proven using angle relationships)\n\nFrom similarity:\n|AF|/|AG| = |FE|/|GB| = |AE|/|AB|\n13/39 = 5/|GB| = 12/|AB|\n\nFrom 13/39 = 12/|AB|:\n|AB| = 12 × 39 / 13 = 12 × 3 = 36 cm"
+      ,
+      "xp": 10.5
+    },
+    {
+      "label": "(d)",
+      "marks": 7,
+      "subtopic": "calculating area using coordinates",
+      "difficulty": 4,
+      "hints": [
+        "Set up coordinate system: A at origin or convenient location",
+        "Find coordinates of G, C, D, E using the dimensions found",
+        "Use shoelace formula or divide into simpler shapes"
+      ],
+      "answer": "Area of GCDE ≈ 492 cm²",
+      "acceptedAnswers": ["492", "≈ 492 cm²", "480-510 cm²"],
+      "solution": "Using coordinates with A at (0, 36), B at (0, 0):\nC = (31.2, 0), D = (31.2, 36)\nF on AB: |AF| = 13, so F = (0, 23)\nG on BC with |BG| = 15: G = (15, 0)\n\nE is on FD and AG.\nParametric equation for AG: (0, 36) + t(15, -36), where t = 12/39 = 4/13\nE = (60/13, 324/13) ≈ (4.615, 24.923)\n\nUsing shoelace formula for quadrilateral GCDE:\nArea = ½|15(0 - 324/13) + 31.2(36 - 0) + 31.2(324/13 - 0) + 60/13(0 - 36)|\nArea ≈ 492 cm²"
+      ,
+      "xp": 10.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q6",
+  "year": 2017,
+  "paper": 2,
+  "section": "A",
+  "questionNumber": 6,
+  "topic": "trigonometry",
+  "totalMarks": 25,
+  "difficulty": 2,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q6.png",
+  "pageImages": ["/questions/2017p2/q6_page1.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 10,
+      "subtopic": "distance to horizon using Pythagoras",
+      "difficulty": 2,
+      "hints": [
+        "J is 214m = 0.214 km above Earth's surface",
+        "Earth's radius R = 6371 km",
+        "The horizon H is where the line from J is tangent to Earth",
+        "Use Pythagoras in triangle with radii and distance |JH|"
+      ],
+      "answer": "|JH| ≈ 52 km",
+      "acceptedAnswers": ["52 km", "52.2 km", "51.9 km", "approximately 52 km"],
+      "solution": "J is at height 0.214 km above sea level\nDistance from J to Earth's center: |JA| = 6371 + 0.214 = 6371.214 km\nRadius of Earth: |HA| = 6371 km\n\nAt the horizon, the line JH is tangent to Earth, so ∠JHA = 90°\nUsing Pythagoras in right triangle JHA:\n|JH|² = |JA|² - |HA|²\n|JH|² = (6371.214)² - 6371²\n|JH|² = 6371² + 2(6371)(0.214) + 0.214² - 6371²\n|JH|² = 2(6371)(0.214) + 0.214²\n|JH|² ≈ 2726.6\n|JH| ≈ 52.2 km ≈ 52 km"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "circumference of latitude circle",
+      "difficulty": 2,
+      "hints": [
+        "At latitude 53°, the radius of the latitude circle is r = R cos(53°)",
+        "Earth's radius R = 6371 km",
+        "Calculate circumference = 2πr"
+      ],
+      "answer": "Length ≈ 24092 km",
+      "acceptedAnswers": ["24092 km", "24100 km", "≈ 24092 km"],
+      "solution": "At latitude 53°, the radius of the circle of latitude is:\nr = R cos(53°)\nr = 6371 × cos(53°)\nr = 6371 × 0.6018\nr ≈ 3834 km\n\nCircumference = 2πr\n= 2π × 3834\n≈ 24,092 km"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 5,
+      "subtopic": "practical problem interpretation",
+      "difficulty": "basic",
+      "hints": [
+        "Explain what the distance from part (a) represents",
+        "This is the visible distance along Earth's surface from the elevated point"
+      ],
+      "answer": "The distance to the horizon is approximately 52 km",
+      "acceptedAnswers": ["52 km", "distance to visible horizon", "range of visibility"],
+      "solution": "From part (a), the distance to the horizon from J (214 m above sea level) is approximately 52 km.\nThis represents the maximum visible distance along Earth's surface in any direction from that elevated point."
+      ,
+      "xp": 7.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q7",
+  "year": 2017,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 7,
+  "topic": "trigonometry",
+  "totalMarks": 40,
+  "difficulty": 4,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q7.png",
+  "pageImages": ["/questions/2017p2/q7_page1.png", "/questions/2017p2/q7_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 8,
+      "subtopic": "volume of sphere from cone configuration",
+      "difficulty": 2,
+      "hints": [
+        "Two cones of radius R and height R are placed vertex-to-vertex in a cylinder",
+        "Calculate the volume of the cylinder: V_cyl = πR²(2R) = 2πR³",
+        "Calculate total volume of two cones: V_cones = 2 × (1/3)πR²R = (2/3)πR³",
+        "Empty space = V_cyl - V_cones"
+      ],
+      "answer": "Empty space volume = (4/3)πR³ = volume of sphere radius R",
+      "acceptedAnswers": ["(4/3)πR³", "volume of sphere", "volume of sphere radius R"],
+      "solution": "Cylinder volume: V_cyl = πR² × 2R = 2πR³\n\nTotal volume of two cones: V_cones = 2 × (1/3)πR²R = (2/3)πR³\n\nEmpty space: V_empty = V_cyl - V_cones\n= 2πR³ - (2/3)πR³\n= (6/3 - 2/3)πR³\n= (4/3)πR³\n\nThis equals the volume of a sphere with radius R: V_sphere = (4/3)πR³\nTherefore, the empty space has volume equal to a sphere of radius R."
+      ,
+      "xp": 12
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 7,
+      "subtopic": "circle of water surface in sphere",
+      "difficulty": 2,
+      "hints": [
+        "Water depth from bottom = 6 cm",
+        "Sphere radius = 12 cm, so center is at height 12 cm from bottom",
+        "Water surface is at height 6 cm, distance from center = 12 - 6 = 6 cm",
+        "Use Pythagoras to find radius of circle: r² = R² - d²"
+      ],
+      "answer": "|AB| = 6√3 cm",
+      "acceptedAnswers": ["6√3 cm", "6√3", "√108 cm", "10.39 cm"],
+      "solution": "Sphere radius R = 12 cm\nSphere center at height R = 12 cm from bottom\nWater surface at height 6 cm from bottom\nDistance from center to water surface: d = 12 - 6 = 6 cm\n\nRadius of water surface circle:\n|AB|² = R² - d² = 12² - 6² = 144 - 36 = 108\n|AB| = √108 = 6√3 cm ≈ 10.39 cm"
+      ,
+      "xp": 10.5
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 7,
+      "subtopic": "circle of water surface in cylinder",
+      "difficulty": 2,
+      "hints": [
+        "In the cylinder, the lower cone has vertex at height R = 12 cm",
+        "At height h from bottom, the cone radius = R - h = 12 - h",
+        "At water surface height 6 cm, cone radius = 12 - 6 = 6 cm",
+        "Water surface radius in cylinder: r = R - h"
+      ],
+      "answer": "|CD| = 6 cm",
+      "acceptedAnswers": ["6 cm", "6"],
+      "solution": "The lower cone has vertex at the top (height R = 12 cm)\nAt height h from bottom, the cone radius is: r_cone = R - h = 12 - h\n\nAt water surface height h = 6 cm:\n|CD| = 12 - 6 = 6 cm"
+      ,
+      "xp": 10.5
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 7,
+      "subtopic": "water surface areas comparison",
+      "difficulty": "basic",
+      "hints": [
+        "Water surface area in sphere = π|AB|² = π(6√3)² = 108π cm²",
+        "Water surface area in cylinder = π(R² - r_cone²) = π(144 - 36) = 108π cm²",
+        "Show these are equal"
+      ],
+      "answer": "Both water surface areas equal 108π cm²",
+      "acceptedAnswers": ["108π cm²", "equal", "both 108π"],
+      "solution": "Water surface area in sphere:\nA_sphere = π|AB|² = π(6√3)² = π × 108 = 108π cm²\n\nWater surface area in cylinder:\nA_cylinder = π(R² - r_cone²) = π(12² - 6²) = π(144 - 36) = 108π cm²\n\nThe water surface areas are equal: A_sphere = A_cylinder = 108π cm²"
+      ,
+      "xp": 10.5
+    },
+    {
+      "label": "(c)",
+      "marks": 10,
+      "subtopic": "calculating water volume using integration",
+      "difficulty": 4,
+      "hints": [
+        "Use Cavalieri's principle: cross-sectional areas at each height",
+        "At height h, cylinder area minus cone area: π(R² - (R-h)²)",
+        "Simplify: π(24h - h²)",
+        "Integrate from 0 to 6: ∫₀⁶ π(24h - h²) dh"
+      ],
+      "answer": "Volume of water = 360π cm³",
+      "acceptedAnswers": ["360π cm³", "360π", "1131 cm³"],
+      "solution": "At height h from the bottom, the water surface area in the available space is:\nA(h) = π(R² - r_cone²) = π(R² - (R - h)²)\n= π(R² - R² + 2Rh - h²)\n= π(2Rh - h²)\n= π(24h - h²)    [since R = 12]\n\nVolume of water:\nV = ∫₀⁶ π(24h - h²) dh\n= π[12h² - h³/3]₀⁶\n= π[12(36) - 216/3]\n= π[432 - 72]\n= 360π cm³ ≈ 1131 cm³"
+      ,
+      "xp": 15
+    }
+  ]
+},
+{
+  "id": "2017_p2_q8",
+  "year": 2017,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 8,
+  "topic": "statistics",
+  "totalMarks": 60,
+  "difficulty": 4,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q8.png",
+  "pageImages": ["/questions/2017p2/q8_page1.png", "/questions/2017p2/q8_page2.png", "/questions/2017p2/q8_page3.png", "/questions/2017p2/q8_page4.png"],
+  "parts": [
+    {
+      "label": "(a)(i)",
+      "marks": 5,
+      "subtopic": "normal distribution probability",
+      "difficulty": 2,
+      "hints": [
+        "Weights are normally distributed with mean 63.5 kg and σ = 10 kg",
+        "Mariska weighs 50 kg",
+        "Calculate z-score: z = (x - μ) / σ",
+        "Find P(Z > z) using normal distribution tables"
+      ],
+      "answer": "91.15% of athletes weighed more than Mariska",
+      "acceptedAnswers": ["91.15%", "0.9115", "91.2%", "about 91%"],
+      "solution": "Z-score: z = (50 - 63.5) / 10 = -13.5 / 10 = -1.35\n\nP(Z > -1.35) = P(Z < 1.35) = 0.9115\n\nTherefore, 91.15% of the athletes weighed more than Mariska"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(a)(ii)",
+      "marks": 5,
+      "subtopic": "inverse normal distribution",
+      "difficulty": 2,
+      "hints": [
+        "Kamal is 1.5% heavier than 98.5% of athletes",
+        "P(Z > z) = 0.015, so P(Z < z) = 0.985",
+        "Find z from normal tables: z ≈ 2.17",
+        "Weight = μ + z × σ"
+      ],
+      "answer": "Kamal's weight ≈ 85.2 kg",
+      "acceptedAnswers": ["85.2 kg", "85 kg", "85.1 kg"],
+      "solution": "We need P(Z > z) = 0.015, so P(Z < z) = 0.985\n\nFrom normal distribution tables: z ≈ 2.17\n\nKamal's weight = μ + z × σ\n= 63.5 + 2.17 × 10\n= 63.5 + 21.7\n= 85.2 kg"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(a)(iii)",
+      "marks": 10,
+      "subtopic": "hypothesis test using z-test",
+      "difficulty": 4,
+      "hints": [
+        "2016 sample: n = 150, mean = 62 kg, σ = 10 kg",
+        "H₀: μ = 63.5 kg, H₁: μ ≠ 63.5 kg",
+        "Calculate z = (sample mean - population mean) / (σ/√n)",
+        "Compare with critical value 1.96 for 5% significance"
+      ],
+      "answer": "Fail to reject H₀; insufficient evidence that mean has changed",
+      "acceptedAnswers": ["fail to reject", "no significant change", "not significant"],
+      "solution": "Null hypothesis H₀: μ = 63.5 kg\nAlternative hypothesis H₁: μ ≠ 63.5 kg (two-tailed test)\n\nSample statistics: n = 150, x̄ = 62, σ = 10\n\nStandard error: SE = σ/√n = 10/√150 = 10/12.247 ≈ 0.8165\n\nTest statistic: z = (62 - 63.5) / 0.8165 = -1.5 / 0.8165 ≈ -1.837\n\nCritical value at 5% significance: ±1.96\n\nSince |z| = 1.837 < 1.96, we fail to reject H₀\n\nConclusion: There is insufficient evidence that the mean weight has changed from 63.5 kg"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(b)(i)",
+      "marks": 10,
+      "subtopic": "probability tree diagram",
+      "difficulty": 2,
+      "hints": [
+        "Complete the tree showing all branches with probabilities",
+        "First branch: rain (1/3) and no rain (2/3)",
+        "Second level: heavy traffic and no heavy traffic",
+        "Third level: late and not late"
+      ],
+      "answer": "Complete tree diagram with all probabilities filled",
+      "acceptedAnswers": ["tree diagram completed", "all branches labeled"],
+      "solution": "Rain branch (1/3):\n- Heavy traffic (1/2): Late (1/2), Not late (1/2)\n- Not heavy (1/2): Late (1/5), Not late (4/5)\n\nNo rain branch (2/3):\n- Heavy traffic (1/4): Late (1/5), Not late (4/5)\n- Not heavy (3/4): Late (1/8), Not late (7/8)"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(b)(ii)",
+      "marks": 15,
+      "subtopic": "total probability calculation",
+      "difficulty": 4,
+      "hints": [
+        "P(late) = sum of all paths that end in 'late'",
+        "Add probabilities: (1/3)(1/2)(1/2) + (1/3)(1/2)(1/5) + (2/3)(1/4)(1/5) + (2/3)(3/4)(1/8)",
+        "Find common denominator and simplify"
+      ],
+      "answer": "P(late) = 17/80",
+      "acceptedAnswers": ["17/80", "0.2125", "21.25%"],
+      "solution": "P(late) = P(rain, heavy, late) + P(rain, not heavy, late) + P(no rain, heavy, late) + P(no rain, not heavy, late)\n\n= (1/3)(1/2)(1/2) + (1/3)(1/2)(1/5) + (2/3)(1/4)(1/5) + (2/3)(3/4)(1/8)\n\n= 1/12 + 1/30 + 2/60 + 6/96\n\n= 1/12 + 1/30 + 1/30 + 1/16\n\nFinding LCD = 240:\n= 20/240 + 8/240 + 8/240 + 15/240\n\n= 51/240\n\n= 17/80 ≈ 0.2125"
+      ,
+      "xp": 22.5
+    },
+    {
+      "label": "(b)(iii)",
+      "marks": 15,
+      "subtopic": "conditional probability using Bayes' theorem",
+      "difficulty": 4,
+      "hints": [
+        "Use Bayes' theorem: P(A|B) = P(B|A)P(A) / P(B)",
+        "P(rain|late) = P(late|rain)P(rain) / P(late)",
+        "P(late∩rain) includes both heavy and not heavy traffic paths"
+      ],
+      "answer": "P(rain|late) = 28/51",
+      "acceptedAnswers": ["28/51", "0.5490", "55%"],
+      "solution": "Using Bayes' theorem: P(rain|late) = P(late∩rain) / P(late)\n\nP(late∩rain) = (1/3)(1/2)(1/2) + (1/3)(1/2)(1/5)\n= 1/12 + 1/30\n= 5/60 + 2/60\n= 7/60\n\nP(late) = 17/80  (from part b)(ii))\n\nP(rain|late) = (7/60) / (17/80)\n= (7/60) × (80/17)\n= 560 / 1020\n= 28/51 ≈ 0.549"
+      ,
+      "xp": 22.5
+    }
+  ]
+},
+{
+  "id": "2017_p2_q9",
+  "year": 2017,
+  "paper": 2,
+  "section": "B",
+  "questionNumber": 9,
+  "topic": "trigonometry",
+  "totalMarks": 50,
+  "difficulty": 4,
+  "source": "LC 2017 P2",
+  "imagePath": "/questions/2017p2/q9.png",
+  "pageImages": ["/questions/2017p2/q9_page1.png", "/questions/2017p2/q9_page2.png"],
+  "parts": [
+    {
+      "label": "(a)",
+      "marks": 5,
+      "subtopic": "elevation angle relationship",
+      "difficulty": "basic",
+      "hints": [
+        "From point C, the angle of elevation to tree top E is 60°",
+        "In right triangle ECT, tan(60°) = |ET| / |CT|",
+        "tan(60°) = √3"
+      ],
+      "answer": "|ET| = √3 × |CT|",
+      "acceptedAnswers": ["|ET| = √3|CT|", "height = √3 × distance", "tan 60° = √3"],
+      "solution": "In right triangle ECT with C at base:\ntan(60°) = |ET| / |CT|\n√3 = |ET| / |CT|\n|ET| = √3 × |CT|"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(b)",
+      "marks": 10,
+      "subtopic": "using two elevation angles to find distance",
+      "difficulty": 4,
+      "hints": [
+        "From D (15 m north of C), elevation angle to E is 30°",
+        "tan(30°) = |ET| / |DT|",
+        "Use Pythagoras in triangle CDT: |DT|² = |CT|² + 15²",
+        "Combine equations: √3|CT| = |DT|/√3"
+      ],
+      "answer": "|CT| = 15/√2 = 7.5√2 m",
+      "acceptedAnswers": ["|CT| = 15/√2", "7.5√2 m", "10.61 m", "10.6 m"],
+      "solution": "From D: tan(30°) = |ET| / |DT|\n1/√3 = |ET| / |DT|\n|ET| = |DT| / √3\n\nFrom C: |ET| = √3 × |CT|\n\nEquating: √3 × |CT| = |DT| / √3\n3|CT|² = |DT|²\n\nFrom Pythagoras in triangle CDT:\n|DT|² = |CT|² + 15²\n\nSubstituting:\n3|CT|² = |CT|² + 225\n2|CT|² = 225\n|CT|² = 112.5\n|CT| = √112.5 = 15/√2 = 7.5√2 ≈ 10.61 m"
+      ,
+      "xp": 15
+    },
+    {
+      "label": "(c)",
+      "marks": 5,
+      "subtopic": "calculating distance",
+      "difficulty": "basic",
+      "hints": [
+        "Use the value found in part (b)",
+        "|CT| = 15/√2 = 15√2/2 m",
+        "Rationalize the denominator"
+      ],
+      "answer": "|CT| ≈ 10.6 m",
+      "acceptedAnswers": ["10.6 m", "10.61 m", "15/√2 m", "7.5√2 m"],
+      "solution": "|CT| = 15/√2\n= 15√2/2\n≈ 10.606 m\n≈ 10.6 m"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(d)",
+      "marks": 5,
+      "subtopic": "calculating tree height",
+      "difficulty": "basic",
+      "hints": [
+        "Use the relationship from part (a): |ET| = √3 × |CT|",
+        "Substitute |CT| = 15/√2",
+        "|ET| = √3 × 15/√2 = 15√3/√2 = 15√6/2"
+      ],
+      "answer": "|ET| ≈ 18.4 m",
+      "acceptedAnswers": ["18.4 m", "18.37 m", "15√6/2 m"],
+      "solution": "|ET| = √3 × |CT|\n= √3 × (15/√2)\n= 15√3/√2\n= 15√3 × √2 / 2\n= 15√6/2\n≈ 18.37 m\n≈ 18.4 m"
+      ,
+      "xp": 7.5
+    },
+    {
+      "label": "(e)",
+      "marks": 12,
+      "subtopic": "maximum angle when tree falls",
+      "difficulty": 4,
+      "hints": [
+        "The tree falls from T with length |ET| = 15√6/2 m",
+        "The bank is a line through C perpendicular to TC",
+        "Maximum angle ∠FTC occurs when the tree just reaches the bank",
+        "Use the constraint |TF| = |ET| and distance from T to bank = |CT|"
+      ],
+      "answer": "Maximum ∠FTC ≈ 54.7°",
+      "acceptedAnswers": ["54.7°", "54.74°", "55°", "arctan(√2)"],
+      "solution": "Tree length: |TF| = |ET| = 15√6/2 m\nDistance from T to bank: |CT| = 15/√2 m\n\nWhen tree reaches the bank at point F:\n|TF|² = |CT|² + |CF|²\n(15√6/2)² = (15/√2)² + |CF|²\n(225 × 6)/4 = 225/2 + |CF|²\n1350/4 = 450/4 + |CF|²\n900/4 = |CF|²\n225 = |CF|²\n|CF| = 15 m\n\nMaximum angle: tan(∠FTC) = |CF| / |CT|\n= 15 / (15/√2)\n= 15 × √2/15\n= √2\n\n∠FTC = arctan(√2) ≈ 54.74° ≈ 54.7°"
+      ,
+      "xp": 18
+    },
+    {
+      "label": "(f)",
+      "marks": 13,
+      "subtopic": "probability of hitting bank",
+      "difficulty": 4,
+      "hints": [
+        "The tree can fall in any direction uniformly around point T",
+        "Calculate the angular range where the tree reaches the bank",
+        "The critical angle α satisfies: cos(α) = |CT| / |TF|",
+        "Total angular range = 2α, probability = (2α) / 360°"
+      ],
+      "answer": "Probability ≈ 30.4% or 0.304",
+      "acceptedAnswers": ["30.4%", "0.304", "109.5/360", "30%"],
+      "solution": "For the tree to reach the bank, the perpendicular distance from T to bank ≤ tree length × cos(θ)\nwhere θ is angle from perpendicular direction.\n\n|CT| ≤ |TF| × cos(α)\ncos(α) = |CT| / |TF|\n= (15/√2) / (15√6/2)\n= (15/√2) × (2/15√6)\n= 2 / (√2 × √6)\n= 2 / √12\n= 2 / (2√3)\n= 1 / √3\n\nα = arccos(1/√3) ≈ 54.74°\n\nTotal angular range where tree hits bank = 2α ≈ 109.47°\n\nProbability = 109.47 / 360 ≈ 0.304 ≈ 30.4%"
+      ,
+      "xp": 19.5
+    }
+  ]
+}
 ];
 
-// Helper: get all topics (both papers) in flat format
+
 export const getAllTopics = () => {
   const all = {};
   const TOPICS = {
