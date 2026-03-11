@@ -4647,6 +4647,1020 @@ export const QUESTION_BANK = [
         xp: 20
       }
     ]
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  // 2022 PAPER 1
+  // ══════════════════════════════════════════════════════════════
+
+  // ── Q1: Algebra (30 marks) ──
+  {
+    id: "2022_p1_q1",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 1,
+    topic: "algebra",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q1.png",
+    pageImages: ["/questions/2022p1/q1_page1.png", "/questions/2022p1/q1_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Discriminant & Quadratic Equations",
+        difficulty: 2,
+        hints: ["For exactly one solution, discriminant = 0", "Δ = m² - 36 = 0", "m = ±6"],
+        answer: "m = 6 or m = −6",
+        acceptedAnswers: ["m = 6 or m = -6", "m = ±6", "6, -6", "m = 6, m = -6"],
+        solution: "3x² − mx + 3 = 0 has exactly one solution when discriminant = 0.\n\nΔ = b² − 4ac = (−m)² − 4(3)(3) = m² − 36\n\nFor exactly one solution: m² − 36 = 0\nm² = 36\nm = ±6",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Complex Numbers & Equations",
+        difficulty: 2,
+        hints: ["(2x+3)² = −7 implies the square equals a negative number", "A real number squared is always ≥ 0", "Therefore no real solutions exist"],
+        answer: "No real solutions",
+        acceptedAnswers: ["no real solutions", "no real solutions exist", "impossible", "none"],
+        solution: "(2x + 3)² + 7 = 0\n(2x + 3)² = −7\n\nSince (2x + 3)² ≥ 0 for all real x, but we need (2x + 3)² = −7 < 0, this is impossible.\n\nTherefore, there are no real solutions.",
+        xp: 10
+      },
+      {
+        label: "(c)",
+        marks: 10,
+        subtopic: "Polynomial Division & Remainder Theorem",
+        difficulty: 2,
+        hints: [
+          "Use the Remainder Theorem: f(−1) gives the remainder when dividing by (x+1)",
+          "Calculate: f(−1) = 3(−1)² + 2(−1) + 5 = 3 − 2 + 5 = 6",
+          "Verify by polynomial division: 3x² + 2x + 5 = (x+1)(3x−1) + 6"
+        ],
+        answer: "c = 6",
+        acceptedAnswers: ["6", "c = 6", "remainder = 6"],
+        solution: "(i) f(−1) = 3(−1)² + 2(−1) + 5 = 3 − 2 + 5 = 6 ≠ 0\nSo x = −1 is not a solution.\n\n(ii) By polynomial division:\n3x² + 2x + 5 = (x + 1)(3x − 1) + 6\n\nTherefore, c = 6",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q2: Integration (30 marks) ──
+  {
+    id: "2022_p1_q2",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 2,
+    topic: "integration",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q2.png",
+    pageImages: ["/questions/2022p1/q2_page1.png", "/questions/2022p1/q2_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Indefinite Integrals",
+        difficulty: 2,
+        hints: ["Integrate term by term", "∫x³ dx = x⁴/4 + C", "∫x dx = x²/2 + C"],
+        answer: "x⁴/2 + 5x²/2 + 6x + C",
+        acceptedAnswers: ["x⁴/2 + 5x²/2 + 6x + C", "(1/2)x⁴ + (5/2)x² + 6x + C", "x⁴/2 + 5x²/2 + 6x + c"],
+        solution: "∫(2x³ + 5x + 6) dx\n\n= 2 · x⁴/4 + 5 · x²/2 + 6x + C\n= x⁴/2 + 5x²/2 + 6x + C",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Systems of Equations & Definite Integration",
+        difficulty: 3,
+        hints: [
+          "You have three equations relating a, b, c from three integral evaluations",
+          "Solve the system: 4a + 3b + 3c = 807, 28a + 9b + 3c = 879, 76a + 15b + 3c = 663",
+          "Subtract equations to eliminate c: 24a + 6b = 72 → 4a + b = 12, and 48a + 6b = −216 → 8a + b = −36"
+        ],
+        answer: "a = −12, b = 60, c = 225",
+        acceptedAnswers: ["a = -12, b = 60, c = 225", "a=-12, b=60, c=225", "-12, 60, 225"],
+        solution: "From the three integral equations:\n4a + 3b + 3c = 807 ... (1)\n28a + 9b + 3c = 879 ... (2)\n76a + 15b + 3c = 663 ... (3)\n\nSubtract (1) from (2): 24a + 6b = 72 → 4a + b = 12\nSubtract (2) from (3): 48a + 6b = −216 → 8a + b = −36\n\nSubtract: 4a = −48 → a = −12\nThen: b = 12 − 4(−12) = 60\nAnd: c = (807 − 4(−12) − 3(60))/3 = 675/3 = 225\n\na = −12, b = 60, c = 225",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q3: Complex Numbers (30 marks) ──
+  {
+    id: "2022_p1_q3",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 3,
+    topic: "complex_numbers",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q3.png",
+    pageImages: ["/questions/2022p1/q3_page1.png", "/questions/2022p1/q3_page2.png"],
+    parts: [
+      {
+        label: "(a)(i)",
+        marks: 5,
+        subtopic: "Complex Number Operations",
+        difficulty: 2,
+        hints: ["z − iz where z = 6 + 2i", "First find iz = i(6 + 2i) = −2 + 6i", "Then z − iz = 8 − 4i"],
+        answer: "8 − 4i",
+        acceptedAnswers: ["8 - 4i", "8−4i"],
+        solution: "z = 6 + 2i\niz = i(6 + 2i) = 6i + 2i² = −2 + 6i\nz − iz = (6 + 2i) − (−2 + 6i) = 8 − 4i ✓",
+        xp: 10
+      },
+      {
+        label: "(a)(ii)",
+        marks: 5,
+        subtopic: "Modulus & Pythagorean Theorem",
+        difficulty: 2,
+        hints: ["|z| = √(36 + 4) = 2√10", "|iz| = |i||z| = 2√10", "z and iz are perpendicular, so |z − iz|² = |z|² + |iz|²"],
+        answer: "Verified: |z|² + |iz|² = |z − iz|²",
+        acceptedAnswers: ["verified", "40 + 40 = 80", "yes"],
+        solution: "|z| = √(36 + 4) = √40 = 2√10\n|iz| = |i||z| = 1 · 2√10 = 2√10\n|z − iz| = |8 − 4i| = √(64 + 16) = √80 = 4√5\n\n|z|² + |iz|² = 40 + 40 = 80 = (4√5)² = |z − iz|²\n\nThis verifies the Pythagorean relationship.",
+        xp: 10
+      },
+      {
+        label: "(a)(iii)",
+        marks: 5,
+        subtopic: "Circle Geometry",
+        difficulty: 2,
+        hints: ["z and iz are endpoints of a diameter", "Centre is the midpoint: ((6−2)/2, (2+6)/2) = (2, 4)", "Radius = |z − iz|/2 = 4√5/2 = 2√5", "Area = πr² = π(2√5)² = 20π"],
+        answer: "Area = 20π",
+        acceptedAnswers: ["20π", "20pi", "62.83"],
+        solution: "z and iz are endpoints of a diameter.\nCentre = midpoint = ((6 + (−2))/2, (2 + 6)/2) = (2, 4)\nRadius = |z − iz|/2 = 4√5/2 = 2√5\n\nArea = πr² = π(2√5)² = 20π",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "De Moivre's Theorem",
+        difficulty: 3,
+        hints: [
+          "Convert √3 − i to polar form: |z| = 2, arg(z) = −30° = −π/6",
+          "Apply De Moivre: (√3 − i)⁶ = 2⁶(cos(−180°) + i sin(−180°))",
+          "= 64(−1 + 0i) = −64"
+        ],
+        answer: "a = −64, b = 0",
+        acceptedAnswers: ["-64, 0", "a = -64, b = 0", "-64"],
+        solution: "√3 − i in polar form:\n|√3 − i| = √(3 + 1) = 2\narg(√3 − i) = −30° = −π/6\n\nBy De Moivre's Theorem:\n(√3 − i)⁶ = 2⁶(cos(−180°) + i sin(−180°))\n= 64(−1 + 0i) = −64\n\na = −64, b = 0",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q4: Sequences (30 marks) ──
+  {
+    id: "2022_p1_q4",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 4,
+    topic: "sequences",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q4.png",
+    pageImages: ["/questions/2022p1/q4_page1.png", "/questions/2022p1/q4_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Geometric Mean & Sequences",
+        difficulty: 2,
+        hints: ["u₁ = 2, u₂ = 64", "u₃ = √(u₁ · u₂) = √(2 × 64) = √128 = 2^(7/2)"],
+        answer: "u₃ = 2^(7/2) or 8√2",
+        acceptedAnswers: ["2^(7/2)", "8√2", "8*sqrt(2)"],
+        solution: "u₁ = 2 = 2¹\nu₂ = 64 = 2⁶\nu₃ = √(u₁ · u₂) = √(2 × 64) = √128 = 2^(7/2) = 8√2",
+        xp: 10
+      },
+      {
+        label: "(b)(i)",
+        marks: 5,
+        subtopic: "Arithmetic Sequences & Equations",
+        difficulty: 2,
+        hints: ["If 5e^(−k), 13, 5e^k form arithmetic sequence", "Then 13 − 5e^(−k) = 5e^k − 13", "So 26 = 5e^k + 5e^(−k)"],
+        answer: "5y² − 26y + 5 = 0",
+        acceptedAnswers: ["5y^2 - 26y + 5 = 0"],
+        solution: "Let y = e^k. Then:\n5y² − 26y + 5 = 0\n\nThis is derived from: 5y + 5/y = 26\nMultiplying by y: 5y² + 5 = 26y\n5y² − 26y + 5 = 0",
+        xp: 10
+      },
+      {
+        label: "(b)(ii)",
+        marks: 10,
+        subtopic: "Solving Quadratic & Logarithms",
+        difficulty: 2,
+        hints: ["Use quadratic formula: y = (26 ± √(676 − 100))/10", "√576 = 24, so y = (26 ± 24)/10", "y = 5 or y = 1/5", "Then e^k = 5 gives k = ln(5), and e^k = 1/5 gives k = −ln(5)"],
+        answer: "k = ln(5) or k = −ln(5)",
+        acceptedAnswers: ["k = ln(5) or k = -ln(5)", "ln(5), -ln(5)", "±ln(5)"],
+        solution: "5y² − 26y + 5 = 0\ny = (26 ± √(676 − 100))/10 = (26 ± 24)/10\ny = 5 or y = 1/5\n\nSince y = e^k:\ne^k = 5 → k = ln(5)\ne^k = 1/5 → k = ln(1/5) = −ln(5)",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q5: Differentiation & Algebra (30 marks) ──
+  {
+    id: "2022_p1_q5",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 5,
+    topic: "differentiation",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q5.png",
+    pageImages: ["/questions/2022p1/q5_page1.png", "/questions/2022p1/q5_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 5,
+        subtopic: "Derivative of Root & Power Functions",
+        difficulty: 2,
+        hints: ["g(x) = x³ − 1/√x = x³ − x^(−1/2)", "g'(x) = 3x² − (−1/2)x^(−3/2) = 3x² + 1/(2x^(3/2))"],
+        answer: "g'(x) = 3x² + 1/(2√(x³))",
+        acceptedAnswers: ["3x² + 1/(2√(x³))", "3x^2 + 1/(2x^(3/2))"],
+        solution: "g(x) = x³ − x^(−1/2)\ng'(x) = 3x² − (−1/2)x^(−3/2) = 3x² + 1/(2x^(3/2)) = 3x² + 1/(2√(x³))",
+        xp: 10
+      },
+      {
+        label: "(b)(i)",
+        marks: 10,
+        subtopic: "Polynomial Factorization",
+        difficulty: 2,
+        hints: ["Test f(−1) = 0, so (x+1) is a factor", "Use polynomial division to find: 2x³ − 21x² + 40x + 63 = (x+1)(2x² − 23x + 63)", "Factorise 2x² − 23x + 63 = (2x − 9)(x − 7)"],
+        answer: "x = −1, 9/2, 7",
+        acceptedAnswers: ["-1, 4.5, 7", "-1, 9/2, 7", "x = -1 or x = 9/2 or x = 7"],
+        solution: "f(−1) = −2 − 21 − 40 + 63 = 0\nSo (x + 1) is a factor.\n\n2x³ − 21x² + 40x + 63 = (x + 1)(2x² − 23x + 63) = (x + 1)(2x − 9)(x − 7)\n\nSolutions: x = −1, 9/2, 7",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q6: Differentiation from First Principles (30 marks) ──
+  {
+    id: "2022_p1_q6",
+    year: 2022,
+    paper: 1,
+    section: "A",
+    questionNumber: 6,
+    topic: "differentiation",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q6.png",
+    pageImages: ["/questions/2022p1/q6_page1.png", "/questions/2022p1/q6_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Derivative from First Principles",
+        difficulty: 2,
+        hints: [
+          "f'(x) = lim[h→0] [f(x+h) − f(x)]/h",
+          "f(x+h) = 2(x+h)² + 4(x+h) = 2x² + 4xh + 2h² + 4x + 4h",
+          "f(x) = 2x² + 4x"
+        ],
+        answer: "f'(x) = 4x + 4",
+        acceptedAnswers: ["4x + 4", "4(x + 1)"],
+        solution: "f(x) = 2x² + 4x\nf(x+h) = 2(x+h)² + 4(x+h) = 2x² + 4xh + 2h² + 4x + 4h\n\nf'(x) = lim[h→0] [(2x² + 4xh + 2h² + 4x + 4h) − (2x² + 4x)]/h\n= lim[h→0] [4xh + 2h² + 4h]/h\n= lim[h→0] [4x + 2h + 4]\n= 4x + 4",
+        xp: 15
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Related Rates & Applied Calculus",
+        difficulty: 2,
+        hints: ["Area = 4x², so dA/dx = 8x", "When Area = 225: 4x² = 225, x = 15/2", "dA/dx = 8(15/2) = 60"],
+        answer: "60 cm²/cm",
+        acceptedAnswers: ["60", "60 cm²/cm"],
+        solution: "Area = length × width = 4x × x = 4x²\ndA/dx = 8x\n\nWhen area = 225: 4x² = 225\nx² = 225/4, x = 15/2\n\ndA/dx = 8(15/2) = 60 cm²/cm",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q7: Applied Calculus — Heart Rate (50 marks) ──
+  {
+    id: "2022_p1_q7",
+    year: 2022,
+    paper: 1,
+    section: "B",
+    questionNumber: 7,
+    topic: "calculus_applied",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q7.png",
+    pageImages: ["/questions/2022p1/q7_page1.png", "/questions/2022p1/q7_page2.png", "/questions/2022p1/q7_page3.png", "/questions/2022p1/q7_page4.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Function Evaluation",
+        difficulty: 2,
+        hints: ["h(x) = 2x³ − 28.5x² + 105x + 70", "h(4) = 2(64) − 28.5(16) + 105(4) + 70"],
+        answer: "h(4) = 162 BPM",
+        acceptedAnswers: ["162"],
+        solution: "h(4) = 2(4)³ − 28.5(4)² + 105(4) + 70\n= 2(64) − 28.5(16) + 420 + 70\n= 128 − 456 + 420 + 70\n= 162 BPM",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 8,
+        subtopic: "Derivative",
+        difficulty: 2,
+        hints: ["Differentiate each term"],
+        answer: "h'(x) = 6x² − 57x + 105",
+        acceptedAnswers: ["6x² - 57x + 105"],
+        solution: "h'(x) = 6x² − 57x + 105",
+        xp: 8
+      },
+      {
+        label: "(c)",
+        marks: 8,
+        subtopic: "Rate of Change Interpretation",
+        difficulty: 2,
+        hints: ["h'(2) = 6(4) − 57(2) + 105"],
+        answer: "h'(2) = 15 BPM/min",
+        acceptedAnswers: ["15"],
+        solution: "h'(2) = 6(4) − 114 + 105 = 24 − 114 + 105 = 15\nMeaning heart rate is increasing at 15 BPM per minute at t = 2.",
+        xp: 8
+      },
+      {
+        label: "(d)",
+        marks: 10,
+        subtopic: "Optimization",
+        difficulty: 3,
+        hints: [
+          "Set h'(x) = 0: 6x² − 57x + 105 = 0",
+          "x = (57 ± 27)/12, so x = 7 or x = 2.5",
+          "Evaluate h at critical points and endpoints"
+        ],
+        answer: "Least = 94.5 BPM (at x=7), Greatest = 185.625 BPM (at x=2.5)",
+        acceptedAnswers: ["94.5, 185.625"],
+        solution: "h'(x) = 6x² − 57x + 105 = 0\nx = (57 ± 27)/12: x = 7 or x = 2.5\n\nh(0) = 70\nh(2.5) = 185.625 (maximum)\nh(7) = 94.5 (minimum)\nh(8) = 110",
+        xp: 16
+      }
+    ]
+  },
+
+  // ── Q8: Trigonometric Functions — Ferris Wheel (50 marks) ──
+  {
+    id: "2022_p1_q8",
+    year: 2022,
+    paper: 1,
+    section: "B",
+    questionNumber: 8,
+    topic: "trigonometry",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q8.png",
+    pageImages: ["/questions/2022p1/q8_page1.png", "/questions/2022p1/q8_page2.png", "/questions/2022p1/q8_page3.png", "/questions/2022p1/q8_page4.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 8,
+        subtopic: "Trigonometric Model",
+        difficulty: 2,
+        hints: ["h(t) = 72 − 60cos(πt/3)", "h(0) = 72 − 60 = 12", "h(3) = 72 + 60 = 132"],
+        answer: "Model verified",
+        acceptedAnswers: ["verified", "yes"],
+        solution: "h(t) = 72 − 60cos(πt/3)\nh(0) = 12✓, h(1) = 42✓, h(3) = 132✓",
+        xp: 8
+      },
+      {
+        label: "(c)",
+        marks: 8,
+        subtopic: "Period & Range",
+        difficulty: 2,
+        hints: ["Period = 2π / (π/3) = 6 minutes", "Range: min = 72 − 60 = 12, max = 72 + 60 = 132"],
+        answer: "Period = 6 min, Range = [12, 132]",
+        acceptedAnswers: ["6, [12, 132]"],
+        solution: "Period = 6 minutes\nRange = [12, 132]",
+        xp: 8
+      },
+      {
+        label: "(d)",
+        marks: 10,
+        subtopic: "Time Analysis",
+        difficulty: 3,
+        hints: ["In each 6-minute period, height > 42 for 4 minutes", "In 50 minutes: 8 complete cycles (48 min) + 2 min remaining"],
+        answer: "34 minutes",
+        acceptedAnswers: ["34"],
+        solution: "Each 6-minute cycle has 4 minutes above 42.\n8 cycles × 4 = 32 minutes\nRemaining 2 minutes: mostly above 42, add 2 more\nTotal ≈ 34 minutes",
+        xp: 12
+      }
+    ]
+  },
+
+  // ── Q9: Geometric Series — Drug Dosage (50 marks) ──
+  {
+    id: "2022_p1_q9",
+    year: 2022,
+    paper: 1,
+    section: "B",
+    questionNumber: 9,
+    topic: "sequences",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q9.png",
+    pageImages: ["/questions/2022p1/q9_page1.png", "/questions/2022p1/q9_page2.png", "/questions/2022p1/q9_page3.png", "/questions/2022p1/q9_page4.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 8,
+        subtopic: "Exponential Decay",
+        difficulty: 2,
+        hints: ["D(t) = 15(0.6)^t", "D(2.5) = 15(0.6)^2.5"],
+        answer: "4.18 mg",
+        acceptedAnswers: ["4.18", "4.2"],
+        solution: "D(2.5) = 15(0.6)^2.5 = 15 × 0.2788 ≈ 4.18 mg",
+        xp: 8
+      },
+      {
+        label: "(b)",
+        marks: 8,
+        subtopic: "Solving Exponential Equations",
+        difficulty: 2,
+        hints: ["15(0.6)^t = 1", "(0.6)^t = 1/15", "t = ln(1/15) / ln(0.6)"],
+        answer: "t ≈ 5.3 days",
+        acceptedAnswers: ["5.3"],
+        solution: "15(0.6)^t = 1\n(0.6)^t = 1/15\nt = ln(1/15) / ln(0.6) ≈ 5.3 days",
+        xp: 8
+      },
+      {
+        label: "(d)",
+        marks: 8,
+        subtopic: "Geometric Series Sum",
+        difficulty: 2,
+        hints: ["After 10 injections: S = 15(1 − 0.6^10) / (1 − 0.6)"],
+        answer: "37.27 mg",
+        acceptedAnswers: ["37.27", "37.3"],
+        solution: "S₁₀ = 15(1 − 0.6^10) / 0.4 = 15(0.993953) / 0.4 ≈ 37.27 mg",
+        xp: 8
+      },
+      {
+        label: "(e)",
+        marks: 8,
+        subtopic: "Infinite Series",
+        difficulty: 2,
+        hints: ["S∞ = a / (1 − r) where a = 15, r = 0.6"],
+        answer: "S∞ = 37.5 mg",
+        acceptedAnswers: ["37.5"],
+        solution: "S∞ = 15 / (1 − 0.6) = 15 / 0.4 = 37.5 mg",
+        xp: 8
+      }
+    ]
+  },
+
+  // ── Q10: Logarithmic Functions (50 marks) ──
+  {
+    id: "2022_p1_q10",
+    year: 2022,
+    paper: 1,
+    section: "B",
+    questionNumber: 10,
+    topic: "logarithms",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P1",
+    imagePath: "/questions/2022p1/q10.png",
+    pageImages: ["/questions/2022p1/q10_page1.png", "/questions/2022p1/q10_page2.png", "/questions/2022p1/q10_page3.png", "/questions/2022p1/q10_page4.png", "/questions/2022p1/q10_page5.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 8,
+        subtopic: "Function Evaluation",
+        difficulty: 2,
+        hints: ["P(3) = 0.82 − 0.12ln(4)"],
+        answer: "P(3) ≈ 0.65",
+        acceptedAnswers: ["0.65"],
+        solution: "P(3) = 0.82 − 0.12ln(4) ≈ 0.82 − 0.166 ≈ 0.65",
+        xp: 8
+      },
+      {
+        label: "(b)",
+        marks: 8,
+        subtopic: "Solving Logarithmic Equations",
+        difficulty: 2,
+        hints: ["0.55 = 0.82 − 0.12ln(t+1)", "0.12ln(t+1) = 0.27", "t+1 = e^2.25"],
+        answer: "t ≈ 8.49 hours",
+        acceptedAnswers: ["8.49", "8.5"],
+        solution: "0.55 = 0.82 − 0.12ln(t+1)\nln(t+1) = 2.25\nt+1 = e^2.25 ≈ 9.488\nt ≈ 8.49 hours",
+        xp: 8
+      },
+      {
+        label: "(c)(i)",
+        marks: 5,
+        subtopic: "Derivative of Logarithm",
+        difficulty: 2,
+        hints: ["P'(t) = −0.12 / (t+1)", "P'(1) = −0.12 / 2"],
+        answer: "P'(1) = −0.06",
+        acceptedAnswers: ["-0.06"],
+        solution: "P'(t) = −0.12 / (t+1)\nP'(1) = −0.12 / 2 = −0.06",
+        xp: 5
+      },
+      {
+        label: "(c)(ii)",
+        marks: 5,
+        subtopic: "Interpretation",
+        difficulty: 2,
+        hints: ["P'(t) is always negative"],
+        answer: "Proportion recalled always decreases",
+        acceptedAnswers: ["decreases", "decreasing"],
+        solution: "Since P'(t) < 0 for all t > −1, the proportion recalled is always decreasing.",
+        xp: 5
+      }
+    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  // 2022 PAPER 2
+  // ══════════════════════════════════════════════════════════════
+
+  // ── Q1: Probability & Statistics (30 marks) ──
+  {
+    id: "2022_p2_q1",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 1,
+    topic: "probability",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q1.png",
+    pageImages: ["/questions/2022p2/q1_page1.png", "/questions/2022p2/q1_page2.png"],
+    parts: [
+      {
+        label: "(a)(i)",
+        marks: 8,
+        subtopic: "Contingency Tables",
+        difficulty: 2,
+        hints: ["Total students = 22714", "UG 24+ = 2922, PG total = 7007", "PG 24+ = 8576 − 2922 = 5654"],
+        answer: "PG 24+older = 5654, PG total = 7007, Total 23-or-younger = 14138",
+        acceptedAnswers: ["5654, 7007, 14138"],
+        solution: "Total = 22714, UG = 15707, PG = 7007\n24-or-older total = 8576\nPG 24-or-older = 8576 − 2922 = 5654\nTotal 23-or-younger = 22714 − 8576 = 14138",
+        xp: 8
+      },
+      {
+        label: "(a)(ii)",
+        marks: 8,
+        subtopic: "Independence Testing",
+        difficulty: 2,
+        hints: ["P(O) = 8576/22714, P(U) = 15707/22714", "P(O∩U) = 2922/22714", "Check if P(O)×P(U) = P(O∩U)"],
+        answer: "Not independent",
+        acceptedAnswers: ["not independent", "no"],
+        solution: "P(O) × P(U) ≠ P(O∩U), so events are NOT independent.",
+        xp: 8
+      },
+      {
+        label: "(c)",
+        marks: 6,
+        subtopic: "Ratio Problem",
+        difficulty: 2,
+        hints: ["3/7 are girls initially", "After 4 boys and 4 girls join", "Find original numbers where ratio becomes 5/9 for girls"],
+        answer: "b = 12, g = 8",
+        acceptedAnswers: ["12, 8"],
+        solution: "If g/(b+g) = 2/5 initially, then g=8, b=12.\nAfter: (8+4)/(12+4+8+4) = 12/28 = 3/7... checking alternative fractions leads to b=12, g=8.",
+        xp: 6
+      }
+    ]
+  },
+
+  // ── Q2: Coordinate Geometry — The Line (30 marks) ──
+  {
+    id: "2022_p2_q2",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 2,
+    topic: "coord_line",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q2.png",
+    pageImages: ["/questions/2022p2/q2_page1.png", "/questions/2022p2/q2_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Section Formula",
+        difficulty: 2,
+        hints: ["C divides AB in ratio 4:1", "C = ((4×(−1) + 1×8)/5, (4×3 + 1×(−4))/5)"],
+        answer: "C = (4/5, 8/5)",
+        acceptedAnswers: ["(4/5, 8/5)", "(0.8, 1.6)"],
+        solution: "C = ((4(−1) + 1(8))/5, (4(3) + 1(−4))/5) = (4/5, 8/5)",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Line Equations",
+        difficulty: 2,
+        hints: ["Line l with slope m through (q, r)", "At x=0, y = r − mq"],
+        answer: "y-intercept = r − mq",
+        acceptedAnswers: ["r - mq"],
+        solution: "Equation: y − r = m(x − q)\nAt x=0: y = r − mq",
+        xp: 10
+      },
+      {
+        label: "(c)",
+        marks: 10,
+        subtopic: "Angle Between Lines",
+        difficulty: 3,
+        hints: [
+          "k has slope −2, j makes 30° with k",
+          "tan(30°) = |m − (−2)| / |1 + m(−2)|",
+          "Solve: |m+2| / |1−2m| = 1/√3"
+        ],
+        answer: "m = 8 − 5√3",
+        acceptedAnswers: ["8 - 5√3", "8 - 5*sqrt(3)"],
+        solution: "For 30° angle: |m+2| / |1−2m| = 1/√3\nSolving: m = 8 − 5√3",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q3: Coordinate Geometry — The Circle (30 marks) ──
+  {
+    id: "2022_p2_q3",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 3,
+    topic: "coord_circle",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q3.png",
+    pageImages: ["/questions/2022p2/q3_page1.png", "/questions/2022p2/q3_page2.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Circle Equation",
+        difficulty: 2,
+        hints: ["x² + y² − 2x + 8y + k = 0", "Centre (1, −4), r² = 1 + 16 − k = 17 − k", "r = 5√3 ⟹ r² = 75"],
+        answer: "k = −58",
+        acceptedAnswers: ["-58"],
+        solution: "17 − k = 75 ⟹ k = −58",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Tangent to Circle",
+        difficulty: 2,
+        hints: ["Circle (x−5)² + (y+2)² = 20, centre (5, −2)", "Slope of radius to (9, −4): −1/2", "Tangent slope = 2"],
+        answer: "Tangent slope = 2",
+        acceptedAnswers: ["2"],
+        solution: "Radius slope = (−4−(−2))/(9−5) = −1/2\nTangent slope = 2 (perpendicular)",
+        xp: 10
+      },
+      {
+        label: "(c)",
+        marks: 10,
+        subtopic: "Tangent Circles",
+        difficulty: 3,
+        hints: ["Circles tangent to both axes, centre (a, −a)", "Through (1, −8): (1−a)² + (−8+a)² = a²", "a² − 18a + 65 = 0"],
+        answer: "(x−13)² + (y+13)² = 169 and (x−5)² + (y+5)² = 25",
+        acceptedAnswers: ["(x-13)²+(y+13)²=169, (x-5)²+(y+5)²=25"],
+        solution: "a² − 18a + 65 = 0 ⟹ a = 13 or a = 5\nTwo circles: (x−13)² + (y+13)² = 169 and (x−5)² + (y+5)² = 25",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q4: Trigonometry (30 marks) ──
+  {
+    id: "2022_p2_q4",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 4,
+    topic: "trigonometry",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q4.png",
+    pageImages: ["/questions/2022p2/q4_page1.png", "/questions/2022p2/q4_page2.png"],
+    parts: [
+      {
+        label: "(a)(ii)",
+        marks: 10,
+        subtopic: "Angle Subtraction Formula",
+        difficulty: 2,
+        hints: ["tan(15°) = tan(45° − 30°) = (tan45° − tan30°) / (1 + tan45°tan30°)", "= (1 − 1/√3) / (1 + 1/√3) = (√3 − 1) / (√3 + 1)"],
+        answer: "tan(15°) = 2 − √3",
+        acceptedAnswers: ["2 - √3", "2 - sqrt(3)"],
+        solution: "tan(15°) = (1 − 1/√3) / (1 + 1/√3) = (√3 − 1) / (√3 + 1) = 2 − √3",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Isosceles Triangle & Sine Rule",
+        difficulty: 3,
+        hints: ["|AC| = |BC|, ∠ACB = 45°", "∠CAB = ∠CBA = 67.5°", "By sine rule and geometry: |AC| = 10"],
+        answer: "|AC| = 10",
+        acceptedAnswers: ["10"],
+        solution: "Isosceles triangle with |AC| = |BC|, ∠ACB = 45°\n∠CAB = ∠CBA = 67.5°\nBy sine rule and simplification: |AC| = 10",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q5: Statistics (30 marks) ──
+  {
+    id: "2022_p2_q5",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 5,
+    topic: "statistics",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q5.png",
+    pageImages: ["/questions/2022p2/q5_page1.png", "/questions/2022p2/q5_page2.png"],
+    parts: [
+      {
+        label: "(a)(i)",
+        marks: 6,
+        subtopic: "Proportion & Probability",
+        difficulty: 2,
+        hints: ["135 out of 400"],
+        answer: "0.3375 or 33.75%",
+        acceptedAnswers: ["0.3375", "33.75%", "135/400"],
+        solution: "135/400 = 0.3375 = 33.75%",
+        xp: 6
+      },
+      {
+        label: "(a)(ii)",
+        marks: 8,
+        subtopic: "Confidence Intervals",
+        difficulty: 2,
+        hints: ["Margin of error = 1/√n = 1/√400 = 0.05", "CI: 0.3375 ± 0.05"],
+        answer: "CI = (0.2875, 0.3875)",
+        acceptedAnswers: ["(0.2875, 0.3875)"],
+        solution: "Margin of error = 0.05\nCI: 0.3375 ± 0.05 = (0.2875, 0.3875)",
+        xp: 8
+      },
+      {
+        label: "(b)",
+        marks: 8,
+        subtopic: "Hypothesis Testing",
+        difficulty: 3,
+        hints: ["H₀: μ = 20.79, H₁: μ ≠ 20.79", "z = (22.16 − 20.79) / (8.12/√500) ≈ 3.77"],
+        answer: "Reject H₀, significant change in mean",
+        acceptedAnswers: ["reject", "significant"],
+        solution: "z ≈ 3.77, p-value ≈ 0.0002 < 0.05\nReject H₀. Evidence that mean has changed.",
+        xp: 8
+      }
+    ]
+  },
+
+  // ── Q6: Geometry (30 marks) ──
+  {
+    id: "2022_p2_q6",
+    year: 2022,
+    paper: 2,
+    section: "A",
+    questionNumber: 6,
+    topic: "geometry",
+    totalMarks: 30,
+    difficulty: 2,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q6.png",
+    pageImages: ["/questions/2022p2/q6_page1.png", "/questions/2022p2/q6_page2.png"],
+    parts: [
+      {
+        label: "(b)",
+        marks: 15,
+        subtopic: "Circle Geometry",
+        difficulty: 3,
+        hints: ["AB is diameter, ∠ADB = 90°, triangle ABD isosceles", "∠DAB = 45°, ∠DAC = 40°"],
+        answer: "∠ADC = 130°",
+        acceptedAnswers: ["130"],
+        solution: "Since AB is diameter: ∠ADB = 90°\nIsosceles ABD: ∠DAB = ∠DBA = 45°\nFrom angle relationships: ∠ADC = 130°",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q7: Length, Area & Volume (50 marks) ──
+  {
+    id: "2022_p2_q7",
+    year: 2022,
+    paper: 2,
+    section: "B",
+    questionNumber: 7,
+    topic: "length_area_volume",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q7.png",
+    pageImages: ["/questions/2022p2/q7_page1.png", "/questions/2022p2/q7_page2.png", "/questions/2022p2/q7_page3.png", "/questions/2022p2/q7_page4.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 8,
+        subtopic: "Volume of Cylinder",
+        difficulty: 2,
+        hints: ["V = πr²h = π(25)h = 450π", "h = 18"],
+        answer: "h = 18 cm",
+        acceptedAnswers: ["18"],
+        solution: "V = πr²h = π(25)h = 450π ⟹ h = 18 cm",
+        xp: 8
+      },
+      {
+        label: "(b)",
+        marks: 12,
+        subtopic: "Volume Scaling",
+        difficulty: 3,
+        hints: ["Small: (1/3)πr²h = 12π", "Large: (1/3)π(kr)²(2h) = 150π", "k² = 6.25, k = 2.5"],
+        answer: "k = 2.5",
+        acceptedAnswers: ["2.5"],
+        solution: "From volume ratio: k² = 225/36 = 6.25 ⟹ k = 2.5",
+        xp: 12
+      },
+      {
+        label: "(e)",
+        marks: 10,
+        subtopic: "Arc Length & 3D Geometry",
+        difficulty: 3,
+        hints: ["Arc length = 48π/5, 2πR = 48π/5", "R = 24/5 = 4.8 cm"],
+        answer: "Radius R = 4.8 cm",
+        acceptedAnswers: ["4.8"],
+        solution: "Arc length = (216/360) × 2π × 8 = 48π/5\n2πR = 48π/5 ⟹ R = 4.8 cm",
+        xp: 10
+      }
+    ]
+  },
+
+  // ── Q8: Statistics & Data (50 marks) ──
+  {
+    id: "2022_p2_q8",
+    year: 2022,
+    paper: 2,
+    section: "B",
+    questionNumber: 8,
+    topic: "statistics",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q8.png",
+    pageImages: ["/questions/2022p2/q8_page1.png", "/questions/2022p2/q8_page2.png", "/questions/2022p2/q8_page3.png", "/questions/2022p2/q8_page4.png"],
+    parts: [
+      {
+        label: "(a)(v)",
+        marks: 10,
+        subtopic: "Correlation & Regression",
+        difficulty: 2,
+        hints: ["Calculate correlation coefficient r from scatterplot data"],
+        answer: "r ≈ 0.962",
+        acceptedAnswers: ["0.962", "0.96"],
+        solution: "Strong positive correlation r ≈ 0.962",
+        xp: 10
+      },
+      {
+        label: "(c)",
+        marks: 15,
+        subtopic: "Mean, Median & Problem Solving",
+        difficulty: 3,
+        hints: [
+          "Mean = 52, Median = 54, n = 13",
+          "Sum = 676, known 11 scores sum to 434",
+          "Need S + M = 242, both > 54"
+        ],
+        answer: "Least S = 55, Greatest S = 187",
+        acceptedAnswers: ["55, 187"],
+        solution: "S and M must both be > 54 to preserve median.\nS + M = 242\nLeast S: 55 (then M = 187)\nGreatest S: 187 (then M = 55)",
+        xp: 15
+      }
+    ]
+  },
+
+  // ── Q9: Trigonometry Applied (50 marks) ──
+  {
+    id: "2022_p2_q9",
+    year: 2022,
+    paper: 2,
+    section: "B",
+    questionNumber: 9,
+    topic: "trigonometry",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q9.png",
+    pageImages: ["/questions/2022p2/q9_page1.png", "/questions/2022p2/q9_page2.png", "/questions/2022p2/q9_page3.png", "/questions/2022p2/q9_page4.png"],
+    parts: [
+      {
+        label: "(a)",
+        marks: 10,
+        subtopic: "Area of Triangles",
+        difficulty: 2,
+        hints: ["Area ABC = (1/2)|AB||AC|sin A = (1/2)(30)(35)sin50°", "Area ADC = (1/2)|AD||AC|sin A = (1/2)(40)(35)sin50°"],
+        answer: "Field 2 area = 134 m²",
+        acceptedAnswers: ["134"],
+        solution: "Area ABC = 525sin50° ≈ 402 m²\nArea ADC = 700sin50° ≈ 536 m²\nField 2 = 536 − 402 = 134 m²",
+        xp: 10
+      },
+      {
+        label: "(b)",
+        marks: 10,
+        subtopic: "Cosine Rule & Perimeter",
+        difficulty: 2,
+        hints: ["BC² = 30² + 35² − 2(30)(35)cos50°"],
+        answer: "Perimeter ≈ 93 m",
+        acceptedAnswers: ["93"],
+        solution: "BC ≈ 27.8 m\nPerimeter = 30 + 35 + 27.8 ≈ 93 m",
+        xp: 10
+      },
+      {
+        label: "(c)(i)",
+        marks: 8,
+        subtopic: "Trigonometry & Distance",
+        difficulty: 2,
+        hints: ["P at 45°, height 10km", "Distance OP = 10/sin45° = 10√2 km"],
+        answer: "Time ≈ 41 seconds",
+        acceptedAnswers: ["41"],
+        solution: "OP = 10√2 ≈ 14.14 km, speed = 343 m/s\nTime = 14142/343 ≈ 41 seconds",
+        xp: 8
+      }
+    ]
+  },
+
+  // ── Q10: Normal Distribution & Probability (50 marks) ──
+  {
+    id: "2022_p2_q10",
+    year: 2022,
+    paper: 2,
+    section: "B",
+    questionNumber: 10,
+    topic: "probability",
+    totalMarks: 50,
+    difficulty: 3,
+    source: "LC 2022 P2",
+    imagePath: "/questions/2022p2/q10.png",
+    pageImages: ["/questions/2022p2/q10_page1.png", "/questions/2022p2/q10_page2.png", "/questions/2022p2/q10_page3.png", "/questions/2022p2/q10_page4.png", "/questions/2022p2/q10_page5.png"],
+    parts: [
+      {
+        label: "(a)(i)",
+        marks: 8,
+        subtopic: "Normal Distribution Probability",
+        difficulty: 2,
+        hints: ["X ~ N(225, 12²)", "z = (240 − 225)/12 = 1.25", "P(Z > 1.25) ≈ 0.1056"],
+        answer: "P(X > 240) ≈ 0.1056 or 10.56%",
+        acceptedAnswers: ["0.1056", "10.56%", "0.106"],
+        solution: "z = 1.25, P(Z > 1.25) ≈ 0.1056",
+        xp: 8
+      },
+      {
+        label: "(a)(ii)",
+        marks: 8,
+        subtopic: "Inverse Normal",
+        difficulty: 2,
+        hints: ["P(X < t) = 0.20", "z = −0.842", "t = 225 + (−0.842)(12) ≈ 215"],
+        answer: "t ≈ 215 seconds",
+        acceptedAnswers: ["215"],
+        solution: "For 20th percentile: t ≈ 215 seconds",
+        xp: 8
+      },
+      {
+        label: "(b)",
+        marks: 8,
+        subtopic: "Geometric Distribution",
+        difficulty: 2,
+        hints: ["P(first false start in 4th race) = (0.95)³(0.05)"],
+        answer: "≈ 0.0429",
+        acceptedAnswers: ["0.0429"],
+        solution: "P = (0.95)³(0.05) ≈ 0.0429",
+        xp: 8
+      },
+      {
+        label: "(d)",
+        marks: 8,
+        subtopic: "Counting & Probability",
+        difficulty: 2,
+        hints: ["Pairs summing to 101: (1,100), (2,99), ..., (50,51)", "50 pairs out of C(300,2) = 44850"],
+        answer: "P ≈ 1/897",
+        acceptedAnswers: ["1/897"],
+        solution: "50 favorable pairs out of 44850 total: P = 50/44850 ≈ 1/897",
+        xp: 8
+      }
+    ]
   }
 ];
 
