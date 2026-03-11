@@ -1820,6 +1820,10 @@ export default function MathU() {
   const [partHintsUsed, setPartHintsUsed] = useState({}); // { 0: 2, 1: 0 } hints used per part
   const [partHintsRevealed, setPartHintsRevealed] = useState({}); // { 0: [true, true, false] }
 
+  // AI Workings Analysis state
+  const [aiFeedback, setAiFeedback] = useState({}); // { partIndex: { mistake, explanation, encouragement } }
+  const [aiLoading, setAiLoading] = useState({}); // { partIndex: true/false }
+
   // FEATURE 1: Explain Differently
   const [simpleExplanation, setSimpleExplanation] = useState(null);
 
@@ -2367,6 +2371,8 @@ export default function MathU() {
     setPartSolutionVisible({});
     setPartHintsUsed({});
     setPartHintsRevealed({});
+    setAiFeedback({});
+    setAiLoading({});
   };
 
   const startDailyQuestion = () => {
@@ -2731,6 +2737,50 @@ export default function MathU() {
       newRevealed[hintIndex] = true;
       setPartHintsRevealed(prev => ({ ...prev, [partIndex]: newRevealed }));
       setPartHintsUsed(prev => ({ ...prev, [partIndex]: Math.max(prev[partIndex] || 0, hintIndex + 1) }));
+    }
+  };
+
+  // ─── AI WORKINGS ANALYSIS ───
+  const analyseWorkings = async (partIndex) => {
+    if (!currentQuestion || !currentQuestion.parts) return;
+    const part = currentQuestion.parts[partIndex];
+    const result = partResults[partIndex];
+    if (!part || !result) return;
+
+    setAiLoading(prev => ({ ...prev, [partIndex]: true }));
+
+    try {
+      const response = await supabase.functions.invoke("analyse-workings", {
+        body: {
+          questionText: `${currentQuestion.source || `LC ${currentQuestion.year} P${currentQuestion.paper}`} Question ${currentQuestion.questionNumber} ${part.label}`,
+          partLabel: part.label,
+          studentWorkings: workingsText || "",
+          studentAnswer: result.answer || "",
+          correctAnswer: part.answer,
+          correctSolution: part.solution,
+          topic: currentQuestion.topic,
+          subtopic: part.subtopic,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      const data = response.data;
+      if (data?.feedback) {
+        setAiFeedback(prev => ({ ...prev, [partIndex]: data.feedback }));
+      }
+    } catch (err) {
+      console.error("AI analysis error:", err);
+      setAiFeedback(prev => ({
+        ...prev,
+        [partIndex]: {
+          mistake: "Couldn't analyse your workings",
+          explanation: "Compare your workings with the step-by-step solution above to find where you went wrong.",
+          encouragement: "Keep practising — you'll get there!",
+        },
+      }));
+    } finally {
+      setAiLoading(prev => ({ ...prev, [partIndex]: false }));
     }
   };
 
@@ -4035,6 +4085,74 @@ export default function MathU() {
                             </div>
                           </div>
                         ))}
+                      </div>
+                    )}
+
+                    {/* AI "Where did I go wrong?" — only for wrong/skipped answers */}
+                    {!result.correct && (
+                      <div style={{ marginTop: 8 }}>
+                        {!aiFeedback[pIdx] && !aiLoading[pIdx] && (
+                          <button onClick={() => analyseWorkings(pIdx)}
+                            style={{
+                              background: `${colors.accent}10`, border: `2px solid ${colors.accent}40`,
+                              borderRadius: 8, padding: "10px 14px", width: "100%",
+                              cursor: "pointer", fontSize: 13, fontWeight: 700,
+                              color: colors.accent, textAlign: "center",
+                              transition: "all 0.2s",
+                            }}>
+                            🤔 Where did I go wrong?
+                          </button>
+                        )}
+
+                        {aiLoading[pIdx] && (
+                          <div style={{
+                            background: `${colors.accent}08`, border: `2px solid ${colors.accent}20`,
+                            borderRadius: 8, padding: "14px", textAlign: "center",
+                          }}>
+                            <div style={{ fontSize: 13, color: colors.accent, fontWeight: 600 }}>
+                              Analysing your workings...
+                            </div>
+                            <div style={{ fontSize: 20, marginTop: 4, animation: "pulse 1.5s infinite" }}>🧠</div>
+                          </div>
+                        )}
+
+                        {aiFeedback[pIdx] && (
+                          <div style={{
+                            background: `${colors.accent}08`, border: `2px solid ${colors.accent}25`,
+                            borderRadius: 10, padding: 14, marginTop: 4,
+                          }}>
+                            <div style={{ fontSize: 13, fontWeight: 800, color: colors.accent, marginBottom: 8 }}>
+                              🤔 AI Tutor Feedback
+                            </div>
+
+                            {aiFeedback[pIdx].mistake && (
+                              <div style={{
+                                background: `${colors.danger}10`, borderRadius: 6, padding: "8px 10px", marginBottom: 8,
+                                borderLeft: `3px solid ${colors.danger}`,
+                              }}>
+                                <div style={{ fontSize: 11, fontWeight: 700, color: colors.danger, marginBottom: 2 }}>Key Mistake:</div>
+                                <div style={{ fontSize: 12, color: colors.text, lineHeight: 1.4 }}>
+                                  <MathText text={aiFeedback[pIdx].mistake} />
+                                </div>
+                              </div>
+                            )}
+
+                            {aiFeedback[pIdx].explanation && (
+                              <div style={{ fontSize: 12, color: colors.text, lineHeight: 1.5, marginBottom: 8 }}>
+                                <MathText text={aiFeedback[pIdx].explanation} />
+                              </div>
+                            )}
+
+                            {aiFeedback[pIdx].encouragement && (
+                              <div style={{
+                                background: `${colors.success}10`, borderRadius: 6, padding: "6px 10px",
+                                fontSize: 12, color: colors.success, fontWeight: 600,
+                              }}>
+                                💪 {aiFeedback[pIdx].encouragement}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
