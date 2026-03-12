@@ -3849,7 +3849,7 @@ export default function MathU() {
                 padding: "16px 12px", fontSize: 13, fontWeight: 700,
               }}>
               <span style={{ fontSize: 24 }}>📐</span>
-              Formulas
+              Formulae & Tables
             </button>
           </div>
         </div>
@@ -5134,130 +5134,114 @@ export default function MathU() {
     );
   }
 
-  // ─── FORMULAS SCREEN ───
+  // ─── FORMULAE & TABLES SCREEN ───
   if (screen === "formulas") {
-    const formulas = [
-      {
-        title: "Algebra",
-        items: [
-          { name: "Quadratic Formula", formula: "x = (-b ± √(b² - 4ac)) / 2a" },
-          { name: "Factor Theorem", formula: "If f(a) = 0, then (x - a) is a factor of f(x)" },
-        ]
-      },
-      {
-        title: "Sequences & Series",
-        items: [
-          { name: "Arithmetic Sequence", formula: "Tₙ = a + (n-1)d" },
-          { name: "Arithmetic Series", formula: "Sₙ = n/2(2a + (n-1)d)" },
-          { name: "Geometric Sequence", formula: "Tₙ = ar^(n-1)" },
-          { name: "Geometric Series (infinite)", formula: "$S_\infty = \frac{a}{1-r}$, |r| < 1" },
-        ]
-      },
-      {
-        title: "Complex Numbers",
-        items: [
-          { name: "Modulus", formula: "|z| = √(a² + b²)" },
-          { name: "De Moivre's Theorem", formula: "zⁿ = rⁿ(cos(nθ) + i·sin(nθ))" },
-        ]
-      },
-      {
-        title: "Differentiation",
-        items: [
-          { name: "Power Rule", formula: "d/dx(xⁿ) = nx^(n-1)" },
-          { name: "Chain Rule", formula: "d/dx[f(g(x))] = f'(g(x))·g'(x)" },
-          { name: "Product Rule", formula: "d/dx[uv] = u'v + uv'" },
-          { name: "Quotient Rule", formula: "d/dx[u/v] = (u'v - uv')/v²" },
-        ]
-      },
-      {
-        title: "Integration",
-        items: [
-          { name: "Power Rule", formula: "∫xⁿ dx = x^(n+1)/(n+1) + C" },
-          { name: "Area Under Curve", formula: "A = ∫ₐᵇ f(x) dx" },
-        ]
-      },
-      {
-        title: "Trigonometry",
-        items: [
-          { name: "Sin/Cos/Tan Ratios", formula: "sin θ = O/H, cos θ = A/H, tan θ = O/A" },
-          { name: "Sine Rule", formula: "a/sin A = b/sin B = c/sin C" },
-          { name: "Cosine Rule", formula: "c² = a² + b² - 2ab·cos C" },
-          { name: "Area of Triangle", formula: "A = ½ab·sin C" },
-        ]
-      },
-      {
-        title: "Coordinate Geometry",
-        items: [
-          { name: "Distance Formula", formula: "d = √((x₂-x₁)² + (y₂-y₁)²)" },
-          { name: "Midpoint", formula: "M = ((x₁+x₂)/2, (y₁+y₂)/2)" },
-          { name: "Slope", formula: "m = (y₂-y₁)/(x₂-x₁)" },
-          { name: "Equation of Line", formula: "y - y₁ = m(x - x₁)" },
-          { name: "Equation of Circle", formula: "(x-h)² + (y-k)² = r²" },
-        ]
-      },
-      {
-        title: "Probability & Statistics",
-        items: [
-          { name: "P(A ∪ B)", formula: "P(A) + P(B) - P(A ∩ B)" },
-          { name: "P(A ∩ B)", formula: "P(A)·P(B|A)" },
-          { name: "Bayes' Theorem", formula: "P(A|B) = P(B|A)·P(A) / P(B)" },
-          { name: "Binomial Distribution", formula: "P(X=k) = C(n,k)·p^k·(1-p)^(n-k)" },
-          { name: "Normal Distribution Z-score", formula: "z = (x - μ) / σ" },
-        ]
-      },
-      {
-        title: "Financial Mathematics",
-        items: [
-          { name: "Compound Interest", formula: "$F = P(1 + i)^t$" },
-          { name: "Present Value", formula: "$PV = F / (1 + i)^t$" },
-        ]
-      },
+    const formulaeSections = [
+      { id: "algebra", name: "Algebra", pages: [20], icon: "x" },
+      { id: "area-approx", name: "Area Approximations", pages: [12], icon: "≈" },
+      { id: "calculus", name: "Calculus", pages: [25, 26, 27], icon: "∫" },
+      { id: "coord-geom", name: "Co-ordinate Geometry", pages: [18, 19], icon: "📐" },
+      { id: "economics", name: "Economics", pages: [28, 29], icon: "📈" },
+      { id: "financial", name: "Financial Mathematics", pages: [30, 31, 32], icon: "💰" },
+      { id: "geometry", name: "Geometry", pages: [17], icon: "△" },
+      { id: "indices", name: "Indices & Logarithms", pages: [21], icon: "^" },
+      { id: "length-area", name: "Length & Area", pages: [8, 9], icon: "⊡" },
+      { id: "sequences", name: "Sequences & Series", pages: [22], icon: "Σ" },
+      { id: "sets-logic", name: "Sets & Logic", pages: [23, 24], icon: "∩" },
+      { id: "stats", name: "Statistics & Probability", pages: [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43], icon: "σ" },
+      { id: "surface-vol", name: "Surface Area & Volume", pages: [10, 11], icon: "⬡" },
+      { id: "trig", name: "Trigonometry", pages: [13, 14, 15, 16], icon: "θ" },
+      { id: "units", name: "Units of Measurement", pages: [44, 45], icon: "m" },
     ];
 
-    const [expandedSection, setExpandedSection] = useState(null);
+    const formulaeRefs = useRef({});
+    const scrollContainerRef = useRef(null);
+
+    const scrollToSection = (id) => {
+      const el = formulaeRefs.current[id];
+      if (el && scrollContainerRef.current) {
+        const container = scrollContainerRef.current;
+        const top = el.offsetTop - container.offsetTop - 60;
+        container.scrollTo({ top, behavior: "smooth" });
+      }
+    };
 
     return (
       <div style={styles.app}>
-        <div style={styles.header}>
-          <button onClick={() => setScreen("home")}
-            style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
-            ← Back
-          </button>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>📐 Formulas</h2>
-          <div style={{ width: 32 }} />
-        </div>
-        <div style={{ padding: "0 0 100px" }}>
-          {formulas.map((section, idx) => (
-            <div key={idx} style={styles.card}>
-              <button onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
+        <div style={{
+          ...styles.header,
+          flexDirection: "column", alignItems: "stretch", padding: "12px 16px 0",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            <button onClick={() => setScreen("home")}
+              style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
+              ← Back
+            </button>
+            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>Formulae & Tables</h2>
+            <div style={{ width: 48 }} />
+          </div>
+          {/* Alphabetical quick-jump index */}
+          <div style={{
+            display: "flex", flexWrap: "wrap", gap: 4, paddingBottom: 10,
+          }}>
+            {formulaeSections.map(s => (
+              <button key={s.id} onClick={() => scrollToSection(s.id)}
                 style={{
-                  background: "none", border: "none", cursor: "pointer", width: "100%",
-                  textAlign: "left", padding: 0, display: "flex", justifyContent: "space-between",
-                  alignItems: "center",
+                  background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 8, padding: "5px 8px", cursor: "pointer",
+                  fontSize: 10, fontWeight: 600, color: "white",
+                  whiteSpace: "nowrap", lineHeight: 1.2,
+                  backdropFilter: "blur(4px)",
                 }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: colors.text }}>
-                  {section.title}
-                </h3>
-                <span style={{ fontSize: 18 }}>
-                  {expandedSection === idx ? "▼" : "▶"}
-                </span>
+                {s.name}
               </button>
-              {expandedSection === idx && (
-                <div style={{ marginTop: 12 }}>
-                  {section.items.map((item, iIdx) => (
-                    <div key={iIdx} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: iIdx < section.items.length - 1 ? `1px solid ${colors.textLight}20` : "none" }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: colors.text, marginBottom: 4 }}>
-                        {item.name}
-                      </div>
-                      <div style={{ fontSize: 12, color: colors.textLight, fontFamily: "monospace", padding: "8px 12px", background: `${colors.text}05`, borderRadius: 8 }}>
-                        {item.formula}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+            ))}
+          </div>
+        </div>
+
+        <div ref={scrollContainerRef} style={{ padding: "0 12px 100px", overflowY: "auto", flex: 1 }}>
+          {formulaeSections.map(section => (
+            <div key={section.id} ref={el => formulaeRefs.current[section.id] = el}
+              style={{ marginBottom: 20 }}>
+              {/* Section header */}
+              <div style={{
+                display: "flex", alignItems: "center", gap: 10,
+                padding: "14px 0 8px", position: "sticky", top: 0,
+                background: colors.bg, zIndex: 2,
+                borderBottom: `2px solid ${colors.primary}`,
+                marginBottom: 8,
+              }}>
+                <span style={{
+                  fontSize: 20, width: 36, height: 36, borderRadius: 10,
+                  background: `${colors.primary}15`, display: "flex",
+                  alignItems: "center", justifyContent: "center",
+                }}>{section.icon}</span>
+                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: colors.text }}>
+                  {section.name}
+                </h3>
+                <span style={{ fontSize: 11, color: colors.textLight, marginLeft: "auto" }}>
+                  p.{section.pages[0]}{section.pages.length > 1 ? `–${section.pages[section.pages.length - 1]}` : ""}
+                </span>
+              </div>
+              {/* Page images */}
+              {section.pages.map(pageNum => (
+                <img
+                  key={pageNum}
+                  src={`/formulae/page-${String(pageNum).padStart(2, "0")}.png`}
+                  alt={`${section.name} page ${pageNum}`}
+                  style={{
+                    width: "100%", borderRadius: 8, marginBottom: 8,
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                    border: `1px solid ${colors.textLight}20`,
+                  }}
+                  loading="lazy"
+                />
+              ))}
             </div>
           ))}
+          <div style={{ textAlign: "center", padding: "16px 0 40px", color: colors.textLight, fontSize: 11 }}>
+            Source: SEC Formulae & Tables Booklet
+          </div>
         </div>
       </div>
     );
