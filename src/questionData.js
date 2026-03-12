@@ -154,7 +154,7 @@ export const QUESTION_BANK = [
           "∫cos(ax) dx = (1/a)sin(ax) + C",
           "Here a = 6"
         ],
-        answer: "(1/6)sin(6x) + C",
+        answer: "(-1/6)sin(6x) + C",
         acceptedAnswers: ["sin(6x)/6 + C", "(1/6)sin(6x) + C", "sin(6x)/6 + c", "(1/6)sin6x + c", "sin6x/6+c"],
         solution: "∫cos(6x) dx\n\n= (1/6)sin(6x) + C",
         xp: 10
@@ -3141,7 +3141,7 @@ export const QUESTION_BANK = [
           "Expand and match coefficients with x³-2x²+0x-3r",
           "From coefficient of x: 1-ap=0, so ap=1. From coefficient of x²: a-p=-2"
         ],
-        answer: "p = 2 (or p = -2), r = -1/3",
+        answer: "p = 1 + √2 or p = 1 - √2; r = -1/(3p)",
         acceptedAnswers: ["p=2, r=-1/3", "p=-2, r=-1/3", "see solution"],
         solution: "If (x²-px+1) divides x³-2x²-3r, then:\nx³-2x²-3r = (x²-px+1)(x+a)\n\nExpanding the right side:\nx³ + ax² - px² - apx + x + a\n= x³ + (a-p)x² + (1-ap)x + a\n\nMatching coefficients:\nx²: a - p = -2\nx¹: 1 - ap = 0 → ap = 1\nx⁰: a = -3r\n\nFrom ap = 1: a = 1/p\nSubstituting into a - p = -2:\n1/p - p = -2\nMultiplying by p: 1 - p² = -2p\np² - 2p - 1 = 0\n\nUsing quadratic formula or noting p = 2 works:\nIf p = 2: a = 1/2, and 1/2 - 2 = -3/2 ≠ -2\n\nActually, trying p = 2: From 1 - ap = 0: a = 1/2. But a - p = 1/2 - 2 = -3/2 ≠ -2.\n\nLet me reconsider: if x⁴-2x²-3r instead (quartic):\nx⁴-2x²-3r = (x²-px+1)(x²+qx+r')\nExpanding: x⁴ + qx³ + r'x² - px³ - pqx² - pr'x + x² + qx + r'\n= x⁴ + (q-p)x³ + (r'+1-pq)x² + (q-pr')x + r'\n\nMatching with x⁴+0x³-2x²+0x-3r:\nq - p = 0 → q = p\nr' + 1 - pq = -2 → r' + 1 - p² = -2 → r' = p² - 3\nq - pr' = 0 → p(p²-3) = p(p²-3) ✓\nr' = -3r → p² - 3 = -3r → r = (3-p²)/3\n\nAlso, from r' + 1 - p² = -2: p² - 3 + 1 - p² = -2 → -2 = -2 ✓\n\nTrying r' = 1: p² - 3 = 1 → p² = 4 → p = 2 or p = -2\nThen r = -1/3.\n\np = 2 (or -2), r = -1/3",
         xp: 20
@@ -4699,7 +4699,7 @@ export const QUESTION_BANK = [
           "Calculate: f(−1) = 3(−1)² + 2(−1) + 5 = 3 − 2 + 5 = 6",
           "Verify by polynomial division: 3x² + 2x + 5 = (x+1)(3x−1) + 6"
         ],
-        answer: "c = 6",
+        answer: "c = 4",
         acceptedAnswers: ["6", "c = 6", "remainder = 6"],
         solution: "(i) f(−1) = 3(−1)² + 2(−1) + 5 = 3 − 2 + 5 = 6 ≠ 0\nSo x = −1 is not a solution.\n\n(ii) By polynomial division:\n3x² + 2x + 5 = (x + 1)(3x − 1) + 6\n\nTherefore, c = 6",
         xp: 10
@@ -15687,7 +15687,7 @@ export const QUESTION_BANK = [
           "f'(x) = 3x² + 2ax + b",
           "Use Vieta's formulas: sum and product of roots"
         ],
-        answer: "a = -1, b = -8; f(x) = x³ - x² - 8x",
+        answer: "a = -5, b = 8; f(x) = x³ - 5x² + 8x",
         acceptedAnswers: [
           "a = -1, b = -8",
           "f(x) = x³ - x² - 8x"
@@ -19615,7 +19615,7 @@ export const QUESTION_BANK = [
         subtopic: "algebraic simplification",
         difficulty: 1,
         hints: ["Find common denominator", "Note that 2 - x = -(x - 2)", "Combine fractions"],
-        answer: "4",
+        answer: "3",
         acceptedAnswers: ["4"],
         solution: "3x - 5/(x - 2) + 1/(2 - x)\n= 3x - 5/(x - 2) - 1/(x - 2)\n= (3x - 5 - 1)/(x - 2)\n= (3x - 6)/(x - 2)\n= 3(x - 2)/(x - 2)\n= 3",
         xp: 15
@@ -19674,7 +19674,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous equations",
         difficulty: 2,
         hints: ["Use elimination or substitution", "Solve the system step by step"],
-        answer: "x = 2, y = 1, z = 1",
+        answer: "x = -1, y = 2, z = 2",
         acceptedAnswers: ["x = 2, y = 1, z = 1", "(2, 1, 1)"],
         solution: "3x - y + 3z = 1 ... (1)\nx + 2y - 2z = -1 ... (2)\n4x - y + 5z = 4 ... (3)\n\nFrom (1) - (3): -x - 2z = -3, so x + 2z = 3\nFrom (2): x + 2y - 2z = -1\nMultiply (1) by 2: 6x - 2y + 6z = 2\nAdd to (2): 7x + 4z = 1\n\nSolving: x = 2, y = 1, z = 1",
         xp: 18
@@ -19733,7 +19733,7 @@ export const QUESTION_BANK = [
         subtopic: "matrix operations",
         difficulty: 2,
         hints: ["Find B⁻¹ first using det(B) and adjugate", "Then multiply B⁻¹A"],
-        answer: "[-1, 0; 2, -1]",
+        answer: "[[0, -1], [-1, 1]]",
         acceptedAnswers: ["[-1, 0; 2, -1]", "[[-1, 0], [2, -1]]"],
         solution: "B = [3, 1; -5, -2], det(B) = -6 + 5 = -1\nB⁻¹ = [-2, -1; 5, 3]\nA = [1, -2; 2, 3]\nB⁻¹A = [-2, -1; 5, 3] × [1, -2; 2, 3]\n= [-2 - 2, 4 - 3; 5 + 6, -10 + 9]\n= [-4, 1; 11, -1]",
         xp: 18
@@ -19792,7 +19792,7 @@ export const QUESTION_BANK = [
         subtopic: "geometric sequences",
         difficulty: 2,
         hints: ["For geometric sequence: r² = a₂/a₁", "Set up ratio equation and solve"],
-        answer: "x = 5 or x = -2/3",
+        answer: "x = 11 or x = 1",
         acceptedAnswers: ["x = 5, x = -2/3", "5, -0.667"],
         solution: "Terms: 2x - 4, x + 1, x - 3\nFor geometric sequence: (x + 1)/(2x - 4) = (x - 3)/(x + 1)\n(x + 1)² = (2x - 4)(x - 3)\nx² + 2x + 1 = 2x² - 10x + 12\nx² - 12x + 11 = 0\n(x - 5)(x - 11/5) = 0... wait, let me recalculate\n(x + 1)² = (2x - 4)(x - 3)\nx² + 2x + 1 = 2x² - 6x - 4x + 12\nx² + 2x + 1 = 2x² - 10x + 12\n0 = x² - 12x + 11\nx = (12 ± √(144 - 44))/2 = (12 ± 10)/2\nx = 11 or x = 1... checking: if x=5, r² test",
         xp: 15
@@ -19873,7 +19873,7 @@ export const QUESTION_BANK = [
         subtopic: "logarithmic equations",
         difficulty: 2,
         hints: ["Use logarithm properties", "Convert to exponential form"],
-        answer: "x = 3",
+        answer: "x = 18",
         acceptedAnswers: ["x = 3"],
         solution: "2 log₉ x = 1/2 + log₉(5x + 18)\nlog₉ x² = log₉ 3 + log₉(5x + 18)\nlog₉ x² = log₉[3(5x + 18)]\nx² = 15x + 54\nx² - 15x - 54 = 0\n(x - 18)(x + 3) = 0\nx = 18 or x = -3\n\nSince x > 0, x = 18... wait, let me check\n2 log₉ 18 = 1/2 + log₉(90 + 18)?\nVerify: x = 3 gives 2 log₉ 3 = 1/2 + log₉ 33? No\nCorrect: x² - 15x - 54 = 0, solutions are (15 ± √(225 + 216))/2 = (15 ± 21)/2\nx = 18 or x = -3, so x = 18",
         xp: 18
@@ -21027,7 +21027,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous equations",
         difficulty: 2,
         hints: ["From equation 3, express y in terms of z", "Substitute into equation 2 to find another relationship", "Substitute into equation 1 to solve for z", "Back-substitute to find x and y"],
-        answer: "x = -3, y = -2, z = 2",
+        answer: "x = 3, y = -2, z = 2",
         acceptedAnswers: ["(-3, -2, 2)", "x=-3, y=-2, z=2"],
         solution: "From equation 3: -y + 3z = 8, so y = 3z - 8\nSubstitute into equation 2: x + 3(3z-8) + 2z = 1\nx + 9z - 24 + 2z = 1\nx + 11z = 25 ... (4)\nSubstitute into equation 1: x + 2(3z-8) + 4z = 7\nx + 6z - 16 + 4z = 7\nx + 10z = 23 ... (5)\nSubtract (5) from (4): z = 2\nFrom (5): x + 20 = 23, so x = 3\nWait, let me recalculate: x = -3, y = -2, z = 2",
         xp: 20
@@ -22276,7 +22276,7 @@ export const QUESTION_BANK = [
         subtopic: "polynomial factors and remainder theorem",
         difficulty: 2,
         hints: ["Use the factor theorem: if (x-1) is a factor then f(1)=0", "If (x+2) is a factor then f(-2)=0", "Set up two equations in m and n and solve simultaneously"],
-        answer: "m = -5, n = 5",
+        answer: "m = 1, n = -5",
         acceptedAnswers: ["m=-5, n=5", "m=-5,n=5", "-5, 5"],
         solution: "f(x) = 2x³+mx²+nx+2\nSince (x-1) is a factor: f(1) = 0\nf(1) = 2(1)³+m(1)²+n(1)+2 = 2+m+n+2 = 0\nm+n = -4 ... (1)\n\nSince (x+2) is a factor: f(-2) = 0\nf(-2) = 2(-8)+m(4)+n(-2)+2 = -16+4m-2n+2 = 0\n4m-2n = 14\n2m-n = 7 ... (2)\n\nFrom (1) and (2): m = -5, n = 5",
         xp: 15
@@ -23710,7 +23710,7 @@ export const QUESTION_BANK = [
   },
   // === 2004-2003 Papers (Old Format) ===
   {
-    id: "2004_p1_q1",
+    id: "3004_p1_q1",
     year: 2004,
     paper: 1,
     section: "A",
@@ -23728,7 +23728,7 @@ export const QUESTION_BANK = [
         subtopic: "surds",
         difficulty: 2,
         hints: ["Rationalize the denominator", "Multiply by conjugate (1-√3)/(1-√3)", "Expand and simplify"],
-        answer: "3 - 2√3",
+        answer: "√3 - 2",
         acceptedAnswers: ["3 - 2√3", "3-2√3", "3 - 2sqrt(3)"],
         solution: "Multiply numerator and denominator by (1 - √3):\n(1 - √3)/(1 + √3) × (1 - √3)/(1 - √3)\n= (1 - √3)²/[(1 + √3)(1 - √3)]\n= (1 - 2√3 + 3)/(1 - 3)\n= (4 - 2√3)/(-2)\n= -2 + √3\nWait, let me recalculate: multiply by conjugate of denominator\n= (1 - √3)/(1 + √3) × (1 - √3)/(1 - √3) is wrong\n= (1 - √3)/(1 + √3) × (1 - √3)/(1 - √3) = wrong\nActual: [(1 - √3) × (1 - √3)] / [(1 + √3) × (1 - √3)]\n= (1 - 2√3 + 3) / (1 - 3) = (4 - 2√3) / (-2)\nHmm, this gives negative. Let me redo:\nMultiply by (1 - √3)/(1 - √3):\nNumerator: (1 - √3)(1 - √3) = 1 - 2√3 + 3 = 4 - 2√3\nDenominator: (1 + √3)(1 - √3) = 1 - 3 = -2\nResult: (4 - 2√3)/(-2) = -2 + √3\nBut answer should be positive. Correct approach:\n(1 - √3)/(1 + √3) × (1 - √3)/(1 - √3) gives negative result.\nInstead use (1 - √3)/(1 + √3) × (1 - √3)/(1 - √3)\nActually: Multiply top and bottom by conjugate of denominator (1 - √3)\n= [(1 - √3) × (1 - √3)] / [(1 + √3) × (1 - √3)]\nNumerator = 1 - 2√3 + 3 = 4 - 2√3\nDenominator = 1 - 3 = -2\nSo result is (4 - 2√3)/(-2) = -2 + √3 ≠ positive form\nActual correct form: 3 - 2√3 when expressed as a√3 - b\nActually problem asks form a√3 - b so answer is 2√3 - 3 (with a=2, b=3)\nRechecking: (1-√3)/(1+√3) = (1-√3)²/[(1+√3)(1-√3)] = (4-2√3)/(-2) = √3 - 2\nSo in form a√3 - b: a=1, b=2 but let me verify sign\n(1-√3)/(1+√3): since √3≈1.73, numerator ≈ -0.73, denominator ≈ 2.73, so negative\nResult ≈ -0.268\nBut √3 - 2 ≈ 1.73 - 2 = -0.27 ✓\nSo answer in form a√3 - b is: √3 - 2 where a=1, b=2\nWait, problem says a√3 - b means result is √3 - 2 not 3 - 2√3\nLet me recalculate more carefully once more:\n(1-√3)/(1+√3) · (1-√3)/(1-√3) = (1-√3)²/[(1+√3)(1-√3)]\n= (1 - 2√3 + 3)/(1-3) = (4-2√3)/(-2) = (2√3-4)/2 = √3 - 2\nSo a=1, b=2",
         xp: 15
@@ -23809,7 +23809,7 @@ export const QUESTION_BANK = [
         subtopic: "inequalities",
         difficulty: 2,
         hints: ["Move all terms to one side", "Find common denominator", "Analyze sign of numerator and denominator"],
-        answer: "x < -5 or 1 < x < 5",
+        answer: "x < 1 or x > 5/3",
         acceptedAnswers: ["x < -5 or 1 < x < 5", "(-∞,-5) ∪ (1,5)"],
         solution: "(x+1)/(x-1) < 4, where x ≠ 1\n\n(x+1)/(x-1) - 4 < 0\n[(x+1) - 4(x-1)]/(x-1) < 0\n[x + 1 - 4x + 4]/(x-1) < 0\n[-3x + 5]/(x-1) < 0\n[5 - 3x]/(x-1) < 0\n\nNumerator: 5 - 3x = 0 when x = 5/3\nDenominator: x - 1 = 0 when x = 1\n\nSign analysis:\nx < 1: (5-3x) > 0, (x-1) < 0 → quotient < 0 ✓\n1 < x < 5/3: (5-3x) > 0, (x-1) > 0 → quotient > 0 ✗\nx > 5/3: (5-3x) < 0, (x-1) > 0 → quotient < 0 ✓\n\nSo solution: x < 1 or x > 5/3",
         xp: 15
@@ -24030,7 +24030,7 @@ export const QUESTION_BANK = [
         subtopic: "geometric series",
         difficulty: 2,
         hints: ["In GP: second term is a·r, fifth term is a·r⁴", "Form equations: ar=8 and ar⁴=27", "Solve for r then a"],
-        answer: "a = 512/27, r = 3/4",
+        answer: "a = 16/3, r = 3/2",
         acceptedAnswers: ["a = 512/27, r = 3/4", "first term = 512/27, common ratio = 3/4"],
         solution: "Geometric series with second term 8, fifth term 27\n\nSecond term: ar = 8\nFifth term: ar⁴ = 27\n\nDivide: ar⁴/(ar) = 27/8\nr³ = 27/8\nr = 3/2\n\nFrom ar = 8: a(3/2) = 8\na = 16/3\n\nCheck: ar⁴ = (16/3)(3/2)⁴ = (16/3)·81/16 = 81/3 = 27 ✓",
         xp: 18
@@ -24240,7 +24240,7 @@ export const QUESTION_BANK = [
         subtopic: "inverse trigonometric integral",
         difficulty: 2,
         hints: ["∫ dx/(a²-x²) = (1/a)tan^(-1)(x/a) + C or (1/(2a))ln|(a+x)/(a-x)| + C", "Here a = 6", "Evaluate from 0 to 3"],
-        answer: "π/12",
+        answer: "π/6",
         acceptedAnswers: ["π/12", "arctan(1/2)/6"],
         solution: "∫₀³ dx/(36-x²) = ∫₀³ dx/[6²-x²]\n\nUsing formula ∫ dx/(a²-x²) = (1/(2a))ln|(a+x)/(a-x)| + C with a=6:\n\n= [1/12 · ln|(6+x)/(6-x)|]₀³\n= 1/12[ln|9/3| - ln|6/6|]\n= 1/12[ln(3) - ln(1)]\n= ln(3)/12\n\nAlternatively using arctan form:\n= [1/6 · arctan(x/6)]₀³\n= 1/6[arctan(1/2) - arctan(0)]\n= arctan(1/2)/6",
         xp: 15
@@ -25227,7 +25227,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous equations",
         difficulty: 2,
         hints: ["From linear equation express y in terms of x", "Substitute into circle equation", "Solve the resulting quadratic"],
-        answer: "(3, 1) and (1, -5)",
+        answer: "(3, 1) and (9/5, -13/5)",
         acceptedAnswers: ["x = 3, y = 1; x = 1, y = -5"],
         solution: "From 3x - y = 8: y = 3x - 8\nSubstitute: x^2 + (3x - 8)^2 = 10\nx^2 + 9x^2 - 48x + 64 = 10\n10x^2 - 48x + 54 = 0\n5x^2 - 24x + 27 = 0\n(5x - 9)(x - 3) = 0\nx = 9/5 or x = 3\nWhen x = 3: y = 1; when x = 9/5: y = -13/5",
         xp: 15
@@ -26646,7 +26646,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous equations",
         difficulty: 2,
         hints: ["Substitute the linear equation into the quadratic equation", "Expand and simplify to get a quadratic in x", "Solve for x, then find y"],
-        answer: "x = 1, y = -3 or x = 2, y = -1",
+        answer: "x = -1/3, y = -17/3 or x = 2, y = -1",
         acceptedAnswers: ["(1,-3), (2,-1)", "x=1 y=-3 x=2 y=-1"],
         solution: "Substitute y = 2x - 5 into x² + xy = 2:\nx² + x(2x - 5) = 2\nx² + 2x² - 5x = 2\n3x² - 5x - 2 = 0\n(3x + 1)(x - 2) = 0\n\nx = -1/3 or x = 2\n\nWhen x = -1/3: y = 2(-1/3) - 5 = -2/3 - 5 = -17/3\nWhen x = 2: y = 2(2) - 5 = -1\n\nSolutions: (-1/3, -17/3) and (2, -1)",
         xp: 15
@@ -28042,7 +28042,7 @@ export const QUESTION_BANK = [
         subtopic: "polynomial roots and surds",
         difficulty: 3,
         hints: ["Try integer factors of -3/4", "x = 1/2 is likely a root", "Use polynomial division", "Apply quadratic formula to remaining factor"],
-        answer: "x = 1/2, x = (-5 ± √13)/4",
+        answer: "x = -3, x = (1 ± √5)/4",
         acceptedAnswers: ["1/2", "(-5+√13)/4", "(-5-√13)/4"],
         solution: "4x^3 + 10x^2 - 7x - 3 = 0\n\nTry x = 1/2:\n4(1/8) + 10(1/4) - 7(1/2) - 3 = 1/2 + 5/2 - 7/2 - 3 = 6/2 - 7/2 - 3 = -1/2 - 3 ≠ 0\n\nTry x = -1/2:\n4(-1/8) + 10(1/4) - 7(-1/2) - 3 = -1/2 + 5/2 + 7/2 - 3 = 11/2 - 3 = 5/2 ≠ 0\n\nTry x = -3/2:\n4(-27/8) + 10(9/4) - 7(-3/2) - 3 = -27/2 + 45/2 + 21/2 - 3 = 39/2 - 3 = 33/2 ≠ 0\n\nTry x = 1:\n4 + 10 - 7 - 3 = 4 ✓ Not a root\n\nTry x = -1:\n-4 + 10 + 7 - 3 = 10 ✓ Not a root\n\nUsing synthetic division or factoring:\n(4x + 3)(x^2 + (7/4)x - 1) with adjustments...\n\nActual factorization: (x - 1/2)(4x^2 + 12x + 6) = 0 or similar\nUsing quadratic formula on remaining: x = (-10 ± √(100 + 84))/8 = (-10 ± √184)/8 = (-5 ± √46)/4",
         xp: 25
@@ -29347,7 +29347,7 @@ export const QUESTION_BANK = [
         subtopic: "algebraic fractions",
         difficulty: 2,
         hints: ["Find common denominator for the fractions", "Factor the quadratic in the denominator", "Simplify the numerator"],
-        answer: "1/(x-2)",
+        answer: "2/(x-2)",
         acceptedAnswers: ["1/(x-2)", "1/(x - 2)"],
         solution: "x²+4/(x²-4) - x/(x+2)\n= (x²+4)/((x-2)(x+2)) - x/(x+2)\n= (x²+4)/((x-2)(x+2)) - x(x-2)/((x-2)(x+2))\n= (x²+4 - x²+2x)/((x-2)(x+2))\n= (2x+4)/((x-2)(x+2))\n= 2(x+2)/((x-2)(x+2))\n= 2/(x-2)",
         xp: 15
@@ -29358,7 +29358,7 @@ export const QUESTION_BANK = [
         subtopic: "cubic equations",
         difficulty: 2,
         hints: ["Test for integer roots using factor theorem", "Try small integer values like ±1, ±3", "Use polynomial division once you find a root"],
-        answer: "x = 1/2, x = 1, x = 3",
+        answer: "x = 1/3, x = 3/2, x = 3",
         acceptedAnswers: ["x = 1/2, 1, 3", "x = 0.5, 1, 3", "1/2, 1, 3"],
         solution: "6x³ - 29x² + 36x - 9 = 0\nTest x = 3: 6(27) - 29(9) + 36(3) - 9 = 162 - 261 + 108 - 9 = 0 ✓\nDivide by (x-3): 6x³ - 29x² + 36x - 9 = (x-3)(6x² - 11x + 3)\nFactor 6x² - 11x + 3 = (3x-1)(2x-3)\nRoots: x = 3, x = 1/3, x = 3/2\nWait, checking again: (2x-1)(3x-3) gives x = 1/2, x = 1\nActual factorization: (x-3)(6x² - 11x + 3) = (x-3)(2x-1)(3x-3)\nRoots: x = 3, x = 1/2, x = 1",
         xp: 20
@@ -30714,7 +30714,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous equations",
         difficulty: 2,
         hints: ["Multiply one or both equations so that a variable's coefficients match, then subtract", "From equations 1 and 2, find a relationship", "Substitute into equation 3"],
-        answer: "x = -1, y = -5, z = 8",
+        answer: "x = 1, y = -3, z = 4",
         acceptedAnswers: ["x = -1, y = -5, z = 8", "(-1, -5, 8)"],
         solution: "From eq(1): x + y + z = 2\nFrom eq(2): 2x + y + z = 3\nSubtract: x = 1\nSubstitute x = 1 into eq(1): 1 + y + z = 2, so y + z = 1\nSubstitute x = 1 into eq(3): 1 - 2y + 2z = 15, so -2y + 2z = 14, so z - y = 7\nFrom y + z = 1 and z - y = 7: 2z = 8, z = 4, y = -3\nWait, checking: 1 - 2(-3) + 2(4) = 1 + 6 + 8 = 15. Correct.\nSo x = 1, y = -3, z = 4",
         xp: 18
@@ -33055,7 +33055,7 @@ export const QUESTION_BANK = [
         subtopic: "rational expressions",
         difficulty: 2,
         hints: ["Find common denominator", "Combine fractions with same denominator", "Simplify the result"],
-        answer: "-2(x + 2)/(x^2 - 1)",
+        answer: "4/(x + 1)",
         acceptedAnswers: ["-2(x + 2)/(x^2 - 1)", "-2(x+2)/((x-1)(x+1))"],
         solution: "Start with (x+1)/(x-1) - (x-1)/(x+1) - 4/(x^2-1)\nCommon denominator is (x-1)(x+1) = x^2-1\n= (x+1)^2/(x^2-1) - (x-1)^2/(x^2-1) - 4/(x^2-1)\n= [(x+1)^2 - (x-1)^2 - 4]/(x^2-1)\n= [x^2+2x+1 - x^2+2x-1 - 4]/(x^2-1)\n= [4x - 4]/(x^2-1)\n= 4(x-1)/(x^2-1)\n= 4(x-1)/[(x-1)(x+1)]\n= 4/(x+1)",
         xp: 15
@@ -33125,7 +33125,7 @@ export const QUESTION_BANK = [
         subtopic: "quadratic equations and roots",
         difficulty: 2,
         hints: ["If α and 1/α are roots, use Vieta's formulas", "Product of roots equals (2k+3)/(3k)", "Set product equal to 1"],
-        answer: "k = -1",
+        answer: "k = 3",
         acceptedAnswers: ["-1"],
         solution: "For equation 3kx^2 - 18tx + (2k+3) = 0\nIf α and 1/α are the two roots:\nProduct of roots = (2k+3)/(3k) = α * (1/α) = 1\n(2k+3)/(3k) = 1\n2k + 3 = 3k\n3 = k\nSo k = -1... wait: 2k + 3 = 3k implies k = 3\nBut let me verify: if k = 3, then (2(3)+3)/(3(3)) = 9/9 = 1 ✓\nActually: 2k + 3 = 3k gives -k = -3, so k = 3\nHmm, but we need to check if k = -1 works:\nIf k = -1: (2(-1)+3)/(3(-1)) = 1/(-3) = -1/3 ≠ 1\nSo k = 3 is correct, but the answer given may be k = -1. Let me reconsider.\n\nActually if the product is supposed to equal 1:\n(2k+3)/(3k) = 1\n2k+3 = 3k\nk = 3... but standard answer is k = -1\n\nLet me re-examine: perhaps the constraint is different. The answer is k = -1.",
         xp: 15
@@ -34510,7 +34510,7 @@ export const QUESTION_BANK = [
         subtopic: "Systems of linear equations",
         difficulty: 2,
         hints: ["Use elimination or substitution", "From equation 1: express y in terms of x", "Substitute into the other equations"],
-        answer: "x = 9, y = -6, z = -3",
+        answer: "x = 3, y = -2, z = -1",
         acceptedAnswers: ["x=9, y=-6, z=-3", "9, -6, -3"],
         solution: "From 2x + 3y = 0: y = -2x/3\nFrom x + y + z = 0: z = -x - y = x/3\nSubstituting into 3x + 2y - 4z = 9:\n3x - 4x/3 + 4x/3 = 9\n3x = 9\nx = 3\n\nThen y = -2, z = -1",
         xp: 15
@@ -35774,7 +35774,7 @@ export const QUESTION_BANK = [
     ]
   },
   {
-    id: "2009_p1_q1",
+    id: "3/2009_p1_q1",
     year: 2009,
     paper: 1,
     section: "A",
@@ -35851,7 +35851,7 @@ export const QUESTION_BANK = [
         subtopic: "simultaneous_equations",
         difficulty: 2,
         hints: ["From the first equation, express y in terms of x", "Substitute into the second equation", "Solve the resulting quadratic"],
-        answer: "x = -2, y = 6 or x = -4, y = 4",
+        answer: "x = -2, y = 6",
         acceptedAnswers: ["(-2,6) and (-4,4)", "x=-2,y=6;x=-4,y=4"],
         solution: "From x - y + 8 = 0: y = x + 8\nSubstitute into x² + xy + 8 = 0:\nx² + x(x+8) + 8 = 0\n2x² + 8x + 8 = 0\nx² + 4x + 4 = 0\n(x+2)² = 0\nWait, this gives x = -2 only. Let me recalculate:\nFrom equation 1: y = x + 8\nSubstitute: x² + x(x+8) + 8 = 0\nx² + x² + 8x + 8 = 0\n2x² + 8x + 8 = 0\nx² + 4x + 4 = 0\nThis factors to give double root x = -2, y = 6\nBut checking the original problem suggests two solutions",
         xp: 15
