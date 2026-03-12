@@ -1,6 +1,193 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 import { QUESTION_BANK as IMPORTED_QUESTIONS } from "./questionData.js";
+import { parse, simplify, rationalize } from "mathjs";
+
+// ─── FLOATING MATH SYMBOLS BACKGROUND ───
+const MATH_SYMBOLS = ["∑", "∫", "π", "√", "∞", "Δ", "θ", "±", "≠", "≈", "∂", "λ", "σ", "μ", "∈", "∀", "∃", "⊂", "∪", "∩", "α", "β", "γ", "φ", "ω", "ℝ", "ℤ", "→", "⟨", "⟩"];
+
+const MathSymbolsBackground = ({ variant = "dark" }) => {
+  const symbols = useRef(
+    Array.from({ length: 20 }, (_, i) => ({
+      char: MATH_SYMBOLS[i % MATH_SYMBOLS.length],
+      left: Math.random() * 100,
+      size: 18 + Math.random() * 28,
+      duration: 12 + Math.random() * 18,
+      delay: Math.random() * -20,
+      reverse: Math.random() > 0.5,
+    }))
+  ).current;
+
+  const isDark = variant === "dark";
+
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+      {symbols.map((s, i) => (
+        <span
+          key={i}
+          style={{
+            position: "absolute",
+            left: `${s.left}%`,
+            bottom: s.reverse ? "auto" : "-40px",
+            top: s.reverse ? "-40px" : "auto",
+            fontSize: s.size,
+            color: isDark ? "rgba(255,255,255,0.08)" : "rgba(139,92,246,0.07)",
+            fontWeight: 300,
+            animation: `${s.reverse ? "floatSymbolReverse" : "floatSymbol"} ${s.duration}s linear ${s.delay}s infinite`,
+            userSelect: "none",
+          }}
+        >
+          {s.char}
+        </span>
+      ))}
+      {/* Static scattered symbols for texture */}
+      {Array.from({ length: 8 }, (_, i) => (
+        <span
+          key={`static-${i}`}
+          style={{
+            position: "absolute",
+            left: `${10 + (i * 12) % 80}%`,
+            top: `${15 + (i * 17) % 70}%`,
+            fontSize: 32 + (i * 7) % 20,
+            color: isDark ? "rgba(255,255,255,0.04)" : "rgba(139,92,246,0.04)",
+            fontWeight: 200,
+            animation: `gentlePulse ${4 + i * 0.7}s ease-in-out ${i * 0.5}s infinite`,
+            userSelect: "none",
+          }}
+        >
+          {MATH_SYMBOLS[(i * 3) % MATH_SYMBOLS.length]}
+        </span>
+      ))}
+    </div>
+  );
+};
+
+// ─── CUSTOM SVG LOGO ───
+const MathULogo = ({ size = 72 }) => (
+  <svg width={size} height={size} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ animation: "logoGlow 3s ease-in-out infinite" }}>
+    {/* Background circle with gradient */}
+    <defs>
+      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#A855F7" />
+        <stop offset="50%" stopColor="#7C3AED" />
+        <stop offset="100%" stopColor="#6D28D9" />
+      </linearGradient>
+      <linearGradient id="symbolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="100%" stopColor="#E0D4FF" />
+      </linearGradient>
+    </defs>
+    <rect x="4" y="4" width="72" height="72" rx="20" fill="url(#logoGrad)" />
+    <rect x="4" y="4" width="72" height="72" rx="20" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
+    {/* Sigma symbol - stylized */}
+    <path d="M24 22h22l-14 18 14 18H24" stroke="url(#symbolGrad)" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    {/* Small accent dots */}
+    <circle cx="56" cy="26" r="3" fill="rgba(255,255,255,0.5)" />
+    <circle cx="60" cy="34" r="2" fill="rgba(255,255,255,0.3)" />
+  </svg>
+);
+
+// ─── SMART ANSWER CHECKING ───
+// Hybrid approach: symbolic math equivalence first, then normalised string fallback
+const normaliseString = (s) => s.toLowerCase().replace(/\s+/g, "").replace(/[€°]/g, "");
+
+// Preprocess expression to add explicit * for implicit multiplication
+// e.g. "2x" → "2*x", "3(x+1)" → "3*(x+1)", "x(x+2)" → "x*(x+2)"
+const addImplicitMul = (expr) => {
+  let s = expr.trim();
+  // number followed by letter: 2x → 2*x, 3y → 3*y
+  s = s.replace(/(\d)([a-zA-Z])/g, "$1*$2");
+  // letter/number followed by (: x( → x*(, 2( → 2*(
+  s = s.replace(/([a-zA-Z0-9)])(\()/g, "$1*$2");
+  // ) followed by letter/number/(: )x → )*x, )2 → )*2, )( → )*(
+  s = s.replace(/(\))([a-zA-Z0-9(])/g, "$1*$2");
+  return s;
+};
+
+const isSymbolicallyEqual = (userExpr, expectedExpr) => {
+  try {
+    // Preprocess for implicit multiplication
+    const userPrep = addImplicitMul(userExpr);
+    const expPrep = addImplicitMul(expectedExpr);
+
+    // Try to parse both as math expressions
+    const userNode = parse(userPrep);
+    const expectedNode = parse(expPrep);
+
+    // Method 1: Simplify the difference — if it equals 0, they're equivalent
+    try {
+      const diff = simplify(`(${userPrep}) - (${expPrep})`);
+      const diffStr = diff.toString();
+      if (diffStr === "0") return true;
+    } catch (e) { /* continue to other methods */ }
+
+    // Method 2: Compare simplified string forms
+    try {
+      const userSimp = simplify(userPrep).toString().replace(/\s+/g, "");
+      const expSimp = simplify(expPrep).toString().replace(/\s+/g, "");
+      if (userSimp === expSimp) return true;
+    } catch (e) { /* continue */ }
+
+    // Method 3: Try rationalizing both (handles fraction equivalence)
+    try {
+      const userRat = rationalize(userPrep).toString().replace(/\s+/g, "");
+      const expRat = rationalize(expPrep).toString().replace(/\s+/g, "");
+      if (userRat === expRat) return true;
+    } catch (e) { /* continue */ }
+
+    // Method 4: Evaluate numerically at several test points (for single-variable expressions)
+    try {
+      const userCompiled = userNode.compile();
+      const expectedCompiled = expectedNode.compile();
+      const testValues = [0, 1, -1, 2, 0.5, -0.5, 3, Math.PI];
+      let allMatch = true;
+      let evaluated = false;
+      for (const val of testValues) {
+        try {
+          const userVal = userCompiled.evaluate({ x: val, X: val, t: val, n: val });
+          const expectedVal = expectedCompiled.evaluate({ x: val, X: val, t: val, n: val });
+          if (typeof userVal === "number" && typeof expectedVal === "number") {
+            evaluated = true;
+            if (Math.abs(userVal - expectedVal) > 1e-9) {
+              allMatch = false;
+              break;
+            }
+          }
+        } catch (e) { /* skip this test point */ }
+      }
+      if (evaluated && allMatch) return true;
+    } catch (e) { /* continue */ }
+
+    return false;
+  } catch (e) {
+    // If parsing fails entirely, expressions aren't valid math — skip symbolic check
+    return false;
+  }
+};
+
+const isAnswerCorrect = (userAnswer, acceptedAnswers) => {
+  const userNorm = normaliseString(userAnswer);
+  if (!userNorm) return false;
+
+  // 1. Exact normalised string match (fast path)
+  if (acceptedAnswers.some(a => normaliseString(a) === userNorm)) return true;
+
+  // 2. Numeric equivalence (handles "0.5" vs "1/2" vs ".5")
+  const userNum = parseFloat(userAnswer.replace(/\s/g, ""));
+  if (!isNaN(userNum)) {
+    for (const acc of acceptedAnswers) {
+      const accNum = parseFloat(acc.replace(/\s/g, ""));
+      if (!isNaN(accNum) && Math.abs(userNum - accNum) < 1e-9) return true;
+    }
+  }
+
+  // 3. Symbolic math equivalence (handles 3x+5 vs 5+3x, 2(x+1) vs 2x+2, etc.)
+  for (const acc of acceptedAnswers) {
+    if (isSymbolicallyEqual(userAnswer.trim(), acc.trim())) return true;
+  }
+
+  return false;
+};
 
 const APP_VERSION = "1.0.0";
 
@@ -2500,9 +2687,7 @@ export default function MathU() {
 
   const checkAnswer = () => {
     setTimerRunning(false);
-    const normalise = (s) => s.toLowerCase().replace(/\s+/g, "").replace(/[€°]/g, "");
-    const userNorm = normalise(userAnswer);
-    const correct = currentQuestion.acceptedAnswers.some(a => normalise(a) === userNorm);
+    const correct = isAnswerCorrect(userAnswer, currentQuestion.acceptedAnswers);
     setIsCorrect(correct);
     setShowSolution(true);
 
@@ -2635,9 +2820,7 @@ export default function MathU() {
     const part = currentQuestion.parts[partIndex];
     if (!part) return;
 
-    const normalise = (s) => s.toLowerCase().replace(/\s+/g, "").replace(/[€°]/g, "");
-    const userNorm = normalise(userAnswer);
-    const correct = part.acceptedAnswers.some(a => normalise(a) === userNorm);
+    const correct = isAnswerCorrect(userAnswer, part.acceptedAnswers);
 
     // Play sound
     if (correct) {
@@ -2838,8 +3021,8 @@ export default function MathU() {
 
   // ─── STYLES ───
   const colors = darkMode ? {
-    primary: "#3B82F6",
-    primaryDark: "#2563EB",
+    primary: "#8B5CF6",
+    primaryDark: "#7C3AED",
     secondary: "#10B981",
     accent: "#F59E0B",
     danger: "#EF4444",
@@ -2848,19 +3031,19 @@ export default function MathU() {
     text: "#F1F5F9",
     textLight: "#94A3B8",
     success: "#22C55E",
-    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
+    gradient: "linear-gradient(135deg, #7C3AED 0%, #A855F7 40%, #C084FC 70%, #EC4899 100%)",
   } : {
-    primary: "#3B82F6",
-    primaryDark: "#2563EB",
+    primary: "#8B5CF6",
+    primaryDark: "#7C3AED",
     secondary: "#10B981",
     accent: "#F59E0B",
     danger: "#EF4444",
-    bg: "#F0F4FF",
+    bg: "#FAF5FF",
     card: "#FFFFFF",
     text: "#1E293B",
     textLight: "#64748B",
     success: "#22C55E",
-    gradient: "linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)",
+    gradient: "linear-gradient(135deg, #7C3AED 0%, #A855F7 40%, #C084FC 70%, #EC4899 100%)",
   };
 
   const styles = {
@@ -2919,10 +3102,11 @@ export default function MathU() {
   // ─── LOADING SCREEN ───
   if (loading) {
     return (
-      <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient }}>
-        <div style={{ textAlign: "center", color: "white" }}>
-          <div style={{ fontSize: 72, marginBottom: 8 }}>📐</div>
-          <h1 style={{ fontSize: 36, fontWeight: 900, margin: "0 0 16px", letterSpacing: -2 }}>MathU</h1>
+      <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
+        <MathSymbolsBackground variant="dark" />
+        <div style={{ textAlign: "center", color: "white", position: "relative", zIndex: 1 }}>
+          <MathULogo size={72} />
+          <h1 style={{ fontSize: 36, fontWeight: 900, margin: "12px 0 16px", letterSpacing: -2 }}>MathU</h1>
           <div style={{ fontSize: 14, opacity: 0.8 }}>Loading...</div>
         </div>
       </div>
@@ -2932,28 +3116,36 @@ export default function MathU() {
   // ─── SPLASH SCREEN ───
   if (screen === "splash") {
     return (
-      <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient }}>
-        <div style={{ textAlign: "center", color: "white", padding: 40 }}>
-          <div style={{ fontSize: 72, marginBottom: 8 }}>📐</div>
-          <h1 style={{ fontSize: 48, fontWeight: 900, margin: "0 0 4px", letterSpacing: -2 }}>MathU</h1>
-          <p style={{ fontSize: 16, opacity: 0.9, margin: "0 0 8px" }}>Your Daily Maths Challenge</p>
-          <p style={{ fontSize: 13, opacity: 0.7, margin: "0 0 20px" }}>Leaving Cert Honours Maths</p>
+      <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
+        <MathSymbolsBackground variant="dark" />
+        <div style={{ textAlign: "center", color: "white", padding: 40, position: "relative", zIndex: 1 }}>
+          <MathULogo size={80} />
+          <h1 style={{
+            fontSize: 52, fontWeight: 900, margin: "12px 0 4px", letterSpacing: -2,
+            background: "linear-gradient(180deg, #FFFFFF 0%, #E0D4FF 100%)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          }}>MathU</h1>
+          <p style={{ fontSize: 16, opacity: 0.9, margin: "0 0 8px", fontWeight: 500 }}>Your Daily Maths Challenge</p>
+          <p style={{ fontSize: 13, opacity: 0.6, margin: "0 0 28px", letterSpacing: 1, textTransform: "uppercase" }}>Leaving Cert Honours Maths</p>
           {pendingInvite && (
-            <div style={{ background: "rgba(255,255,255,0.2)", borderRadius: 12, padding: "10px 16px", marginBottom: 20 }}>
+            <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(10px)", borderRadius: 16, padding: "12px 20px", marginBottom: 24, border: "1px solid rgba(255,255,255,0.2)" }}>
               <div style={{ fontSize: 14, fontWeight: 700 }}>🎉 You've been invited by a friend!</div>
               <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>Sign up to connect and compete</div>
             </div>
           )}
           <button
             onClick={() => setScreen("signup_phone")}
-            style={{ ...styles.btn("white"), color: colors.primaryDark, fontSize: 18, padding: "16px 48px" }}
+            style={{
+              ...styles.btn("white"), color: colors.primaryDark, fontSize: 18, padding: "16px 48px",
+              boxShadow: "0 4px 24px rgba(124, 58, 237, 0.3)",
+            }}
           >
             Get Started
           </button>
-          <p onClick={() => setScreen("signin")} style={{ fontSize: 12, opacity: 0.6, marginTop: 20, cursor: "pointer" }}>
-            Already have an account? <span style={{ textDecoration: "underline" }}>Sign In</span>
+          <p onClick={() => setScreen("signin")} style={{ fontSize: 12, opacity: 0.6, marginTop: 24, cursor: "pointer" }}>
+            Already have an account? <span style={{ textDecoration: "underline", fontWeight: 600 }}>Sign In</span>
           </p>
-          <div style={{ fontSize: 9, opacity: 0.4, marginTop: 40 }}>v{APP_VERSION}</div>
+          <div style={{ fontSize: 9, opacity: 0.3, marginTop: 40 }}>v{APP_VERSION}</div>
         </div>
       </div>
     );
@@ -2964,12 +3156,13 @@ export default function MathU() {
     const phoneDigits = phone.replace(/\D/g, "").length;
     const phoneValid = phoneDigits >= 7;
     return (
-      <div style={styles.app}>
-        <div style={{ padding: "40px 24px 24px" }}>
+      <div style={{ ...styles.app, position: "relative" }}>
+        <MathSymbolsBackground variant="light" />
+        <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
           <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>📱</div>
-            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>Create Account</h2>
+            <MathULogo size={48} />
+            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "8px 0 4px", color: colors.text }}>Create Account</h2>
             <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 1 of 2</p>
             <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
               <div style={{ width: 60, height: 4, borderRadius: 2, background: colors.primary }} />
@@ -3110,8 +3303,9 @@ export default function MathU() {
   // ─── VERIFY CODE ───
   if (screen === "verify_code") {
     return (
-      <div style={styles.app}>
-        <div style={{ padding: "40px 24px 24px" }}>
+      <div style={{ ...styles.app, position: "relative" }}>
+        <MathSymbolsBackground variant="light" />
+        <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
           <button onClick={() => setScreen("signup_phone")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 48, marginBottom: 12 }}>🔐</div>
@@ -3191,12 +3385,13 @@ export default function MathU() {
   if (screen === "signin") {
     const hasSavedPhone = phoneSaved && phone && phone.replace(/\D/g, "").length >= 7;
     return (
-      <div style={styles.app}>
-        <div style={{ padding: "40px 24px 24px" }}>
+      <div style={{ ...styles.app, position: "relative" }}>
+        <MathSymbolsBackground variant="light" />
+        <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
           <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>← Back</button>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>👋</div>
-            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: colors.text }}>Welcome Back!</h2>
+            <MathULogo size={48} />
+            <h2 style={{ fontSize: 24, fontWeight: 800, margin: "8px 0 8px", color: colors.text }}>Welcome Back!</h2>
             <p style={{ color: colors.textLight, margin: "0 0 32px", fontSize: 14 }}>
               {hasSavedPhone ? "Enter your 4-digit PIN" : "Sign in with your mobile number"}
             </p>
