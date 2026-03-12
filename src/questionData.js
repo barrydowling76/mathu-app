@@ -547,7 +547,7 @@ export const QUESTION_BANK = [
         hints: [
           "S(t) = 21 + 19cos(2πt/365). Maximum when cos = 1, minimum when cos = −1",
           "Maximum = 21 + 19 = 40",
-          "Minimum = 21 − 19 = 2"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "Maximum = 40, Minimum = 2",
         acceptedAnswers: ["40, 2", "Max = 40, Min = 2", "Maximum = 40, Minimum = 2", "40 and 2"],
@@ -562,7 +562,7 @@ export const QUESTION_BANK = [
         hints: [
           "C(t) = S(t) − 2.4 + 0.03t",
           "Set S(t) = C(t), so S(t) = S(t) − 2.4 + 0.03t",
-          "This simplifies to 0 = −2.4 + 0.03t, so t = 80"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "t = 80",
         acceptedAnswers: ["80", "t=80", "t = 80"],
@@ -1871,7 +1871,7 @@ export const QUESTION_BANK = [
         hints: [
           "S(n) = n/2(first term + last term) or S(n) = n/2(2a + (n-1)d)",
           "With a = 15.8, d = 6.2",
-          "Expand and simplify to get S(n) = 3.1n² + 12.7n"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "S(n) = 3.1n² + 12.7n",
         acceptedAnswers: ["S(n) = 3.1n² + 12.7n", "3.1n²+12.7n"],
@@ -3109,7 +3109,7 @@ export const QUESTION_BANK = [
         hints: [
           "|5+3m|=11 means 5+3m=11 or 5+3m=-11",
           "Solve first: 3m=6 → m=2",
-          "Solve second: 3m=-16 → m=-16/3"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "m = 2 or m = -16/3",
         acceptedAnswers: ["m=2, m=-16/3", "2, -16/3", "m = 2 or m = -16/3", "2 or -5.33"],
@@ -3124,7 +3124,7 @@ export const QUESTION_BANK = [
         hints: [
           "From 1/h = k/(j+k), cross-multiply: j+k = hk",
           "Rearrange to isolate j: j = hk - k = k(h-1)",
-          "To get k, divide both sides by (h-1): k = j/(h-1)"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "j = k(h-1) and k = j/(h-1)",
         acceptedAnswers: ["j=k(h-1), k=j/(h-1)", "see solution"],
@@ -3277,7 +3277,7 @@ export const QUESTION_BANK = [
         difficulty: 1,
         hints: [
           "log₁₀m is the exponent or power",
-          "log₁₀m = x means 10^x = m"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "The power to which 10 must be raised to get m, or if log₁₀m = x, then 10^x = m",
         acceptedAnswers: ["see solution", "the exponent"],
@@ -4791,10 +4791,10 @@ export const QUESTION_BANK = [
         marks: 5,
         subtopic: "Circle Geometry",
         difficulty: 2,
-        hints: ["z and iz are endpoints of a diameter", "Centre is the midpoint: ((6−2)/2, (2+6)/2) = (2, 4)", "Radius = |z − iz|/2 = 4√5/2 = 2√5", "Area = πr² = π(2√5)² = 20π"],
+        hints: ["z and iz are endpoints of a diameter", "Centre is the midpoint: ((6−2)/2, (2+6)/2) = (2, 4)", "Radius = |z − iz|/2 = 4√5/2 = 2√5", "Work through the calculation step by step to verify your result"],
         answer: "Area = 20π",
         acceptedAnswers: ["20π", "20pi", "62.83"],
-        solution: "z and iz are endpoints of a diameter.\nCentre = midpoint = ((6 + (−2))/2, (2 + 6)/2) = (2, 4)\nRadius = |z − iz|/2 = 4√5/2 = 2√5\n\nArea = πr² = π(2√5)² = 20π",
+        solution: "z and iz are endpoints of a diameter.\nCentre = midpoint = ((6 + (−2))/2, (2 + 6)/2) = (2, 4)\nRadius = |z − iz|/2 = 4√5/2 = 2√5\n\nWork through the calculation step by step to verify your result",
         xp: 10
       },
       {
@@ -4856,7 +4856,7 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "Solving Quadratic & Logarithms",
         difficulty: 2,
-        hints: ["Use quadratic formula: y = (26 ± √(676 − 100))/10", "√576 = 24, so y = (26 ± 24)/10", "y = 5 or y = 1/5", "Then e^k = 5 gives k = ln(5), and e^k = 1/5 gives k = −ln(5)"],
+        hints: ["Use quadratic formula: y = (26 ± √(676 − 100))/10", "√576 = 24, so y = (26 ± 24)/10", "y = 5 or y = 1/5", "Work through the calculation step by step to verify your result"],
         answer: "k = ln(5) or k = −ln(5)",
         acceptedAnswers: ["k = ln(5) or k = -ln(5)", "ln(5), -ln(5)", "±ln(5)"],
         solution: "5y² − 26y + 5 = 0\ny = (26 ± √(676 − 100))/10 = (26 ± 24)/10\ny = 5 or y = 1/5\n\nSince y = e^k:\ne^k = 5 → k = ln(5)\ne^k = 1/5 → k = ln(1/5) = −ln(5)",
@@ -5268,7 +5268,7 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "Line Equations",
         difficulty: 2,
-        hints: ["Line l with slope m through (q, r)", "At x=0, y = r − mq"],
+        hints: ["Line l with slope m through (q, r)", "Work through the calculation step by step to verify your result"],
         answer: "y-intercept = r − mq",
         acceptedAnswers: ["r - mq"],
         solution: "Equation: y − r = m(x − q)\nAt x=0: y = r − mq",
@@ -5372,7 +5372,7 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "Isosceles Triangle & Sine Rule",
         difficulty: 3,
-        hints: ["|AC| = |BC|, ∠ACB = 45°", "∠CAB = ∠CBA = 67.5°", "By sine rule and geometry: |AC| = 10"],
+        hints: ["|AC| = |BC|, ∠ACB = 45°", "∠CAB = ∠CBA = 67.5°", "Work through the calculation step by step to verify your result"],
         answer: "|AC| = 10",
         acceptedAnswers: ["10"],
         solution: "Isosceles triangle with |AC| = |BC|, ∠ACB = 45°\n∠CAB = ∠CBA = 67.5°\nBy sine rule and simplification: |AC| = 10",
@@ -5489,7 +5489,7 @@ export const QUESTION_BANK = [
         marks: 12,
         subtopic: "Volume Scaling",
         difficulty: 3,
-        hints: ["Small: (1/3)πr²h = 12π", "Large: (1/3)π(kr)²(2h) = 150π", "k² = 6.25, k = 2.5"],
+        hints: ["Small: (1/3)πr²h = 12π", "Large: (1/3)π(kr)²(2h) = 150π", "Work through the calculation step by step to verify your result"],
         answer: "k = 2.5",
         acceptedAnswers: ["2.5"],
         solution: "From volume ratio: k² = 225/36 = 6.25 ⟹ k = 2.5",
@@ -5500,7 +5500,7 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "Arc Length & 3D Geometry",
         difficulty: 3,
-        hints: ["Arc length = 48π/5, 2πR = 48π/5", "R = 24/5 = 4.8 cm"],
+        hints: ["Arc length = 48π/5, 2πR = 48π/5", "Work through the calculation step by step to verify your result"],
         answer: "Radius R = 4.8 cm",
         acceptedAnswers: ["4.8"],
         solution: "Arc length = (216/360) × 2π × 8 = 48π/5\n2πR = 48π/5 ⟹ R = 4.8 cm",
@@ -6500,7 +6500,7 @@ export const QUESTION_BANK = [
         marks: 5,
         subtopic: "Inverse Trigonometric",
         difficulty: 2,
-        hints: ["sin(θ/2) = 1/√3, where 0 ≤ θ ≤ π", "Find cos(θ) using double angle formula: cos(θ) = 1 - 2sin²(θ/2)", "sin²(θ/2) = 1/3"],
+        hints: ["sin(θ/2) = 1/√3, where 0 ≤ θ ≤ π", "Find cos(θ) using double angle formula: cos(θ) = 1 - 2sin²(θ/2)", "Work through the calculation step by step to verify your result"],
         answer: "cos(θ) = 1/3",
         acceptedAnswers: ["1/3", "cos θ = 1/3"],
         solution: "Given: sin(θ/2) = 1/√3, where 0 ≤ θ ≤ π\nFind: cos(θ)\n\nUsing double angle formula:\ncos(θ) = 1 - 2sin²(θ/2)\n       = 1 - 2(1/√3)²\n       = 1 - 2(1/3)\n       = 1 - 2/3\n       = 1/3",
@@ -8538,7 +8538,7 @@ export const QUESTION_BANK = [
       "difficulty": 1,
       "hints": [
         "Evaluate y at x = 0: y = 12/2 = 6",
-        "Evaluate y at x = 12/(2 + π): y = 0"
+        "Work through the calculation step by step to verify your result"
       ],
       "answer": "At x = 0: y = 6; At x = 12/(2 + π): y = 0",
       "acceptedAnswers": ["table completed correctly"],
@@ -10118,7 +10118,7 @@ export const QUESTION_BANK = [
       "hints": [
         "p̂(1-p̂) is maximized using calculus",
         "Let f(p) = p(1-p) = p - p²",
-        "f'(p) = 1 - 2p = 0 when p = 0.5"
+        "Work through the calculation step by step to verify your result"
       ],
       "answer": "Maximum = 0.25 at p = 0.5",
       "acceptedAnswers": ["0.25", "1/4", "p=0.5"],
@@ -11819,10 +11819,10 @@ export const QUESTION_BANK = [
       marks: 9,
       subtopic: "Slope of Tangent at a Point",
       difficulty: 2,
-      hints: ["Find dy/dx at the given x-value", "At x = √(π/2), evaluate dy/dx = 2x cos(x²)", "cos(π/2) = 0"],
+      hints: ["Find dy/dx at the given x-value", "At x = √(π/2), evaluate dy/dx = 2x cos(x²)", "Work through the calculation step by step to verify your result"],
       answer: "Slope = 0",
       acceptedAnswers: ["0", "dy/dx = 0", "Horizontal tangent"],
-      solution: "Find the slope of the tangent to y = sin(x²) at x = √(π/2).\n\nStep 1: Use the derivative from part (b)(i).\ndy/dx = 2x cos(x²)\n\nStep 2: Substitute x = √(π/2).\nWhen x = √(π/2):\nx² = (√(π/2))² = π/2\n\nStep 3: Evaluate the derivative.\ndy/dx|[x=√(π/2)] = 2·√(π/2)·cos(π/2)\n\nStep 4: Evaluate cos(π/2).\ncos(π/2) = 0\n\nStep 5: Calculate the slope.\ndy/dx = 2·√(π/2)·0 = 0\n\nTherefore, the slope of the tangent at x = √(π/2) is 0.\nThis means the tangent line is horizontal at this point.",
+      solution: "Find the slope of the tangent to y = sin(x²) at x = √(π/2).\n\nStep 1: Use the derivative from part (b)(i).\ndy/dx = 2x cos(x²)\n\nStep 2: Substitute x = √(π/2).\nWhen x = √(π/2):\nx² = (√(π/2))² = π/2\n\nStep 3: Evaluate the derivative.\ndy/dx|[x=√(π/2)] = 2·√(π/2)·cos(π/2)\n\nStep 4: Evaluate cos(π/2).\nWork through the calculation step by step to verify your result\n\nStep 5: Calculate the slope.\ndy/dx = 2·√(π/2)·0 = 0\n\nTherefore, the slope of the tangent at x = √(π/2) is 0.\nThis means the tangent line is horizontal at this point.",
       xp: 16
     }
   ]
@@ -13370,7 +13370,7 @@ export const QUESTION_BANK = [
       },
       {
         label: "(e)(i)", marks: 10, subtopic: "Geometric Sequences", difficulty: 3,
-        hints: ["aₙ = p − pₙ = 0.75 − pₙ", "Find aₙ₊₁/aₙ using the recurrence relation", "Show this ratio is constant = 1/5"],
+        hints: ["aₙ = p − pₙ = 0.75 − pₙ", "Find aₙ₊₁/aₙ using the recurrence relation", "Work through the calculation step by step to verify your result"],
         answer: "Common ratio = 1/5",
         acceptedAnswers: ["1/5", "0.2", "r=1/5"],
         solution: "aₙ = 0.75 − pₙ\naₙ₊₁ = 0.75 − pₙ₊₁ = 0.75 − (0.2pₙ + 0.6)\n= 0.15 − 0.2pₙ\n= 0.2(0.75 − pₙ)\n= 0.2aₙ\naₙ₊₁/aₙ = 0.2 = 1/5\nSo {aₙ} is geometric with r = 1/5 ✓",
@@ -13955,7 +13955,7 @@ export const QUESTION_BANK = [
           "Calculate PA² = (x-0)² + (0-2)² = x² + 4",
           "Calculate PB² = (x-5)² + 4 = x² - 10x + 29",
           "Calculate PC² = (x-7)² + 4 = x² - 14x + 53",
-          "Add them: f(x) = 3x² - 24x + 86"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "f(x) = 3x² - 24x + 86",
         acceptedAnswers: [
@@ -14069,7 +14069,7 @@ export const QUESTION_BANK = [
           "Vertex form: y = a(x - h)² + k where vertex is (h, k)",
           "Vertex is at (24, 7.488)",
           "a = -0.013",
-          "Verify by expanding y = -0.013(x - 24)² + 7.488"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "y = -0.013(x - 24)² + 7.488",
         acceptedAnswers: [
@@ -14308,7 +14308,7 @@ export const QUESTION_BANK = [
         hints: [
           "The circumcentre is equidistant from all three vertices",
           "The circumradius equals the distance from circumcentre to any vertex",
-          "For the cables, EA = EB = EC = R (circumradius)"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "EA = EB = EC = R (circumradius)",
         acceptedAnswers: [
@@ -15013,7 +15013,7 @@ export const QUESTION_BANK = [
           "Consider a right triangle with circles on each side",
           "Pythagorean theorem: a² + b² = c²",
           "For circles on each side: πr_a² + πr_b² = πr_c²",
-          "This means area of circle on hypotenuse = sum of areas on legs"
+          "Work through the calculation step by step to verify your result"
         ],
         answer: "Area of circle on hypotenuse = sum of areas on legs",
         acceptedAnswers: [
@@ -16876,7 +16876,7 @@ export const QUESTION_BANK = [
         marks: 9,
         subtopic: "sets_mean_median",
         difficulty: 2,
-        hints: ["A = {√(32k), √(50k), √(128k), √(98k)}", "Simplify: √(32k) = 4√(2k), √(50k) = 5√(2k), √(128k) = 8√(2k), √(98k) = 7√(2k)", "A = {4√(2k), 5√(2k), 7√(2k), 8√(2k)} (in order)", "Mean = (4 + 5 + 7 + 8)√(2k)/4 = 24√(2k)/4 = 6√(2k)", "Median = (5 + 7)√(2k)/2 = 12√(2k)/2 = 6√(2k)"],
+        hints: ["A = {√(32k), √(50k), √(128k), √(98k)}", "Simplify: √(32k) = 4√(2k), √(50k) = 5√(2k), √(128k) = 8√(2k), √(98k) = 7√(2k)", "A = {4√(2k), 5√(2k), 7√(2k), 8√(2k)} (in order)", "Mean = (4 + 5 + 7 + 8)√(2k)/4 = 24√(2k)/4 = 6√(2k)", "Work through the calculation step by step to verify your result"],
         answer: "Mean = Median = 6√(2k)",
         acceptedAnswers: ["both equal 6√(2k)"],
         solution: "A = {√(32k), √(50k), √(128k), √(98k)}\n√(32k) = √(16·2k) = 4√(2k)\n√(50k) = √(25·2k) = 5√(2k)\n√(128k) = √(64·2k) = 8√(2k)\n√(98k) = √(49·2k) = 7√(2k)\nOrdered: A = {4√(2k), 5√(2k), 7√(2k), 8√(2k)}\nMean = (4 + 5 + 7 + 8)√(2k)/4 = 24√(2k)/4 = 6√(2k)\nMedian = [(5 + 7)√(2k)]/2 = 12√(2k)/2 = 6√(2k)\nMean = Median ✓",
@@ -17064,7 +17064,7 @@ export const QUESTION_BANK = [
         marks: 5,
         subtopic: "perimeter_formula",
         difficulty: 2,
-        hints: ["Rectangle with height y and width 2x (diameter of semicircle)", "Semicircle with radius x", "Perimeter = 2x + y + y + πx = 2x + 2y + πx", "Simplify: P = (2 + π)x + 2y"],
+        hints: ["Rectangle with height y and width 2x (diameter of semicircle)", "Semicircle with radius x", "Perimeter = 2x + y + y + πx = 2x + 2y + πx", "Work through the calculation step by step to verify your result"],
         answer: "P = (2 + π)x + 2y",
         acceptedAnswers: ["P = (2 + π)x + 2y", "P = 2x + 2y + πx"],
         solution: "The Norman window consists of:\n- Rectangle: width 2x, height y. Perimeter contribution: 2x + 2y\n- Semicircle: radius x, arc length = πx\nTotal perimeter: P = 2x + 2y + πx = (2 + π)x + 2y",
@@ -17215,7 +17215,7 @@ export const QUESTION_BANK = [
         marks: 8,
         subtopic: "line_intercept_form",
         difficulty: 2,
-        hints: ["Line passes through (a, 0) and (0, b)", "Slope m = (b - 0)/(0 - a) = -b/a", "Use point-slope form with point (a, 0)", "Rearrange to intercept form x/a + y/b = 1"],
+        hints: ["Line passes through (a, 0) and (0, b)", "Slope m = (b - 0)/(0 - a) = -b/a", "Use point-slope form with point (a, 0)", "Work through the calculation step by step to verify your result"],
         answer: "x/a + y/b = 1",
         acceptedAnswers: ["x/a + y/b = 1", "bx + ay = ab"],
         solution: "Line p passes through (a, 0) and (0, b).\nSlope = (b - 0)/(0 - a) = -b/a\nUsing point-slope form with point (a, 0):\ny - 0 = (-b/a)(x - a)\ny = (-b/a)x + b\nMultiply by a: ay = -bx + ab\nbx + ay = ab\nDivide by ab: x/a + y/b = 1",
@@ -18071,7 +18071,7 @@ export const QUESTION_BANK = [
         marks: 8,
         subtopic: "exponential_growth_exceeding_threshold",
         difficulty: 3,
-        hints: ["Find smallest k where 3^k > 1 × 10^9", "Take logarithms: k·log(3) > log(10^9) = 9·log(10)", "k > 9·log(10)/log(3) ≈ 9·1/0.477 ≈ 18.9", "Since k must be integer, k = 19"],
+        hints: ["Find smallest k where 3^k > 1 × 10^9", "Take logarithms: k·log(3) > log(10^9) = 9·log(10)", "k > 9·log(10)/log(3) ≈ 9·1/0.477 ≈ 18.9", "Work through the calculation step by step to verify your result"],
         answer: "k = 19",
         acceptedAnswers: ["19"],
         solution: "Find k where 3^k > 10^9:\n3^k > 10^9\nk·log(3) > 9·log(10)\nk > 9/log₃(10)\nk > 9/1.0986\nk > 8.19\n\nWait, let me recalculate:\nlog(3^k) > log(10^9)\nk·log(3) > 9\nk > 9/log(3)\nlog(3) ≈ 0.4771\nk > 9/0.4771 ≈ 18.87\n\nSince k must be integer and we need first step exceeding threshold:\nk = 19\n\nVerify: 3^19 = 1,162,261,467 > 10^9 ✓\n3^18 = 387,420,489 < 10^9 ✓",
@@ -21074,7 +21074,7 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "complex number form",
         difficulty: 2,
-        hints: ["For z = a + bi, the modulus |z| = √(a² + b²)", "Find the argument using tan(θ) = √3/(-1)", "The complex number is in the second quadrant"],
+        hints: ["For z = a + bi, the modulus |z| = √(a² + b²)", "Find the argument: for -1 + 3i in Q2, tan(θ) = 3/(-1) = -√3, so θ = 2π/3", "The complex number is in the second quadrant"],
         answer: "2(cos(2π/3) + i·sin(2π/3)) or 2∠(2π/3)",
         acceptedAnswers: ["2(cos(120°) + i·sin(120°))", "2∠120°"],
         solution: "-1 + 3i\nr = √(1 + 3) = √4 = 2\ntan(θ) = 3/(-1) = -√3, and -1 + 3i is in Q2\nθ = 2π/3 (or 120°)\nAnswer: 2(cos(2π/3) + i·sin(2π/3))",
@@ -25539,10 +25539,10 @@ export const QUESTION_BANK = [
         marks: 10,
         subtopic: "monotonicity",
         difficulty: 1,
-        hints: ["f'(x) > 0 for all x in domain", "f'(x) = 1/(1-x)^2 > 0 always"],
-        answer: "f'(x) > 0 for all x in domain",
+        hints: ["Explain why f'(x) = 1/(1-x)² must always be positive (denominator is a square)", "f'(x) = 1/(1-x)^2 > 0 always"],
+        answer: "Explain why f'(x) = 1/(1-x)² must always be positive (denominator is a square)",
         acceptedAnswers: ["Justified"],
-        solution: "f'(x) = 1/(1-x)^2\nFor all x ≠ 1: (1-x)^2 > 0\nTherefore f'(x) > 0 for all x in domain\nSince the derivative is always positive, f is increasing at every value in R\\{1}",
+        solution: "f'(x) = 1/(1-x)^2\nFor all x ≠ 1: (1-x)^2 > 0\nTherefore Explain why f'(x) = 1/(1-x)² must always be positive (denominator is a square)\nSince the derivative is always positive, f is increasing at every value in R\\{1}",
         xp: 15
       },
       {
@@ -28218,7 +28218,7 @@ export const QUESTION_BANK = [
         marks: 8,
         subtopic: "radical equations",
         difficulty: 2,
-        hints: ["Let √(10 - x) = u and √(4 - x) = v", "Then u = v + 4 or set up the equation differently", "Square both sides carefully"],
+        hints: ["Isolate the square root: √(10 - x) = 4 - x, then square both sides", "After squaring: 10 - x = (4 - x)², expand and solve the quadratic", "Square both sides carefully"],
         answer: "x = -5",
         acceptedAnswers: ["x=-5", "x = -5"],
         solution: "√(10 - x) = 4 - √(4 - x)\n\nSquare both sides:\n10 - x = 16 - 8√(4 - x) + (4 - x)\n10 - x = 20 - x - 8√(4 - x)\n-10 = -8√(4 - x)\n10/8 = √(4 - x)\n5/4 = √(4 - x)\n\nSquare again:\n25/16 = 4 - x\nx = 4 - 25/16 = 64/16 - 25/16 = 39/16\n\nCheck: √(10 - 39/16) = √(160/16 - 39/16) = √(121/16) = 11/4\n4 - √(4 - 39/16) = 4 - √(64/16 - 39/16) = 4 - √(25/16) = 4 - 5/4 = 16/4 - 5/4 = 11/4 ✓",
@@ -29436,7 +29436,7 @@ export const QUESTION_BANK = [
     ]
   },
   {
-    id: "2008_p1_q3",
+    id: "2008i_p1_q3",
     source: "LC 2008 P1",
     year: 2008,
     paper: 1,
@@ -29465,7 +29465,7 @@ export const QUESTION_BANK = [
         subtopic: "complex numbers",
         difficulty: 2,
         hints: ["Rationalize by multiplying by (2-i)/(2-i)", "Simplify using i² = -1"],
-        answer: "z = 2 - i",
+        answer: "z = 1 - i",
         acceptedAnswers: ["2 - i", "2-i"],
         solution: "z = 5/(2+i) - 1\n= 5(2-i)/((2+i)(2-i)) - 1\n= 5(2-i)/(4+1) - 1\n= (10-5i)/5 - 1\n= 2 - i - 1\n= 1 - i\nWait: z = 5/(2+i) - 1\n= 5(2-i)/(4-(-1)) - 1\n= 5(2-i)/5 - 1\n= (2-i) - 1\n= 1 - i\nOn Argand diagram: point at (1, -1)",
         xp: 20
@@ -29605,7 +29605,7 @@ export const QUESTION_BANK = [
         subtopic: "logarithmic equations",
         difficulty: 3,
         hints: ["Use log properties to combine", "log_e(2x+3) + log_e(x-2) = log_e((2x+3)(x-2))", "2log_e(x+4) = log_e((x+4)²)", "Exponentiate both sides"],
-        answer: "x = 4",
+        answer: "x = 11",
         acceptedAnswers: ["x = 4"],
         solution: "log_e(2x+3) + log_e(x-2) = 2log_e(x+4)\nlog_e((2x+3)(x-2)) = log_e((x+4)²)\n(2x+3)(x-2) = (x+4)²\n2x² - 4x + 3x - 6 = x² + 8x + 16\n2x² - x - 6 = x² + 8x + 16\nx² - 9x - 22 = 0\n(x-11)(x+2) = 0\nx = 11 or x = -2\nCheck constraints: x > 2 for log_e(x-2)\nx = 11 ✓\nx = -2 ✗ (doesn't satisfy x > 2)",
         xp: 20
@@ -29664,7 +29664,7 @@ export const QUESTION_BANK = [
         subtopic: "critical points",
         difficulty: 2,
         hints: ["f(x) = 2x³ + 3x² + bx + c has local max at x = -2", "f'(x) = 6x² + 6x + b", "f'(-2) = 0"],
-        answer: "b = 12",
+        answer: "b = -12",
         acceptedAnswers: ["b = 12"],
         solution: "f(x) = 2x³ + 3x² + bx + c\nf'(x) = 6x² + 6x + b\nLocal maximum at x = -2, so f'(-2) = 0\n6(-2)² + 6(-2) + b = 0\n6(4) - 12 + b = 0\n24 - 12 + b = 0\nb = -12\nWait, let me recalculate:\n6(4) + 6(-2) + b = 0\n24 - 12 + b = 0\n12 + b = 0\nb = -12",
         xp: 20
@@ -29771,7 +29771,7 @@ export const QUESTION_BANK = [
         subtopic: "integration by parts",
         difficulty: 2,
         hints: ["Use integration by parts: ∫u dv = uv - ∫v du", "Let u = 3x², dv = e^x dx"],
-        answer: "e(3) or 3e",
+        answer: "3e - 6",
         acceptedAnswers: ["3e", "e(3)", "3e - 0"],
         solution: "∫₀¹ 3x² e^x dx\nUse integration by parts twice:\nLet u = 3x², dv = e^x dx\ndu = 6x dx, v = e^x\n\n∫3x² e^x dx = 3x²e^x - ∫6x e^x dx\n\nFor ∫6x e^x dx:\nLet u = 6x, dv = e^x dx\ndu = 6 dx, v = e^x\n∫6x e^x dx = 6xe^x - ∫6e^x dx = 6xe^x - 6e^x\n\nSo: ∫3x² e^x dx = 3x²e^x - 6xe^x + 6e^x = e^x(3x² - 6x + 6)\n\nEvaluate [0,1]:\n= e(3 - 6 + 6) - 1(0 - 0 + 6)\n= 3e - 6",
         xp: 20
@@ -29782,7 +29782,7 @@ export const QUESTION_BANK = [
         subtopic: "rational integration",
         difficulty: 2,
         hints: ["Factor x² - 1 = (x-1)(x+1)", "Use partial fractions: 2x³/(x²-1) = 2x + [remainder]/(x²-1)"],
-        answer: "4 + ln(3/5)",
+        answer: "12 + ln(5)",
         acceptedAnswers: ["4 + ln(3/5)", "ln(3/5) + 4"],
         solution: "∫₂⁴ 2x³/(x²-1) dx\nDivide: 2x³ = 2x(x²-1) + 2x\n2x³/(x²-1) = 2x + 2x/(x²-1)\n\n∫2x dx = x²\n\nFor ∫2x/(x²-1) dx:\nLet u = x² - 1, du = 2x dx\n∫2x/(x²-1) dx = ln|x²-1|\n\nSo ∫2x³/(x²-1) dx = x² + ln|x²-1|\n\nEvaluate [2,4]:\n= [16 + ln(15)] - [4 + ln(3)]\n= 12 + ln(15/3)\n= 12 + ln(5)\n\nWait, answer shows 4 + ln(3/5):\n= 4 + ln(0.6)\nLet me recalculate the evaluation at x=4:\n= 16 + ln(16-1) = 16 + ln(15)\nAt x=2:\n= 4 + ln(4-1) = 4 + ln(3)\nDifference: 16 + ln(15) - 4 - ln(3) = 12 + ln(15/3) = 12 + ln(5)\nThis doesn't match. Let me check the problem again. The integral might be different.",
         xp: 20
@@ -29793,7 +29793,7 @@ export const QUESTION_BANK = [
         subtopic: "area between curves",
         difficulty: 2,
         hints: ["Find intersection points of y = 4-x² and 2x+y-1=0", "The line is y = 1-2x", "Integrate difference of functions"],
-        answer: "9/2 or 4.5",
+        answer: "32/3",
         acceptedAnswers: ["9/2", "4.5"],
         solution: "Curve: y = 4 - x²\nLine: 2x + y - 1 = 0, so y = 1 - 2x\n\nIntersection: 4 - x² = 1 - 2x\n4 - x² - 1 + 2x = 0\n3 + 2x - x² = 0\nx² - 2x - 3 = 0\n(x-3)(x+1) = 0\nx = 3 or x = -1\n\nAt x = -1: y = 4 - 1 = 3 (or y = 1 + 2 = 3) ✓\nAt x = 3: y = 4 - 9 = -5 (or y = 1 - 6 = -5) ✓\n\nArea = ∫₋₁³ [(4-x²) - (1-2x)] dx\n= ∫₋₁³ [3 + 2x - x²] dx\n= [3x + x² - x³/3]₋₁³\n= [9 + 9 - 9] - [-3 + 1 + 1/3]\n= 9 - (-3 + 1 + 1/3)\n= 9 - (-2 + 1/3)\n= 9 - (-5/3)\n= 9 + 5/3\n= 27/3 + 5/3\n= 32/3\n\nHmm, this gives 32/3, not 9/2. Let me recalculate...",
         xp: 15
@@ -30644,7 +30644,7 @@ export const QUESTION_BANK = [
         subtopic: "quadratic equations discriminant",
         difficulty: 2,
         hints: ["For equal roots, discriminant must equal 0", "Find the discriminant of f(x)", "Set discriminant = 0 and solve for k"],
-        answer: "k = 1 or k = -7",
+        answer: "k = -3",
         acceptedAnswers: ["k = 1 or k = -7", "k = -7 or k = 1", "k ∈ {1, -7}"],
         solution: "f(x) = x^2 + (k+1)x - k - 2\nFor equal roots: Δ = (k+1)^2 - 4(1)(-k-2) = 0\n(k+1)^2 + 4k + 8 = 0\nk^2 + 2k + 1 + 4k + 8 = 0\nk^2 + 6k + 9 = 0\n(k + 3)^2 = 0\nk = -3",
         xp: 15
@@ -31986,7 +31986,7 @@ export const QUESTION_BANK = [
         subtopic: "polynomial expansion and coefficients",
         difficulty: 2,
         hints: ["Expand ax²+bx(x−4)+c(x−4) fully", "Collect like terms to match x²+13x−20", "Compare coefficients of x², x¹, and x⁰"],
-        answer: "a=1, b=2, c=−5",
+        answer: "a=3, b=−2, c=5",
         acceptedAnswers: ["a=1, b=2, c=−5", "a=1,b=2,c=−5"],
         solution: "Expand: ax²+bx²−4bx+cx−4c = (a+b)x²+(c−4b)x−4c\nCompare with x²+13x−20:\na+b=1, c−4b=13, −4c=−20\nFrom −4c=−20: c=5\nFrom c−4b=13: 5−4b=13, so b=−2\nFrom a+b=1: a=3\nCorrection: c=5, b=−2, a=3\nActually: ax²+bx(x−4)+c(x−4)=ax²+bx²−4bx+cx−4c\n=(a+b)x²+(−4b+c)x−4c\nMatching: a+b=1, −4b+c=13, −4c=−20\nSo c=5, then −4b+5=13 gives b=−2, then a=3\nWait, let me recalculate: if a=1: 1+b=1 so b=0. Then 0+c=13 so c=13. Check: −4(13)=−52≠−20.\nLet's verify the problem. We have a+b=1, −4b+c=13, −4c=−20.\nFrom third: c=5. From second: −4b+5=13, so −4b=8, b=−2. From first: a−2=1, so a=3.\nBut a should match coefficient of x². Hmm, the given form gives (a+b)=1. So a+b=1.\nIf a=1, b=0: then −4(0)+c=13 gives c=13. But −4(13)=−52≠−20. Contradiction.\nActually a,b,c are coefficients in original form. So a=1, and we need 1+b=1, thus b=0.\nThen 0+c=13, c=13. But −4c=−20 means c=5. These are contradictory.\nRe-read: ax²+bx(x−4)+c(x−4)=x²+13x−20\nLeft side: ax²+bx²−4bx+cx−4c = (a+b)x²+(c−4b)x−4c\nRight side: x²+13x−20\nSo: a+b=1, c−4b=13, −4c=−20\nFrom equation 3: c=5\nFrom equation 2: 5−4b=13, so 4b=−8, b=−2\nFrom equation 1: a−2=1, so a=3\nBut the coefficient of x² on left is a+b=3−2=1. Correct!\nSo a=3, b=−2, c=5",
         xp: 10
@@ -32008,7 +32008,7 @@ export const QUESTION_BANK = [
         subtopic: "cubic with transformed roots",
         difficulty: 2,
         hints: ["If roots of f(x) are −2, 1, 3, what are roots decreased by 1?", "The new roots are −3, 0, 2", "Use Vieta's formulas or factor form"],
-        answer: "x³−3x+2 or x(x−2)(x+3)",
+        answer: "x³+x²−6x or x(x+3)(x−2)",
         acceptedAnswers: ["x³−3x+2", "x(x+3)(x−2)"],
         solution: "Original roots: −2, 1, 3\nNew roots: −2−1=−3, 1−1=0, 3−1=2\nCubic: (x+3)(x)(x−2) = x(x+3)(x−2) = x(x²+x−6) = x³+x²−6x\nWait: (x+3)(x−0)(x−2) = (x+3)·x·(x−2) = x(x+3)(x−2)\n= x[(x+3)(x−2)] = x[x²−2x+3x−6] = x[x²+x−6] = x³+x²−6x\nActually, let me recalculate: (x+3)(x−2) = x²+x−6\nSo x(x²+x−6) = x³+x²−6x\nHmm, this doesn't look standard. Let me verify:\nRoots −3, 0, 2: polynomial is (x+3)(x)(x−2)\nExpanding: x(x+3)(x−2) = x(x²+3x−2x−6) = x(x²+x−6) = x³+x²−6x\nSo the answer is x³+x²−6x or factored form x(x+3)(x−2)",
         xp: 6
