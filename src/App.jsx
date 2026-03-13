@@ -3,8 +3,8 @@ import { supabase } from "./supabase.js";
 import { QUESTION_BANK as IMPORTED_QUESTIONS } from "./questionData.js";
 import { parse, simplify, rationalize } from "mathjs";
 
-// âââ FLOATING MATH SYMBOLS BACKGROUND âââ
-const MATH_SYMBOLS = ["â", "â«", "Ï", "â", "â", "Î", "Î¸", "Â±", "â ", "â", "â", "Î»", "Ï", "Î¼", "â", "â", "â", "â", "âª", "â©", "Î±", "Î²", "Î³", "Ï", "Ï", "â", "â¤", "â", "â¨", "â©"];
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ FLOATING MATH SYMBOLS BACKGROUND Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+const MATH_SYMBOLS = ["Ã¢ÂÂ", "Ã¢ÂÂ«", "ÃÂ", "Ã¢ÂÂ", "Ã¢ÂÂ", "ÃÂ", "ÃÂ¸", "ÃÂ±", "Ã¢ÂÂ ", "Ã¢ÂÂ", "Ã¢ÂÂ", "ÃÂ»", "ÃÂ", "ÃÂ¼", "Ã¢ÂÂ", "Ã¢ÂÂ", "Ã¢ÂÂ", "Ã¢ÂÂ", "Ã¢ÂÂª", "Ã¢ÂÂ©", "ÃÂ±", "ÃÂ²", "ÃÂ³", "ÃÂ", "ÃÂ", "Ã¢ÂÂ", "Ã¢ÂÂ¤", "Ã¢ÂÂ", "Ã¢ÂÂ¨", "Ã¢ÂÂ©"];
 
 const MathSymbolsBackground = ({ variant = "dark" }) => {
   const symbols = useRef(
@@ -62,7 +62,7 @@ const MathSymbolsBackground = ({ variant = "dark" }) => {
   );
 };
 
-// âââ CUSTOM SVG LOGO âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CUSTOM SVG LOGO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const MathULogo = ({ size = 72 }) => (
   <svg width={size} height={size} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ animation: "logoGlow 3s ease-in-out infinite" }}>
     {/* Background circle with gradient */}
@@ -87,19 +87,19 @@ const MathULogo = ({ size = 72 }) => (
   </svg>
 );
 
-// âââ SMART ANSWER CHECKING âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ SMART ANSWER CHECKING Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 // Hybrid approach: symbolic math equivalence first, then normalised string fallback
-const normaliseString = (s) => s.toLowerCase().replace(/\s+/g, "").replace(/[â¬Â°]/g, "");
+const normaliseString = (s) => s.toLowerCase().replace(/\s+/g, "").replace(/[Ã¢ÂÂ¬ÃÂ°]/g, "");
 
 // Preprocess expression to add explicit * for implicit multiplication
-// e.g. "2x" â "2*x", "3(x+1)" â "3*(x+1)", "x(x+2)" â "x*(x+2)"
+// e.g. "2x" Ã¢ÂÂ "2*x", "3(x+1)" Ã¢ÂÂ "3*(x+1)", "x(x+2)" Ã¢ÂÂ "x*(x+2)"
 const addImplicitMul = (expr) => {
   let s = expr.trim();
-  // number followed by letter: 2x â 2*x, 3y â 3*y
+  // number followed by letter: 2x Ã¢ÂÂ 2*x, 3y Ã¢ÂÂ 3*y
   s = s.replace(/(\d)([a-zA-Z])/g, "$1*$2");
-  // letter/number followed by (: x( â x*(, 2( â 2*(
+  // letter/number followed by (: x( Ã¢ÂÂ x*(, 2( Ã¢ÂÂ 2*(
   s = s.replace(/([a-zA-Z0-9)])(\()/g, "$1*$2");
-  // ) followed by letter/number/(: )x â )*x, )2 â )*2, )( â )*(
+  // ) followed by letter/number/(: )x Ã¢ÂÂ )*x, )2 Ã¢ÂÂ )*2, )( Ã¢ÂÂ )*(
   s = s.replace(/(\))([a-zA-Z0-9(])/g, "$1*$2");
   return s;
 };
@@ -114,7 +114,7 @@ const isSymbolicallyEqual = (userExpr, expectedExpr) => {
     const userNode = parse(userPrep);
     const expectedNode = parse(expPrep);
 
-    // Method 1: Simplify the difference â if it equals 0, they're equivalent
+    // Method 1: Simplify the difference Ã¢ÂÂ if it equals 0, they're equivalent
     try {
       const diff = simplify(`(${userPrep}) - (${expPrep})`);
       const diffStr = diff.toString();
@@ -160,7 +160,7 @@ const isSymbolicallyEqual = (userExpr, expectedExpr) => {
 
     return false;
   } catch (e) {
-    // If parsing fails entirely, expressions aren't valid math â skip symbolic check
+    // If parsing fails entirely, expressions aren't valid math Ã¢ÂÂ skip symbolic check
     return false;
   }
 };
@@ -191,44 +191,44 @@ const isAnswerCorrect = (userAnswer, acceptedAnswers) => {
 
 const APP_VERSION = "1.0.0";
 
-// âââ TOPIC DATABASE âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ TOPIC DATABASE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const TOPICS = {
   paper1: {
     label: "Paper 1",
     topics: {
       algebra: {
         name: "Algebra",
-        icon: "ð¥",
+        icon: "Ã°ÂÂÂ¥",
         subtopics: ["Equations & Inequalities", "Polynomials", "Simultaneous Equations", "Algebraic Fractions", "Factoring", "Surds & Indices"],
         color: "#4F46E5"
       },
       complex_numbers: {
         name: "Complex Numbers",
-        icon: "â",
+        icon: "Ã¢ÂÂ",
         subtopics: ["Operations", "Argand Diagram", "Modulus & Argument", "De Moivre's Theorem", "Roots of Unity"],
         color: "#7C3AED"
       },
       sequences_series: {
         name: "Sequences & Series",
-        icon: "Î£",
+        icon: "ÃÂ£",
         subtopics: ["Arithmetic Sequences", "Geometric Sequences", "Series & Sigma Notation", "Sum to Infinity"],
         color: "#2563EB"
       },
       financial_maths: {
         name: "Financial Maths",
-        icon: "â¬",
+        icon: "Ã¢ÂÂ¬",
         subtopics: ["Compound Interest", "Depreciation", "Present Value", "Amortisation"],
         color: "#059669"
       },
       functions: {
         name: "Functions",
-        icon: "Æ",
+        icon: "ÃÂ",
         subtopics: ["Linear & Quadratic", "Cubic & Polynomial", "Exponential & Log", "Graphing & Transformations", "Injective/Surjective/Bijective"],
         color: "#0891B2"
       },
       differentiation: {
         name: "Differentiation",
-        icon: "â",
+        icon: "Ã¢ÂÂ",
         subtopics: ["First Principles", "Rules of Differentiation", "Chain/Product/Quotient Rule", "Max & Min Problems", "Rates of Change", "Curve Sketching"],
         color: "#DC2626"
       },
@@ -240,13 +240,13 @@ const TOPICS = {
       },
       induction: {
         name: "Proof by Induction",
-        icon: "â´",
+        icon: "Ã¢ÂÂ´",
         subtopics: ["Summation Proofs", "Divisibility Proofs", "Inequality Proofs"],
         color: "#9333EA"
       },
       logs_indices: {
         name: "Logarithms & Indices",
-        icon: "ã",
+        icon: "Ã£ÂÂ",
         subtopics: ["Laws of Logarithms", "Laws of Indices", "Solving Exponential Equations", "Change of Base"],
         color: "#C026D3"
       }
@@ -257,43 +257,43 @@ const TOPICS = {
     topics: {
       coord_line: {
         name: "Co-ord Geometry: Line",
-        icon: "â±",
+        icon: "Ã¢ÂÂ±",
         subtopics: ["Slope & Equation of a Line", "Parallel & Perpendicular Lines", "Area of a Triangle", "Division of a Line Segment"],
         color: "#EA580C"
       },
       coord_circle: {
         name: "Co-ord Geometry: Circle",
-        icon: "â",
+        icon: "Ã¢ÂÂ",
         subtopics: ["Equation of a Circle", "Tangent to a Circle", "Intersection of Line & Circle", "Two Circles"],
         color: "#D97706"
       },
       trigonometry: {
         name: "Trigonometry",
-        icon: "â³",
+        icon: "Ã¢ÂÂ³",
         subtopics: ["Trig Ratios & Unit Circle", "Sine & Cosine Rules", "Trig Identities", "Compound Angle Formulae", "Solving Trig Equations", "3D Trigonometry"],
         color: "#65A30D"
       },
       geometry: {
         name: "Geometry (Theorems & Proofs)",
-        icon: "â¬¡",
+        icon: "Ã¢Â¬Â¡",
         subtopics: ["Theorems & Corollaries", "Geometric Proofs", "Constructions", "Enlargements & Transformations", "Similar Triangles"],
         color: "#16A34A"
       },
       probability: {
         name: "Probability",
-        icon: "ð²",
+        icon: "Ã°ÂÂÂ²",
         subtopics: ["Counting Principles", "Arrangements & Combinations", "Expected Value", "Bernoulli Trials", "Conditional Probability"],
         color: "#0D9488"
       },
       statistics: {
         name: "Statistics",
-        icon: "ð",
+        icon: "Ã°ÂÂÂ",
         subtopics: ["Descriptive Statistics", "Normal Distribution", "Hypothesis Testing", "Confidence Intervals", "Correlation & Regression"],
         color: "#0284C7"
       },
       length_area_volume: {
         name: "Length, Area & Volume",
-        icon: "ð",
+        icon: "Ã°ÂÂÂ",
         subtopics: ["Area of 2D Shapes", "Volume of 3D Solids", "Surface Area", "Composite Shapes"],
         color: "#6D28D9"
       }
@@ -301,11 +301,11 @@ const TOPICS = {
   }
 };
 
-// âââ QUESTION BANK (from questionData.js â PDF image-based multi-part questions) âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ QUESTION BANK (from questionData.js Ã¢ÂÂ PDF image-based multi-part questions) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const QUESTION_BANK = IMPORTED_QUESTIONS;
 
 
-// âââ BADGES âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ BADGES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 
 
@@ -313,27 +313,27 @@ const QUESTION_BANK = IMPORTED_QUESTIONS;
 
 
 
-// âââ BADGES âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ BADGES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const BADGES = [
-  { id: "first_correct", name: "First Steps", icon: "ð", desc: "Get your first question correct", condition: s => s.totalCorrect >= 1 },
-  { id: "streak_3", name: "On Fire", icon: "ð¥", desc: "3-day streak", condition: s => s.streak >= 3 },
-  { id: "streak_7", name: "Unstoppable", icon: "ðª", desc: "7-day streak", condition: s => s.streak >= 7 },
-  { id: "streak_30", name: "Legend", icon: "ð", desc: "30-day streak", condition: s => s.streak >= 30 },
-  { id: "xp_100", name: "Century", icon: "ð¯", desc: "Earn 100 XP", condition: s => s.totalXP >= 100 },
-  { id: "xp_500", name: "Scholar", icon: "ð", desc: "Earn 500 XP", condition: s => s.totalXP >= 500 },
-  { id: "xp_1000", name: "Maths Master", icon: "ð", desc: "Earn 1000 XP", condition: s => s.totalXP >= 1000 },
-  { id: "speed_demon", name: "Speed Demon", icon: "â¡", desc: "Answer in under 60 seconds", condition: s => s.fastestTime > 0 && s.fastestTime < 60 },
-  { id: "speed_30", name: "Lightning", icon: "â¡", desc: "Answer correctly in under 30s", condition: s => s.fastestTime > 0 && s.fastestTime < 30 },
-  { id: "no_hints", name: "No Help Needed", icon: "ð§ ", desc: "5 correct without hints", condition: s => s.noHintStreak >= 5 },
-  { id: "perfect_week", name: "Perfect Week", icon: "â¨", desc: "7 correct in a row", condition: s => s.correctStreak >= 7 },
-  { id: "all_topics", name: "Well Rounded", icon: "ð¯", desc: "Answer from every topic", condition: s => s.topicsAttempted >= 10 },
-  { id: "q_50", name: "Half Century", icon: "ð", desc: "Answer 50 questions", condition: s => s.totalAttempted >= 50 },
-  { id: "q_100", name: "Centurion", icon: "ð¡ï¸", desc: "Answer 100 questions", condition: s => s.totalAttempted >= 100 },
-  { id: "daily_7", name: "Dedicated", icon: "ð", desc: "Complete 7 daily challenges", condition: s => s.dailyChallengesCompleted >= 7 },
-  { id: "bookmark_5", name: "Collector", icon: "ð", desc: "Bookmark 5 questions", condition: s => s.bookmarkCount >= 5 },
+  { id: "first_correct", name: "First Steps", icon: "Ã°ÂÂÂ", desc: "Get your first question correct", condition: s => s.totalCorrect >= 1 },
+  { id: "streak_3", name: "On Fire", icon: "Ã°ÂÂÂ¥", desc: "3-day streak", condition: s => s.streak >= 3 },
+  { id: "streak_7", name: "Unstoppable", icon: "Ã°ÂÂÂª", desc: "7-day streak", condition: s => s.streak >= 7 },
+  { id: "streak_30", name: "Legend", icon: "Ã°ÂÂÂ", desc: "30-day streak", condition: s => s.streak >= 30 },
+  { id: "xp_100", name: "Century", icon: "Ã°ÂÂÂ¯", desc: "Earn 100 XP", condition: s => s.totalXP >= 100 },
+  { id: "xp_500", name: "Scholar", icon: "Ã°ÂÂÂ", desc: "Earn 500 XP", condition: s => s.totalXP >= 500 },
+  { id: "xp_1000", name: "Maths Master", icon: "Ã°ÂÂÂ", desc: "Earn 1000 XP", condition: s => s.totalXP >= 1000 },
+  { id: "speed_demon", name: "Speed Demon", icon: "Ã¢ÂÂ¡", desc: "Answer in under 60 seconds", condition: s => s.fastestTime > 0 && s.fastestTime < 60 },
+  { id: "speed_30", name: "Lightning", icon: "Ã¢ÂÂ¡", desc: "Answer correctly in under 30s", condition: s => s.fastestTime > 0 && s.fastestTime < 30 },
+  { id: "no_hints", name: "No Help Needed", icon: "Ã°ÂÂ§Â ", desc: "5 correct without hints", condition: s => s.noHintStreak >= 5 },
+  { id: "perfect_week", name: "Perfect Week", icon: "Ã¢ÂÂ¨", desc: "7 correct in a row", condition: s => s.correctStreak >= 7 },
+  { id: "all_topics", name: "Well Rounded", icon: "Ã°ÂÂÂ¯", desc: "Answer from every topic", condition: s => s.topicsAttempted >= 10 },
+  { id: "q_50", name: "Half Century", icon: "Ã°ÂÂÂ", desc: "Answer 50 questions", condition: s => s.totalAttempted >= 50 },
+  { id: "q_100", name: "Centurion", icon: "Ã°ÂÂÂ¡Ã¯Â¸Â", desc: "Answer 100 questions", condition: s => s.totalAttempted >= 100 },
+  { id: "daily_7", name: "Dedicated", icon: "Ã°ÂÂÂ", desc: "Complete 7 daily challenges", condition: s => s.dailyChallengesCompleted >= 7 },
+  { id: "bookmark_5", name: "Collector", icon: "Ã°ÂÂÂ", desc: "Bookmark 5 questions", condition: s => s.bookmarkCount >= 5 },
 ];
 
-// âââ LEVEL SYSTEM âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ LEVEL SYSTEM Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const getLevel = (xp) => {
   if (xp >= 1000) return { level: 10, name: "Maths Master", xpForNext: Infinity, xpForCurrent: 1000 };
   if (xp >= 750) return { level: 9, name: "Expert", xpForNext: 1000, xpForCurrent: 750 };
@@ -347,7 +347,7 @@ const getLevel = (xp) => {
   return { level: 1, name: "Newcomer", xpForNext: 20, xpForCurrent: 0 };
 };
 
-// âââ MATH TEXT RENDERER âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MATH TEXT RENDERER Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function MathText({ text, style = {} }) {
   const ref = useRef(null);
 
@@ -376,7 +376,7 @@ function MathText({ text, style = {} }) {
         }
         ref.current.appendChild(mathSpan);
       } else if (part.startsWith('[diagram:') && part.endsWith(']')) {
-        // SVG diagram â render inline from DIAGRAMS library
+        // SVG diagram Ã¢ÂÂ render inline from DIAGRAMS library
         const diagramName = part.slice(9, -1);
         const container = document.createElement('div');
         container.style.margin = '16px 0';
@@ -387,7 +387,7 @@ function MathText({ text, style = {} }) {
         }
         ref.current.appendChild(container);
       } else {
-        // Regular text â preserve newlines and format question parts
+        // Regular text Ã¢ÂÂ preserve newlines and format question parts
         const lines = part.split('\n');
         lines.forEach((line, i) => {
           // Detect question part labels like (a), (b), (c), (i), (ii), (iii), (iv)
@@ -410,7 +410,7 @@ function MathText({ text, style = {} }) {
                 ref.current.appendChild(document.createTextNode(restText));
               }
             } else {
-              // Sub-parts (i), (ii), etc. â indent slightly
+              // Sub-parts (i), (ii), etc. Ã¢ÂÂ indent slightly
               const subDiv = document.createElement('div');
               subDiv.style.paddingLeft = '20px';
               subDiv.style.marginTop = '4px';
@@ -439,10 +439,10 @@ function MathText({ text, style = {} }) {
   return <div ref={ref} style={{ lineHeight: 1.8, ...style }} />;
 }
 
-// âââ DIAGRAMS LIBRARY âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ DIAGRAMS LIBRARY Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const DIAGRAMS = {
   // Right-angled triangle with sides a, b, c
-  right_triangle: (a="a", b="b", c="c", angle="Î¸") => `
+  right_triangle: (a="a", b="b", c="c", angle="ÃÂ¸") => `
     <svg viewBox="0 0 200 160" style="max-width:200px;margin:8px auto;display:block">
       <polygon points="20,140 180,140 20,20" fill="none" stroke="#1e293b" stroke-width="2"/>
       <rect x="20" y="120" width="20" height="20" fill="none" stroke="#1e293b" stroke-width="1.5"/>
@@ -472,12 +472,12 @@ const DIAGRAMS = {
       <circle cx="120" cy="120" r="90" fill="none" stroke="#1e293b" stroke-width="2"/>
       <line x1="120" y1="120" x2="198" y2="68" stroke="#3B82F6" stroke-width="2"/>
       <circle cx="198" cy="68" r="3" fill="#3B82F6"/>
-      <text x="165" y="60" font-size="12" fill="#3B82F6" font-weight="600">(cos Î¸, sin Î¸)</text>
-      <text x="155" y="105" font-size="12" fill="#EF4444" font-weight="600">Î¸</text>
-      <text x="225" y="118" font-size="11" fill="#64748B">0Â°</text>
-      <text x="115" y="15" font-size="11" fill="#64748B">90Â°</text>
-      <text x="2" y="118" font-size="11" fill="#64748B">180Â°</text>
-      <text x="112" y="235" font-size="11" fill="#64748B">270Â°</text>
+      <text x="165" y="60" font-size="12" fill="#3B82F6" font-weight="600">(cos ÃÂ¸, sin ÃÂ¸)</text>
+      <text x="155" y="105" font-size="12" fill="#EF4444" font-weight="600">ÃÂ¸</text>
+      <text x="225" y="118" font-size="11" fill="#64748B">0ÃÂ°</text>
+      <text x="115" y="15" font-size="11" fill="#64748B">90ÃÂ°</text>
+      <text x="2" y="118" font-size="11" fill="#64748B">180ÃÂ°</text>
+      <text x="112" y="235" font-size="11" fill="#64748B">270ÃÂ°</text>
     </svg>`,
 
   // Coordinate axes with point
@@ -509,9 +509,9 @@ const DIAGRAMS = {
       <path d="M20,100 Q60,100 80,80 Q100,40 120,20 Q140,40 160,80 Q180,100 220,100" fill="none" stroke="#1e293b" stroke-width="2"/>
       <line x1="20" y1="100" x2="220" y2="100" stroke="#cbd5e1" stroke-width="1"/>
       <line x1="120" y1="100" x2="120" y2="18" stroke="#3B82F6" stroke-width="1" stroke-dasharray="3,3"/>
-      <text x="120" y="115" text-anchor="middle" font-size="11" fill="#3B82F6" font-weight="600">Î¼</text>
-      <text x="80" y="115" text-anchor="middle" font-size="10" fill="#64748B">Î¼-Ï</text>
-      <text x="160" y="115" text-anchor="middle" font-size="10" fill="#64748B">Î¼+Ï</text>
+      <text x="120" y="115" text-anchor="middle" font-size="11" fill="#3B82F6" font-weight="600">ÃÂ¼</text>
+      <text x="80" y="115" text-anchor="middle" font-size="10" fill="#64748B">ÃÂ¼-ÃÂ</text>
+      <text x="160" y="115" text-anchor="middle" font-size="10" fill="#64748B">ÃÂ¼+ÃÂ</text>
     </svg>`,
 
 
@@ -541,7 +541,7 @@ const DIAGRAMS = {
   
   <!-- Angle mark at C -->
   <path d='M 150,100 L 140,115 L 150,118 L 160,115 Z' fill='none' stroke='#dc2626' stroke-width='1.5'/>
-  <text x='135' y='125' font-size='14' fill='#dc2626'>45Â°</text>
+  <text x='135' y='125' font-size='14' fill='#dc2626'>45ÃÂ°</text>
   
   <!-- Side label AB -->
   <text x='150' y='245' font-size='13' fill='#0891b2' text-anchor='middle'>$|AB| = 10(\\sqrt{2} - \\sqrt{2})$</text>
@@ -583,7 +583,7 @@ const DIAGRAMS = {
   
   <!-- Angle mark at A (40 degrees) -->
   <path d='M 80,140 Q 95,125 105,115' fill='none' stroke='#dc2626' stroke-width='1.5'/>
-  <text x='95' y='120' font-size='12' fill='#dc2626'>40Â°</text>
+  <text x='95' y='120' font-size='12' fill='#dc2626'>40ÃÂ°</text>
   
   <!-- Right angle mark at D -->
   <rect x='135' y='55' width='10' height='10' fill='none' stroke='#059669' stroke-width='1.5'/>
@@ -655,7 +655,7 @@ const DIAGRAMS = {
   
   <!-- Angle of elevation mark at C -->
   <path d='M 200,200 L 215,180 L 220,190' fill='none' stroke='#dc2626' stroke-width='1.5'/>
-  <text x='200' y='215' font-size='11' fill='#dc2626'>30Â°</text>
+  <text x='200' y='215' font-size='11' fill='#dc2626'>30ÃÂ°</text>
   
   <!-- Labels -->
   <text x='85' y='220' font-size='14' font-weight='bold'>A</text>
@@ -753,7 +753,7 @@ const DIAGRAMS = {
     <line x1="170" y1="150" x2="260" y2="30" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
     <circle cx="170" cy="150" r="4" fill="#1e293b"/>
     <path d="M 60,150 A 30,30 0 0,1 54,133" fill="none" stroke="#EF4444" stroke-width="1.5"/>
-    <text x="65" y="138" font-size="14" fill="#EF4444" font-style="italic">Î±</text>
+    <text x="65" y="138" font-size="14" fill="#EF4444" font-style="italic">ÃÂ±</text>
     <text x="15" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">a</text>
     <text x="164" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">o</text>
     <text x="310" y="170" font-size="15" fill="#1e293b" font-style="italic" font-weight="700">b</text>
@@ -761,7 +761,7 @@ const DIAGRAMS = {
   </svg>`,
 
   // argand_q007 - for q_007
-  argand_q007: () => `<svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 14px; font-style: italic; fill: #1e293b; } .point-label { font-size: 13px; font-style: italic; fill: #1e293b; } .value { font-size: 12px; fill: #3B82F6; }</style></defs><g><line x1='160' y1='20' x2='160' y2='300' stroke='#1e293b' stroke-width='2'/><line x1='20' y1='160' x2='300' y2='160' stroke='#1e293b' stroke-width='2'/><text x='285' y='150' class='axis-label'>Re</text><text x='155' y='35' class='axis-label'>Im</text><circle cx='160' cy='160' r='2' fill='#1e293b'/><text x='162' y='173' class='point-label'>O</text><g><circle cx='80' cy='120' r='3' fill='#1e293b'/><text x='70' y='105' class='point-label'>w = -2+2i</text></g><g><circle cx='245' cy='105' r='3' fill='#1e293b'/><text x='235' y='90' class='point-label'>u = 2â3+2i</text></g><g><text x='25' y='165' class='value'>-3</text><text x='50' y='165' class='value'>-2</text><text x='80' y='165' class='value'>-1</text><text x='200' y='165' class='value'>1</text><text x='230' y='165' class='value'>2</text><text x='260' y='165' class='value'>3</text><text x='285' y='165' class='value'>4</text></g><g><text x='155' y='290' class='value'>-1</text><text x='155' y='200' class='value'>1</text><text x='155' y='145' class='value'>2</text><text x='155' y='85' class='value'>3</text></g><g><line x1='155' y1='155' x2='160' y2='160' stroke='#1e293b' stroke-width='1'/><line x1='160' y1='160' x2='165' y2='155' stroke='#1e293b' stroke-width='1'/></g></g></svg>`,
+  argand_q007: () => `<svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 14px; font-style: italic; fill: #1e293b; } .point-label { font-size: 13px; font-style: italic; fill: #1e293b; } .value { font-size: 12px; fill: #3B82F6; }</style></defs><g><line x1='160' y1='20' x2='160' y2='300' stroke='#1e293b' stroke-width='2'/><line x1='20' y1='160' x2='300' y2='160' stroke='#1e293b' stroke-width='2'/><text x='285' y='150' class='axis-label'>Re</text><text x='155' y='35' class='axis-label'>Im</text><circle cx='160' cy='160' r='2' fill='#1e293b'/><text x='162' y='173' class='point-label'>O</text><g><circle cx='80' cy='120' r='3' fill='#1e293b'/><text x='70' y='105' class='point-label'>w = -2+2i</text></g><g><circle cx='245' cy='105' r='3' fill='#1e293b'/><text x='235' y='90' class='point-label'>u = 2Ã¢ÂÂ3+2i</text></g><g><text x='25' y='165' class='value'>-3</text><text x='50' y='165' class='value'>-2</text><text x='80' y='165' class='value'>-1</text><text x='200' y='165' class='value'>1</text><text x='230' y='165' class='value'>2</text><text x='260' y='165' class='value'>3</text><text x='285' y='165' class='value'>4</text></g><g><text x='155' y='290' class='value'>-1</text><text x='155' y='200' class='value'>1</text><text x='155' y='145' class='value'>2</text><text x='155' y='85' class='value'>3</text></g><g><line x1='155' y1='155' x2='160' y2='160' stroke='#1e293b' stroke-width='1'/><line x1='160' y1='160' x2='165' y2='155' stroke='#1e293b' stroke-width='1'/></g></g></svg>`,
 
   // graph_q022 - for q_022
   graph_q022: () => `<svg viewBox='0 0 340 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 13px; font-style: italic; fill: #1e293b; } .region-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .grid-text { font-size: 11px; fill: #666; }</style></defs><g><line x1='40' y1='250' x2='320' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='310' y='270' class='axis-label'>x</text><text x='20' y='25' class='axis-label'>y</text><g stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2' opacity='0.5'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='40' y1='210' x2='320' y2='210'/><line x1='40' y1='170' x2='320' y2='170'/><line x1='40' y1='130' x2='320' y2='130'/><line x1='40' y1='90' x2='320' y2='90'/><line x1='40' y1='50' x2='320' y2='50'/></g><g><path d='M 80 230 Q 160 100 280 80' stroke='#1e293b' stroke-width='2.5' fill='none'/><text x='85' y='255' class='grid-text'>0</text><text x='155' y='255' class='grid-text'>2</text><text x='195' y='255' class='grid-text'>4</text><text x='235' y='255' class='grid-text'>6</text><text x='35' y='255' class='grid-text'>-1</text><text x='35' y='215' class='grid-text'>1</text><text x='35' y='175' class='grid-text'>2</text><text x='35' y='135' class='grid-text'>3</text><text x='30' y='95' class='grid-text'>4</text></g><g><rect x='80' y='170' width='80' height='80' fill='#3B82F6' opacity='0.15' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3,3'/><text x='100' y='220' class='region-label'>K</text></g><g><rect x='160' y='100' width='80' height='70' fill='#EF4444' opacity='0.15' stroke='#EF4444' stroke-width='1' stroke-dasharray='3,3'/><text x='180' y='145' class='region-label'>L</text></g><g><rect x='240' y='50' width='80' height='50' fill='#10B981' opacity='0.15' stroke='#10B981' stroke-width='1' stroke-dasharray='3,3'/><text x='255' y='85' class='region-label'>N</text></g></g></svg>`,
@@ -773,7 +773,7 @@ const DIAGRAMS = {
   tree_q180: () => `<svg viewBox='0 0 360 240' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; fill: #1e293b; } .prob { font-size: 11px; fill: #3B82F6; font-weight: bold; } .event { font-size: 11px; fill: #1e293b; }</style></defs><g><circle cx='30' cy='120' r='8' fill='#1e293b'/><text x='50' y='125' class='label'>Random person</text><line x1='38' y1='110' x2='90' y2='80' stroke='#1e293b' stroke-width='2'/><line x1='38' y1='130' x2='90' y2='160' stroke='#1e293b' stroke-width='2'/><text x='50' y='85' class='prob'>0.003</text><text x='50' y='165' class='prob'>0.997</text><circle cx='100' cy='80' r='6' fill='#1e293b'/><circle cx='100' cy='160' r='6' fill='#1e293b'/><text x='110' y='75' class='event'>Has disease</text><text x='110' y='165' class='event'>No disease</text><line x1='106' y1='75' x2='150' y2='50' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='85' x2='150' y2='110' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='155' x2='150' y2='130' stroke='#1e293b' stroke-width='2'/><line x1='106' y1='165' x2='150' y2='190' stroke='#1e293b' stroke-width='2'/><text x='120' y='55' class='prob'>0.99</text><text x='120' y='105' class='prob'>0.01</text><text x='120' y='140' class='prob'>0.04</text><text x='120' y='185' class='prob'>0.96</text><circle cx='160' cy='50' r='5' fill='#1e293b'/><circle cx='160' cy='110' r='5' fill='#1e293b'/><circle cx='160' cy='130' r='5' fill='#1e293b'/><circle cx='160' cy='190' r='5' fill='#1e293b'/><text x='170' y='53' class='event'>Test +</text><text x='170' y='113' class='event'>Test -</text><text x='170' y='133' class='event'>Test +</text><text x='170' y='193' class='event'>Test -</text></g></svg>`,
 
   // golf_q191 - for q_191
-  golf_q191: () => `<svg viewBox='0 0 340 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .measure { font-size: 11px; fill: #3B82F6; font-weight: bold; } .angle { font-size: 11px; fill: #EF4444; font-weight: bold; }</style></defs><g><circle cx='170' cy='150' r='70' fill='none' stroke='#1e293b' stroke-width='2.5'/><circle cx='170' cy='150' r='3' fill='#1e293b'/><text x='175' y='155' class='label'>O (center)</text><line x1='50' y1='150' x2='170' y2='150' stroke='#1e293b' stroke-width='2'/><text x='80' y='140' class='measure'>150 m</text><circle cx='50' cy='150' r='4' fill='#1e293b'/><text x='35' y='155' class='label'>Joan</text><g><path d='M 70 150 A 20 20 0 0 0 78 105' stroke='#EF4444' stroke-width='2' fill='none'/><text x='70' y='120' class='angle'>Î±</text></g><line x1='170' y1='150' x2='160' y2='75' stroke='#1e293b' stroke-width='2'/><line x1='170' y1='150' x2='180' y2='75' stroke='#1e293b' stroke-width='2'/><text x='165' y='65' class='measure'>30 m diam</text><path d='M 160 75 A 20 20 0 0 0 180 75' stroke='#1e293b' stroke-width='2' fill='none'/><g stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'><line x1='170' y1='150' x2='160' y2='75'/><line x1='170' y1='150' x2='180' y2='75'/></g></g></svg>`,
+  golf_q191: () => `<svg viewBox='0 0 340 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .measure { font-size: 11px; fill: #3B82F6; font-weight: bold; } .angle { font-size: 11px; fill: #EF4444; font-weight: bold; }</style></defs><g><circle cx='170' cy='150' r='70' fill='none' stroke='#1e293b' stroke-width='2.5'/><circle cx='170' cy='150' r='3' fill='#1e293b'/><text x='175' y='155' class='label'>O (center)</text><line x1='50' y1='150' x2='170' y2='150' stroke='#1e293b' stroke-width='2'/><text x='80' y='140' class='measure'>150 m</text><circle cx='50' cy='150' r='4' fill='#1e293b'/><text x='35' y='155' class='label'>Joan</text><g><path d='M 70 150 A 20 20 0 0 0 78 105' stroke='#EF4444' stroke-width='2' fill='none'/><text x='70' y='120' class='angle'>ÃÂ±</text></g><line x1='170' y1='150' x2='160' y2='75' stroke='#1e293b' stroke-width='2'/><line x1='170' y1='150' x2='180' y2='75' stroke='#1e293b' stroke-width='2'/><text x='165' y='65' class='measure'>30 m diam</text><path d='M 160 75 A 20 20 0 0 0 180 75' stroke='#1e293b' stroke-width='2' fill='none'/><g stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'><line x1='170' y1='150' x2='160' y2='75'/><line x1='170' y1='150' x2='180' y2='75'/></g></g></svg>`,
 
   // trajectory_q198 - for q_198
   trajectory_q198: () => `<svg viewBox='0 0 360 260' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .coord { font-size: 10px; fill: #3B82F6; } .axis-label { font-size: 12px; font-style: italic; fill: #1e293b; }</style></defs><g><line x1='30' y1='220' x2='340' y2='220' stroke='#1e293b' stroke-width='2'/><line x1='30' y1='220' x2='30' y2='20' stroke='#1e293b' stroke-width='2'/><text x='330' y='240' class='axis-label'>x</text><text x='10' y='25' class='axis-label'>y</text><g stroke='#1e293b' stroke-width='1' opacity='0.3'><line x1='80' y1='220' x2='80' y2='20'/><line x1='130' y1='220' x2='130' y2='20'/><line x1='180' y1='220' x2='180' y2='20'/><line x1='230' y1='220' x2='230' y2='20'/><line x1='280' y1='220' x2='280' y2='20'/><line x1='30' y1='180' x2='340' y2='180'/><line x1='30' y1='140' x2='340' y2='140'/><line x1='30' y1='100' x2='340' y2='100'/><line x1='30' y1='60' x2='340' y2='60'/></g><g><text x='75' y='235' class='coord'>1</text><text x='125' y='235' class='coord'>2</text><text x='175' y='235' class='coord'>3</text><text x='225' y='235' class='coord'>4</text><text x='275' y='235' class='coord'>5</text><text x='10' y='225' class='coord'>0</text><text x='10' y='185' class='coord'>1</text><text x='10' y='145' class='coord'>2</text><text x='10' y='105' class='coord'>3</text><text x='10' y='65' class='coord'>4</text></g><path d='M 25 150 Q 150 50 310 190' stroke='#1e293b' stroke-width='2.5' fill='none'/><circle cx='25' cy='150' r='4' fill='#1e293b'/><circle cx='310' cy='190' r='4' fill='#1e293b'/><text x='15' y='165' class='label'>A</text><text x='310' y='210' class='label'>B</text></g></svg>`,
@@ -785,16 +785,16 @@ const DIAGRAMS = {
   argand_circle_q273: () => `<svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.axis-label { font-size: 14px; font-style: italic; fill: #1e293b; } .point-label { font-size: 13px; font-style: italic; fill: #1e293b; } .value { font-size: 12px; fill: #3B82F6; }</style></defs><g><line x1='160' y1='20' x2='160' y2='300' stroke='#1e293b' stroke-width='2'/><line x1='20' y1='160' x2='300' y2='160' stroke='#1e293b' stroke-width='2'/><text x='285' y='150' class='axis-label'>Re</text><text x='155' y='35' class='axis-label'>Im</text><circle cx='160' cy='160' r='2' fill='#1e293b'/><text x='162' y='175' class='point-label'>O</text><g><circle cx='120' cy='180' r='3' fill='#1e293b'/><text x='105' y='195' class='point-label'>z = 6+2i</text></g><g><circle cx='200' cy='120' r='3' fill='#1e293b'/><text x='210' y='105' class='point-label'>iz</text></g><circle cx='160' cy='150' r='30' fill='none' stroke='#1e293b' stroke-width='2' stroke-dasharray='2,2'/><text x='150' y='110' class='point-label'>c</text><g><text x='25' y='165' class='value'>-3</text><text x='50' y='165' class='value'>-2</text><text x='80' y='165' class='value'>-1</text><text x='200' y='165' class='value'>1</text><text x='230' y='165' class='value'>2</text><text x='260' y='165' class='value'>3</text></g><g><text x='155' y='290' class='value'>-1</text><text x='155' y='200' class='value'>1</text><text x='155' y='150' class='value'>2</text><text x='155' y='90' class='value'>3</text><text x='155' y='50' class='value'>4</text></g><line x1='160' y1='160' x2='120' y2='180' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='160' y1='160' x2='200' y2='120' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/></g></svg>`,
 
   // exponential_linear_q282 - for q_282
-  exponential_linear_q282: () => `<svg viewBox='0 0 360 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .graph-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .tick { font-size: 10px; fill: #666; }</style></defs><g><line x1='40' y1='250' x2='340' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='330' y='270' class='label'>x</text><text x='15' y='25' class='label'>y</text><g stroke='#1e293b' stroke-width='0.8' opacity='0.2'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='40' y1='200' x2='340' y2='200'/><line x1='40' y1='150' x2='340' y2='150'/><line x1='40' y1='100' x2='340' y2='100'/><line x1='40' y1='50' x2='340' y2='50'/></g><g><text x='75' y='265' class='tick'>0.5</text><text x='115' y='265' class='tick'>1</text><text x='155' y='265' class='tick'>1.5</text><text x='195' y='265' class='tick'>2</text><text x='235' y='265' class='tick'>2.5</text><text x='30' y='255' class='tick'>0</text><text x='25' y='205' class='tick'>1</text><text x='25' y='155' class='tick'>2</text><text x='25' y='105' class='tick'>3</text><text x='25' y='55' class='tick'>4</text></g><path d='M 60 240 Q 120 180 200 100 Q 240 60 280 40' stroke='#1e293b' stroke-width='2.5' fill='none'/><text x='220' y='70' class='graph-label'>f(x) = e^(2x)</text><line x1='60' y1='220' x2='280' y2='100' stroke='#3B82F6' stroke-width='2'/><text x='160' y='180' class='graph-label'>g(x) = 2x - 1</text><circle cx='115' cy='178' r='3' fill='#EF4444'/><text x='110' y='155' class='label'>â1.9</text></g></svg>`,
+  exponential_linear_q282: () => `<svg viewBox='0 0 360 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .graph-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .tick { font-size: 10px; fill: #666; }</style></defs><g><line x1='40' y1='250' x2='340' y2='250' stroke='#1e293b' stroke-width='2'/><line x1='40' y1='20' x2='40' y2='250' stroke='#1e293b' stroke-width='2'/><text x='330' y='270' class='label'>x</text><text x='15' y='25' class='label'>y</text><g stroke='#1e293b' stroke-width='0.8' opacity='0.2'><line x1='80' y1='250' x2='80' y2='20'/><line x1='120' y1='250' x2='120' y2='20'/><line x1='160' y1='250' x2='160' y2='20'/><line x1='200' y1='250' x2='200' y2='20'/><line x1='240' y1='250' x2='240' y2='20'/><line x1='280' y1='250' x2='280' y2='20'/><line x1='40' y1='200' x2='340' y2='200'/><line x1='40' y1='150' x2='340' y2='150'/><line x1='40' y1='100' x2='340' y2='100'/><line x1='40' y1='50' x2='340' y2='50'/></g><g><text x='75' y='265' class='tick'>0.5</text><text x='115' y='265' class='tick'>1</text><text x='155' y='265' class='tick'>1.5</text><text x='195' y='265' class='tick'>2</text><text x='235' y='265' class='tick'>2.5</text><text x='30' y='255' class='tick'>0</text><text x='25' y='205' class='tick'>1</text><text x='25' y='155' class='tick'>2</text><text x='25' y='105' class='tick'>3</text><text x='25' y='55' class='tick'>4</text></g><path d='M 60 240 Q 120 180 200 100 Q 240 60 280 40' stroke='#1e293b' stroke-width='2.5' fill='none'/><text x='220' y='70' class='graph-label'>f(x) = e^(2x)</text><line x1='60' y1='220' x2='280' y2='100' stroke='#3B82F6' stroke-width='2'/><text x='160' y='180' class='graph-label'>g(x) = 2x - 1</text><circle cx='115' cy='178' r='3' fill='#EF4444'/><text x='110' y='155' class='label'>Ã¢ÂÂ1.9</text></g></svg>`,
 
   // flight_path_q299 - for q_299
-  flight_path_q299: () => `<svg viewBox='0 0 360 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .point-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .distance { font-size: 10px; fill: #3B82F6; } .angle-text { font-size: 10px; fill: #EF4444; }</style></defs><g><g><circle cx='60' cy='220' r='4' fill='#1e293b'/><text x='40' y='240' class='point-label'>A</text><circle cx='200' cy='100' r='4' fill='#1e293b'/><text x='200' y='80' class='point-label'>B</text><circle cx='320' cy='200' r='4' fill='#1e293b'/><text x='320' y='220' class='point-label'>C</text></g><line x1='60' y1='220' x2='200' y2='100' stroke='#1e293b' stroke-width='2'/><line x1='200' y1='100' x2='320' y2='200' stroke='#1e293b' stroke-width='2'/><line x1='60' y1='220' x2='320' y2='200' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><text x='110' y='140' class='distance'>840 km</text><text x='240' y='130' class='distance'>840 km</text><text x='180' y='220' class='distance'>1450 km</text><g><path d='M 85 195 A 25 25 0 0 0 115 185' stroke='#EF4444' stroke-width='2' fill='none'/><text x='90' y='175' class='angle-text'>8.57Â°</text></g><g><path d='M 210 125 A 20 20 0 0 0 240 110' stroke='#EF4444' stroke-width='2' fill='none'/><text x='215' y='105' class='angle-text'>20Â°</text></g></g></svg>`,
+  flight_path_q299: () => `<svg viewBox='0 0 360 280' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .point-label { font-size: 11px; fill: #1e293b; font-weight: bold; } .distance { font-size: 10px; fill: #3B82F6; } .angle-text { font-size: 10px; fill: #EF4444; }</style></defs><g><g><circle cx='60' cy='220' r='4' fill='#1e293b'/><text x='40' y='240' class='point-label'>A</text><circle cx='200' cy='100' r='4' fill='#1e293b'/><text x='200' y='80' class='point-label'>B</text><circle cx='320' cy='200' r='4' fill='#1e293b'/><text x='320' y='220' class='point-label'>C</text></g><line x1='60' y1='220' x2='200' y2='100' stroke='#1e293b' stroke-width='2'/><line x1='200' y1='100' x2='320' y2='200' stroke='#1e293b' stroke-width='2'/><line x1='60' y1='220' x2='320' y2='200' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><text x='110' y='140' class='distance'>840 km</text><text x='240' y='130' class='distance'>840 km</text><text x='180' y='220' class='distance'>1450 km</text><g><path d='M 85 195 A 25 25 0 0 0 115 185' stroke='#EF4444' stroke-width='2' fill='none'/><text x='90' y='175' class='angle-text'>8.57ÃÂ°</text></g><g><path d='M 210 125 A 20 20 0 0 0 240 110' stroke='#EF4444' stroke-width='2' fill='none'/><text x='215' y='105' class='angle-text'>20ÃÂ°</text></g></g></svg>`,
 
   // norman_window_q300 - for q_300
   norman_window_q300: () => `<svg viewBox='0 0 280 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .dimension { font-size: 11px; fill: #3B82F6; }</style></defs><g><g><rect x='50' y='120' width='180' height='120' fill='none' stroke='#1e293b' stroke-width='2'/><path d='M 50 120 A 90 90 0 0 1 230 120' fill='none' stroke='#1e293b' stroke-width='2'/></g><g><line x1='140' y1='240' x2='140' y2='260' stroke='#1e293b' stroke-width='1.5'/><line x1='130' y1='260' x2='150' y2='260' stroke='#1e293b' stroke-width='1.5'/><text x='115' y='280' class='dimension'>y</text><line x1='50' y1='145' x2='230' y2='145' stroke='#1e293b' stroke-width='1.5'/><line x1='50' y1='135' x2='50' y2='155' stroke='#1e293b' stroke-width='1.5'/><line x1='230' y1='135' x2='230' y2='155' stroke='#1e293b' stroke-width='1.5'/><text x='130' y='160' class='dimension'>2x</text></g><g><line x1='140' y1='80' x2='140' y2='120' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='2,2'/><line x1='130' y1='80' x2='150' y2='80' stroke='#1e293b' stroke-width='1.5'/><line x1='130' y1='120' x2='150' y2='120' stroke='#1e293b' stroke-width='1.5'/><text x='150' y='105' class='dimension'>x</text></g><circle cx='140' cy='120' r='3' fill='#1e293b'/><text x='145' y='115' class='label'>C</text><line x1='50' y1='120' x2='140' y2='120' stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'/><line x1='230' y1='120' x2='140' y2='120' stroke='#1e293b' stroke-width='1' stroke-dasharray='2,2'/></g></svg>`,
 
   // triangle_geometry_q326 - for q_326
-  triangle_geometry_q326: () => `<svg viewBox='0 0 340 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .side-label { font-size: 11px; fill: #3B82F6; } .angle-label { font-size: 11px; fill: #EF4444; }</style></defs><g><g><circle cx='80' cy='240' r='3' fill='#1e293b'/><text x='60' y='260' class='label'>A</text><circle cx='280' cy='240' r='3' fill='#1e293b'/><text x='280' y='260' class='label'>B</text><circle cx='180' cy='60' r='3' fill='#1e293b'/><text x='180' y='40' class='label'>C</text></g><line x1='80' y1='240' x2='280' y2='240' stroke='#1e293b' stroke-width='2.5'/><line x1='280' y1='240' x2='180' y2='60' stroke='#1e293b' stroke-width='2.5'/><line x1='180' y1='60' x2='80' y2='240' stroke='#1e293b' stroke-width='2.5'/><text x='170' y='255' class='side-label'>10â2-â2</text><text x='220' y='140' class='side-label'>|AC|</text><text x='100' y='140' class='side-label'>|BC|</text><g><path d='M 95 240 A 15 15 0 0 0 87 225' stroke='#EF4444' stroke-width='2' fill='none'/><text x='85' y='235' class='angle-label'>45Â°</text></g><text x='160' y='200' class='label'>|AC| = |BC|</text></g></svg>`,
+  triangle_geometry_q326: () => `<svg viewBox='0 0 340 300' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .side-label { font-size: 11px; fill: #3B82F6; } .angle-label { font-size: 11px; fill: #EF4444; }</style></defs><g><g><circle cx='80' cy='240' r='3' fill='#1e293b'/><text x='60' y='260' class='label'>A</text><circle cx='280' cy='240' r='3' fill='#1e293b'/><text x='280' y='260' class='label'>B</text><circle cx='180' cy='60' r='3' fill='#1e293b'/><text x='180' y='40' class='label'>C</text></g><line x1='80' y1='240' x2='280' y2='240' stroke='#1e293b' stroke-width='2.5'/><line x1='280' y1='240' x2='180' y2='60' stroke='#1e293b' stroke-width='2.5'/><line x1='180' y1='60' x2='80' y2='240' stroke='#1e293b' stroke-width='2.5'/><text x='170' y='255' class='side-label'>10Ã¢ÂÂ2-Ã¢ÂÂ2</text><text x='220' y='140' class='side-label'>|AC|</text><text x='100' y='140' class='side-label'>|BC|</text><g><path d='M 95 240 A 15 15 0 0 0 87 225' stroke='#EF4444' stroke-width='2' fill='none'/><text x='85' y='235' class='angle-label'>45ÃÂ°</text></g><text x='160' y='200' class='label'>|AC| = |BC|</text></g></svg>`,
 
   // quadrilateral_circle_q328 - for q_328
   quadrilateral_circle_q328: () => `<svg viewBox='0 0 340 320' xmlns='http://www.w3.org/2000/svg'><defs><style>.label { font-size: 12px; font-style: italic; fill: #1e293b; } .point-label { font-size: 11px; fill: #1e293b; font-weight: bold; }</style></defs><g><circle cx='170' cy='160' r='100' fill='none' stroke='#1e293b' stroke-width='2'/><g><circle cx='80' cy='100' r='3' fill='#1e293b'/><text x='65' y='95' class='point-label'>A</text><circle cx='260' cy='80' r='3' fill='#1e293b'/><text x='265' y='75' class='point-label'>B</text><circle cx='270' cy='220' r='3' fill='#1e293b'/><text x='275' y='220' class='point-label'>C</text><circle cx='60' cy='210' r='3' fill='#1e293b'/><text x='40' y='220' class='point-label'>D</text></g><line x1='80' y1='100' x2='260' y2='80' stroke='#1e293b' stroke-width='2'/><line x1='260' y1='80' x2='270' y2='220' stroke='#1e293b' stroke-width='2'/><line x1='270' y1='220' x2='60' y2='210' stroke='#1e293b' stroke-width='2'/><line x1='60' y1='210' x2='80' y2='100' stroke='#1e293b' stroke-width='2'/><line x1='80' y1='100' x2='270' y2='220' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><line x1='260' y1='80' x2='60' y2='210' stroke='#1e293b' stroke-width='1.5' stroke-dasharray='3,3'/><circle cx='170' cy='160' r='3' fill='#1e293b'/><text x='175' y='165' class='point-label'>O</text></g></svg>`,
@@ -802,7 +802,7 @@ const DIAGRAMS = {
   // function_mapping_diagram - for q_332
   function_mapping_diagram: () => `<svg viewBox='0 0 400 250' xmlns='http://www.w3.org/2000/svg'>
   <!-- Title -->
-  <text x='200' y='25' font-size='16' font-weight='bold' text-anchor='middle' fill='#1e293b'>Function Mapping: f: A â B, g: B â C</text>
+  <text x='200' y='25' font-size='16' font-weight='bold' text-anchor='middle' fill='#1e293b'>Function Mapping: f: A Ã¢ÂÂ B, g: B Ã¢ÂÂ C</text>
   
   <!-- Set A (left) -->
   <circle cx='80' cy='130' r='50' fill='none' stroke='#1e293b' stroke-width='2'/>
@@ -827,13 +827,13 @@ const DIAGRAMS = {
   <text x='310' y='155' font-size='12' fill='#1e293b'>y</text>
   <text x='310' y='175' font-size='12' fill='#1e293b'>z</text>
   
-  <!-- Arrows f: A â B -->
+  <!-- Arrows f: A Ã¢ÂÂ B -->
   <path d='M 120 115 L 165 120' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   <path d='M 125 130 L 165 130' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   <path d='M 125 148 L 168 145' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   <path d='M 120 160 L 165 155' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   
-  <!-- Arrows g: B â C -->
+  <!-- Arrows g: B Ã¢ÂÂ C -->
   <path d='M 235 120 L 280 115' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   <path d='M 238 135 L 280 135' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
   <path d='M 235 150 L 280 160' stroke='#1e293b' stroke-width='2' fill='none' marker-end='url(#arrowhead)'/>
@@ -886,7 +886,7 @@ const DIAGRAMS = {
   <line x1='35' y1='70' x2='45' y2='70' stroke='#1e293b' stroke-width='1'/>
   <text x='28' y='75' font-size='10' text-anchor='end' fill='#1e293b'>-5</text>
   
-  <!-- Cubic curve f(x) = xÂ³ + 2xÂ² - 5x - 6 -->
+  <!-- Cubic curve f(x) = xÃÂ³ + 2xÃÂ² - 5x - 6 -->
   <!-- Points plotted: (-3,0), (-1,0), (2,0), (0,-6) -->
   <path d='M 60 250 Q 80 160 100 110 Q 120 80 140 250 Q 160 350 180 250 Q 200 180 220 120 Q 240 90 260 130 Q 280 200 300 290' 
         stroke='#1e293b' stroke-width='2' fill='none'/>
@@ -984,7 +984,7 @@ const DIAGRAMS = {
   
   <!-- Angle notation -->
   <path d='M 230 110 A 20 20 0 0 1 210 70' fill='none' stroke='#EF4444' stroke-width='1.5'/>
-  <text x='225' y='95' font-size='11' fill='#EF4444' font-style='italic'>Î¸</text>
+  <text x='225' y='95' font-size='11' fill='#EF4444' font-style='italic'>ÃÂ¸</text>
 </svg>`,
 
   // plane_descent_angle - for q_353
@@ -1016,7 +1016,7 @@ const DIAGRAMS = {
   
   <!-- Angle at O -->
   <path d='M 240 180 A 40 40 0 0 0 175 140' fill='none' stroke='#EF4444' stroke-width='2'/>
-  <text x='210' y='175' font-size='11' fill='#EF4444' font-style='italic'>Î±</text>
+  <text x='210' y='175' font-size='11' fill='#EF4444' font-style='italic'>ÃÂ±</text>
   
   <!-- Right angle marker -->
   <rect x='75' y='175' width='8' height='8' fill='none' stroke='#1e293b' stroke-width='1'/>
@@ -1092,15 +1092,15 @@ const DIAGRAMS = {
   <!-- Points - collinear points to show -->
   <!-- z1 = 1 + 2i -->
   <circle cx='220' cy='100' r='4' fill='#EF4444'/>
-  <text x='210' y='88' font-size='11' fill='#1e293b' font-style='italic'>zâ</text>
+  <text x='210' y='88' font-size='11' fill='#1e293b' font-style='italic'>zÃ¢ÂÂ</text>
   
   <!-- z2 = 2 + 3i -->
   <circle cx='260' cy='60' r='4' fill='#EF4444'/>
-  <text x='250' y='45' font-size='11' fill='#1e293b' font-style='italic'>zâ</text>
+  <text x='250' y='45' font-size='11' fill='#1e293b' font-style='italic'>zÃ¢ÂÂ</text>
   
   <!-- z3 (on the same line, calculated based on collinearity) = 3 + 4i -->
   <circle cx='300' cy='20' r='4' fill='#EF4444'/>
-  <text x='290' y='10' font-size='11' fill='#1e293b' font-style='italic'>zâ</text>
+  <text x='290' y='10' font-size='11' fill='#1e293b' font-style='italic'>zÃ¢ÂÂ</text>
   
   <!-- Line connecting the three collinear points -->
   <line x1='220' y1='100' x2='300' y2='20' stroke='#3B82F6' stroke-width='2' stroke-dasharray='4,4'/>
@@ -1113,14 +1113,14 @@ const DIAGRAMS = {
   triangle_pattern_sequence: () => `<svg viewBox='0 0 380 300' xmlns='http://www.w3.org/2000/svg'>
   <!-- Pattern 1: 1 triangle -->
   <g id='pattern1'>
-    <text x='30' y='30' font-size='12' font-weight='bold' fill='#1e293b'>Tâ</text>
+    <text x='30' y='30' font-size='12' font-weight='bold' fill='#1e293b'>TÃ¢ÂÂ</text>
     <polygon points='50,80 65,50 80,80' fill='none' stroke='#1e293b' stroke-width='2'/>
     <circle cx='57.5' cy='68' r='2' fill='#1e293b'/>
   </g>
   
   <!-- Pattern 2: 4 triangles (2x2) -->
   <g id='pattern2'>
-    <text x='110' y='30' font-size='12' font-weight='bold' fill='#1e293b'>Tâ</text>
+    <text x='110' y='30' font-size='12' font-weight='bold' fill='#1e293b'>TÃ¢ÂÂ</text>
     <!-- Top triangle -->
     <polygon points='130,50 145,30 160,50' fill='none' stroke='#1e293b' stroke-width='2'/>
     <!-- Bottom left -->
@@ -1134,7 +1134,7 @@ const DIAGRAMS = {
   
   <!-- Pattern 3: 9 triangles (3x3) -->
   <g id='pattern3'>
-    <text x='220' y='30' font-size='12' font-weight='bold' fill='#1e293b'>Tâ</text>
+    <text x='220' y='30' font-size='12' font-weight='bold' fill='#1e293b'>TÃ¢ÂÂ</text>
     <!-- Row 1 -->
     <polygon points='240,50 250,35 260,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
     <polygon points='260,50 270,35 280,50' fill='none' stroke='#1e293b' stroke-width='1.5'/>
@@ -1156,12 +1156,12 @@ const DIAGRAMS = {
   <text x='220' y='175' font-size='11' fill='#1e293b'>9</text>
   
   <text x='30' y='205' font-size='11' font-weight='bold' fill='#1e293b'>Triangles</text>
-  <text x='30' y='230' font-size='11' fill='#1e293b'>1Â² = 1</text>
-  <text x='110' y='230' font-size='11' fill='#1e293b'>2Â² = 4</text>
-  <text x='220' y='230' font-size='11' fill='#1e293b'>3Â² = 9</text>
+  <text x='30' y='230' font-size='11' fill='#1e293b'>1ÃÂ² = 1</text>
+  <text x='110' y='230' font-size='11' fill='#1e293b'>2ÃÂ² = 4</text>
+  <text x='220' y='230' font-size='11' fill='#1e293b'>3ÃÂ² = 9</text>
   
   <!-- Pattern formula -->
-  <text x='30' y='270' font-size='11' fill='#3B82F6' font-style='italic'>Tâ contains nÂ² small triangles</text>
+  <text x='30' y='270' font-size='11' fill='#3B82F6' font-style='italic'>TÃ¢ÂÂ contains nÃÂ² small triangles</text>
 </svg>`,
 
   // inverse_sin_diagram - for q_430
@@ -1187,32 +1187,32 @@ const DIAGRAMS = {
   
   <!-- Y-axis ticks and labels -->
   <line x1='45' y1='200' x2='55' y2='200' stroke='#1e293b' stroke-width='1'/>
-  <text x='35' y='205' font-size='10' text-anchor='end' fill='#1e293b'>Ï/4</text>
+  <text x='35' y='205' font-size='10' text-anchor='end' fill='#1e293b'>ÃÂ/4</text>
   <line x1='45' y1='150' x2='55' y2='150' stroke='#1e293b' stroke-width='1'/>
-  <text x='35' y='155' font-size='10' text-anchor='end' fill='#1e293b'>Ï/2</text>
+  <text x='35' y='155' font-size='10' text-anchor='end' fill='#1e293b'>ÃÂ/2</text>
   <line x1='45' y1='100' x2='55' y2='100' stroke='#1e293b' stroke-width='1'/>
-  <text x='25' y='105' font-size='10' text-anchor='end' fill='#1e293b'>3Ï/4</text>
+  <text x='25' y='105' font-size='10' text-anchor='end' fill='#1e293b'>3ÃÂ/4</text>
   
-  <!-- Inverse sine curve: y = arcsin(x) for -1 â¤ x â¤ 1 -->
-  <!-- Domain: [-1, 1], Range: [-Ï/2, Ï/2] or [-1.57, 1.57] -->
+  <!-- Inverse sine curve: y = arcsin(x) for -1 Ã¢ÂÂ¤ x Ã¢ÂÂ¤ 1 -->
+  <!-- Domain: [-1, 1], Range: [-ÃÂ/2, ÃÂ/2] or [-1.57, 1.57] -->
   <path d='M 100 270 Q 130 233 150 200 Q 170 165 200 150 Q 230 165 250 200 Q 270 233 300 270' 
         stroke='#1e293b' stroke-width='2.5' fill='none'/>
   
   <!-- Mark key points -->
-  <!-- Point: arcsin(-1) = -Ï/2 -->
+  <!-- Point: arcsin(-1) = -ÃÂ/2 -->
   <circle cx='100' cy='270' r='3' fill='#3B82F6'/>
-  <text x='95' y='285' font-size='9' fill='#3B82F6' font-style='italic'>-Ï/2</text>
+  <text x='95' y='285' font-size='9' fill='#3B82F6' font-style='italic'>-ÃÂ/2</text>
   
   <!-- Point: arcsin(0) = 0 -->
   <circle cx='200' cy='250' r='3' fill='#3B82F6'/>
   <text x='200' y='265' font-size='9' text-anchor='middle' fill='#3B82F6' font-style='italic'>0</text>
   
-  <!-- Point: arcsin(1) = Ï/2 -->
+  <!-- Point: arcsin(1) = ÃÂ/2 -->
   <circle cx='300' cy='230' r='3' fill='#3B82F6'/>
-  <text x='305' y='235' font-size='9' fill='#3B82F6' font-style='italic'>Ï/2</text>
+  <text x='305' y='235' font-size='9' fill='#3B82F6' font-style='italic'>ÃÂ/2</text>
   
   <!-- Curve label -->
-  <text x='250' y='100' font-size='12' fill='#1e293b' font-style='italic'>y = sinâ»Â¹(x)</text>
+  <text x='250' y='100' font-size='12' fill='#1e293b' font-style='italic'>y = sinÃ¢ÂÂ»ÃÂ¹(x)</text>
 </svg>`,
 
   // linear_cubic_intersection - for q_431
@@ -1250,10 +1250,10 @@ const DIAGRAMS = {
   <line x1='100' y1='50' x2='300' y2='450' stroke='#3B82F6' stroke-width='2.5'/>
   <text x='310' y='450' font-size='11' fill='#3B82F6' font-style='italic'>y = 4x</text>
   
-  <!-- Cubic function y = xÂ³ (curved) -->
+  <!-- Cubic function y = xÃÂ³ (curved) -->
   <path d='M 80 310 Q 100 270 120 230 Q 140 160 150 100 Q 160 70 170 50 Q 180 40 200 250 Q 220 240 240 200 Q 260 130 280 70 Q 300 30 320 10' 
         stroke='#1e293b' stroke-width='2.5' fill='none'/>
-  <text x='280' y='40' font-size='11' fill='#1e293b' font-style='italic'>y = xÂ³</text>
+  <text x='280' y='40' font-size='11' fill='#1e293b' font-style='italic'>y = xÃÂ³</text>
   
   <!-- Intersection points (approximately x = -2, 0, 2) -->
   <circle cx='100' cy='50' r='4' fill='#EF4444'/>
@@ -1342,7 +1342,7 @@ const DIAGRAMS = {
   <line x1='45' y1='120' x2='55' y2='120' stroke='#1e293b' stroke-width='1'/>
   <line x1='45' y1='80' x2='55' y2='80' stroke='#1e293b' stroke-width='1'/>
   
-  <!-- Curve: reciprocal function 1/xÂ² -->
+  <!-- Curve: reciprocal function 1/xÃÂ² -->
   <path d='M 80 180 Q 100 120 130 95 Q 160 75 200 60 Q 250 48 280 45' 
         fill='none' stroke='#1e293b' stroke-width='2'/>
   
@@ -1417,7 +1417,7 @@ const DIAGRAMS = {
   
   <!-- Angle marking -->
   <path d='M 165 150 Q 170 135 175 125' fill='none' stroke='#EF4444' stroke-width='1.5'/>
-  <text x='180' y='130' font-size='11' fill='#EF4444' font-weight='bold'>60Â°</text>
+  <text x='180' y='130' font-size='11' fill='#EF4444' font-weight='bold'>60ÃÂ°</text>
   
   <!-- Shaded sector -->
   <path d='M 160 150 L 160 70 A 80 80 0 0 1 220 100 Z' 
@@ -1435,7 +1435,7 @@ const DIAGRAMS = {
   // number_line - for q_503
   number_line: () => `<svg viewBox='0 0 320 280' xmlns='http://www.w3.org/2000/svg'>
   <!-- Title -->
-  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Number Line: |x + 1| â¤ 2</text>
+  <text x='160' y='20' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>Number Line: |x + 1| Ã¢ÂÂ¤ 2</text>
   
   <!-- Main number line -->
   <line x1='40' y1='150' x2='300' y2='150' stroke='#1e293b' stroke-width='2'/>
@@ -1462,7 +1462,7 @@ const DIAGRAMS = {
   <line x1='290' y1='140' x2='290' y2='160' stroke='#1e293b' stroke-width='1'/>
   <text x='285' y='180' font-size='11' fill='#1e293b' font-weight='bold'>2</text>
   
-  <!-- Solution interval -3 â¤ x â¤ 1 -->
+  <!-- Solution interval -3 Ã¢ÂÂ¤ x Ã¢ÂÂ¤ 1 -->
   <line x1='90' y1='150' x2='250' y2='150' stroke='#3B82F6' stroke-width='4'/>
   
   <!-- Closed circles at endpoints -->
@@ -1470,7 +1470,7 @@ const DIAGRAMS = {
   <circle cx='250' cy='150' r='5' fill='#3B82F6'/>
   
   <!-- Solution label -->
-  <text x='160' y='120' font-size='11' fill='#3B82F6' font-weight='bold'>-3 â¤ x â¤ 1</text>
+  <text x='160' y='120' font-size='11' fill='#3B82F6' font-weight='bold'>-3 Ã¢ÂÂ¤ x Ã¢ÂÂ¤ 1</text>
   <text x='160' y='220' font-size='10' fill='#1e293b'>Integer values: {-3, -2, -1, 0, 1}</text>
 </svg>`,
 
@@ -1519,7 +1519,7 @@ const DIAGRAMS = {
   
   <!-- Label for point -->
   <text x='205' y='210' font-size='11' fill='#1e293b' font-style='italic'>z = 1 - i</text>
-  <text x='180' y='165' font-size='10' fill='#EF4444' font-weight='bold'>|z| = â2</text>
+  <text x='180' y='165' font-size='10' fill='#EF4444' font-weight='bold'>|z| = Ã¢ÂÂ2</text>
 </svg>`,
 
   // sector_with_arc - for q_522
@@ -1545,7 +1545,7 @@ const DIAGRAMS = {
   
   <!-- Angle marking -->
   <path d='M 165 150 A 25 25 0 0 1 235 168' fill='none' stroke='#EF4444' stroke-width='1.5'/>
-  <text x='195' y='135' font-size='11' fill='#EF4444' font-weight='bold'>Î¸</text>
+  <text x='195' y='135' font-size='11' fill='#EF4444' font-weight='bold'>ÃÂ¸</text>
   
   <!-- Shaded sector -->
   <path d='M 160 150 L 160 60 A 90 90 0 0 1 245 185 Z' 
@@ -1560,7 +1560,7 @@ const DIAGRAMS = {
   <text x='255' y='190' font-size='10' fill='#1e293b' font-style='italic'>B</text>
   
   <!-- Label -->
-  <text x='160' y='265' font-size='10' fill='#1e293b'>Sector area = (1/2)rÂ²Î¸</text>
+  <text x='160' y='265' font-size='10' fill='#1e293b'>Sector area = (1/2)rÃÂ²ÃÂ¸</text>
 </svg>`,
 
   // argand_diagram_579 - for q_579
@@ -1673,29 +1673,29 @@ const DIAGRAMS = {
   <line x1='215' y1='100' x2='215' y2='240' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
   <line x1='50' y1='100' x2='215' y2='100' stroke='#3B82F6' stroke-width='1' stroke-dasharray='3'/>
   <circle cx='215' cy='100' r='3' fill='#3B82F6'/>
-  <text x='220' y='105' font-size='9' fill='#3B82F6' font-weight='bold'>Medianâ3500</text>
+  <text x='220' y='105' font-size='9' fill='#3B82F6' font-weight='bold'>MedianÃ¢ÂÂ3500</text>
   
   <!-- Q1 marking -->
   <circle cx='150' cy='140' r='3' fill='#EF4444'/>
-  <text x='145' y='130' font-size='9' fill='#EF4444' font-weight='bold'>Qâ</text>
+  <text x='145' y='130' font-size='9' fill='#EF4444' font-weight='bold'>QÃ¢ÂÂ</text>
   
   <!-- Q3 marking -->
   <circle cx='250' cy='75' r='3' fill='#EF4444'/>
-  <text x='255' y='70' font-size='9' fill='#EF4444' font-weight='bold'>Qâ</text>
+  <text x='255' y='70' font-size='9' fill='#EF4444' font-weight='bold'>QÃ¢ÂÂ</text>
   
   <!-- IQR label -->
-  <text x='160' y='265' font-size='9' fill='#1e293b'>IQR = Qâ - Qâ â 800 g</text>
+  <text x='160' y='265' font-size='9' fill='#1e293b'>IQR = QÃ¢ÂÂ - QÃ¢ÂÂ Ã¢ÂÂ 800 g</text>
 </svg>`,
 };
 
-// âââ DIAGRAM SVG COMPONENT âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ DIAGRAM SVG COMPONENT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function DiagramSVG({ name, params = {} }) {
   if (!DIAGRAMS[name]) return null;
   const svg = typeof DIAGRAMS[name] === 'function' ? DIAGRAMS[name](...Object.values(params)) : DIAGRAMS[name];
   return <div dangerouslySetInnerHTML={{ __html: svg }} />;
 }
 
-// âââ DRAWING CANVAS COMPONENT âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ DRAWING CANVAS COMPONENT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function DrawingCanvas({ onClear }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -1808,7 +1808,7 @@ function DrawingCanvas({ onClear }) {
           background: "#3B82F6", color: "white",
           border: "none", borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer",
           display: "flex", alignItems: "center", gap: 4,
-        }}>â More Space</button>
+        }}>Ã¢ÂÂ More Space</button>
         <span style={{ fontSize: 11, color: "#94a3b8" }}>
           {canvasHeight > MIN_HEIGHT ? `Page ${Math.ceil(canvasHeight / MIN_HEIGHT)}` : "Page 1"}
         </span>
@@ -1818,24 +1818,24 @@ function DrawingCanvas({ onClear }) {
         }}>Clear</button>
       </div>
       <div style={{ textAlign: "center", fontSize: 11, color: "#94a3b8", marginTop: 4 }}>
-        âï¸ Draw your workings â canvas extends as you write
+        Ã¢ÂÂÃ¯Â¸Â Draw your workings Ã¢ÂÂ canvas extends as you write
       </div>
     </div>
   );
 }
 
-// âââ MATHS EXPRESSION EVALUATOR âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MATHS EXPRESSION EVALUATOR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function evaluateMathExpr(expr) {
   try {
     // Clean the expression: replace maths symbols with JS equivalents
     let e = expr.trim();
     // Replace common maths symbols
-    e = e.replace(/Ã/g, "*").replace(/Ã·/g, "/").replace(/Â·/g, "*");
-    e = e.replace(/Ï/g, `(${Math.PI})`);
-    e = e.replace(/â\(([^)]+)\)/g, "Math.sqrt($1)"); // â(x)
-    e = e.replace(/â(\d+\.?\d*)/g, "Math.sqrt($1)");  // â9
-    e = e.replace(/(\d+\.?\d*)Â²/g, "Math.pow($1,2)");
-    e = e.replace(/(\d+\.?\d*)Â³/g, "Math.pow($1,3)");
+    e = e.replace(/ÃÂ/g, "*").replace(/ÃÂ·/g, "/").replace(/ÃÂ·/g, "*");
+    e = e.replace(/ÃÂ/g, `(${Math.PI})`);
+    e = e.replace(/Ã¢ÂÂ\(([^)]+)\)/g, "Math.sqrt($1)"); // Ã¢ÂÂ(x)
+    e = e.replace(/Ã¢ÂÂ(\d+\.?\d*)/g, "Math.sqrt($1)");  // Ã¢ÂÂ9
+    e = e.replace(/(\d+\.?\d*)ÃÂ²/g, "Math.pow($1,2)");
+    e = e.replace(/(\d+\.?\d*)ÃÂ³/g, "Math.pow($1,3)");
     e = e.replace(/(\d+\.?\d*)\^(\d+\.?\d*)/g, "Math.pow($1,$2)");
     e = e.replace(/sin\(/g, "Math.sin(").replace(/cos\(/g, "Math.cos(").replace(/tan\(/g, "Math.tan(");
     e = e.replace(/log\(/g, "Math.log10(").replace(/ln\(/g, "Math.log(");
@@ -1854,15 +1854,15 @@ function evaluateMathExpr(expr) {
   }
 }
 
-// âââ MATHS KEYBOARD COMPONENT âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MATHS KEYBOARD COMPONENT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function MathKeyboard({ onInsert, onCalculate, showCalcRow = false }) {
   const numberRow = ["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", ".", "0", "(", ")", "^"];
   const symbolRows = [
-    ["Ã", "Ã·", "â", "Ï", "Â²", "Â³", "Â±", "%"],
-    ["â¤", "â¥", "â ", "â", "<", ">", "Â°", "â"],
-    ["sin(", "cos(", "tan(", "log(", "ln(", "abs(", "â", "â"],
-    ["â«", "Î£", "Î", "Î¸", "Î±", "Î²", "Î»", "Î¼"],
-    ["â»Â¹", "â¿", "â", "â", "[", "]", "|", "â¦"],
+    ["ÃÂ", "ÃÂ·", "Ã¢ÂÂ", "ÃÂ", "ÃÂ²", "ÃÂ³", "ÃÂ±", "%"],
+    ["Ã¢ÂÂ¤", "Ã¢ÂÂ¥", "Ã¢ÂÂ ", "Ã¢ÂÂ", "<", ">", "ÃÂ°", "Ã¢ÂÂ"],
+    ["sin(", "cos(", "tan(", "log(", "ln(", "abs(", "Ã¢ÂÂ", "Ã¢ÂÂ"],
+    ["Ã¢ÂÂ«", "ÃÂ£", "ÃÂ", "ÃÂ¸", "ÃÂ±", "ÃÂ²", "ÃÂ»", "ÃÂ¼"],
+    ["Ã¢ÂÂ»ÃÂ¹", "Ã¢ÂÂ¿", "Ã¢ÂÂ", "Ã¢ÂÂ", "[", "]", "|", "Ã¢ÂÂ¦"],
   ];
 
   const btnStyle = {
@@ -1924,7 +1924,7 @@ function MathKeyboard({ onInsert, onCalculate, showCalcRow = false }) {
   );
 }
 
-// âââ MAIN APP âââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MAIN APP Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 export default function MathU() {
   // Auth state
   const [phone, setPhone] = useState(() => {
@@ -1947,6 +1947,7 @@ export default function MathU() {
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [username, setUsername] = useState("");
   const [pin, setPin] = useState("");
+  const pinRef = useRef(""); // tracks PIN reliably across rapid typing
 
   // Formulae & Tables refs (must be top-level, not inside conditional)
   const formulaeRefs = useRef({});
@@ -2356,10 +2357,12 @@ export default function MathU() {
     setEmail("");
     setYear(null);
     setSelectedTopics([]);
+    setPin("");
+    pinRef.current = "";
     setScreen("splash");
   };
 
-  // Send verification code (simulated for now â generates a 4-digit code)
+  // Send verification code (simulated for now Ã¢ÂÂ generates a 4-digit code)
   const sendVerificationCode = () => {
     const code = String(Math.floor(1000 + Math.random() * 9000));
     setSentCode(code);
@@ -2378,7 +2381,7 @@ export default function MathU() {
         const { data: existing } = await supabase
           .from("profiles")
           .select("id")
-          .eq("phone", normalisePhone(phone))
+          .eq("phone", normPhone)
           .single();
 
         if (existing) {
@@ -2414,7 +2417,9 @@ export default function MathU() {
 
   // Sign in with existing phone
   const signIn = async (pinOverride) => {
-    const pinToCheck = pinOverride || pin;
+    const pinToCheck = pinOverride || pinRef.current || pin;
+    const normPhone = normalisePhone(phone);
+    console.log("[MathU] signIn attempt:", { normPhone, pinLen: pinToCheck?.length });
     try {
       const { data: profile, error } = await supabase
         .from("profiles")
@@ -2423,12 +2428,14 @@ export default function MathU() {
         .single();
 
       if (error || !profile) {
+        console.error("[MathU] signIn lookup failed:", error);
         setCodeError("No account found with this number. Please sign up first.");
         return;
       }
 
-      // Check PIN
+      // Check PIN (skip if no PIN set in database)
       if (profile.pin && profile.pin !== pinToCheck) {
+        console.log("[MathU] PIN mismatch");
         setCodeError("Incorrect PIN. Please try again.");
         return;
       }
@@ -2518,7 +2525,7 @@ export default function MathU() {
   const getRandomQuestion = (topicFilter = null) => {
     let available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
     if (topicFilter) available = available.filter(q => q.topic === topicFilter);
-    // Year filtering â "5th" year students might see easier questions
+    // Year filtering Ã¢ÂÂ "5th" year students might see easier questions
     // For now, all questions are available to all years
     if (available.length === 0) available = QUESTION_BANK.filter(q => selectedTopics.includes(q.topic));
     if (available.length === 0) available = QUESTION_BANK;
@@ -2590,7 +2597,7 @@ export default function MathU() {
       const prefixes = [
         "First, let's understand what we're being asked:",
         "Now, here's the key idea:",
-        "Next step â and this is the important bit:",
+        "Next step Ã¢ÂÂ and this is the important bit:",
         "Nearly there! Now we:",
         "Finally:",
         "And we're done:"
@@ -2600,25 +2607,25 @@ export default function MathU() {
     }).join("\n\n");
 
     const tips = {
-      algebra: "ð¡ Tip: Always check your answer by substituting back into the original equation.",
-      differentiation: "ð¡ Tip: Remember â differentiation finds the rate of change. Think of it as 'how fast is y changing as x changes?'",
-      integration: "ð¡ Tip: Integration is the reverse of differentiation. Always add +C for indefinite integrals!",
-      trigonometry: "ð¡ Tip: Draw a diagram! Trig questions almost always become clearer with a picture.",
-      coord_line: "ð¡ Tip: Sketch the points on a rough graph first â it helps you check if your answer makes sense.",
-      coord_circle: "ð¡ Tip: The equation of a circle is (x-h)Â² + (y-k)Â² = rÂ². Centre is (h,k), radius is r.",
-      complex_numbers: "ð¡ Tip: Plot complex numbers on an Argand diagram to visualise what's happening.",
-      sequences_series: "ð¡ Tip: Always identify if it's arithmetic (common difference) or geometric (common ratio) first.",
-      probability: "ð¡ Tip: Draw a tree diagram or Venn diagram â it makes the logic much clearer.",
-      geometry: "ð¡ Tip: Label all angles and sides you know. Look for similar triangles or known theorems.",
-      functions: "ð¡ Tip: Try sketching the graph to get a feel for the function's behaviour.",
-      financial_maths: "ð¡ Tip: Write down what each variable represents before plugging into the formula.",
-      statistics: "ð¡ Tip: Always state the null hypothesis clearly before starting any test.",
-      induction: "ð¡ Tip: The three steps: prove base case, assume true for n=k, prove for n=k+1.",
-      logs_indices: "ð¡ Tip: Remember log rules: log(ab) = log(a) + log(b), log(a/b) = log(a) - log(b).",
-      length_area_volume: "ð¡ Tip: Always draw the shape and label dimensions. Check units!"
+      algebra: "Ã°ÂÂÂ¡ Tip: Always check your answer by substituting back into the original equation.",
+      differentiation: "Ã°ÂÂÂ¡ Tip: Remember Ã¢ÂÂ differentiation finds the rate of change. Think of it as 'how fast is y changing as x changes?'",
+      integration: "Ã°ÂÂÂ¡ Tip: Integration is the reverse of differentiation. Always add +C for indefinite integrals!",
+      trigonometry: "Ã°ÂÂÂ¡ Tip: Draw a diagram! Trig questions almost always become clearer with a picture.",
+      coord_line: "Ã°ÂÂÂ¡ Tip: Sketch the points on a rough graph first Ã¢ÂÂ it helps you check if your answer makes sense.",
+      coord_circle: "Ã°ÂÂÂ¡ Tip: The equation of a circle is (x-h)ÃÂ² + (y-k)ÃÂ² = rÃÂ². Centre is (h,k), radius is r.",
+      complex_numbers: "Ã°ÂÂÂ¡ Tip: Plot complex numbers on an Argand diagram to visualise what's happening.",
+      sequences_series: "Ã°ÂÂÂ¡ Tip: Always identify if it's arithmetic (common difference) or geometric (common ratio) first.",
+      probability: "Ã°ÂÂÂ¡ Tip: Draw a tree diagram or Venn diagram Ã¢ÂÂ it makes the logic much clearer.",
+      geometry: "Ã°ÂÂÂ¡ Tip: Label all angles and sides you know. Look for similar triangles or known theorems.",
+      functions: "Ã°ÂÂÂ¡ Tip: Try sketching the graph to get a feel for the function's behaviour.",
+      financial_maths: "Ã°ÂÂÂ¡ Tip: Write down what each variable represents before plugging into the formula.",
+      statistics: "Ã°ÂÂÂ¡ Tip: Always state the null hypothesis clearly before starting any test.",
+      induction: "Ã°ÂÂÂ¡ Tip: The three steps: prove base case, assume true for n=k, prove for n=k+1.",
+      logs_indices: "Ã°ÂÂÂ¡ Tip: Remember log rules: log(ab) = log(a) + log(b), log(a/b) = log(a) - log(b).",
+      length_area_volume: "Ã°ÂÂÂ¡ Tip: Always draw the shape and label dimensions. Check units!"
     };
 
-    return simplified + "\n\n" + (tips[question.topic] || "ð¡ Tip: Read the question carefully twice before starting. Underline the key information.");
+    return simplified + "\n\n" + (tips[question.topic] || "Ã°ÂÂÂ¡ Tip: Read the question carefully twice before starting. Underline the key information.");
   };
 
   // FEATURE 3: Sound Effects using Web Audio API
@@ -2818,7 +2825,7 @@ export default function MathU() {
     });
   };
 
-  // âââ MULTI-PART ANSWER CHECKING âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MULTI-PART ANSWER CHECKING Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   const checkPartAnswer = (partIndex) => {
     if (!currentQuestion || !currentQuestion.parts) return;
     const part = currentQuestion.parts[partIndex];
@@ -2856,7 +2863,7 @@ export default function MathU() {
     if (nextPart < currentQuestion.parts.length) {
       setActivePart(nextPart);
     } else {
-      // All parts done â stop timer
+      // All parts done Ã¢ÂÂ stop timer
       setTimerRunning(false);
     }
 
@@ -2927,7 +2934,7 @@ export default function MathU() {
     }
   };
 
-  // âââ AI WORKINGS ANALYSIS âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ AI WORKINGS ANALYSIS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   const analyseWorkings = async (partIndex) => {
     if (!currentQuestion || !currentQuestion.parts) return;
     const part = currentQuestion.parts[partIndex];
@@ -2963,7 +2970,7 @@ export default function MathU() {
         [partIndex]: {
           mistake: "Couldn't analyse your workings",
           explanation: "Compare your workings with the step-by-step solution above to find where you went wrong.",
-          encouragement: "Keep practising â you'll get there!",
+          encouragement: "Keep practising Ã¢ÂÂ you'll get there!",
         },
       }));
     } finally {
@@ -2984,9 +2991,9 @@ export default function MathU() {
 
   // FEATURE 4: Avatar System - preset avatars
   const AVATARS = [
-    "ð", "ð§ ", "ð", "ð", "ð", "ð¦", "ð±", "ð¶",
-    "ð¦", "ð¼", "ð¦", "ð®", "â½", "ð", "ð¸", "ð¨",
-    "ð", "ðª", "ð¥", "ð", "ð¯", "ð", "ð", "âï¸"
+    "Ã°ÂÂÂ", "Ã°ÂÂ§Â ", "Ã°ÂÂÂ", "Ã°ÂÂÂ", "Ã°ÂÂÂ", "Ã°ÂÂ¦Â", "Ã°ÂÂÂ±", "Ã°ÂÂÂ¶",
+    "Ã°ÂÂ¦Â", "Ã°ÂÂÂ¼", "Ã°ÂÂ¦Â", "Ã°ÂÂÂ®", "Ã¢ÂÂ½", "Ã°ÂÂÂ", "Ã°ÂÂÂ¸", "Ã°ÂÂÂ¨",
+    "Ã°ÂÂÂ", "Ã°ÂÂÂª", "Ã°ÂÂÂ¥", "Ã°ÂÂÂ", "Ã°ÂÂÂ¯", "Ã°ÂÂÂ", "Ã°ÂÂÂ", "Ã¢ÂÂÃ¯Â¸Â"
   ];
 
   // FEATURE 4: Avatar Display component
@@ -3023,7 +3030,7 @@ export default function MathU() {
     );
   };
 
-  // âââ STYLES âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ STYLES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   const colors = darkMode ? {
     primary: "#8B5CF6",
     primaryDark: "#7C3AED",
@@ -3103,7 +3110,7 @@ export default function MathU() {
     }),
   };
 
-  // âââ LOADING SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ LOADING SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (loading) {
     return (
       <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
@@ -3117,7 +3124,7 @@ export default function MathU() {
     );
   }
 
-  // âââ SPLASH SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ SPLASH SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "splash") {
     return (
       <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
@@ -3133,7 +3140,7 @@ export default function MathU() {
           <p style={{ fontSize: 13, opacity: 0.6, margin: "0 0 28px", letterSpacing: 1, textTransform: "uppercase" }}>Leaving Cert Honours Maths</p>
           {pendingInvite && (
             <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(10px)", borderRadius: 16, padding: "12px 20px", marginBottom: 24, border: "1px solid rgba(255,255,255,0.2)" }}>
-              <div style={{ fontSize: 14, fontWeight: 700 }}>ð You've been invited by a friend!</div>
+              <div style={{ fontSize: 14, fontWeight: 700 }}>Ã°ÂÂÂ You've been invited by a friend!</div>
               <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>Sign up to connect and compete</div>
             </div>
           )}
@@ -3155,7 +3162,7 @@ export default function MathU() {
     );
   }
 
-  // âââ SIGN UP: PHONE âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ SIGN UP: PHONE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "signup_phone") {
     const phoneDigits = phone.replace(/\D/g, "").length;
     const phoneValid = phoneDigits >= 7;
@@ -3163,7 +3170,7 @@ export default function MathU() {
       <div style={{ ...styles.app, position: "relative" }}>
         <MathSymbolsBackground variant="light" />
         <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
-          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>â Back</button>
+          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>Ã¢ÂÂ Back</button>
           <div style={{ textAlign: "center" }}>
             <MathULogo size={48} />
             <h2 style={{ fontSize: 24, fontWeight: 800, margin: "8px 0 4px", color: colors.text }}>Create Account</h2>
@@ -3207,7 +3214,7 @@ export default function MathU() {
           />
 
           <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Choose a 4-digit PIN</label>
-          <p style={{ fontSize: 11, color: colors.textLight, margin: "0 0 6px" }}>You'll use this to sign in â don't forget it!</p>
+          <p style={{ fontSize: 11, color: colors.textLight, margin: "0 0 6px" }}>You'll use this to sign in Ã¢ÂÂ don't forget it!</p>
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 24 }}>
             {[0, 1, 2, 3].map(i => (
               <input
@@ -3216,16 +3223,19 @@ export default function MathU() {
                 value={pin[i] || ""}
                 onChange={e => {
                   const val = e.target.value.replace(/\D/g, "");
-                  const newPin = pin.split("");
-                  newPin[i] = val;
-                  setPin(newPin.join(""));
+                  const chars = pinRef.current.split("");
+                  while (chars.length < 4) chars.push("");
+                  chars[i] = val;
+                  const fullPin = chars.join("");
+                  pinRef.current = fullPin;
+                  setPin(fullPin);
                   if (val && i < 3) {
                     const next = e.target.parentElement.children[i + 1];
                     if (next) next.focus();
                   }
                 }}
                 onKeyDown={e => {
-                  if (e.key === "Backspace" && !pin[i] && i > 0) {
+                  if (e.key === "Backspace" && !pinRef.current[i] && i > 0) {
                     const prev = e.target.parentElement.children[i - 1];
                     if (prev) prev.focus();
                   }
@@ -3304,15 +3314,15 @@ export default function MathU() {
     );
   }
 
-  // âââ VERIFY CODE âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ VERIFY CODE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "verify_code") {
     return (
       <div style={{ ...styles.app, position: "relative" }}>
         <MathSymbolsBackground variant="light" />
         <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
-          <button onClick={() => setScreen("signup_phone")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>â Back</button>
+          <button onClick={() => setScreen("signup_phone")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>Ã¢ÂÂ Back</button>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>ð</div>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>Ã°ÂÂÂ</div>
             <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>Verify Your Number</h2>
             <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 2 of 3</p>
             <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 16 }}>
@@ -3385,14 +3395,14 @@ export default function MathU() {
     );
   }
 
-  // âââ SIGN IN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ SIGN IN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "signin") {
     const hasSavedPhone = phoneSaved && phone && phone.replace(/\D/g, "").length >= 7;
     return (
       <div style={{ ...styles.app, position: "relative" }}>
         <MathSymbolsBackground variant="light" />
         <div style={{ padding: "40px 24px 24px", position: "relative", zIndex: 1 }}>
-          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>â Back</button>
+          <button onClick={() => setScreen("splash")} style={{ background: "none", border: "none", fontSize: 16, color: colors.textLight, cursor: "pointer", marginBottom: 16 }}>Ã¢ÂÂ Back</button>
           <div style={{ textAlign: "center" }}>
             <MathULogo size={48} />
             <h2 style={{ fontSize: 24, fontWeight: 800, margin: "8px 0 8px", color: colors.text }}>Welcome Back!</h2>
@@ -3435,9 +3445,11 @@ export default function MathU() {
                 value={pin[i] || ""}
                 onChange={e => {
                   const val = e.target.value.replace(/\D/g, "");
-                  const newPin = pin.split("");
-                  newPin[i] = val;
-                  const fullPin = newPin.join("");
+                  const chars = pinRef.current.split("");
+                  while (chars.length < 4) chars.push("");
+                  chars[i] = val;
+                  const fullPin = chars.join("");
+                  pinRef.current = fullPin;
                   setPin(fullPin);
                   setCodeError("");
                   if (val && i < 3) {
@@ -3445,12 +3457,12 @@ export default function MathU() {
                     if (next) next.focus();
                   }
                   // Auto-login when all 4 digits entered
-                  if (val && i === 3 && fullPin.length === 4 && phone.replace(/\D/g, "").length >= 7) {
-                    setTimeout(() => signIn(fullPin), 150);
+                  if (val && i === 3 && fullPin.replace(/\s/g, "").length >= 4 && phone.replace(/\D/g, "").length >= 7) {
+                    setTimeout(() => signIn(fullPin.trim()), 150);
                   }
                 }}
                 onKeyDown={e => {
-                  if (e.key === "Backspace" && !pin[i] && i > 0) {
+                  if (e.key === "Backspace" && !pinRef.current[i] && i > 0) {
                     const prev = e.target.parentElement.children[i - 1];
                     if (prev) prev.focus();
                   }
@@ -3491,12 +3503,12 @@ export default function MathU() {
     );
   }
 
-  // âââ ONBOARDING: YEAR âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ONBOARDING: YEAR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "onboard_year") {
     return (
       <div style={styles.app}>
         <div style={{ padding: "40px 24px 24px", textAlign: "center" }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>ð</div>
+          <div style={{ fontSize: 48, marginBottom: 12 }}>Ã°ÂÂÂ</div>
           <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 4px", color: colors.text }}>What year are you in?</h2>
           <p style={{ color: colors.textLight, margin: "0 0 8px", fontSize: 14 }}>Step 2 of 2</p>
           <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 24 }}>
@@ -3515,7 +3527,7 @@ export default function MathU() {
                 onMouseOver={e => { e.currentTarget.style.background = colors.primary; e.currentTarget.style.color = "white"; }}
                 onMouseOut={e => { e.currentTarget.style.background = "white"; e.currentTarget.style.color = colors.text; }}
               >
-                <span style={{ fontSize: 36 }}>{y === "5th" ? "5ï¸â£" : "6ï¸â£"}</span>
+                <span style={{ fontSize: 36 }}>{y === "5th" ? "5Ã¯Â¸ÂÃ¢ÂÂ£" : "6Ã¯Â¸ÂÃ¢ÂÂ£"}</span>
                 <span style={{ fontSize: 18, fontWeight: 700 }}>{y} Year</span>
               </button>
             ))}
@@ -3525,7 +3537,7 @@ export default function MathU() {
     );
   }
 
-  // âââ ONBOARDING: TOPICS âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ONBOARDING: TOPICS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "onboard_topics") {
     const allTopics = getAllTopics();
     return (
@@ -3577,7 +3589,7 @@ export default function MathU() {
     );
   }
 
-  // âââ HOME SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ HOME SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "home") {
     const level = getLevel(stats.totalXP);
     const xpProgress = level.xpForNext === Infinity ? 1 : (stats.totalXP - level.xpForCurrent) / (level.xpForNext - level.xpForCurrent);
@@ -3588,7 +3600,7 @@ export default function MathU() {
         {/* Header */}
         <div style={styles.header}>
           <div>
-            <div style={{ fontSize: 13, opacity: 0.8 }}>Hey {username}! ð</div>
+            <div style={{ fontSize: 13, opacity: 0.8 }}>Hey {username}! Ã°ÂÂÂ</div>
             <div style={{ fontSize: 20, fontWeight: 800 }}>MathU</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -3597,15 +3609,15 @@ export default function MathU() {
                 background: "none", border: "none", color: colors.text, cursor: "pointer",
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 4
               }}>
-              <div style={{ fontSize: 20 }}>ð¥</div>
+              <div style={{ fontSize: 20 }}>Ã°ÂÂÂ¥</div>
               <div style={{ fontSize: 9, opacity: 0.8 }}>{friends.length}</div>
             </button>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 20, fontWeight: 800 }}>ð¥ {stats.streak}</div>
+              <div style={{ fontSize: 20, fontWeight: 800 }}>Ã°ÂÂÂ¥ {stats.streak}</div>
               <div style={{ fontSize: 10, opacity: 0.8 }}>Streak</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 20, fontWeight: 800 }}>â¡ {stats.totalXP}</div>
+              <div style={{ fontSize: 20, fontWeight: 800 }}>Ã¢ÂÂ¡ {stats.totalXP}</div>
               <div style={{ fontSize: 10, opacity: 0.8 }}>XP</div>
             </div>
           </div>
@@ -3615,7 +3627,7 @@ export default function MathU() {
           {/* Level card */}
           <div style={styles.card}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>Level {level.level} â {level.name}</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>Level {level.level} Ã¢ÂÂ {level.name}</span>
               <span style={{ fontSize: 12, color: colors.textLight }}>
                 {level.xpForNext === Infinity ? "MAX" : `${stats.totalXP}/${level.xpForNext} XP`}
               </span>
@@ -3628,10 +3640,10 @@ export default function MathU() {
           {/* Daily Challenge */}
           <div style={{ ...styles.card, background: colors.gradient, color: "white" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ fontSize: 42 }}>ð</div>
+              <div style={{ fontSize: 42 }}>Ã°ÂÂÂ</div>
               <div style={{ flex: 1 }}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 18, fontWeight: 800 }}>
-                  {stats.dailyCompleted ? "Daily Complete! â" : "Daily Challenge"}
+                  {stats.dailyCompleted ? "Daily Complete! Ã¢ÂÂ" : "Daily Challenge"}
                 </h3>
                 <p style={{ margin: 0, fontSize: 13, opacity: 0.9 }}>
                   {stats.dailyCompleted ? "Great work! Come back tomorrow." : "Today's question is waiting for you!"}
@@ -3647,12 +3659,12 @@ export default function MathU() {
                 <button onClick={() => {
                   const today = new Date().toISOString().split("T")[0];
                   const inviteCode = getInviteCode(userId);
-                  const shareText = `ð Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
+                  const shareText = `Ã°ÂÂÂ Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                   navigator.clipboard.writeText(shareText);
                   alert("Invite message copied to clipboard!");
                 }}
                   style={{ ...styles.btn("white"), color: colors.primaryDark, padding: "10px 14px" }}>
-                  ð¨ Invite Friends
+                  Ã°ÂÂÂ¨ Invite Friends
                 </button>
               </div>
             )}
@@ -3663,10 +3675,10 @@ export default function MathU() {
                 {dailyResults.map((result, idx) => (
                   <div key={idx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: idx < dailyResults.length - 1 ? `1px solid ${colors.textLight}30` : "none" }}>
                     <span style={{ fontSize: 13, color: colors.text }}>
-                      {result.name} <span style={{ marginLeft: 8, fontSize: 12, color: colors.textLight }}>{result.correct ? "â" : "â"}</span>
+                      {result.name} <span style={{ marginLeft: 8, fontSize: 12, color: colors.textLight }}>{result.correct ? "Ã¢ÂÂ" : "Ã¢ÂÂ"}</span>
                     </span>
                     <span style={{ fontSize: 12, color: colors.textLight }}>
-                      â±ï¸ {Math.floor(result.timeTaken / 60) > 0 ? `${Math.floor(result.timeTaken / 60)}m ${result.timeTaken % 60}s` : `${result.timeTaken}s`}
+                      Ã¢ÂÂ±Ã¯Â¸Â {Math.floor(result.timeTaken / 60) > 0 ? `${Math.floor(result.timeTaken / 60)}m ${result.timeTaken % 60}s` : `${result.timeTaken}s`}
                     </span>
                   </div>
                 ))}
@@ -3680,12 +3692,12 @@ export default function MathU() {
                 </p>
                 <button onClick={() => {
                   const inviteCode = getInviteCode(userId);
-                  const shareText = `ð Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
+                  const shareText = `Ã°ÂÂÂ Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                   navigator.clipboard.writeText(shareText);
                   alert("Invite message copied to clipboard!");
                 }}
                   style={{ ...styles.btn("white"), color: colors.primaryDark, width: "100%", marginTop: 8, padding: "8px" }}>
-                  ð¨ Invite Friends
+                  Ã°ÂÂÂ¨ Invite Friends
                 </button>
               </div>
             )}
@@ -3694,7 +3706,7 @@ export default function MathU() {
           {/* FEATURE 2: Weekly Challenge card */}
           <div style={{...styles.card, background: `${colors.primary}10`, border: `2px solid ${colors.primary}30`}}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 32 }}>ð</div>
+              <div style={{ fontSize: 32 }}>Ã°ÂÂÂ</div>
               <div style={{ flex: 1 }}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>
                   Weekly Challenge
@@ -3713,7 +3725,7 @@ export default function MathU() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 11, fontWeight: 700
                 }}>
-                  {i < weeklyChallenge.daysCompleted ? "â" : ["M", "T", "W", "T", "F", "S", "S"][i]}
+                  {i < weeklyChallenge.daysCompleted ? "Ã¢ÂÂ" : ["M", "T", "W", "T", "F", "S", "S"][i]}
                 </div>
               ))}
             </div>
@@ -3723,7 +3735,7 @@ export default function MathU() {
               </span>
               {weeklyChallenge.daysCompleted > 0 && (
                 <span style={{ fontSize: 12, color: colors.primary, fontWeight: 600, marginLeft: 8 }}>
-                  {weeklyChallenge.daysCompleted === 7 ? "ð Complete!" : "Keep it up!"}
+                  {weeklyChallenge.daysCompleted === 7 ? "Ã°ÂÂÂ Complete!" : "Keep it up!"}
                 </span>
               )}
             </div>
@@ -3740,7 +3752,7 @@ export default function MathU() {
                 fontSize: 18, padding: "18px 28px",
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
               }}>
-              ð Quick Practice
+              Ã°ÂÂÂ Quick Practice
             </button>
             <div style={{ textAlign: "center", fontSize: 12, color: colors.textLight, marginTop: 8 }}>
               Jump into a random question from your topics
@@ -3750,7 +3762,7 @@ export default function MathU() {
           {/* Practice by topic */}
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>
-              Practice by Topic ð
+              Practice by Topic Ã°ÂÂÂ
             </h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {selectedTopics.slice(0, 6).map(key => {
@@ -3778,19 +3790,19 @@ export default function MathU() {
             </div>
             {selectedTopics.length > 6 && (
               <button onClick={() => setScreen("dashboard")} style={{ ...styles.btnOutline(colors.primary), width: "100%", marginTop: 12, padding: "10px" }}>
-                View All Topics â
+                View All Topics Ã¢ÂÂ
               </button>
             )}
           </div>
 
           {/* Quick stats */}
           <div style={styles.card}>
-            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Your Stats ð</h3>
+            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Your Stats Ã°ÂÂÂ</h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, textAlign: "center" }}>
               {[
-                { label: "Correct", value: stats.totalCorrect, icon: "â" },
-                { label: "Attempted", value: stats.totalAttempted, icon: "ð" },
-                { label: "Accuracy", value: stats.totalAttempted ? Math.round((stats.totalCorrect / stats.totalAttempted) * 100) + "%" : "â", icon: "ð¯" },
+                { label: "Correct", value: stats.totalCorrect, icon: "Ã¢ÂÂ" },
+                { label: "Attempted", value: stats.totalAttempted, icon: "Ã°ÂÂÂ" },
+                { label: "Accuracy", value: stats.totalAttempted ? Math.round((stats.totalCorrect / stats.totalAttempted) * 100) + "%" : "Ã¢ÂÂ", icon: "Ã°ÂÂÂ¯" },
               ].map(s => (
                 <div key={s.label} style={{ padding: 12, background: "#f8fafc", borderRadius: 12 }}>
                   <div style={{ fontSize: 24 }}>{s.icon}</div>
@@ -3804,7 +3816,7 @@ export default function MathU() {
           {/* Topic Mastery Tracker */}
           {Object.keys(stats.topicStats).length > 0 && (
             <div style={styles.card}>
-              <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Topic Mastery ð¯</h3>
+              <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Topic Mastery Ã°ÂÂÂ¯</h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
                 {selectedTopics.slice(0, 9).map(topicKey => {
                   const topic = allTopics[topicKey];
@@ -3843,7 +3855,7 @@ export default function MathU() {
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
                 padding: "16px 12px", fontSize: 13, fontWeight: 700,
               }}>
-              <span style={{ fontSize: 24 }}>ð</span>
+              <span style={{ fontSize: 24 }}>Ã°ÂÂÂ</span>
               Saved ({bookmarks.length})
             </button>
             <button onClick={() => setScreen("formulas")}
@@ -3852,7 +3864,7 @@ export default function MathU() {
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
                 padding: "16px 12px", fontSize: 13, fontWeight: 700,
               }}>
-              <span style={{ fontSize: 24 }}>ð</span>
+              <span style={{ fontSize: 24 }}>Ã°ÂÂÂ</span>
               Formulae & Tables
             </button>
           </div>
@@ -3861,11 +3873,11 @@ export default function MathU() {
         {/* Bottom Nav */}
         <div style={styles.nav}>
           {[
-            { icon: "ð ", label: "Home", scr: "home" },
-            { icon: "ð", label: "Dashboard", scr: "dashboard" },
-            { icon: "ð", label: "Leaderboard", scr: "leaderboard" },
-            { icon: "ð", label: "Badges", scr: "badges" },
-            { icon: "âï¸", label: "Settings", scr: "settings" },
+            { icon: "Ã°ÂÂÂ ", label: "Home", scr: "home" },
+            { icon: "Ã°ÂÂÂ", label: "Dashboard", scr: "dashboard" },
+            { icon: "Ã°ÂÂÂ", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "Ã°ÂÂÂ", label: "Badges", scr: "badges" },
+            { icon: "Ã¢ÂÂÃ¯Â¸Â", label: "Settings", scr: "settings" },
           ].map(item => (
             <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
               <span style={{ fontSize: 22 }}>{item.icon}</span>
@@ -3878,7 +3890,7 @@ export default function MathU() {
     );
   }
 
-  // âââ QUESTION SCREEN (Multi-Part Image-Based) âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ QUESTION SCREEN (Multi-Part Image-Based) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "question") {
     const allTopics = getAllTopics();
     const topic = allTopics[currentQuestion?.topic];
@@ -3894,7 +3906,7 @@ export default function MathU() {
             fontSize: 48, fontWeight: 900, color: colors.accent, zIndex: 200,
             animation: "fadeUp 2s forwards", textShadow: "0 2px 8px rgba(0,0,0,0.2)",
           }}>
-            +{xpAnimation} XP â¡
+            +{xpAnimation} XP Ã¢ÂÂ¡
           </div>
         )}
 
@@ -3915,14 +3927,14 @@ export default function MathU() {
         <div style={{ ...styles.header, justifyContent: "space-between" }}>
           <button onClick={() => { setTimerRunning(false); setScreen("home"); setPracticeMode(false); }}
             style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
-            â Back
+            Ã¢ÂÂ Back
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <div style={{
               background: frozen ? colors.accent : "rgba(255,255,255,0.2)",
               borderRadius: 20, padding: "6px 14px", fontSize: 16, fontWeight: 700,
             }}>
-              {frozen ? "â¸ " : "â± "}{formatTime(timer)}
+              {frozen ? "Ã¢ÂÂ¸ " : "Ã¢ÂÂ± "}{formatTime(timer)}
             </div>
             <button onClick={toggleFreeze}
               style={{
@@ -3930,7 +3942,7 @@ export default function MathU() {
                 border: "none", borderRadius: 20, padding: "6px 14px",
                 color: "white", fontSize: 13, fontWeight: 700, cursor: "pointer",
               }}>
-              {frozen ? "â¶ Resume" : "â Freeze"}
+              {frozen ? "Ã¢ÂÂ¶ Resume" : "Ã¢ÂÂ Freeze"}
             </button>
           </div>
         </div>
@@ -3940,7 +3952,7 @@ export default function MathU() {
             background: "#FEF3C7", padding: "12px 20px", textAlign: "center",
             color: "#92400E", fontSize: 13, fontWeight: 600,
           }}>
-            âï¸ Question frozen â take your time! Timer is paused.
+            Ã¢ÂÂÃ¯Â¸Â Question frozen Ã¢ÂÂ take your time! Timer is paused.
           </div>
         )}
 
@@ -3984,7 +3996,7 @@ export default function MathU() {
                     background: bookmarks.includes(currentQuestion.id) ? colors.accent : "transparent",
                     border: `2px solid ${bookmarks.includes(currentQuestion.id) ? colors.accent : colors.textLight}`,
                     borderRadius: 8, padding: "4px 8px", cursor: "pointer", fontSize: 14, fontWeight: 700,
-                  }}>ð</button>
+                  }}>Ã°ÂÂÂ</button>
                 <span style={{
                   background: "#eff6ff", color: "#2563eb",
                   padding: "4px 10px", borderRadius: 10, fontSize: 11, fontWeight: 700,
@@ -4026,7 +4038,7 @@ export default function MathU() {
             </div>
           )}
 
-          {/* âââ MULTI-PART QUESTION PANELS âââ */}
+          {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MULTI-PART QUESTION PANELS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
           {hasParts && currentQuestion.parts.map((part, pIdx) => {
             const result = partResults[pIdx];
             const isActive = pIdx === activePart && !result;
@@ -4062,11 +4074,11 @@ export default function MathU() {
                     )}
                   </div>
                   <div>
-                    {isDone && result.correct && <span style={{ fontSize: 18 }}>â</span>}
-                    {isDone && !result.correct && !result.skipped && <span style={{ fontSize: 18 }}>â</span>}
-                    {isDone && result.skipped && <span style={{ fontSize: 18 }}>â­ï¸</span>}
+                    {isDone && result.correct && <span style={{ fontSize: 18 }}>Ã¢ÂÂ</span>}
+                    {isDone && !result.correct && !result.skipped && <span style={{ fontSize: 18 }}>Ã¢ÂÂ</span>}
+                    {isDone && result.skipped && <span style={{ fontSize: 18 }}>Ã¢ÂÂ­Ã¯Â¸Â</span>}
                     {isActive && <span style={{ fontSize: 12, color: colors.primary, fontWeight: 700 }}>ACTIVE</span>}
-                    {isLocked && <span style={{ fontSize: 14 }}>ð</span>}
+                    {isLocked && <span style={{ fontSize: 14 }}>Ã°ÂÂÂ</span>}
                   </div>
                 </div>
 
@@ -4084,7 +4096,7 @@ export default function MathU() {
                     {part.hints && part.hints.length > 0 && (
                       <div style={{ marginBottom: 12 }}>
                         <div style={{ fontSize: 12, fontWeight: 700, color: colors.textLight, marginBottom: 6 }}>
-                          ð¡ Hints {hintsUsedForPart > 0 && <span style={{ color: colors.accent }}>(â{hintsUsedForPart * 20}% XP)</span>}
+                          Ã°ÂÂÂ¡ Hints {hintsUsedForPart > 0 && <span style={{ color: colors.accent }}>(Ã¢ÂÂ{hintsUsedForPart * 20}% XP)</span>}
                         </div>
                         {part.hints.map((hint, hIdx) => (
                           <div key={hIdx} style={{ marginBottom: 6 }}>
@@ -4106,7 +4118,7 @@ export default function MathU() {
                                   fontSize: 12, color: hIdx > hintsUsedForPart ? "#94a3b8" : "#b45309",
                                   fontWeight: 600, textAlign: "left",
                                 }}>
-                                {hIdx > hintsUsedForPart ? `ð Hint ${hIdx + 1}` : `ð¡ Reveal Hint ${hIdx + 1}`}
+                                {hIdx > hintsUsedForPart ? `Ã°ÂÂÂ Hint ${hIdx + 1}` : `Ã°ÂÂÂ¡ Reveal Hint ${hIdx + 1}`}
                               </button>
                             )}
                           </div>
@@ -4117,7 +4129,7 @@ export default function MathU() {
                     {/* Workings area */}
                     <div style={{ marginBottom: 12 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: colors.textLight }}>âï¸ Workings</div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: colors.textLight }}>Ã¢ÂÂÃ¯Â¸Â Workings</div>
                         <div style={{ display: "flex", gap: 4 }}>
                           <button onClick={() => setWorkingsMode("pen")}
                             style={{
@@ -4125,14 +4137,14 @@ export default function MathU() {
                               color: workingsMode === "pen" ? "white" : colors.textLight,
                               border: "none", borderRadius: 6, padding: "4px 10px", fontSize: 11,
                               fontWeight: 600, cursor: "pointer",
-                            }}>ð Pen</button>
+                            }}>Ã°ÂÂÂ Pen</button>
                           <button onClick={() => setWorkingsMode("keyboard")}
                             style={{
                               background: workingsMode === "keyboard" ? colors.primary : "#f1f5f9",
                               color: workingsMode === "keyboard" ? "white" : colors.textLight,
                               border: "none", borderRadius: 6, padding: "4px 10px", fontSize: 11,
                               fontWeight: 600, cursor: "pointer",
-                            }}>â¨ Keyboard</button>
+                            }}>Ã¢ÂÂ¨ Keyboard</button>
                         </div>
                       </div>
                       {workingsMode === "pen" ? (
@@ -4191,7 +4203,7 @@ export default function MathU() {
                             color: showAnswerKeyboard ? "white" : colors.textLight,
                             border: "none", borderRadius: 6, padding: "4px 8px", fontSize: 10,
                             fontWeight: 600, cursor: "pointer",
-                          }}>â¨ Symbols</button>
+                          }}>Ã¢ÂÂ¨ Symbols</button>
                       </div>
                       <input
                         ref={answerInputRef}
@@ -4219,7 +4231,7 @@ export default function MathU() {
                         </button>
                         <button onClick={() => skipPart(pIdx)}
                           style={{ ...styles.btnOutline(colors.textLight), flex: 1, fontSize: 13 }}>
-                          Skip â­ï¸
+                          Skip Ã¢ÂÂ­Ã¯Â¸Â
                         </button>
                       </div>
                     </div>
@@ -4235,7 +4247,7 @@ export default function MathU() {
                       borderRadius: 8, padding: "8px 12px", marginBottom: 8,
                     }}>
                       <div style={{ fontSize: 14, fontWeight: 700, color: result.correct ? colors.success : colors.danger }}>
-                        {result.correct ? "â Correct!" : result.skipped ? "â­ï¸ Skipped" : "â Not quite"}
+                        {result.correct ? "Ã¢ÂÂ Correct!" : result.skipped ? "Ã¢ÂÂ­Ã¯Â¸Â Skipped" : "Ã¢ÂÂ Not quite"}
                         {result.xpEarned > 0 && <span style={{ marginLeft: 8, color: colors.accent }}>+{result.xpEarned} XP</span>}
                       </div>
                       {result.answer && !result.skipped && (
@@ -4256,7 +4268,7 @@ export default function MathU() {
                         cursor: "pointer", fontSize: 12, fontWeight: 600,
                         color: colors.text, textAlign: "left",
                       }}>
-                      {partSolutionVisible[pIdx] ? "â¼ Hide Solution" : "â¶ Show Solution"}
+                      {partSolutionVisible[pIdx] ? "Ã¢ÂÂ¼ Hide Solution" : "Ã¢ÂÂ¶ Show Solution"}
                     </button>
 
                     {partSolutionVisible[pIdx] && (
@@ -4287,7 +4299,7 @@ export default function MathU() {
                       </div>
                     )}
 
-                    {/* AI "Where did I go wrong?" â only for wrong/skipped answers */}
+                    {/* AI "Where did I go wrong?" Ã¢ÂÂ only for wrong/skipped answers */}
                     {!result.correct && (
                       <div style={{ marginTop: 8 }}>
                         {!aiFeedback[pIdx] && !aiLoading[pIdx] && (
@@ -4299,7 +4311,7 @@ export default function MathU() {
                               color: colors.accent, textAlign: "center",
                               transition: "all 0.2s",
                             }}>
-                            ð¤ Where did I go wrong?
+                            Ã°ÂÂ¤Â Where did I go wrong?
                           </button>
                         )}
 
@@ -4311,7 +4323,7 @@ export default function MathU() {
                             <div style={{ fontSize: 13, color: colors.accent, fontWeight: 600 }}>
                               Analysing your workings...
                             </div>
-                            <div style={{ fontSize: 20, marginTop: 4, animation: "pulse 1.5s infinite" }}>ð§ </div>
+                            <div style={{ fontSize: 20, marginTop: 4, animation: "pulse 1.5s infinite" }}>Ã°ÂÂ§Â </div>
                           </div>
                         )}
 
@@ -4321,7 +4333,7 @@ export default function MathU() {
                             borderRadius: 10, padding: 14, marginTop: 4,
                           }}>
                             <div style={{ fontSize: 13, fontWeight: 800, color: colors.accent, marginBottom: 8 }}>
-                              ð¤ AI Tutor Feedback
+                              Ã°ÂÂ¤Â AI Tutor Feedback
                             </div>
 
                             {aiFeedback[pIdx].mistake && (
@@ -4347,7 +4359,7 @@ export default function MathU() {
                                 background: `${colors.success}10`, borderRadius: 6, padding: "6px 10px",
                                 fontSize: 12, color: colors.success, fontWeight: 600,
                               }}>
-                                ðª {aiFeedback[pIdx].encouragement}
+                                Ã°ÂÂÂª {aiFeedback[pIdx].encouragement}
                               </div>
                             )}
                           </div>
@@ -4368,11 +4380,11 @@ export default function MathU() {
               color: "white",
               textAlign: "center",
             }}>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>ð</div>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>Ã°ÂÂÂ</div>
               <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>Question Complete!</div>
               <div style={{ fontSize: 14, opacity: 0.9, marginBottom: 12 }}>
                 {Object.values(partResults).filter(r => r.correct).length} / {currentQuestion.parts.length} parts correct
-                {getTotalXpEarned() > 0 && ` â +${getTotalXpEarned()} XP`}
+                {getTotalXpEarned() > 0 && ` Ã¢ÂÂ +${getTotalXpEarned()} XP`}
               </div>
               <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
                 <button onClick={() => { setScreen("home"); setPracticeMode(false); }}
@@ -4381,19 +4393,19 @@ export default function MathU() {
                 </button>
                 <button onClick={() => startPractice()}
                   style={{ background: "white", color: colors.primary, border: "none", borderRadius: 12, padding: "12px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
-                  Next Question â
+                  Next Question Ã¢ÂÂ
                 </button>
               </div>
             </div>
           )}
 
-          {/* Legacy: old single-answer workings section â only shown for old-format questions without parts */}
+          {/* Legacy: old single-answer workings section Ã¢ÂÂ only shown for old-format questions without parts */}
           {!hasParts && (
             <div>
               {/* Old Workings Section */}
               <div style={styles.card}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: colors.textLight }}>âï¸ Workings</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: colors.textLight }}>Ã¢ÂÂÃ¯Â¸Â Workings</div>
                   <div style={{ display: "flex", gap: 4 }}>
                     <button
                       onClick={() => setWorkingsMode("pen")}
@@ -4403,7 +4415,7 @@ export default function MathU() {
                         border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 12,
                         fontWeight: 600, cursor: "pointer", transition: "all 0.2s",
                       }}
-                    >ð Pen</button>
+                    >Ã°ÂÂÂ Pen</button>
                 <button
                   onClick={() => setWorkingsMode("keyboard")}
                   style={{
@@ -4412,7 +4424,7 @@ export default function MathU() {
                     border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 12,
                     fontWeight: 600, cursor: "pointer", transition: "all 0.2s",
                   }}
-                >â¨ Keyboard</button>
+                >Ã¢ÂÂ¨ Keyboard</button>
               </div>
             </div>
             {workingsMode === "pen" ? (
@@ -4497,7 +4509,7 @@ export default function MathU() {
                     border: "none", borderRadius: 8, padding: "5px 10px", fontSize: 11,
                     fontWeight: 600, cursor: "pointer", transition: "all 0.2s",
                   }}
-                >â¨ Symbols</button>
+                >Ã¢ÂÂ¨ Symbols</button>
               </div>
               <input
                 ref={answerInputRef}
@@ -4532,14 +4544,14 @@ export default function MathU() {
               background: isCorrect ? "#f0fdf4" : "#fef2f2",
             }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: isCorrect ? colors.success : colors.danger, marginBottom: 8 }}>
-                {isCorrect ? "â Correct!" : "â Not quite"}
+                {isCorrect ? "Ã¢ÂÂ Correct!" : "Ã¢ÂÂ Not quite"}
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, color: colors.text, marginBottom: 4 }}>
                 Answer: {currentQuestion.answer}
               </div>
               {isCorrect && (
                 <div style={{ fontSize: 13, color: colors.accent, fontWeight: 700, marginBottom: 8 }}>
-                  +{Math.round(currentQuestion.xp * (1 - hintsUsed * 0.2))} XP earned! â¡
+                  +{Math.round(currentQuestion.xp * (1 - hintsUsed * 0.2))} XP earned! Ã¢ÂÂ¡
                 </div>
               )}
               {/* Step-by-step solution */}
@@ -4576,7 +4588,7 @@ export default function MathU() {
                   cursor: "pointer", width: "100%", marginTop: 12,
                   transition: "all 0.2s",
                 }}>
-                {simpleExplanation ? "Hide Simple Explanation" : "ð¤ Explain it Differently"}
+                {simpleExplanation ? "Hide Simple Explanation" : "Ã°ÂÂ¤Â Explain it Differently"}
               </button>
 
               {simpleExplanation && (
@@ -4585,7 +4597,7 @@ export default function MathU() {
                   borderRadius: 12, padding: 16, marginTop: 12,
                 }}>
                   <div style={{ fontSize: 14, fontWeight: 700, color: colors.accent, marginBottom: 8 }}>
-                    ð Simpler Explanation
+                    Ã°ÂÂÂ Simpler Explanation
                   </div>
                   {simpleExplanation.split("\n\n").map((para, i) => (
                     <div key={i} style={{ marginBottom: 10 }}>
@@ -4599,15 +4611,15 @@ export default function MathU() {
               {!isCorrect && (
                 <div style={{ marginTop: 16 }}>
                   <div style={{ fontSize: 13, fontWeight: 700, color: colors.text, marginBottom: 8 }}>
-                    ð¤ Where did you get stuck?
+                    Ã°ÂÂ¤Â Where did you get stuck?
                   </div>
                   <p style={{ fontSize: 12, color: colors.textLight, margin: "0 0 8px" }}>
-                    Tap the step where you first went wrong â this helps us track what to focus on.
+                    Tap the step where you first went wrong Ã¢ÂÂ this helps us track what to focus on.
                   </p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {currentQuestion.solution.split("\n\n").map((step, i) => (
                       <button key={i} onClick={() => {
-                        alert(`Got it â we'll note that Step ${i + 1} was tricky for you on ${currentQuestion.subtopic}. Keep practising!`);
+                        alert(`Got it Ã¢ÂÂ we'll note that Step ${i + 1} was tricky for you on ${currentQuestion.subtopic}. Keep practising!`);
                       }} style={{
                         padding: "8px 14px", borderRadius: 10,
                         border: `2px solid ${colors.danger}30`, background: `${colors.danger}08`,
@@ -4617,7 +4629,7 @@ export default function MathU() {
                       </button>
                     ))}
                     <button onClick={() => {
-                      alert("No worries â keep practising and you'll get there!");
+                      alert("No worries Ã¢ÂÂ keep practising and you'll get there!");
                     }} style={{
                       padding: "8px 14px", borderRadius: 10,
                       border: `2px solid ${colors.textLight}30`, background: "#f8fafc",
@@ -4633,7 +4645,7 @@ export default function MathU() {
                 <div>
                   <div style={{ marginTop: 12, padding: "10px 14px", background: "#f0fdf4", borderRadius: 10 }}>
                     <div style={{ fontSize: 13, color: colors.success, fontWeight: 600 }}>
-                      ðª Compare your workings with the solution above. Did you use the same method?
+                      Ã°ÂÂÂª Compare your workings with the solution above. Did you use the same method?
                     </div>
                   </div>
 
@@ -4643,7 +4655,7 @@ export default function MathU() {
                         const today = new Date().toISOString().split("T")[0];
                         const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
                         const inviteCode = getInviteCode(userId);
-                        const shareText = `ð MathU Daily Challenge\nðï¸ ${today}\nâ Got it right!\nâ±ï¸ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
+                        const shareText = `Ã°ÂÂÂ MathU Daily Challenge\nÃ°ÂÂÂÃ¯Â¸Â ${today}\nÃ¢ÂÂ Got it right!\nÃ¢ÂÂ±Ã¯Â¸Â ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                         navigator.clipboard.writeText(shareText);
                         alert("Share message copied to clipboard!");
                       } catch (err) {
@@ -4656,7 +4668,7 @@ export default function MathU() {
                         marginTop: 16,
                         display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                       }}>
-                      ð¤ Share Challenge
+                      Ã°ÂÂÂ¤ Share Challenge
                     </button>
                   )}
 
@@ -4666,7 +4678,7 @@ export default function MathU() {
                         const today = new Date().toISOString().split("T")[0];
                         const timeStr = Math.floor(timer / 60) > 0 ? `${Math.floor(timer / 60)}m ${timer % 60}s` : `${timer}s`;
                         const inviteCode = getInviteCode(userId);
-                        const shareText = `ð MathU Daily Challenge\nðï¸ ${today}\nâ Need more practice!\nâ±ï¸ ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
+                        const shareText = `Ã°ÂÂÂ MathU Daily Challenge\nÃ°ÂÂÂÃ¯Â¸Â ${today}\nÃ¢ÂÂ Need more practice!\nÃ¢ÂÂ±Ã¯Â¸Â ${timeStr}\n\nJoin me! Use code: ${inviteCode}\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                         navigator.clipboard.writeText(shareText);
                         alert("Share message copied to clipboard!");
                       } catch (err) {
@@ -4679,7 +4691,7 @@ export default function MathU() {
                         marginTop: 16,
                         display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                       }}>
-                      ð¤ Share Attempt
+                      Ã°ÂÂÂ¤ Share Attempt
                     </button>
                   )}
                 </div>
@@ -4692,7 +4704,7 @@ export default function MathU() {
                 </button>
                 <button onClick={() => startPractice()}
                   style={{ ...styles.btn(colors.primary), flex: 1 }}>
-                  Practice Another â
+                  Practice Another Ã¢ÂÂ
                 </button>
               </div>
             </div>
@@ -4704,15 +4716,15 @@ export default function MathU() {
     );
   }
 
-  // âââ ADD FRIEND SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ADD FRIEND SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "add_friend") {
     const inviteCode = getInviteCode(userId);
 
     return (
       <div style={styles.app}>
         <div style={styles.header}>
-          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 18 }}>â</button>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800, flex: 1, textAlign: "center" }}>ð¥ Friends</h2>
+          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 18 }}>Ã¢ÂÂ</button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800, flex: 1, textAlign: "center" }}>Ã°ÂÂÂ¥ Friends</h2>
           <div style={{ width: 32 }} />
         </div>
 
@@ -4748,7 +4760,7 @@ export default function MathU() {
             {pendingInvite && (
               <div style={{ background: `${colors.success}15`, border: `2px solid ${colors.success}40`, borderRadius: 10, padding: "10px 14px", marginBottom: 12, textAlign: "center" }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: colors.success }}>
-                  ð You've been invited! Tap "Add Friend" to connect.
+                  Ã°ÂÂÂ You've been invited! Tap "Add Friend" to connect.
                 </div>
               </div>
             )}
@@ -4786,10 +4798,10 @@ export default function MathU() {
                   display: "flex", justifyContent: "space-between", alignItems: "center",
                   padding: "12px", background: colors.bg, borderRadius: 8, marginBottom: 8
                 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>ð¤ {friend.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>Ã°ÂÂÂ¤ {friend.name}</span>
                   <button onClick={() => {
                     try {
-                      const inviteMsg = `ð Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
+                      const inviteMsg = `Ã°ÂÂÂ Join me on MathU! Daily maths challenges for Leaving Cert.\n\nUse my invite code: ${inviteCode}\n\nhttps://mathu-app.vercel.app?invite=${inviteCode}`;
                       navigator.clipboard.writeText(inviteMsg);
                       alert("Invite message copied!");
                     } catch (err) {
@@ -4824,7 +4836,7 @@ export default function MathU() {
     );
   }
 
-  // âââ DASHBOARD âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ DASHBOARD Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "dashboard") {
     const allTopics = getAllTopics();
     const topicEntries = selectedTopics.map(key => {
@@ -4840,13 +4852,13 @@ export default function MathU() {
     return (
       <div style={styles.app}>
         <div style={styles.header}>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>ð Dashboard</h2>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Ã°ÂÂÂ Dashboard</h2>
           <span style={{ fontSize: 13, opacity: 0.8 }}>{year} Year</span>
         </div>
         <div style={{ padding: "0 0 100px" }}>
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Performance by Topic</h3>
-            <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Sorted weakest â strongest</p>
+            <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Sorted weakest Ã¢ÂÂ strongest</p>
             {topicEntries.map(({ key, topic, stats: ts }) => {
               if (!topic) return null;
               const accuracy = ts ? Math.round((ts.correct / ts.attempted) * 100) : null;
@@ -4869,7 +4881,7 @@ export default function MathU() {
                   </div>
                   {ts && (
                     <div style={{ fontSize: 11, color: colors.textLight, marginTop: 2 }}>
-                      {ts.correct}/{ts.attempted} correct Â· Avg {Math.round(ts.totalTime / ts.attempted)}s per question
+                      {ts.correct}/{ts.attempted} correct ÃÂ· Avg {Math.round(ts.totalTime / ts.attempted)}s per question
                     </div>
                   )}
                   <button onClick={() => startPractice(key)}
@@ -4877,7 +4889,7 @@ export default function MathU() {
                       background: "none", border: "none", color: topic.color,
                       fontSize: 12, fontWeight: 700, cursor: "pointer", padding: "4px 0",
                     }}>
-                    Practice {topic.name} â
+                    Practice {topic.name} Ã¢ÂÂ
                   </button>
                 </div>
               );
@@ -4888,7 +4900,7 @@ export default function MathU() {
           {topicEntries.filter(e => e.stats && e.stats.correct / e.stats.attempted < 0.5).length > 0 && (
             <div style={{ ...styles.card, background: "#FEF2F2", border: "2px solid #FECACA" }}>
               <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: colors.danger }}>
-                â ï¸ Focus Areas
+                Ã¢ÂÂ Ã¯Â¸Â Focus Areas
               </h3>
               <p style={{ fontSize: 13, color: "#991B1B", margin: "0 0 8px" }}>
                 These topics need the most work:
@@ -4909,11 +4921,11 @@ export default function MathU() {
 
         <div style={styles.nav}>
           {[
-            { icon: "ð ", label: "Home", scr: "home" },
-            { icon: "ð", label: "Dashboard", scr: "dashboard" },
-            { icon: "ð", label: "Leaderboard", scr: "leaderboard" },
-            { icon: "ð", label: "Badges", scr: "badges" },
-            { icon: "âï¸", label: "Settings", scr: "settings" },
+            { icon: "Ã°ÂÂÂ ", label: "Home", scr: "home" },
+            { icon: "Ã°ÂÂÂ", label: "Dashboard", scr: "dashboard" },
+            { icon: "Ã°ÂÂÂ", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "Ã°ÂÂÂ", label: "Badges", scr: "badges" },
+            { icon: "Ã¢ÂÂÃ¯Â¸Â", label: "Settings", scr: "settings" },
           ].map(item => (
             <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
               <span style={{ fontSize: 22 }}>{item.icon}</span>
@@ -4926,7 +4938,7 @@ export default function MathU() {
     );
   }
 
-  // âââ LEADERBOARD âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ LEADERBOARD Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "leaderboard") {
     const allPlayers = [...leaderboard, { name: `${username} (You)`, xp: stats.totalXP, streak: stats.streak, school: "Your School" }]
       .sort((a, b) => b.xp - a.xp);
@@ -4934,7 +4946,7 @@ export default function MathU() {
     return (
       <div style={styles.app}>
         <div style={styles.header}>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>ð Leaderboard</h2>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Ã°ÂÂÂ Leaderboard</h2>
           <span style={{ fontSize: 13, opacity: 0.8 }}>This Week</span>
         </div>
         <div style={{ padding: "0 0 100px" }}>
@@ -4944,7 +4956,7 @@ export default function MathU() {
               const p = allPlayers[idx];
               if (!p) return null;
               const isCenter = idx === 0;
-              const medals = ["ð¥", "ð¥", "ð¥"];
+              const medals = ["Ã°ÂÂ¥Â", "Ã°ÂÂ¥Â", "Ã°ÂÂ¥Â"];
               return (
                 <div key={idx} style={{
                   textAlign: "center", flex: 1,
@@ -4958,8 +4970,8 @@ export default function MathU() {
                     boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
                   }}>
                     <div style={{ fontSize: 13, fontWeight: 800 }}>{p.name.split(" ")[0]}</div>
-                    <div style={{ fontSize: 18, fontWeight: 900 }}>â¡ {p.xp}</div>
-                    <div style={{ fontSize: 10, opacity: 0.7 }}>ð¥ {p.streak} days</div>
+                    <div style={{ fontSize: 18, fontWeight: 900 }}>Ã¢ÂÂ¡ {p.xp}</div>
+                    <div style={{ fontSize: 10, opacity: 0.7 }}>Ã°ÂÂÂ¥ {p.streak} days</div>
                   </div>
                 </div>
               );
@@ -4981,8 +4993,8 @@ export default function MathU() {
                   <div style={{ fontSize: 11, color: colors.textLight }}>{p.school}</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: colors.text }}>â¡ {p.xp}</div>
-                  <div style={{ fontSize: 11, color: colors.textLight }}>ð¥ {p.streak}</div>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: colors.text }}>Ã¢ÂÂ¡ {p.xp}</div>
+                  <div style={{ fontSize: 11, color: colors.textLight }}>Ã°ÂÂÂ¥ {p.streak}</div>
                 </div>
               </div>
             ))}
@@ -4991,11 +5003,11 @@ export default function MathU() {
 
         <div style={styles.nav}>
           {[
-            { icon: "ð ", label: "Home", scr: "home" },
-            { icon: "ð", label: "Dashboard", scr: "dashboard" },
-            { icon: "ð", label: "Leaderboard", scr: "leaderboard" },
-            { icon: "ð", label: "Badges", scr: "badges" },
-            { icon: "âï¸", label: "Settings", scr: "settings" },
+            { icon: "Ã°ÂÂÂ ", label: "Home", scr: "home" },
+            { icon: "Ã°ÂÂÂ", label: "Dashboard", scr: "dashboard" },
+            { icon: "Ã°ÂÂÂ", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "Ã°ÂÂÂ", label: "Badges", scr: "badges" },
+            { icon: "Ã¢ÂÂÃ¯Â¸Â", label: "Settings", scr: "settings" },
           ].map(item => (
             <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
               <span style={{ fontSize: 22 }}>{item.icon}</span>
@@ -5008,12 +5020,12 @@ export default function MathU() {
     );
   }
 
-  // âââ BADGES SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ BADGES SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "badges") {
     return (
       <div style={styles.app}>
         <div style={styles.header}>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>ð Badges</h2>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Ã°ÂÂÂ Badges</h2>
           <span style={{ fontSize: 13, opacity: 0.8 }}>{earnedBadges.length}/{BADGES.length} earned</span>
         </div>
         <div style={{ padding: "0 0 100px" }}>
@@ -5031,7 +5043,7 @@ export default function MathU() {
                     <div style={{ fontSize: 36, filter: earned ? "none" : "grayscale(100%)" }}>{badge.icon}</div>
                     <div style={{ fontSize: 13, fontWeight: 800, color: colors.text, marginTop: 4 }}>{badge.name}</div>
                     <div style={{ fontSize: 11, color: colors.textLight, marginTop: 2 }}>{badge.desc}</div>
-                    {earned && <div style={{ fontSize: 10, color: colors.success, fontWeight: 700, marginTop: 4 }}>â Earned</div>}
+                    {earned && <div style={{ fontSize: 10, color: colors.success, fontWeight: 700, marginTop: 4 }}>Ã¢ÂÂ Earned</div>}
                   </div>
                 );
               })}
@@ -5041,11 +5053,11 @@ export default function MathU() {
 
         <div style={styles.nav}>
           {[
-            { icon: "ð ", label: "Home", scr: "home" },
-            { icon: "ð", label: "Dashboard", scr: "dashboard" },
-            { icon: "ð", label: "Leaderboard", scr: "leaderboard" },
-            { icon: "ð", label: "Badges", scr: "badges" },
-            { icon: "âï¸", label: "Settings", scr: "settings" },
+            { icon: "Ã°ÂÂÂ ", label: "Home", scr: "home" },
+            { icon: "Ã°ÂÂÂ", label: "Dashboard", scr: "dashboard" },
+            { icon: "Ã°ÂÂÂ", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "Ã°ÂÂÂ", label: "Badges", scr: "badges" },
+            { icon: "Ã¢ÂÂÃ¯Â¸Â", label: "Settings", scr: "settings" },
           ].map(item => (
             <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
               <span style={{ fontSize: 22 }}>{item.icon}</span>
@@ -5058,7 +5070,7 @@ export default function MathU() {
     );
   }
 
-  // âââ BOOKMARKS SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ BOOKMARKS SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "bookmarks") {
     const allTopics = getAllTopics();
     const bookmarkedQuestions = QUESTION_BANK.filter(q => bookmarks.includes(q.id));
@@ -5068,15 +5080,15 @@ export default function MathU() {
         <div style={styles.header}>
           <button onClick={() => setScreen("home")}
             style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
-            â Back
+            Ã¢ÂÂ Back
           </button>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>ð Saved Questions</h2>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Ã°ÂÂÂ Saved Questions</h2>
           <div style={{ width: 32 }} />
         </div>
         <div style={{ padding: "0 0 100px" }}>
           {bookmarkedQuestions.length === 0 ? (
             <div style={{ ...styles.card, textAlign: "center" }}>
-              <div style={{ fontSize: 48, marginBottom: 12 }}>ð</div>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>Ã°ÂÂÂ</div>
               <h3 style={{ margin: "0 0 8px", fontSize: 16, fontWeight: 700, color: colors.text }}>No saved questions yet</h3>
               <p style={{ margin: 0, fontSize: 13, color: colors.textLight }}>Bookmark questions while practicing to study them later</p>
             </div>
@@ -5138,23 +5150,23 @@ export default function MathU() {
     );
   }
 
-  // âââ FORMULAE & TABLES SCREEN âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ FORMULAE & TABLES SCREEN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "formulas") {
     const formulaeSections = [
       { id: "algebra", name: "Algebra", pages: [20], icon: "x" },
-      { id: "area-approx", name: "Area Approximations", pages: [12], icon: "â" },
-      { id: "calculus", name: "Calculus", pages: [25, 26, 27], icon: "â«" },
-      { id: "coord-geom", name: "Co-ordinate Geometry", pages: [18, 19], icon: "ð" },
-      { id: "economics", name: "Economics", pages: [28, 29], icon: "ð" },
-      { id: "financial", name: "Financial Mathematics", pages: [30, 31, 32], icon: "ð°" },
-      { id: "geometry", name: "Geometry", pages: [17], icon: "â³" },
+      { id: "area-approx", name: "Area Approximations", pages: [12], icon: "Ã¢ÂÂ" },
+      { id: "calculus", name: "Calculus", pages: [25, 26, 27], icon: "Ã¢ÂÂ«" },
+      { id: "coord-geom", name: "Co-ordinate Geometry", pages: [18, 19], icon: "Ã°ÂÂÂ" },
+      { id: "economics", name: "Economics", pages: [28, 29], icon: "Ã°ÂÂÂ" },
+      { id: "financial", name: "Financial Mathematics", pages: [30, 31, 32], icon: "Ã°ÂÂÂ°" },
+      { id: "geometry", name: "Geometry", pages: [17], icon: "Ã¢ÂÂ³" },
       { id: "indices", name: "Indices & Logarithms", pages: [21], icon: "^" },
-      { id: "length-area", name: "Length & Area", pages: [8, 9], icon: "â¡" },
-      { id: "sequences", name: "Sequences & Series", pages: [22], icon: "Î£" },
-      { id: "sets-logic", name: "Sets & Logic", pages: [23, 24], icon: "â©" },
-      { id: "stats", name: "Statistics & Probability", pages: [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43], icon: "Ï" },
-      { id: "surface-vol", name: "Surface Area & Volume", pages: [10, 11], icon: "â¬¡" },
-      { id: "trig", name: "Trigonometry", pages: [13, 14, 15, 16], icon: "Î¸" },
+      { id: "length-area", name: "Length & Area", pages: [8, 9], icon: "Ã¢ÂÂ¡" },
+      { id: "sequences", name: "Sequences & Series", pages: [22], icon: "ÃÂ£" },
+      { id: "sets-logic", name: "Sets & Logic", pages: [23, 24], icon: "Ã¢ÂÂ©" },
+      { id: "stats", name: "Statistics & Probability", pages: [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43], icon: "ÃÂ" },
+      { id: "surface-vol", name: "Surface Area & Volume", pages: [10, 11], icon: "Ã¢Â¬Â¡" },
+      { id: "trig", name: "Trigonometry", pages: [13, 14, 15, 16], icon: "ÃÂ¸" },
       { id: "units", name: "Units of Measurement", pages: [44, 45], icon: "m" },
     ];
 
@@ -5176,7 +5188,7 @@ export default function MathU() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <button onClick={() => setScreen("home")}
               style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>
-              â Back
+              Ã¢ÂÂ Back
             </button>
             <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>Formulae & Tables</h2>
             <div style={{ width: 48 }} />
@@ -5221,7 +5233,7 @@ export default function MathU() {
                   {section.name}
                 </h3>
                 <span style={{ fontSize: 11, color: colors.textLight, marginLeft: "auto" }}>
-                  p.{section.pages[0]}{section.pages.length > 1 ? `â${section.pages[section.pages.length - 1]}` : ""}
+                  p.{section.pages[0]}{section.pages.length > 1 ? `Ã¢ÂÂ${section.pages[section.pages.length - 1]}` : ""}
                 </span>
               </div>
               {/* Page images */}
@@ -5248,13 +5260,13 @@ export default function MathU() {
     );
   }
 
-  // âââ SETTINGS âââ
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ SETTINGS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   if (screen === "settings") {
     const allTopics = getAllTopics();
     return (
       <div style={styles.app}>
         <div style={styles.header}>
-          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>âï¸ Settings</h2>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Ã¢ÂÂÃ¯Â¸Â Settings</h2>
         </div>
         <div style={{ padding: "0 0 100px" }}>
           <div style={styles.card}>
@@ -5263,14 +5275,14 @@ export default function MathU() {
               <AvatarDisplay size={48} />
               <div>
                 <div style={{ fontSize: 16, fontWeight: 700, color: colors.text }}>{username}</div>
-                <div style={{ fontSize: 13, color: colors.textLight }}>{year} Year Â· Honours Maths</div>
+                <div style={{ fontSize: 13, color: colors.textLight }}>{year} Year ÃÂ· Honours Maths</div>
               </div>
             </div>
 
             {/* FEATURE 4: Avatar customization */}
             <div style={{ marginTop: 16, paddingTop: 16, borderTop: `1px solid ${colors.textLight}20` }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: colors.text, marginBottom: 12 }}>
-                Choose Your Avatar ð¨
+                Choose Your Avatar Ã°ÂÂÂ¨
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 8, marginBottom: 12 }}>
                 {AVATARS.map(emoji => (
@@ -5290,7 +5302,7 @@ export default function MathU() {
                 <button onClick={() => fileInputRef.current?.click()} style={{
                   ...styles.btn(colors.secondary, true), flex: 1, fontSize: 13, padding: "10px 12px"
                 }}>
-                  ð· Upload Photo
+                  Ã°ÂÂÂ· Upload Photo
                 </button>
                 <button onClick={() => {
                   setAvatar(null);
@@ -5344,7 +5356,7 @@ export default function MathU() {
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Display & Sound</h3>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>ð Dark Mode</span>
+              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>Ã°ÂÂÂ Dark Mode</span>
               <button onClick={() => setDarkMode(!darkMode)}
                 style={{
                   background: darkMode ? colors.primary : "#e2e8f0",
@@ -5360,7 +5372,7 @@ export default function MathU() {
             </div>
             {/* FEATURE 3: Sound Effects toggle */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>ð Sound Effects</span>
+              <span style={{ fontSize: 14, color: colors.text, fontWeight: 600 }}>Ã°ÂÂÂ Sound Effects</span>
               <button onClick={() => setSoundEnabled(!soundEnabled)}
                 style={{
                   background: soundEnabled ? colors.primary : "#e2e8f0",
@@ -5393,11 +5405,11 @@ export default function MathU() {
 
         <div style={styles.nav}>
           {[
-            { icon: "ð ", label: "Home", scr: "home" },
-            { icon: "ð", label: "Dashboard", scr: "dashboard" },
-            { icon: "ð", label: "Leaderboard", scr: "leaderboard" },
-            { icon: "ð", label: "Badges", scr: "badges" },
-            { icon: "âï¸", label: "Settings", scr: "settings" },
+            { icon: "Ã°ÂÂÂ ", label: "Home", scr: "home" },
+            { icon: "Ã°ÂÂÂ", label: "Dashboard", scr: "dashboard" },
+            { icon: "Ã°ÂÂÂ", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "Ã°ÂÂÂ", label: "Badges", scr: "badges" },
+            { icon: "Ã¢ÂÂÃ¯Â¸Â", label: "Settings", scr: "settings" },
           ].map(item => (
             <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
               <span style={{ fontSize: 22 }}>{item.icon}</span>
