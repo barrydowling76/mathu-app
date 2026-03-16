@@ -5180,10 +5180,11 @@ export default function MathU() {
     };
 
     return (
-      <div style={styles.app}>
+      <div style={{...styles.app, display: "flex", flexDirection: "column", height: "100vh"}}>
         <div style={{
           ...styles.header,
           flexDirection: "column", alignItems: "stretch", padding: "12px 16px 0",
+          flexShrink: 0,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <button onClick={() => setScreen("home")}
@@ -5212,7 +5213,7 @@ export default function MathU() {
           </div>
         </div>
 
-        <div ref={formulaeScrollRef} style={{ padding: "0 12px 100px", overflowY: "auto", flex: 1 }}>
+        <div ref={formulaeScrollRef} style={{ padding: "0 12px 100px", overflowY: "auto", flex: 1, minHeight: 0 }}>
           {formulaeSections.map(section => (
             <div key={section.id} ref={el => formulaeRefs.current[section.id] = el}
               style={{ marginBottom: 20 }}>
