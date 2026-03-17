@@ -2017,6 +2017,7 @@ export default function MathU() {
   const [testTimerEnabled, setTestTimerEnabled] = useState(true);
   const [testTimeLimit, setTestTimeLimit] = useState(0); // 0 = no limit, otherwise minutes
   const [generatedTestLink, setGeneratedTestLink] = useState("");
+  const [testPreviewQuestion, setTestPreviewQuestion] = useState(null);
   // Student test-taking state
   const [activeTest, setActiveTest] = useState(null); // { name, questionIds, timer, timeLimit }
   const [testQuestionIndex, setTestQuestionIndex] = useState(0);
@@ -6439,7 +6440,7 @@ export default function MathU() {
                   </div>
                 </div>
 
-                {/* Question picker */}
+                {/* Question picker with preview */}
                 <div style={styles.card}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: colors.text }}>Select Questions</h3>
@@ -6451,40 +6452,141 @@ export default function MathU() {
                     <button onClick={() => { setTestSelectedQuestions([]); setGeneratedTestLink(""); }}
                       style={{ ...styles.btnOutline(colors.textLight), padding: "6px 14px", fontSize: 12 }}>Clear</button>
                   </div>
-                  <div style={{ maxHeight: 400, overflowY: "auto", border: `1px solid ${colors.textLight}20`, borderRadius: 12, padding: 8 }}>
-                    {filteredQuestions.map(q => {
-                      const topic = allTopics[q.topic];
-                      const isSelected = testSelectedQuestions.includes(q.id);
-                      return (
-                        <div key={q.id} onClick={() => {
-                          setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== q.id) : [...prev, q.id]);
-                          setGeneratedTestLink("");
-                        }} style={{
-                          display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 4,
-                          background: isSelected ? `${colors.primary}10` : "transparent", borderRadius: 10,
-                          cursor: "pointer", border: isSelected ? `2px solid ${colors.primary}` : "2px solid transparent",
-                          transition: "all 0.15s",
-                        }}>
-                          <div style={{
-                            width: 22, height: 22, borderRadius: 6, border: `2px solid ${isSelected ? colors.primary : "#cbd5e1"}`,
-                            background: isSelected ? colors.primary : "transparent", display: "flex", alignItems: "center", justifyContent: "center",
-                            flexShrink: 0, transition: "all 0.15s",
+
+                  <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    {/* Left: Question list */}
+                    <div style={{ flex: windowWidth >= 768 ? "0 0 45%" : "1 1 100%", maxHeight: 500, overflowY: "auto", border: `1px solid ${colors.textLight}20`, borderRadius: 12, padding: 8 }}>
+                      {filteredQuestions.map(q => {
+                        const topic = allTopics[q.topic];
+                        const isSelected = testSelectedQuestions.includes(q.id);
+                        const isPreviewing = testPreviewQuestion?.id === q.id;
+                        return (
+                          <div key={q.id} style={{
+                            display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 4,
+                            background: isPreviewing ? `${colors.secondary}15` : isSelected ? `${colors.primary}10` : "transparent",
+                            borderRadius: 10, cursor: "pointer",
+                            border: isPreviewing ? `2px solid ${colors.secondary}` : isSelected ? `2px solid ${colors.primary}` : "2px solid transparent",
+                            transition: "all 0.15s",
                           }}>
-                            {isSelected && <span style={{ color: "white", fontSize: 14, fontWeight: 700 }}>✓</span>}
+                            {/* Checkbox */}
+                            <div onClick={(e) => {
+                              e.stopPropagation();
+                              setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== q.id) : [...prev, q.id]);
+                              setGeneratedTestLink("");
+                            }} style={{
+                              width: 22, height: 22, borderRadius: 6, border: `2px solid ${isSelected ? colors.primary : "#cbd5e1"}`,
+                              background: isSelected ? colors.primary : "transparent", display: "flex", alignItems: "center", justifyContent: "center",
+                              flexShrink: 0, transition: "all 0.15s",
+                            }}>
+                              {isSelected && <span style={{ color: "white", fontSize: 14, fontWeight: 700 }}>✓</span>}
+                            </div>
+                            {/* Question info — click to preview */}
+                            <div style={{ flex: 1, minWidth: 0 }} onClick={() => setTestPreviewQuestion(q)}>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>
+                                {q.source} — Q{q.questionNumber}
+                              </div>
+                              <div style={{ fontSize: 11, color: colors.textLight }}>
+                                <span style={{ color: topic?.color, fontWeight: 600 }}>{topic?.icon} {topic?.name}</span>
+                                {" · "}{q.parts?.length || 0} parts · {q.totalMarks} marks
+                              </div>
+                            </div>
+                            {/* Preview indicator */}
+                            <div onClick={() => setTestPreviewQuestion(q)} style={{ fontSize: 16, color: isPreviewing ? colors.secondary : colors.textLight, flexShrink: 0 }}>👁</div>
                           </div>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>
-                              {q.source} — Q{q.questionNumber}
+                        );
+                      })}
+                    </div>
+
+                    {/* Right: Image preview (desktop/tablet only on side, mobile below) */}
+                    {windowWidth >= 768 ? (
+                      <div style={{
+                        flex: "0 0 53%", position: "sticky", top: 0,
+                        border: `2px solid ${testPreviewQuestion ? colors.secondary : "#e2e8f0"}`,
+                        borderRadius: 12, background: "#fafafa", minHeight: 300, maxHeight: 500, overflowY: "auto",
+                        display: "flex", flexDirection: "column",
+                      }}>
+                        {testPreviewQuestion ? (
+                          <>
+                            <div style={{ padding: "12px 16px", borderBottom: "1px solid #e2e8f0", background: "white", borderRadius: "12px 12px 0 0" }}>
+                              <div style={{ fontSize: 14, fontWeight: 800, color: colors.text }}>
+                                {testPreviewQuestion.source} — Q{testPreviewQuestion.questionNumber}
+                              </div>
+                              <div style={{ fontSize: 12, color: colors.textLight }}>
+                                {allTopics[testPreviewQuestion.topic]?.icon} {allTopics[testPreviewQuestion.topic]?.name} · {testPreviewQuestion.totalMarks} marks · {testPreviewQuestion.parts?.length || 0} parts
+                              </div>
                             </div>
-                            <div style={{ fontSize: 11, color: colors.textLight }}>
-                              <span style={{ color: topic?.color, fontWeight: 600 }}>{topic?.icon} {topic?.name}</span>
-                              {" · "}{q.parts?.length || 0} parts · {q.totalMarks} marks
+                            <div style={{ padding: 8, flex: 1 }}>
+                              {testPreviewQuestion.imagePath && (
+                                <img src={testPreviewQuestion.imagePath} alt="Question preview" style={{ width: "100%", borderRadius: 8, display: "block" }} />
+                              )}
+                              {testPreviewQuestion.pageImages && testPreviewQuestion.pageImages.length > 0 && !testPreviewQuestion.imagePath && (
+                                testPreviewQuestion.pageImages.map((img, i) => (
+                                  <img key={i} src={img} alt={`Page ${i + 1}`} style={{ width: "100%", borderRadius: 8, display: "block", marginBottom: 4 }} />
+                                ))
+                              )}
                             </div>
+                            <div style={{ padding: "8px 16px 12px", borderTop: "1px solid #e2e8f0", background: "white", borderRadius: "0 0 12px 12px" }}>
+                              <button onClick={() => {
+                                const isSelected = testSelectedQuestions.includes(testPreviewQuestion.id);
+                                setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== testPreviewQuestion.id) : [...prev, testPreviewQuestion.id]);
+                                setGeneratedTestLink("");
+                              }} style={{
+                                ...styles.btn(testSelectedQuestions.includes(testPreviewQuestion.id) ? "#EF4444" : colors.primary, true),
+                                fontSize: 13, padding: "10px 16px",
+                              }}>
+                                {testSelectedQuestions.includes(testPreviewQuestion.id) ? "✕ Remove from Test" : "✓ Add to Test"}
+                              </button>
+                            </div>
+                          </>
+                        ) : (
+                          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 32, textAlign: "center" }}>
+                            <div style={{ fontSize: 48, marginBottom: 12, opacity: 0.3 }}>👁</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: colors.textLight }}>Click a question to preview</div>
+                            <div style={{ fontSize: 12, color: colors.textLight, marginTop: 4 }}>See the full question image before adding it to your test</div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      /* Mobile: show preview below the list when a question is selected */
+                      testPreviewQuestion && (
+                        <div style={{ display: "none" }} /> /* handled below for mobile */
+                      )
+                    )}
+                  </div>
+
+                  {/* Mobile preview (below list) */}
+                  {windowWidth < 768 && testPreviewQuestion && (
+                    <div style={{ marginTop: 12, border: `2px solid ${colors.secondary}`, borderRadius: 12, background: "#fafafa", overflow: "hidden" }}>
+                      <div style={{ padding: "12px 16px", borderBottom: "1px solid #e2e8f0", background: "white", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div>
+                          <div style={{ fontSize: 14, fontWeight: 800, color: colors.text }}>
+                            {testPreviewQuestion.source} — Q{testPreviewQuestion.questionNumber}
+                          </div>
+                          <div style={{ fontSize: 12, color: colors.textLight }}>
+                            {allTopics[testPreviewQuestion.topic]?.icon} {allTopics[testPreviewQuestion.topic]?.name} · {testPreviewQuestion.totalMarks} marks
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                        <button onClick={() => setTestPreviewQuestion(null)} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", color: colors.textLight }}>✕</button>
+                      </div>
+                      <div style={{ padding: 8 }}>
+                        {testPreviewQuestion.imagePath && (
+                          <img src={testPreviewQuestion.imagePath} alt="Question preview" style={{ width: "100%", borderRadius: 8, display: "block" }} />
+                        )}
+                      </div>
+                      <div style={{ padding: "8px 16px 12px", borderTop: "1px solid #e2e8f0", background: "white" }}>
+                        <button onClick={() => {
+                          const isSelected = testSelectedQuestions.includes(testPreviewQuestion.id);
+                          setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== testPreviewQuestion.id) : [...prev, testPreviewQuestion.id]);
+                          setGeneratedTestLink("");
+                        }} style={{
+                          ...styles.btn(testSelectedQuestions.includes(testPreviewQuestion.id) ? "#EF4444" : colors.primary, true),
+                          fontSize: 13, padding: "10px 16px",
+                        }}>
+                          {testSelectedQuestions.includes(testPreviewQuestion.id) ? "✕ Remove from Test" : "✓ Add to Test"}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Generate link */}
