@@ -3252,7 +3252,7 @@ export default function MathU() {
   if (loading) {
     return (
       <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
-        <MathSymbolsBackground variant="dark" />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/math-bg.png)", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.1, pointerEvents: "none", zIndex: 0, filter: "brightness(2) invert(1)" }} />
         <div style={{ textAlign: "center", color: "white", position: "relative", zIndex: 1 }}>
           <MathULogo size={72} />
           <h1 style={{ fontSize: 36, fontWeight: 900, margin: "12px 0 16px", letterSpacing: -2 }}>MathU</h1>
@@ -3266,7 +3266,7 @@ export default function MathU() {
   if (screen === "splash") {
     return (
       <div style={{ ...styles.app, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: colors.gradient, position: "relative" }}>
-        <MathSymbolsBackground variant="dark" />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/math-bg.png)", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.1, pointerEvents: "none", zIndex: 0, filter: "brightness(2) invert(1)" }} />
         <div style={{ textAlign: "center", color: "white", padding: 40, position: "relative", zIndex: 1 }}>
           <MathULogo size={80} />
           <h1 style={{
