@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { supabase } from "./supabase.js";
 import { QUESTION_BANK as IMPORTED_QUESTIONS } from "./questionData.js";
 import { parse, simplify, rationalize } from "mathjs";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, Legend, PieChart, Pie, Cell } from "recharts";
 
 // ─── FLOATING MATH SYMBOLS BACKGROUND ───
 const MATH_SYMBOLS = ["∑", "∫", "π", "√", "∞", "Δ", "θ", "±", "≠", "≈", "∂", "λ", "σ", "μ", "∈", "∀", "∃", "⊂", "∪", "∩", "α", "β", "γ", "φ", "ω", "ℝ", "ℤ", "→", "⟨", "⟩"];
@@ -3306,6 +3307,9 @@ export default function MathU() {
           <p onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setPhoneSaved(false); setUsername(""); setParentLinkPhone(""); setScreen("parent_signup"); }} style={{ fontSize: 12, opacity: 0.5, marginTop: 12, cursor: "pointer" }}>
             Parent? <span style={{ textDecoration: "underline", fontWeight: 600 }}>View your child's progress</span>
           </p>
+          <p onClick={() => setScreen("teacher_dashboard")} style={{ fontSize: 12, opacity: 0.5, marginTop: 12, cursor: "pointer" }}>
+            Teacher? <span style={{ textDecoration: "underline", fontWeight: 600 }}>View class dashboard</span>
+          </p>
           <div style={{ fontSize: 9, opacity: 0.3, marginTop: 30 }}>v{APP_VERSION}</div>
         </div>
       </div>
@@ -5894,6 +5898,426 @@ export default function MathU() {
           }}>
             Sign Out
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── TEACHER DASHBOARD ───
+  if (screen === "teacher_dashboard") {
+    const FAKE_STUDENTS = [
+      { name: "Aoife Murphy", avatar: "👩‍🎓", streak: 12, xp: 2340, topics: { algebra: { correct: 28, attempted: 35 }, complex_numbers: { correct: 15, attempted: 22 }, sequences_series: { correct: 20, attempted: 25 }, differentiation: { correct: 18, attempted: 30 }, integration: { correct: 12, attempted: 20 }, trigonometry: { correct: 22, attempted: 28 }, probability: { correct: 19, attempted: 24 }, statistics: { correct: 16, attempted: 20 }, coord_line: { correct: 14, attempted: 18 }, coord_circle: { correct: 10, attempted: 16 }, functions: { correct: 21, attempted: 26 }, geometry: { correct: 13, attempted: 18 } } },
+      { name: "Cian O'Brien", avatar: "👨‍🎓", streak: 8, xp: 1890, topics: { algebra: { correct: 22, attempted: 30 }, complex_numbers: { correct: 10, attempted: 20 }, sequences_series: { correct: 18, attempted: 22 }, differentiation: { correct: 12, attempted: 25 }, integration: { correct: 8, attempted: 18 }, trigonometry: { correct: 16, attempted: 24 }, probability: { correct: 20, attempted: 25 }, statistics: { correct: 18, attempted: 22 }, coord_line: { correct: 12, attempted: 16 }, coord_circle: { correct: 8, attempted: 14 }, functions: { correct: 15, attempted: 22 }, geometry: { correct: 11, attempted: 16 } } },
+      { name: "Saoirse Kelly", avatar: "👩‍🎓", streak: 21, xp: 3150, topics: { algebra: { correct: 33, attempted: 36 }, complex_numbers: { correct: 20, attempted: 23 }, sequences_series: { correct: 24, attempted: 26 }, differentiation: { correct: 26, attempted: 30 }, integration: { correct: 18, attempted: 22 }, trigonometry: { correct: 25, attempted: 28 }, probability: { correct: 22, attempted: 24 }, statistics: { correct: 19, attempted: 21 }, coord_line: { correct: 17, attempted: 18 }, coord_circle: { correct: 14, attempted: 16 }, functions: { correct: 24, attempted: 26 }, geometry: { correct: 16, attempted: 18 } } },
+      { name: "Oisín Walsh", avatar: "👨‍🎓", streak: 3, xp: 980, topics: { algebra: { correct: 14, attempted: 28 }, complex_numbers: { correct: 6, attempted: 18 }, sequences_series: { correct: 10, attempted: 20 }, differentiation: { correct: 8, attempted: 22 }, integration: { correct: 5, attempted: 15 }, trigonometry: { correct: 12, attempted: 24 }, probability: { correct: 14, attempted: 22 }, statistics: { correct: 10, attempted: 18 }, coord_line: { correct: 8, attempted: 14 }, coord_circle: { correct: 5, attempted: 12 }, functions: { correct: 10, attempted: 20 }, geometry: { correct: 7, attempted: 14 } } },
+      { name: "Niamh Byrne", avatar: "👩‍🎓", streak: 15, xp: 2680, topics: { algebra: { correct: 30, attempted: 34 }, complex_numbers: { correct: 18, attempted: 22 }, sequences_series: { correct: 22, attempted: 25 }, differentiation: { correct: 20, attempted: 28 }, integration: { correct: 14, attempted: 20 }, trigonometry: { correct: 20, attempted: 26 }, probability: { correct: 21, attempted: 24 }, statistics: { correct: 17, attempted: 20 }, coord_line: { correct: 15, attempted: 18 }, coord_circle: { correct: 12, attempted: 16 }, functions: { correct: 22, attempted: 26 }, geometry: { correct: 14, attempted: 18 } } },
+      { name: "Conor Ryan", avatar: "👨‍🎓", streak: 0, xp: 420, topics: { algebra: { correct: 8, attempted: 20 }, complex_numbers: { correct: 3, attempted: 12 }, sequences_series: { correct: 6, attempted: 14 }, differentiation: { correct: 4, attempted: 16 }, integration: { correct: 2, attempted: 10 }, trigonometry: { correct: 6, attempted: 16 }, probability: { correct: 8, attempted: 14 }, statistics: { correct: 6, attempted: 12 }, coord_line: { correct: 4, attempted: 10 }, coord_circle: { correct: 2, attempted: 8 }, functions: { correct: 5, attempted: 14 }, geometry: { correct: 3, attempted: 10 } } },
+      { name: "Róisín Doyle", avatar: "👩‍🎓", streak: 18, xp: 2920, topics: { algebra: { correct: 31, attempted: 35 }, complex_numbers: { correct: 19, attempted: 23 }, sequences_series: { correct: 23, attempted: 26 }, differentiation: { correct: 24, attempted: 30 }, integration: { correct: 16, attempted: 22 }, trigonometry: { correct: 23, attempted: 27 }, probability: { correct: 21, attempted: 24 }, statistics: { correct: 18, attempted: 21 }, coord_line: { correct: 16, attempted: 18 }, coord_circle: { correct: 13, attempted: 16 }, functions: { correct: 23, attempted: 26 }, geometry: { correct: 15, attempted: 18 } } },
+      { name: "Seán Fitzgerald", avatar: "👨‍🎓", streak: 5, xp: 1350, topics: { algebra: { correct: 18, attempted: 28 }, complex_numbers: { correct: 8, attempted: 18 }, sequences_series: { correct: 14, attempted: 22 }, differentiation: { correct: 10, attempted: 24 }, integration: { correct: 7, attempted: 16 }, trigonometry: { correct: 14, attempted: 22 }, probability: { correct: 16, attempted: 22 }, statistics: { correct: 12, attempted: 18 }, coord_line: { correct: 10, attempted: 16 }, coord_circle: { correct: 6, attempted: 12 }, functions: { correct: 12, attempted: 20 }, geometry: { correct: 9, attempted: 16 } } },
+      { name: "Caoimhe McCarthy", avatar: "👩‍🎓", streak: 10, xp: 2100, topics: { algebra: { correct: 25, attempted: 32 }, complex_numbers: { correct: 14, attempted: 20 }, sequences_series: { correct: 19, attempted: 24 }, differentiation: { correct: 16, attempted: 26 }, integration: { correct: 11, attempted: 18 }, trigonometry: { correct: 18, attempted: 25 }, probability: { correct: 18, attempted: 23 }, statistics: { correct: 15, attempted: 20 }, coord_line: { correct: 13, attempted: 17 }, coord_circle: { correct: 9, attempted: 14 }, functions: { correct: 18, attempted: 24 }, geometry: { correct: 12, attempted: 17 } } },
+      { name: "Darragh O'Sullivan", avatar: "👨‍🎓", streak: 7, xp: 1680, topics: { algebra: { correct: 20, attempted: 30 }, complex_numbers: { correct: 11, attempted: 20 }, sequences_series: { correct: 16, attempted: 22 }, differentiation: { correct: 14, attempted: 26 }, integration: { correct: 9, attempted: 18 }, trigonometry: { correct: 15, attempted: 24 }, probability: { correct: 17, attempted: 23 }, statistics: { correct: 13, attempted: 19 }, coord_line: { correct: 11, attempted: 16 }, coord_circle: { correct: 7, attempted: 13 }, functions: { correct: 14, attempted: 22 }, geometry: { correct: 10, attempted: 16 } } },
+      { name: "Éabha Gallagher", avatar: "👩‍🎓", streak: 14, xp: 2450, topics: { algebra: { correct: 27, attempted: 33 }, complex_numbers: { correct: 16, attempted: 21 }, sequences_series: { correct: 21, attempted: 25 }, differentiation: { correct: 22, attempted: 29 }, integration: { correct: 15, attempted: 21 }, trigonometry: { correct: 21, attempted: 27 }, probability: { correct: 20, attempted: 24 }, statistics: { correct: 17, attempted: 21 }, coord_line: { correct: 14, attempted: 17 }, coord_circle: { correct: 11, attempted: 15 }, functions: { correct: 20, attempted: 25 }, geometry: { correct: 14, attempted: 18 } } },
+      { name: "Liam Nolan", avatar: "👨‍🎓", streak: 2, xp: 760, topics: { algebra: { correct: 12, attempted: 24 }, complex_numbers: { correct: 5, attempted: 16 }, sequences_series: { correct: 8, attempted: 18 }, differentiation: { correct: 6, attempted: 20 }, integration: { correct: 4, attempted: 14 }, trigonometry: { correct: 10, attempted: 20 }, probability: { correct: 12, attempted: 20 }, statistics: { correct: 8, attempted: 16 }, coord_line: { correct: 6, attempted: 12 }, coord_circle: { correct: 4, attempted: 10 }, functions: { correct: 8, attempted: 18 }, geometry: { correct: 6, attempted: 14 } } },
+    ];
+
+    const allTopics = getAllTopics();
+    const [teacherView, setTeacherView] = useState("overview");
+    const [selectedStudent, setSelectedStudent] = useState(null);
+    const [sortBy, setSortBy] = useState("name");
+    const [sortDir, setSortDir] = useState("asc");
+
+    // Calculate class averages per topic
+    const topicKeys = Object.keys(FAKE_STUDENTS[0].topics);
+    const topicAverages = topicKeys.map(key => {
+      const total = FAKE_STUDENTS.reduce((sum, s) => sum + (s.topics[key] ? (s.topics[key].correct / s.topics[key].attempted) * 100 : 0), 0);
+      return { topic: key, name: allTopics[key]?.name || key, icon: allTopics[key]?.icon || "", color: allTopics[key]?.color || "#666", avg: Math.round(total / FAKE_STUDENTS.length) };
+    }).sort((a, b) => a.avg - b.avg);
+
+    // Class summary stats
+    const classAvgAccuracy = Math.round(topicAverages.reduce((s, t) => s + t.avg, 0) / topicAverages.length);
+    const classAvgXP = Math.round(FAKE_STUDENTS.reduce((s, st) => s + st.xp, 0) / FAKE_STUDENTS.length);
+    const activeStudents = FAKE_STUDENTS.filter(s => s.streak > 0).length;
+
+    // Sorted students
+    const sortedStudents = [...FAKE_STUDENTS].sort((a, b) => {
+      let aVal, bVal;
+      if (sortBy === "name") { aVal = a.name; bVal = b.name; }
+      else if (sortBy === "xp") { aVal = a.xp; bVal = b.xp; }
+      else if (sortBy === "streak") { aVal = a.streak; bVal = b.streak; }
+      else if (sortBy === "accuracy") {
+        const aTotal = Object.values(a.topics).reduce((s, t) => s + t.correct, 0);
+        const aAtt = Object.values(a.topics).reduce((s, t) => s + t.attempted, 0);
+        const bTotal = Object.values(b.topics).reduce((s, t) => s + t.correct, 0);
+        const bAtt = Object.values(b.topics).reduce((s, t) => s + t.attempted, 0);
+        aVal = aAtt ? aTotal / aAtt : 0;
+        bVal = bAtt ? bTotal / bAtt : 0;
+      }
+      if (sortDir === "asc") return aVal > bVal ? 1 : -1;
+      return aVal < bVal ? 1 : -1;
+    });
+
+    const handleSort = (col) => {
+      if (sortBy === col) setSortDir(sortDir === "asc" ? "desc" : "asc");
+      else { setSortBy(col); setSortDir(col === "name" ? "asc" : "desc"); }
+    };
+
+    const CHART_COLORS = ["#7C3AED", "#2563EB", "#059669", "#DC2626", "#EA580C", "#D97706", "#0891B2", "#E11D48", "#9333EA", "#C026D3", "#16A34A", "#0D9488"];
+
+    // Performance distribution for pie chart
+    const perfBands = [
+      { name: "Excellent (80%+)", value: FAKE_STUDENTS.filter(s => { const c = Object.values(s.topics).reduce((a, t) => a + t.correct, 0); const att = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0); return att ? (c / att) >= 0.8 : false; }).length, color: "#22C55E" },
+      { name: "Good (60-79%)", value: FAKE_STUDENTS.filter(s => { const c = Object.values(s.topics).reduce((a, t) => a + t.correct, 0); const att = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0); const pct = att ? c / att : 0; return pct >= 0.6 && pct < 0.8; }).length, color: "#3B82F6" },
+      { name: "Needs Work (40-59%)", value: FAKE_STUDENTS.filter(s => { const c = Object.values(s.topics).reduce((a, t) => a + t.correct, 0); const att = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0); const pct = att ? c / att : 0; return pct >= 0.4 && pct < 0.6; }).length, color: "#F59E0B" },
+      { name: "Struggling (<40%)", value: FAKE_STUDENTS.filter(s => { const c = Object.values(s.topics).reduce((a, t) => a + t.correct, 0); const att = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0); const pct = att ? c / att : 0; return pct < 0.4; }).length, color: "#EF4444" },
+    ].filter(b => b.value > 0);
+
+    // Student detail view
+    if (selectedStudent) {
+      const s = selectedStudent;
+      const studentTopics = Object.entries(s.topics).map(([key, val]) => ({
+        topic: allTopics[key]?.name || key,
+        icon: allTopics[key]?.icon || "",
+        color: allTopics[key]?.color || "#666",
+        accuracy: Math.round((val.correct / val.attempted) * 100),
+        correct: val.correct,
+        attempted: val.attempted,
+      })).sort((a, b) => a.accuracy - b.accuracy);
+      const totalCorrect = Object.values(s.topics).reduce((a, t) => a + t.correct, 0);
+      const totalAttempted = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0);
+      const overallAcc = Math.round((totalCorrect / totalAttempted) * 100);
+
+      const radarData = studentTopics.map(t => ({ subject: t.topic.length > 10 ? t.topic.substring(0, 10) + "…" : t.topic, A: t.accuracy, fullMark: 100 }));
+
+      return (
+        <div style={{ ...styles.app, overflowY: "auto" }}>
+          <div style={{ ...styles.header, background: colors.gradient }}>
+            <button onClick={() => setSelectedStudent(null)} style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>← Back</button>
+            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>{s.avatar} {s.name}</h2>
+            <div />
+          </div>
+          <div style={{ padding: "0 0 40px" }}>
+            {/* Summary cards */}
+            <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: 12, margin: "16px 16px 0" }}>
+              {[
+                { label: "Overall Accuracy", value: overallAcc + "%", icon: "🎯", color: overallAcc >= 70 ? "#22C55E" : overallAcc >= 50 ? "#F59E0B" : "#EF4444" },
+                { label: "Questions Done", value: totalAttempted, icon: "📝", color: colors.primary },
+                { label: "Current Streak", value: s.streak + " days", icon: "🔥", color: "#EA580C" },
+                { label: "Total XP", value: s.xp.toLocaleString(), icon: "⚡", color: "#7C3AED" },
+              ].map(card => (
+                <div key={card.label} style={{ ...styles.card, margin: 0, textAlign: "center", padding: 16 }}>
+                  <div style={{ fontSize: 28 }}>{card.icon}</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: card.color, margin: "4px 0" }}>{card.value}</div>
+                  <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>{card.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Radar chart */}
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 800, color: colors.text }}>Skill Profile</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <RadarChart data={radarData}>
+                  <PolarGrid stroke="#e2e8f0" />
+                  <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: colors.textLight }} />
+                  <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} />
+                  <Radar name={s.name} dataKey="A" stroke={colors.primary} fill={colors.primary} fillOpacity={0.3} strokeWidth={2} />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Topic breakdown */}
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 800, color: colors.text }}>Topic Breakdown</h3>
+              {studentTopics.map((t, i) => {
+                const barColor = t.accuracy >= 70 ? "#22C55E" : t.accuracy >= 50 ? "#F59E0B" : "#EF4444";
+                return (
+                  <div key={i} style={{ marginBottom: 14 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>{t.icon} {t.topic}</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: barColor }}>{t.accuracy}% ({t.correct}/{t.attempted})</span>
+                    </div>
+                    <div style={{ height: 8, background: "#f1f5f9", borderRadius: 4, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${t.accuracy}%`, background: barColor, borderRadius: 4, transition: "width 0.5s" }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Weak areas callout */}
+            {studentTopics.filter(t => t.accuracy < 50).length > 0 && (
+              <div style={{ ...styles.card, background: "#FEF2F2", border: "2px solid #FECACA" }}>
+                <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: "#DC2626" }}>⚠️ Areas Needing Attention</h3>
+                <p style={{ fontSize: 13, color: "#991B1B", margin: "0 0 8px" }}>These topics are below 50% accuracy:</p>
+                {studentTopics.filter(t => t.accuracy < 50).map((t, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 12px", marginBottom: 4, background: "white", borderRadius: 8, border: "1px solid #FECACA" }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>{t.icon} {t.topic}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "#DC2626" }}>{t.accuracy}%</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ ...styles.app, overflowY: "auto" }}>
+        {/* Header */}
+        <div style={{ ...styles.header, background: "linear-gradient(135deg, #1E293B 0%, #334155 50%, #475569 100%)", padding: "20px 20px 16px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+            <div>
+              <div style={{ fontSize: 12, opacity: 0.7, letterSpacing: 1, textTransform: "uppercase" }}>Teacher Dashboard</div>
+              <h2 style={{ fontSize: 22, fontWeight: 800, margin: "4px 0 0" }}>Mr. Dowling's Class</h2>
+            </div>
+            <button onClick={() => setScreen("splash")} style={{ background: "rgba(255,255,255,0.15)", border: "none", borderRadius: 10, padding: "8px 16px", color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              ← Exit
+            </button>
+          </div>
+          {/* Tab nav */}
+          <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+            {[
+              { key: "overview", label: "Overview", icon: "📊" },
+              { key: "students", label: "Students", icon: "👥" },
+              { key: "topics", label: "Topics", icon: "📚" },
+            ].map(tab => (
+              <button key={tab.key} onClick={() => setTeacherView(tab.key)} style={{
+                background: teacherView === tab.key ? "rgba(255,255,255,0.2)" : "transparent",
+                border: teacherView === tab.key ? "1px solid rgba(255,255,255,0.3)" : "1px solid transparent",
+                borderRadius: 10, padding: "8px 16px", color: "white", fontSize: 13, fontWeight: teacherView === tab.key ? 700 : 500,
+                cursor: "pointer", transition: "all 0.2s",
+              }}>
+                {tab.icon} {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ padding: "0 0 40px" }}>
+          {/* ─── OVERVIEW TAB ─── */}
+          {teacherView === "overview" && (
+            <>
+              {/* Summary cards */}
+              <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: 12, margin: "16px 16px 0" }}>
+                {[
+                  { label: "Students", value: FAKE_STUDENTS.length, icon: "👥", color: colors.primary },
+                  { label: "Class Average", value: classAvgAccuracy + "%", icon: "🎯", color: classAvgAccuracy >= 70 ? "#22C55E" : "#F59E0B" },
+                  { label: "Active Today", value: activeStudents, icon: "🔥", color: "#EA580C" },
+                  { label: "Avg XP", value: classAvgXP.toLocaleString(), icon: "⚡", color: "#7C3AED" },
+                ].map(card => (
+                  <div key={card.label} style={{ ...styles.card, margin: 0, textAlign: "center", padding: 16 }}>
+                    <div style={{ fontSize: 28 }}>{card.icon}</div>
+                    <div style={{ fontSize: 26, fontWeight: 800, color: card.color, margin: "6px 0" }}>{card.value}</div>
+                    <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>{card.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Class Average by Topic - Bar Chart */}
+              <div style={styles.card}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Class Average by Topic</h3>
+                <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Sorted weakest → strongest to highlight focus areas</p>
+                <ResponsiveContainer width="100%" height={320}>
+                  <BarChart data={topicAverages} margin={{ top: 5, right: 10, left: -10, bottom: 60 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: colors.textLight }} angle={-45} textAnchor="end" interval={0} height={80} />
+                    <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => v + "%"} />
+                    <Tooltip formatter={(value) => [value + "%", "Class Average"]} contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} />
+                    <Bar dataKey="avg" radius={[6, 6, 0, 0]}>
+                      {topicAverages.map((entry, i) => (
+                        <Cell key={i} fill={entry.avg >= 70 ? "#22C55E" : entry.avg >= 50 ? "#F59E0B" : "#EF4444"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Performance Distribution Pie */}
+              <div style={styles.card}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Student Performance Distribution</h3>
+                <p style={{ margin: "0 0 8px", fontSize: 12, color: colors.textLight }}>Overall accuracy bands across the class</p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 16 }}>
+                  <ResponsiveContainer width={200} height={200}>
+                    <PieChart>
+                      <Pie data={perfBands} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} innerRadius={45} paddingAngle={3} strokeWidth={0}>
+                        {perfBands.map((entry, i) => <Cell key={i} fill={entry.color} />)}
+                      </Pie>
+                      <Tooltip formatter={(value) => [value + " students", ""]} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {perfBands.map((band, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ width: 14, height: 14, borderRadius: 4, background: band.color }} />
+                        <span style={{ fontSize: 13, color: colors.text, fontWeight: 600 }}>{band.name}</span>
+                        <span style={{ fontSize: 13, color: colors.textLight, fontWeight: 700, marginLeft: 4 }}>({band.value})</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Top & Bottom performers */}
+              <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr" : "1fr", gap: 0, margin: 0 }}>
+                <div style={styles.card}>
+                  <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: "#22C55E" }}>🌟 Top Performers</h3>
+                  {[...FAKE_STUDENTS].sort((a, b) => {
+                    const aAcc = Object.values(a.topics).reduce((s, t) => s + t.correct, 0) / Object.values(a.topics).reduce((s, t) => s + t.attempted, 0);
+                    const bAcc = Object.values(b.topics).reduce((s, t) => s + t.correct, 0) / Object.values(b.topics).reduce((s, t) => s + t.attempted, 0);
+                    return bAcc - aAcc;
+                  }).slice(0, 3).map((s, i) => {
+                    const acc = Math.round((Object.values(s.topics).reduce((sum, t) => sum + t.correct, 0) / Object.values(s.topics).reduce((sum, t) => sum + t.attempted, 0)) * 100);
+                    return (
+                      <div key={i} onClick={() => setSelectedStudent(s)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 12px", marginBottom: 6, background: "#F0FDF4", borderRadius: 10, cursor: "pointer", border: "1px solid #BBF7D0" }}>
+                        <span style={{ fontSize: 20 }}>{["🥇", "🥈", "🥉"][i]}</span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{s.name}</div>
+                          <div style={{ fontSize: 11, color: colors.textLight }}>🔥 {s.streak} day streak</div>
+                        </div>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: "#22C55E" }}>{acc}%</div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={styles.card}>
+                  <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: "#EF4444" }}>⚠️ Need Attention</h3>
+                  {[...FAKE_STUDENTS].sort((a, b) => {
+                    const aAcc = Object.values(a.topics).reduce((s, t) => s + t.correct, 0) / Object.values(a.topics).reduce((s, t) => s + t.attempted, 0);
+                    const bAcc = Object.values(b.topics).reduce((s, t) => s + t.correct, 0) / Object.values(b.topics).reduce((s, t) => s + t.attempted, 0);
+                    return aAcc - bAcc;
+                  }).slice(0, 3).map((s, i) => {
+                    const acc = Math.round((Object.values(s.topics).reduce((sum, t) => sum + t.correct, 0) / Object.values(s.topics).reduce((sum, t) => sum + t.attempted, 0)) * 100);
+                    return (
+                      <div key={i} onClick={() => setSelectedStudent(s)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 12px", marginBottom: 6, background: "#FEF2F2", borderRadius: 10, cursor: "pointer", border: "1px solid #FECACA" }}>
+                        <span style={{ fontSize: 20 }}>{s.avatar}</span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{s.name}</div>
+                          <div style={{ fontSize: 11, color: colors.textLight }}>🔥 {s.streak} day streak</div>
+                        </div>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: "#EF4444" }}>{acc}%</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* ─── STUDENTS TAB ─── */}
+          {teacherView === "students" && (
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 800, color: colors.text }}>All Students</h3>
+              {/* Sort controls */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+                {[
+                  { key: "name", label: "Name" },
+                  { key: "accuracy", label: "Accuracy" },
+                  { key: "xp", label: "XP" },
+                  { key: "streak", label: "Streak" },
+                ].map(col => (
+                  <button key={col.key} onClick={() => handleSort(col.key)} style={{
+                    padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer",
+                    background: sortBy === col.key ? colors.primary : "#f1f5f9",
+                    color: sortBy === col.key ? "white" : colors.text,
+                    border: "none", transition: "all 0.2s",
+                  }}>
+                    {col.label} {sortBy === col.key ? (sortDir === "asc" ? "↑" : "↓") : ""}
+                  </button>
+                ))}
+              </div>
+
+              {/* Student rows */}
+              {sortedStudents.map((s, i) => {
+                const totalCorrect = Object.values(s.topics).reduce((a, t) => a + t.correct, 0);
+                const totalAttempted = Object.values(s.topics).reduce((a, t) => a + t.attempted, 0);
+                const acc = Math.round((totalCorrect / totalAttempted) * 100);
+                const accColor = acc >= 70 ? "#22C55E" : acc >= 50 ? "#F59E0B" : "#EF4444";
+                return (
+                  <div key={i} onClick={() => setSelectedStudent(s)} style={{
+                    display: "flex", alignItems: "center", gap: 12, padding: "14px 12px",
+                    marginBottom: 8, background: darkMode ? "#1E293B" : "#f8fafc", borderRadius: 12,
+                    cursor: "pointer", transition: "all 0.2s", border: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+                  }}>
+                    <div style={{ fontSize: 28 }}>{s.avatar}</div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{s.name}</div>
+                      <div style={{ fontSize: 11, color: colors.textLight, marginTop: 2 }}>
+                        {totalAttempted} questions · {totalCorrect} correct
+                      </div>
+                      {/* Mini progress bar */}
+                      <div style={{ height: 4, background: "#e2e8f0", borderRadius: 2, marginTop: 6, overflow: "hidden" }}>
+                        <div style={{ height: "100%", width: `${acc}%`, background: accColor, borderRadius: 2, transition: "width 0.5s" }} />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: "right", minWidth: 60 }}>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: accColor }}>{acc}%</div>
+                      <div style={{ fontSize: 10, color: colors.textLight }}>🔥 {s.streak}d · ⚡ {s.xp}</div>
+                    </div>
+                    <span style={{ fontSize: 16, color: colors.textLight }}>›</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* ─── TOPICS TAB ─── */}
+          {teacherView === "topics" && (
+            <>
+              {/* Overview bar chart */}
+              <div style={styles.card}>
+                <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Average Accuracy by Topic</h3>
+                <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Where should you focus your teaching?</p>
+                <ResponsiveContainer width="100%" height={320}>
+                  <BarChart data={topicAverages} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
+                    <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => v + "%"} />
+                    <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11, fill: colors.text }} />
+                    <Tooltip formatter={(value) => [value + "%", "Class Average"]} contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} />
+                    <Bar dataKey="avg" radius={[0, 6, 6, 0]}>
+                      {topicAverages.map((entry, i) => (
+                        <Cell key={i} fill={entry.avg >= 70 ? "#22C55E" : entry.avg >= 50 ? "#F59E0B" : "#EF4444"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Topic cards with student breakdown */}
+              {topicAverages.map((topic, ti) => {
+                const studentScores = FAKE_STUDENTS.map(s => {
+                  const t = s.topics[topic.topic];
+                  return { name: s.name.split(" ")[0], accuracy: t ? Math.round((t.correct / t.attempted) * 100) : 0 };
+                }).sort((a, b) => a.accuracy - b.accuracy);
+
+                return (
+                  <div key={ti} style={styles.card}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                      <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800, color: colors.text }}>{topic.icon} {topic.name}</h3>
+                      <span style={{
+                        fontSize: 14, fontWeight: 800, padding: "4px 12px", borderRadius: 20,
+                        background: topic.avg >= 70 ? "#DCFCE7" : topic.avg >= 50 ? "#FEF3C7" : "#FEE2E2",
+                        color: topic.avg >= 70 ? "#166534" : topic.avg >= 50 ? "#92400E" : "#991B1B",
+                      }}>{topic.avg}% avg</span>
+                    </div>
+                    <ResponsiveContainer width="100%" height={180}>
+                      <BarChart data={studentScores} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                        <XAxis dataKey="name" tick={{ fontSize: 10, fill: colors.textLight }} />
+                        <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} tickFormatter={(v) => v + "%"} />
+                        <Tooltip formatter={(value) => [value + "%", "Accuracy"]} />
+                        <Bar dataKey="accuracy" radius={[4, 4, 0, 0]}>
+                          {studentScores.map((entry, i) => (
+                            <Cell key={i} fill={entry.accuracy >= 70 ? "#22C55E" : entry.accuracy >= 50 ? "#F59E0B" : "#EF4444"} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     );
