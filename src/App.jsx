@@ -2938,17 +2938,51 @@ export default function MathU() {
 
       // Handle spaced repetition: add to wrongAnswers if incorrect
       if (!correct) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        setWrongAnswers(prev => [...prev, {
-          questionId: currentQuestion.id,
-          wrongDate: new Date().toISOString(),
-          nextReview: tomorrow.toISOString(),
-          interval: 1,
-        }]);
+        const now = new Date();
+        const nextReview = new Date(now);
+        nextReview.setDate(nextReview.getDate() + 1);
+        setWrongAnswers(prev => {
+          // Check if already exists — update interval instead of duplicating
+          const existing = prev.find(w => w.questionId === currentQuestion.id);
+          if (existing) {
+            return prev.map(w => w.questionId === currentQuestion.id ? {
+              ...w, wrongDate: now.toISOString(), nextReview: nextReview.toISOString(),
+              interval: 1, wrongCount: (w.wrongCount || 1) + 1,
+            } : w);
+          }
+          return [...prev, {
+            questionId: currentQuestion.id,
+            topic: topicKey,
+            subtopic: currentQuestion.parts?.[activePart]?.subtopic || "",
+            partLabel: currentQuestion.parts?.[activePart]?.label || "",
+            source: currentQuestion.source,
+            questionNumber: currentQuestion.questionNumber,
+            wrongDate: now.toISOString(),
+            nextReview: nextReview.toISOString(),
+            interval: 1,
+            wrongCount: 1,
+          }];
+        });
       } else {
-        // If correct, remove from wrongAnswers if exists
-        setWrongAnswers(prev => prev.filter(w => w.questionId !== currentQuestion.id));
+        // Spaced repetition: if correct, increase interval (1→3→7→14→30)
+        setWrongAnswers(prev => {
+          const existing = prev.find(w => w.questionId === currentQuestion.id);
+          if (existing) {
+            const intervals = [1, 3, 7, 14, 30];
+            const nextIdx = Math.min(intervals.indexOf(existing.interval) + 1, intervals.length - 1);
+            const nextInterval = intervals[nextIdx];
+            if (nextInterval >= 30) {
+              // Mastered — remove from review queue
+              return prev.filter(w => w.questionId !== currentQuestion.id);
+            }
+            const nextReview = new Date();
+            nextReview.setDate(nextReview.getDate() + nextInterval);
+            return prev.map(w => w.questionId === currentQuestion.id ? {
+              ...w, interval: nextInterval, nextReview: nextReview.toISOString(),
+            } : w);
+          }
+          return prev;
+        });
       }
 
       // FEATURE 2: Weekly Challenge logic
@@ -3957,6 +3991,182 @@ export default function MathU() {
               Jump into a random question from your topics
             </div>
           </div>
+
+          {/* ─── SMART LEARNING: Weakness Detection ─── */}
+          {Object.keys(stats.topicStats).length >= 2 && (() => {
+            // Find weakest topics (below 60% accuracy with at least 3 attempts)
+            const weakTopics = Object.entries(stats.topicStats)
+              .filter(([, ts]) => ts.attempted >= 3)
+              .map(([key, ts]) => ({
+                key, ...ts,
+                accuracy: Math.round((ts.correct / ts.attempted) * 100),
+                topic: allTopics[key],
+              }))
+              .filter(t => t.accuracy < 60)
+              .sort((a, b) => a.accuracy - b.accuracy)
+              .slice(0, 3);
+
+            // Find subtopics from wrongAnswers
+            const subtopicCounts = {};
+            wrongAnswers.forEach(w => {
+              if (w.subtopic) {
+                const key = `${w.topic}:${w.subtopic}`;
+                subtopicCounts[key] = (subtopicCounts[key] || { count: 0, subtopic: w.subtopic, topic: w.topic });
+                subtopicCounts[key].count++;
+              }
+            });
+            const weakSubtopics = Object.values(subtopicCounts).sort((a, b) => b.count - a.count).slice(0, 3);
+
+            if (weakTopics.length === 0 && weakSubtopics.length === 0) return null;
+
+            return (
+              <div style={{ ...styles.card, background: "linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%)", border: "2px solid #FDE68A" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: "#F59E0B", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🧠</div>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#92400E" }}>Smart Insights</h3>
+                    <p style={{ margin: 0, fontSize: 12, color: "#B45309" }}>Based on your recent performance</p>
+                  </div>
+                </div>
+
+                {weakTopics.length > 0 && (
+                  <div style={{ marginBottom: weakSubtopics.length > 0 ? 14 : 0 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: "#92400E", marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>Topics to focus on</div>
+                    {weakTopics.map((t, i) => (
+                      <div key={i} onClick={() => startPractice(t.key)} style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 6,
+                        background: "white", borderRadius: 10, cursor: "pointer",
+                        border: "1px solid #FDE68A", transition: "all 0.15s",
+                      }}>
+                        <span style={{ fontSize: 20 }}>{t.topic?.icon}</span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: "#1E293B" }}>{t.topic?.name}</div>
+                          <div style={{ fontSize: 11, color: "#64748B" }}>{t.correct}/{t.attempted} correct · Avg {Math.round(t.totalTime / t.attempted)}s</div>
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          <div style={{ fontSize: 16, fontWeight: 800, color: t.accuracy < 40 ? "#EF4444" : "#F59E0B" }}>{t.accuracy}%</div>
+                          <div style={{ fontSize: 10, color: "#F59E0B", fontWeight: 600 }}>Practice →</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {weakSubtopics.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: "#92400E", marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>Subtopics you keep getting wrong</div>
+                    {weakSubtopics.map((st, i) => (
+                      <div key={i} onClick={() => startPractice(st.topic)} style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 4,
+                        background: "rgba(255,255,255,0.7)", borderRadius: 8, cursor: "pointer",
+                      }}>
+                        <span style={{ fontSize: 14, color: "#EF4444" }}>✕</span>
+                        <div style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "#1E293B" }}>{st.subtopic}</div>
+                        <span style={{ fontSize: 12, fontWeight: 700, color: "#EF4444" }}>{st.count}× wrong</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
+          {/* ─── SMART LEARNING: Spaced Repetition Review ─── */}
+          {(() => {
+            const now = new Date();
+            const dueForReview = wrongAnswers.filter(w => new Date(w.nextReview) <= now);
+            const upcoming = wrongAnswers.filter(w => new Date(w.nextReview) > now).sort((a, b) => new Date(a.nextReview) - new Date(b.nextReview));
+
+            if (dueForReview.length === 0 && upcoming.length === 0) return null;
+
+            return (
+              <div style={{ ...styles.card, background: "linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%)", border: "2px solid #C7D2FE" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: colors.primary, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>🔄</div>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#312E81" }}>Spaced Repetition</h3>
+                    <p style={{ margin: 0, fontSize: 12, color: "#6366F1" }}>Review questions you got wrong — spaced for memory</p>
+                  </div>
+                </div>
+
+                {dueForReview.length > 0 && (
+                  <>
+                    <div style={{
+                      background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)", borderRadius: 12,
+                      padding: "14px 16px", marginBottom: 12, color: "white",
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                    }}>
+                      <div>
+                        <div style={{ fontSize: 28, fontWeight: 800 }}>{dueForReview.length}</div>
+                        <div style={{ fontSize: 12, opacity: 0.9 }}>questions due for review</div>
+                      </div>
+                      <button onClick={() => {
+                        // Start a review session with the first due question
+                        const q = QUESTION_BANK.find(qb => qb.id === dueForReview[0].questionId);
+                        if (q) {
+                          setPracticeMode(true);
+                          setCurrentQuestion(q);
+                          resetQuestionState();
+                          setScreen("question");
+                        }
+                      }} style={{
+                        ...styles.btn("white"), color: colors.primary, fontSize: 14, fontWeight: 800,
+                        padding: "12px 24px", boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                      }}>
+                        Start Review
+                      </button>
+                    </div>
+
+                    {dueForReview.slice(0, 3).map((w, i) => {
+                      const q = QUESTION_BANK.find(qb => qb.id === w.questionId);
+                      const topic = q ? allTopics[q.topic] : null;
+                      return (
+                        <div key={i} onClick={() => {
+                          if (q) { setPracticeMode(true); setCurrentQuestion(q); resetQuestionState(); setScreen("question"); }
+                        }} style={{
+                          display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 4,
+                          background: "rgba(255,255,255,0.7)", borderRadius: 8, cursor: "pointer",
+                        }}>
+                          <span style={{ fontSize: 14 }}>📝</span>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: 12, fontWeight: 700, color: "#1E293B" }}>{w.source || q?.source} Q{w.questionNumber || q?.questionNumber}</div>
+                            <div style={{ fontSize: 11, color: "#64748B" }}>{topic?.icon} {w.subtopic || topic?.name} · wrong {w.wrongCount || 1}×</div>
+                          </div>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: "#EF4444" }}>Due now</span>
+                        </div>
+                      );
+                    })}
+                  </>
+                )}
+
+                {upcoming.length > 0 && (
+                  <div style={{ marginTop: dueForReview.length > 0 ? 12 : 0 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: "#4338CA", marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                      Coming up ({upcoming.length} questions)
+                    </div>
+                    {upcoming.slice(0, 3).map((w, i) => {
+                      const q = QUESTION_BANK.find(qb => qb.id === w.questionId);
+                      const topic = q ? allTopics[q.topic] : null;
+                      const daysUntil = Math.max(1, Math.ceil((new Date(w.nextReview) - now) / (1000 * 60 * 60 * 24)));
+                      return (
+                        <div key={i} style={{
+                          display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 4,
+                          background: "rgba(255,255,255,0.5)", borderRadius: 8,
+                        }}>
+                          <span style={{ fontSize: 14 }}>⏳</span>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: 12, fontWeight: 700, color: "#1E293B" }}>{w.source || q?.source} Q{w.questionNumber || q?.questionNumber}</div>
+                            <div style={{ fontSize: 11, color: "#64748B" }}>{topic?.icon} {w.subtopic || topic?.name}</div>
+                          </div>
+                          <span style={{ fontSize: 11, fontWeight: 600, color: "#6366F1" }}>in {daysUntil}d</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Practice by topic */}
           <div style={styles.card}>
