@@ -3291,10 +3291,10 @@ export default function MathU() {
           >
             Get Started
           </button>
-          <p onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setScreen("signin"); }} style={{ fontSize: 12, opacity: 0.6, marginTop: 24, cursor: "pointer" }}>
+          <p onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setPhoneSaved(false); setScreen("signin"); }} style={{ fontSize: 12, opacity: 0.6, marginTop: 24, cursor: "pointer" }}>
             Already have an account? <span style={{ textDecoration: "underline", fontWeight: 600 }}>Sign In</span>
           </p>
-          <p onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setUsername(""); setParentLinkPhone(""); setScreen("parent_signup"); }} style={{ fontSize: 12, opacity: 0.5, marginTop: 12, cursor: "pointer" }}>
+          <p onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setPhoneSaved(false); setUsername(""); setParentLinkPhone(""); setScreen("parent_signup"); }} style={{ fontSize: 12, opacity: 0.5, marginTop: 12, cursor: "pointer" }}>
             Parent? <span style={{ textDecoration: "underline", fontWeight: 600 }}>View your child's progress</span>
           </p>
           <div style={{ fontSize: 9, opacity: 0.3, marginTop: 30 }}>v{APP_VERSION}</div>
@@ -3570,6 +3570,8 @@ export default function MathU() {
                   onChange={e => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setCodeError(""); }}
                   placeholder="08X XXX XXXX or 8X XXX XXXX"
                   type="tel"
+                  autoComplete="off"
+                  name="mathu-phone-signin"
                   style={{ ...styles.input, flex: 1 }}
                 />
               </div>
@@ -5585,7 +5587,7 @@ export default function MathU() {
 
           <div style={styles.card}>
             <h3 style={{ margin: "0 0 16px", fontSize: 15, fontWeight: 700, color: colors.text }}>Already have a parent account?</h3>
-            <button onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setUsername(""); setParentLinkPhone(""); setScreen("signin"); }} style={{ ...styles.btn(colors.primary, true), marginBottom: 12 }}>
+            <button onClick={() => { setPhone(""); setPin(""); pinRef.current = ""; setCodeError(""); setPhoneSaved(false); setUsername(""); setParentLinkPhone(""); setScreen("signin"); }} style={{ ...styles.btn(colors.primary, true), marginBottom: 12 }}>
               Sign In
             </button>
           </div>
