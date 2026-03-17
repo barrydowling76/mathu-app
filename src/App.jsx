@@ -6512,41 +6512,64 @@ export default function MathU() {
                     })}
                   </div>
 
-                  {/* Question image preview — shown below the list */}
+                  {/* Question image preview — modal overlay */}
                   {testPreviewQuestion && (
-                    <div style={{ marginTop: 12, border: `2px solid ${colors.secondary}`, borderRadius: 12, background: "#fafafa", overflow: "hidden" }}>
-                      <div style={{ padding: "12px 16px", borderBottom: "1px solid #e2e8f0", background: "white", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div>
-                          <div style={{ fontSize: 15, fontWeight: 800, color: colors.text }}>
-                            {testPreviewQuestion.source} — Q{testPreviewQuestion.questionNumber}
-                          </div>
-                          <div style={{ fontSize: 12, color: colors.textLight }}>
-                            {allTopics[testPreviewQuestion.topic]?.icon} {allTopics[testPreviewQuestion.topic]?.name} · {testPreviewQuestion.totalMarks} marks · {testPreviewQuestion.parts?.length || 0} parts
-                          </div>
-                        </div>
-                        <button onClick={() => setTestPreviewQuestion(null)} style={{ background: "#f1f5f9", border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 13, fontWeight: 700, cursor: "pointer", color: colors.textLight }}>✕ Close</button>
-                      </div>
-                      <div style={{ padding: 12, maxHeight: 500, overflowY: "auto" }}>
-                        {testPreviewQuestion.imagePath && (
-                          <img src={testPreviewQuestion.imagePath} alt="Question preview" style={{ width: "100%", borderRadius: 8, display: "block" }} />
-                        )}
-                        {testPreviewQuestion.pageImages && testPreviewQuestion.pageImages.length > 0 && !testPreviewQuestion.imagePath && (
-                          testPreviewQuestion.pageImages.map((img, i) => (
-                            <img key={i} src={img} alt={`Page ${i + 1}`} style={{ width: "100%", borderRadius: 8, display: "block", marginBottom: 4 }} />
-                          ))
-                        )}
-                      </div>
-                      <div style={{ padding: "8px 16px 12px", borderTop: "1px solid #e2e8f0", background: "white" }}>
-                        <button onClick={() => {
-                          const isSelected = testSelectedQuestions.includes(testPreviewQuestion.id);
-                          setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== testPreviewQuestion.id) : [...prev, testPreviewQuestion.id]);
-                          setGeneratedTestLink("");
-                        }} style={{
-                          ...styles.btn(testSelectedQuestions.includes(testPreviewQuestion.id) ? "#EF4444" : colors.primary, true),
-                          fontSize: 14, padding: "12px 16px",
+                    <div onClick={() => setTestPreviewQuestion(null)} style={{
+                      position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)",
+                      zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20,
+                    }}>
+                      <div onClick={e => e.stopPropagation()} style={{
+                        background: "white", borderRadius: 16, width: "100%", maxWidth: 600,
+                        maxHeight: "85vh", display: "flex", flexDirection: "column",
+                        boxShadow: "0 24px 48px rgba(0,0,0,0.25)", overflow: "hidden",
+                      }}>
+                        {/* Header */}
+                        <div style={{
+                          padding: "16px 20px", borderBottom: "1px solid #e2e8f0",
+                          display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0,
                         }}>
-                          {testSelectedQuestions.includes(testPreviewQuestion.id) ? "✕ Remove from Test" : "✓ Add to Test"}
-                        </button>
+                          <div>
+                            <div style={{ fontSize: 18, fontWeight: 800, color: colors.text }}>
+                              {testPreviewQuestion.source} — Q{testPreviewQuestion.questionNumber}
+                            </div>
+                            <div style={{ fontSize: 13, color: colors.textLight, marginTop: 2 }}>
+                              {allTopics[testPreviewQuestion.topic]?.icon} {allTopics[testPreviewQuestion.topic]?.name} · {testPreviewQuestion.totalMarks} marks · {testPreviewQuestion.parts?.length || 0} parts
+                            </div>
+                          </div>
+                          <button onClick={() => setTestPreviewQuestion(null)} style={{
+                            background: "#f1f5f9", border: "none", borderRadius: 10, width: 36, height: 36,
+                            fontSize: 18, cursor: "pointer", color: colors.textLight, display: "flex", alignItems: "center", justifyContent: "center",
+                          }}>✕</button>
+                        </div>
+                        {/* Image */}
+                        <div style={{ padding: 16, overflowY: "auto", flex: 1 }}>
+                          {testPreviewQuestion.imagePath && (
+                            <img src={testPreviewQuestion.imagePath} alt="Question preview" style={{ width: "100%", borderRadius: 8, display: "block" }} />
+                          )}
+                          {testPreviewQuestion.pageImages && testPreviewQuestion.pageImages.length > 0 && !testPreviewQuestion.imagePath && (
+                            testPreviewQuestion.pageImages.map((img, i) => (
+                              <img key={i} src={img} alt={`Page ${i + 1}`} style={{ width: "100%", borderRadius: 8, display: "block", marginBottom: 8 }} />
+                            ))
+                          )}
+                        </div>
+                        {/* Footer */}
+                        <div style={{ padding: "12px 20px 16px", borderTop: "1px solid #e2e8f0", flexShrink: 0, display: "flex", gap: 10 }}>
+                          <button onClick={() => {
+                            const isSelected = testSelectedQuestions.includes(testPreviewQuestion.id);
+                            setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== testPreviewQuestion.id) : [...prev, testPreviewQuestion.id]);
+                            setGeneratedTestLink("");
+                          }} style={{
+                            ...styles.btn(testSelectedQuestions.includes(testPreviewQuestion.id) ? "#EF4444" : colors.primary, true),
+                            fontSize: 14, padding: "12px 16px", flex: 1,
+                          }}>
+                            {testSelectedQuestions.includes(testPreviewQuestion.id) ? "✕ Remove from Test" : "✓ Add to Test"}
+                          </button>
+                          <button onClick={() => setTestPreviewQuestion(null)} style={{
+                            ...styles.btnOutline(colors.textLight), padding: "12px 20px", fontSize: 14,
+                          }}>
+                            Close
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
