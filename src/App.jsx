@@ -2004,6 +2004,13 @@ export default function MathU() {
   const [darkMode, setDarkMode] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [wrongAnswers, setWrongAnswers] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Friends system
   const [friends, setFriends] = useState([]);
@@ -3195,10 +3202,12 @@ export default function MathU() {
     gradient: "linear-gradient(135deg, #7C3AED 0%, #A855F7 40%, #C084FC 70%, #EC4899 100%)",
   };
 
+  const appMaxWidth = windowWidth >= 1024 ? 900 : windowWidth >= 768 ? 700 : 420;
+
   const styles = {
     app: {
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-      maxWidth: 420, margin: "0 auto", minHeight: "100vh",
+      maxWidth: appMaxWidth, margin: "0 auto", minHeight: "100vh",
       background: colors.bg, position: "relative", overflow: "hidden",
     },
     header: {
@@ -3235,7 +3244,7 @@ export default function MathU() {
     },
     nav: {
       position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
-      width: "100%", maxWidth: 420, background: darkMode ? "#1E293B" : "white",
+      width: "100%", maxWidth: appMaxWidth, background: darkMode ? "#1E293B" : "white",
       display: "flex", justifyContent: "space-around", padding: "8px 0 12px",
       boxShadow: "0 -2px 12px rgba(0,0,0,0.08)", borderRadius: "20px 20px 0 0",
       zIndex: 100,
@@ -3918,7 +3927,7 @@ export default function MathU() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8, padding: "10px 14px",
                       background: `${topic.color}10`, border: `2px solid ${topic.color}30`,
-                      borderRadius: 12, cursor: "pointer", flex: "1 0 calc(50% - 4px)", minWidth: 140,
+                      borderRadius: 12, cursor: "pointer", flex: windowWidth >= 768 ? "1 0 calc(33% - 6px)" : "1 0 calc(50% - 4px)", minWidth: 140,
                     }}>
                     <span style={{ fontSize: 20 }}>{topic.icon}</span>
                     <div style={{ textAlign: "left" }}>
@@ -3960,8 +3969,8 @@ export default function MathU() {
           {Object.keys(stats.topicStats).length > 0 && (
             <div style={styles.card}>
               <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Topic Mastery 🎯</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
-                {selectedTopics.slice(0, 9).map(topicKey => {
+              <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "repeat(5, 1fr)" : "repeat(3, 1fr)", gap: 12 }}>
+                {selectedTopics.slice(0, windowWidth >= 768 ? 15 : 9).map(topicKey => {
                   const topic = allTopics[topicKey];
                   const ts = stats.topicStats[topicKey];
                   const accuracy = ts ? (ts.correct / ts.attempted) * 100 : 0;
@@ -5173,7 +5182,7 @@ export default function MathU() {
         </div>
         <div style={{ padding: "0 0 100px" }}>
           <div style={styles.card}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr" : "1fr 1fr", gap: 12 }}>
               {BADGES.map(badge => {
                 const earned = earnedBadges.includes(badge.id);
                 return (
@@ -5728,7 +5737,7 @@ export default function MathU() {
         </div>
 
         {/* Summary Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "16px 16px 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr 1fr" : "1fr 1fr", gap: 12, margin: "16px 16px 0" }}>
           {[
             { label: "Total Questions", value: totalQuestions, icon: "📝", color: colors.primary },
             { label: "Accuracy", value: overallAccuracy + "%", icon: "🎯", color: overallAccuracy >= 70 ? colors.success : overallAccuracy >= 50 ? colors.accent : colors.danger },
