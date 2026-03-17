@@ -3,6 +3,7 @@ import { supabase } from "./supabase.js";
 import { QUESTION_BANK as IMPORTED_QUESTIONS } from "./questionData.js";
 import { parse, simplify, rationalize } from "mathjs";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, Legend, PieChart, Pie, Cell } from "recharts";
+import { FLASHCARDS } from "./flashcardData.js";
 
 // ─── FLOATING MATH SYMBOLS BACKGROUND ───
 const MATH_SYMBOLS = ["∑", "∫", "π", "√", "∞", "Δ", "θ", "±", "≠", "≈", "∂", "λ", "σ", "μ", "∈", "∀", "∃", "⊂", "∪", "∩", "α", "β", "γ", "φ", "ω", "ℝ", "ℤ", "→", "⟨", "⟩"];
@@ -2023,6 +2024,10 @@ export default function MathU() {
   const [testQuestionIndex, setTestQuestionIndex] = useState(0);
   const [testAnswers, setTestAnswers] = useState({});
   const [testComplete, setTestComplete] = useState(false);
+  // Flashcard state
+  const [flashcardTopic, setFlashcardTopic] = useState(null);
+  const [flashcardIndex, setFlashcardIndex] = useState(0);
+  const [flashcardFlipped, setFlashcardFlipped] = useState(false);
   const [testStartTime, setTestStartTime] = useState(null);
   const [testElapsed, setTestElapsed] = useState(0);
 
@@ -4255,6 +4260,24 @@ export default function MathU() {
               </div>
             </div>
           )}
+
+          {/* Catch-Up Cards banner */}
+          <div style={{ margin: "12px 16px" }}>
+            <button onClick={() => setScreen("flashcards")}
+              style={{
+                width: "100%", border: "none", borderRadius: 16, padding: "18px 20px", cursor: "pointer",
+                background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #3B82F6 100%)",
+                color: "white", display: "flex", alignItems: "center", gap: 14,
+                boxShadow: "0 4px 16px rgba(124, 58, 237, 0.3)", transition: "all 0.2s",
+              }}>
+              <span style={{ fontSize: 32 }}>🃏</span>
+              <div style={{ textAlign: "left", flex: 1 }}>
+                <div style={{ fontSize: 16, fontWeight: 800 }}>Catch-Up Cards</div>
+                <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>Quick revision flashcards for every topic — tap to flip!</div>
+              </div>
+              <span style={{ fontSize: 20, opacity: 0.7 }}>→</span>
+            </button>
+          </div>
 
           {/* Bookmarks & Formulas buttons */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "12px 16px" }}>
@@ -6819,6 +6842,192 @@ export default function MathU() {
               </>
             );
           })()}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── FLASHCARDS: TOPIC PICKER ───
+  if (screen === "flashcards") {
+    const allTopics = getAllTopics();
+    const topicKeys = Object.keys(FLASHCARDS);
+    return (
+      <div style={{ ...styles.app, overflowY: "auto" }}>
+        <div style={styles.header}>
+          <button onClick={() => setScreen("home")} style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>← Back</button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800 }}>Catch-Up Cards</h2>
+          <div />
+        </div>
+        <div style={{ padding: "0 0 100px" }}>
+          <div style={{ padding: "16px 16px 8px" }}>
+            <p style={{ margin: 0, fontSize: 14, color: colors.textLight, lineHeight: 1.5 }}>
+              Quick revision cards to get you up to speed on any topic. Each set covers the key concepts, methods, worked examples, and exam tips.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr" : "1fr 1fr", gap: 12, margin: "8px 16px" }}>
+            {topicKeys.map(key => {
+              const topic = allTopics[key];
+              if (!topic) return null;
+              const cardCount = FLASHCARDS[key]?.length || 0;
+              return (
+                <button key={key} onClick={() => { setFlashcardTopic(key); setFlashcardIndex(0); setFlashcardFlipped(false); setScreen("flashcard_view"); }}
+                  style={{
+                    background: "white", border: `2px solid ${topic.color}30`, borderRadius: 16,
+                    padding: "20px 14px", cursor: "pointer", textAlign: "center",
+                    transition: "all 0.2s", boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                  }}>
+                  <div style={{ fontSize: 32, marginBottom: 8 }}>{topic.icon}</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: colors.text, marginBottom: 4 }}>{topic.name}</div>
+                  <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>{cardCount} cards</div>
+                  <div style={{ marginTop: 8, height: 4, background: "#e2e8f0", borderRadius: 2, overflow: "hidden" }}>
+                    <div style={{ height: "100%", width: "100%", background: topic.color, opacity: 0.5, borderRadius: 2 }} />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <div style={styles.nav}>
+          {[
+            { icon: "🏠", label: "Home", scr: "home" },
+            { icon: "📊", label: "Dashboard", scr: "dashboard" },
+            { icon: "🏆", label: "Leaderboard", scr: "leaderboard" },
+            { icon: "🏅", label: "Badges", scr: "badges" },
+            { icon: "⚙️", label: "Settings", scr: "settings" },
+          ].map(item => (
+            <div key={item.scr} onClick={() => setScreen(item.scr)} style={styles.navItem(screen === item.scr)}>
+              <span style={{ fontSize: 22 }}>{item.icon}</span>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── FLASHCARDS: CARD VIEWER ───
+  if (screen === "flashcard_view" && flashcardTopic) {
+    const allTopics = getAllTopics();
+    const topic = allTopics[flashcardTopic];
+    const cards = FLASHCARDS[flashcardTopic] || [];
+    const card = cards[flashcardIndex];
+    const totalCards = cards.length;
+    const progress = totalCards > 0 ? ((flashcardIndex + 1) / totalCards) * 100 : 0;
+
+    if (!card) return null;
+
+    return (
+      <div style={{ ...styles.app, display: "flex", flexDirection: "column", minHeight: "100vh", background: colors.bg }}>
+        {/* Header */}
+        <div style={{ ...styles.header, background: topic?.color || colors.gradient, flexShrink: 0 }}>
+          <button onClick={() => setScreen("flashcards")} style={{ background: "none", border: "none", color: "white", fontSize: 16, cursor: "pointer", fontWeight: 700 }}>← Back</button>
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 14, fontWeight: 800 }}>{topic?.icon} {topic?.name}</div>
+            <div style={{ fontSize: 11, opacity: 0.8 }}>{flashcardIndex + 1} of {totalCards}</div>
+          </div>
+          <div style={{ width: 50 }} />
+        </div>
+
+        {/* Progress bar */}
+        <div style={{ height: 4, background: "#e2e8f0", flexShrink: 0 }}>
+          <div style={{ height: "100%", width: `${progress}%`, background: "white", transition: "width 0.3s", opacity: 0.6 }} />
+        </div>
+
+        {/* Card area */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 16px" }}>
+          {/* The flip card */}
+          <div onClick={() => setFlashcardFlipped(!flashcardFlipped)}
+            style={{
+              width: "100%", maxWidth: 500, minHeight: 320, cursor: "pointer",
+              perspective: "1000px",
+            }}>
+            <div style={{
+              position: "relative", width: "100%", minHeight: 320,
+              transition: "transform 0.6s", transformStyle: "preserve-3d",
+              transform: flashcardFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+            }}>
+              {/* Front */}
+              <div style={{
+                position: "absolute", inset: 0, backfaceVisibility: "hidden",
+                background: `linear-gradient(135deg, ${card.color} 0%, ${card.color}DD 100%)`,
+                borderRadius: 20, padding: "32px 28px", color: "white",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                textAlign: "center", boxShadow: "0 12px 40px rgba(0,0,0,0.15)",
+                minHeight: 320,
+              }}>
+                <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.4, whiteSpace: "pre-line" }}>
+                  {card.front}
+                </div>
+                <div style={{ marginTop: 24, fontSize: 13, opacity: 0.7, fontWeight: 600 }}>
+                  Tap to reveal
+                </div>
+              </div>
+
+              {/* Back */}
+              <div style={{
+                position: "absolute", inset: 0, backfaceVisibility: "hidden",
+                transform: "rotateY(180deg)",
+                background: "white", borderRadius: 20, padding: "28px 24px",
+                color: colors.text, boxShadow: "0 12px 40px rgba(0,0,0,0.15)",
+                overflowY: "auto", minHeight: 320,
+                border: `3px solid ${card.color}30`,
+              }}>
+                <div style={{
+                  fontSize: 14, lineHeight: 1.7, whiteSpace: "pre-line", fontWeight: 500,
+                  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, monospace",
+                }}>
+                  {card.back}
+                </div>
+                <div style={{ marginTop: 20, fontSize: 12, color: colors.textLight, textAlign: "center", fontWeight: 600 }}>
+                  Tap to flip back
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Swipe hint */}
+          <div style={{ marginTop: 16, fontSize: 12, color: colors.textLight, textAlign: "center" }}>
+            Use arrows below to navigate
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: "16px 20px 24px", flexShrink: 0 }}>
+          <button onClick={() => { if (flashcardIndex > 0) { setFlashcardIndex(flashcardIndex - 1); setFlashcardFlipped(false); } }}
+            disabled={flashcardIndex === 0}
+            style={{
+              width: 52, height: 52, borderRadius: 26, border: "none", fontSize: 20,
+              background: flashcardIndex > 0 ? colors.text : "#e2e8f0",
+              color: flashcardIndex > 0 ? "white" : "#94A3B8",
+              cursor: flashcardIndex > 0 ? "pointer" : "default", transition: "all 0.2s",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+            ←
+          </button>
+
+          {/* Card dots */}
+          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+            {cards.map((_, i) => (
+              <button key={i} onClick={() => { setFlashcardIndex(i); setFlashcardFlipped(false); }}
+                style={{
+                  width: i === flashcardIndex ? 24 : 10, height: 10, borderRadius: 5, border: "none",
+                  background: i === flashcardIndex ? (topic?.color || colors.primary) : "#e2e8f0",
+                  cursor: "pointer", transition: "all 0.3s",
+                }} />
+            ))}
+          </div>
+
+          <button onClick={() => { if (flashcardIndex < totalCards - 1) { setFlashcardIndex(flashcardIndex + 1); setFlashcardFlipped(false); } }}
+            disabled={flashcardIndex >= totalCards - 1}
+            style={{
+              width: 52, height: 52, borderRadius: 26, border: "none", fontSize: 20,
+              background: flashcardIndex < totalCards - 1 ? (topic?.color || colors.primary) : "#e2e8f0",
+              color: flashcardIndex < totalCards - 1 ? "white" : "#94A3B8",
+              cursor: flashcardIndex < totalCards - 1 ? "pointer" : "default", transition: "all 0.2s",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+            →
+          </button>
         </div>
       </div>
     );
