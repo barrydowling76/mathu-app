@@ -6104,33 +6104,43 @@ export default function MathU() {
     return (
       <div style={{ ...styles.app, overflowY: "auto" }}>
         {/* Header */}
-        <div style={{ ...styles.header, background: "linear-gradient(135deg, #1E293B 0%, #334155 50%, #475569 100%)", padding: "20px 20px 16px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+        <div style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E293B 60%, #334155 100%)", padding: "24px 24px 0" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center", marginBottom: 20 }}>
             <div>
-              <div style={{ fontSize: 12, opacity: 0.7, letterSpacing: 1, textTransform: "uppercase" }}>Teacher Dashboard</div>
-              <h2 style={{ fontSize: 22, fontWeight: 800, margin: "4px 0 0" }}>Mr. Dowling's Class</h2>
+              <div style={{ fontSize: 11, opacity: 0.5, letterSpacing: 2, textTransform: "uppercase", fontWeight: 600, color: "#94A3B8" }}>Teacher Dashboard</div>
+              <h2 style={{ fontSize: 26, fontWeight: 800, margin: "6px 0 0", color: "white", letterSpacing: -0.5 }}>Mr. Dowling's Class</h2>
             </div>
-            <button onClick={() => setScreen("splash")} style={{ background: "rgba(255,255,255,0.15)", border: "none", borderRadius: 10, padding: "8px 16px", color: "white", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+            <button onClick={() => setScreen("splash")} style={{
+              background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12,
+              padding: "10px 18px", color: "#94A3B8", fontSize: 13, fontWeight: 600, cursor: "pointer",
+              transition: "all 0.2s", backdropFilter: "blur(8px)",
+            }}>
               ← Exit
             </button>
           </div>
           {/* Tab nav */}
-          <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+          <div style={{ display: "flex", gap: 4, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
             {[
               { key: "overview", label: "Overview", icon: "📊" },
               { key: "students", label: "Students", icon: "👥" },
               { key: "topics", label: "Topics", icon: "📚" },
               { key: "create_test", label: "Create Test", icon: "✏️" },
-            ].map(tab => (
-              <button key={tab.key} onClick={() => setTeacherView(tab.key)} style={{
-                background: teacherView === tab.key ? "rgba(255,255,255,0.2)" : "transparent",
-                border: teacherView === tab.key ? "1px solid rgba(255,255,255,0.3)" : "1px solid transparent",
-                borderRadius: 10, padding: "8px 16px", color: "white", fontSize: 13, fontWeight: teacherView === tab.key ? 700 : 500,
-                cursor: "pointer", transition: "all 0.2s",
-              }}>
-                {tab.icon} {tab.label}
-              </button>
-            ))}
+            ].map(tab => {
+              const isActive = teacherView === tab.key;
+              return (
+                <button key={tab.key} onClick={() => setTeacherView(tab.key)} style={{
+                  background: "transparent", border: "none",
+                  borderBottom: isActive ? "3px solid #7C3AED" : "3px solid transparent",
+                  padding: "12px 20px 14px", color: isActive ? "white" : "#64748B",
+                  fontSize: 14, fontWeight: isActive ? 700 : 500, cursor: "pointer",
+                  transition: "all 0.2s", letterSpacing: 0.2,
+                  display: "flex", alignItems: "center", gap: 8,
+                }}>
+                  <span style={{ fontSize: 16 }}>{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
