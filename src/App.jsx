@@ -2006,6 +2006,10 @@ export default function MathU() {
   const [bookmarks, setBookmarks] = useState([]);
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [teacherView, setTeacherView] = useState("overview");
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [sortBy, setSortBy] = useState("name");
+  const [sortDir, setSortDir] = useState("asc");
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -5921,10 +5925,6 @@ export default function MathU() {
     ];
 
     const allTopics = getAllTopics();
-    const [teacherView, setTeacherView] = useState("overview");
-    const [selectedStudent, setSelectedStudent] = useState(null);
-    const [sortBy, setSortBy] = useState("name");
-    const [sortDir, setSortDir] = useState("asc");
 
     // Calculate class averages per topic
     const topicKeys = Object.keys(FAKE_STUDENTS[0].topics);
