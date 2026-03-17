@@ -235,7 +235,7 @@ const TOPICS = {
       },
       integration: {
         name: "Integration",
-        icon: "$\int$",
+        icon: "∫",
         subtopics: ["Indefinite Integrals", "Definite Integrals", "Area Under a Curve", "Trapezoidal Rule"],
         color: "#E11D48"
       },
@@ -6168,10 +6168,10 @@ export default function MathU() {
               <div style={styles.card}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Class Average by Topic</h3>
                 <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Sorted weakest → strongest to highlight focus areas</p>
-                <ResponsiveContainer width="100%" height={320}>
-                  <BarChart data={topicAverages} margin={{ top: 5, right: 10, left: -10, bottom: 60 }}>
+                <ResponsiveContainer width="100%" height={380}>
+                  <BarChart data={topicAverages.map(t => ({ ...t, shortName: t.name.replace("Co-ord Geometry: ", "Co-ord: ").replace("Geometry (Theorems & Proofs)", "Geometry").replace("Sequences & Series", "Seq. & Series").replace("Logarithms & Indices", "Logs & Indices").replace("Proof by Induction", "Induction") }))} margin={{ top: 5, right: 10, left: -10, bottom: 80 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: colors.textLight }} angle={-45} textAnchor="end" interval={0} height={80} />
+                    <XAxis dataKey="shortName" tick={{ fontSize: 11, fill: colors.textLight, fontWeight: 500 }} angle={-40} textAnchor="end" interval={0} height={100} />
                     <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => v + "%"} />
                     <Tooltip formatter={(value) => [value + "%", "Class Average"]} contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} />
                     <Bar dataKey="avg" radius={[6, 6, 0, 0]}>
@@ -6318,11 +6318,11 @@ export default function MathU() {
               <div style={styles.card}>
                 <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 800, color: colors.text }}>Average Accuracy by Topic</h3>
                 <p style={{ margin: "0 0 16px", fontSize: 12, color: colors.textLight }}>Where should you focus your teaching?</p>
-                <ResponsiveContainer width="100%" height={320}>
-                  <BarChart data={topicAverages} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                <ResponsiveContainer width="100%" height={topicAverages.length * 38 + 40}>
+                  <BarChart data={topicAverages.map(t => ({ ...t, shortName: t.name.length > 18 ? t.name.substring(0, 18) + "…" : t.name }))} layout="vertical" margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
                     <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} tickFormatter={(v) => v + "%"} />
-                    <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11, fill: colors.text }} />
+                    <YAxis type="category" dataKey="shortName" width={150} tick={{ fontSize: 12, fill: colors.text, fontWeight: 500 }} interval={0} />
                     <Tooltip formatter={(value) => [value + "%", "Class Average"]} contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }} />
                     <Bar dataKey="avg" radius={[0, 6, 6, 0]}>
                       {topicAverages.map((entry, i) => (
@@ -6350,10 +6350,10 @@ export default function MathU() {
                         color: topic.avg >= 70 ? "#166534" : topic.avg >= 50 ? "#92400E" : "#991B1B",
                       }}>{topic.avg}% avg</span>
                     </div>
-                    <ResponsiveContainer width="100%" height={180}>
-                      <BarChart data={studentScores} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <BarChart data={studentScores} margin={{ top: 5, right: 5, left: -15, bottom: 30 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis dataKey="name" tick={{ fontSize: 10, fill: colors.textLight }} />
+                        <XAxis dataKey="name" tick={{ fontSize: 11, fill: colors.textLight }} angle={-35} textAnchor="end" interval={0} height={50} />
                         <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} tickFormatter={(v) => v + "%"} />
                         <Tooltip formatter={(value) => [value + "%", "Accuracy"]} />
                         <Bar dataKey="accuracy" radius={[4, 4, 0, 0]}>
