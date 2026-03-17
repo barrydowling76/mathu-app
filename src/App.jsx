@@ -2010,12 +2010,35 @@ export default function MathU() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [sortBy, setSortBy] = useState("name");
   const [sortDir, setSortDir] = useState("asc");
+  // Teacher test creation state
+  const [testName, setTestName] = useState("");
+  const [testSelectedTopics, setTestSelectedTopics] = useState([]);
+  const [testSelectedQuestions, setTestSelectedQuestions] = useState([]);
+  const [testTimerEnabled, setTestTimerEnabled] = useState(true);
+  const [testTimeLimit, setTestTimeLimit] = useState(0); // 0 = no limit, otherwise minutes
+  const [generatedTestLink, setGeneratedTestLink] = useState("");
+  // Student test-taking state
+  const [activeTest, setActiveTest] = useState(null); // { name, questionIds, timer, timeLimit }
+  const [testQuestionIndex, setTestQuestionIndex] = useState(0);
+  const [testAnswers, setTestAnswers] = useState({});
+  const [testComplete, setTestComplete] = useState(false);
+  const [testStartTime, setTestStartTime] = useState(null);
+  const [testElapsed, setTestElapsed] = useState(0);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Test timer tick
+  useEffect(() => {
+    if (!activeTest || !testStartTime || testComplete) return;
+    const interval = setInterval(() => {
+      setTestElapsed(Math.floor((Date.now() - testStartTime) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [activeTest, testStartTime, testComplete]);
 
   // Friends system
   const [friends, setFriends] = useState([]);
@@ -2060,8 +2083,23 @@ export default function MathU() {
       if (invite) {
         setPendingInvite(invite.toUpperCase());
         setFriendCode(invite.toUpperCase());
-        // Clean the URL so it doesn't stick around
         window.history.replaceState({}, "", window.location.pathname);
+      }
+      // Check for teacher test link
+      const testParam = params.get("test");
+      if (testParam) {
+        try {
+          const decoded = JSON.parse(atob(testParam));
+          if (decoded && decoded.q && decoded.q.length > 0) {
+            setActiveTest({ name: decoded.n || "Teacher Test", questionIds: decoded.q, timer: decoded.t !== false, timeLimit: decoded.tl || 0 });
+            setTestQuestionIndex(0);
+            setTestAnswers({});
+            setTestComplete(false);
+            setTestStartTime(Date.now());
+            setScreen("take_test");
+            window.history.replaceState({}, "", window.location.pathname);
+          }
+        } catch(e) { console.log("Invalid test link"); }
       }
     } catch (e) {}
   }, []);
@@ -6081,6 +6119,7 @@ export default function MathU() {
               { key: "overview", label: "Overview", icon: "📊" },
               { key: "students", label: "Students", icon: "👥" },
               { key: "topics", label: "Topics", icon: "📚" },
+              { key: "create_test", label: "Create Test", icon: "✏️" },
             ].map(tab => (
               <button key={tab.key} onClick={() => setTeacherView(tab.key)} style={{
                 background: teacherView === tab.key ? "rgba(255,255,255,0.2)" : "transparent",
@@ -6318,6 +6357,366 @@ export default function MathU() {
               })}
             </>
           )}
+
+          {/* ─── CREATE TEST TAB ─── */}
+          {teacherView === "create_test" && (() => {
+            const allTopics = getAllTopics();
+            const allTopicKeys = Object.keys(allTopics);
+            const filteredQuestions = testSelectedTopics.length > 0
+              ? QUESTION_BANK.filter(q => testSelectedTopics.includes(q.topic))
+              : QUESTION_BANK;
+
+            const generateLink = () => {
+              if (testSelectedQuestions.length === 0) return;
+              const payload = { n: testName || "Test", q: testSelectedQuestions, t: testTimerEnabled, tl: testTimeLimit };
+              const encoded = btoa(JSON.stringify(payload));
+              const link = `${window.location.origin}?test=${encoded}`;
+              setGeneratedTestLink(link);
+            };
+
+            return (
+              <>
+                {/* Test name */}
+                <div style={styles.card}>
+                  <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Test Details</h3>
+                  <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Test Name</label>
+                  <input value={testName} onChange={e => setTestName(e.target.value)} placeholder="e.g. Mid-Term Paper 1 Revision" style={{ ...styles.input, marginBottom: 16 }} />
+
+                  {/* Timer toggle */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>Enable Timer</div>
+                      <div style={{ fontSize: 12, color: colors.textLight }}>Students see a running timer on each question</div>
+                    </div>
+                    <button onClick={() => setTestTimerEnabled(!testTimerEnabled)} style={{
+                      width: 52, height: 28, borderRadius: 14, border: "none", cursor: "pointer",
+                      background: testTimerEnabled ? colors.primary : "#cbd5e1", position: "relative", transition: "background 0.2s",
+                    }}>
+                      <div style={{
+                        width: 22, height: 22, borderRadius: 11, background: "white", position: "absolute", top: 3,
+                        left: testTimerEnabled ? 27 : 3, transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                      }} />
+                    </button>
+                  </div>
+
+                  {/* Time limit */}
+                  {testTimerEnabled && (
+                    <div style={{ marginBottom: 12 }}>
+                      <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 6 }}>Time Limit (minutes, 0 = unlimited)</label>
+                      <input type="number" value={testTimeLimit} onChange={e => setTestTimeLimit(parseInt(e.target.value) || 0)} min="0" style={{ ...styles.input, width: 120 }} />
+                    </div>
+                  )}
+                </div>
+
+                {/* Topic filter */}
+                <div style={styles.card}>
+                  <h3 style={{ margin: "0 0 8px", fontSize: 16, fontWeight: 800, color: colors.text }}>Filter by Topic</h3>
+                  <p style={{ margin: "0 0 12px", fontSize: 12, color: colors.textLight }}>Select topics to filter questions, or leave empty for all</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 0 }}>
+                    {allTopicKeys.map(key => {
+                      const topic = allTopics[key];
+                      const isSelected = testSelectedTopics.includes(key);
+                      return (
+                        <button key={key} onClick={() => {
+                          setTestSelectedTopics(prev => isSelected ? prev.filter(k => k !== key) : [...prev, key]);
+                          setTestSelectedQuestions([]);
+                          setGeneratedTestLink("");
+                        }} style={{
+                          display: "inline-flex", alignItems: "center", gap: 4, padding: "6px 12px", margin: 3,
+                          background: isSelected ? topic.color : "transparent", color: isSelected ? "white" : topic.color,
+                          border: `2px solid ${topic.color}`, borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
+                        }}>
+                          {topic.icon} {topic.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                    <button onClick={() => { setTestSelectedTopics(allTopicKeys); setTestSelectedQuestions([]); setGeneratedTestLink(""); }}
+                      style={{ ...styles.btnOutline(colors.textLight), padding: "6px 14px", fontSize: 12 }}>Select All</button>
+                    <button onClick={() => { setTestSelectedTopics([]); setTestSelectedQuestions([]); setGeneratedTestLink(""); }}
+                      style={{ ...styles.btnOutline(colors.textLight), padding: "6px 14px", fontSize: 12 }}>Clear</button>
+                  </div>
+                </div>
+
+                {/* Question picker */}
+                <div style={styles.card}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: colors.text }}>Select Questions</h3>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: colors.primary }}>{testSelectedQuestions.length} selected</span>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                    <button onClick={() => { setTestSelectedQuestions(filteredQuestions.map(q => q.id)); setGeneratedTestLink(""); }}
+                      style={{ ...styles.btnOutline(colors.primary), padding: "6px 14px", fontSize: 12 }}>Select All ({filteredQuestions.length})</button>
+                    <button onClick={() => { setTestSelectedQuestions([]); setGeneratedTestLink(""); }}
+                      style={{ ...styles.btnOutline(colors.textLight), padding: "6px 14px", fontSize: 12 }}>Clear</button>
+                  </div>
+                  <div style={{ maxHeight: 400, overflowY: "auto", border: `1px solid ${colors.textLight}20`, borderRadius: 12, padding: 8 }}>
+                    {filteredQuestions.map(q => {
+                      const topic = allTopics[q.topic];
+                      const isSelected = testSelectedQuestions.includes(q.id);
+                      return (
+                        <div key={q.id} onClick={() => {
+                          setTestSelectedQuestions(prev => isSelected ? prev.filter(id => id !== q.id) : [...prev, q.id]);
+                          setGeneratedTestLink("");
+                        }} style={{
+                          display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 4,
+                          background: isSelected ? `${colors.primary}10` : "transparent", borderRadius: 10,
+                          cursor: "pointer", border: isSelected ? `2px solid ${colors.primary}` : "2px solid transparent",
+                          transition: "all 0.15s",
+                        }}>
+                          <div style={{
+                            width: 22, height: 22, borderRadius: 6, border: `2px solid ${isSelected ? colors.primary : "#cbd5e1"}`,
+                            background: isSelected ? colors.primary : "transparent", display: "flex", alignItems: "center", justifyContent: "center",
+                            flexShrink: 0, transition: "all 0.15s",
+                          }}>
+                            {isSelected && <span style={{ color: "white", fontSize: 14, fontWeight: 700 }}>✓</span>}
+                          </div>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>
+                              {q.source} — Q{q.questionNumber}
+                            </div>
+                            <div style={{ fontSize: 11, color: colors.textLight }}>
+                              <span style={{ color: topic?.color, fontWeight: 600 }}>{topic?.icon} {topic?.name}</span>
+                              {" · "}{q.parts?.length || 0} parts · {q.totalMarks} marks
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Generate link */}
+                <div style={styles.card}>
+                  <button onClick={generateLink} disabled={testSelectedQuestions.length === 0}
+                    style={{ ...styles.btn(testSelectedQuestions.length > 0 ? colors.primary : "#cbd5e1", true), fontSize: 16, padding: "16px 24px", marginBottom: 12 }}>
+                    🔗 Generate Shareable Link ({testSelectedQuestions.length} questions)
+                  </button>
+                  {generatedTestLink && (
+                    <div style={{ background: "#F0FDF4", border: "2px solid #BBF7D0", borderRadius: 12, padding: 16 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "#166534", marginBottom: 8 }}>✅ Test Link Generated!</div>
+                      <div style={{
+                        fontSize: 12, color: colors.text, padding: "10px 12px", background: "white", borderRadius: 8,
+                        border: "1px solid #e2e8f0", wordBreak: "break-all", marginBottom: 12,
+                      }}>
+                        {generatedTestLink}
+                      </div>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button onClick={() => { navigator.clipboard.writeText(generatedTestLink); alert("Link copied to clipboard!"); }}
+                          style={{ ...styles.btn(colors.primary), flex: 1, fontSize: 14, padding: "12px 16px" }}>
+                          📋 Copy Link
+                        </button>
+                        <button onClick={() => { window.open(generatedTestLink, "_blank"); }}
+                          style={{ ...styles.btn(colors.secondary), fontSize: 14, padding: "12px 16px" }}>
+                          👁 Preview
+                        </button>
+                      </div>
+                      <div style={{ marginTop: 12, fontSize: 12, color: colors.textLight }}>
+                        Share this link with your students. {testTimerEnabled ? "Timer is ON." : "Timer is OFF."} {testTimeLimit > 0 ? `Time limit: ${testTimeLimit} min.` : "No time limit."}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            );
+          })()}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── TAKE TEST SCREEN (Student view from shared link) ───
+  if (screen === "take_test" && activeTest) {
+    const testQuestions = activeTest.questionIds.map(id => QUESTION_BANK.find(q => q.id === id)).filter(Boolean);
+    const totalQuestions = testQuestions.length;
+    const currentQ = testQuestions[testQuestionIndex];
+    const allTopics = getAllTopics();
+    const topic = currentQ ? allTopics[currentQ.topic] : null;
+    const elapsed = testElapsed;
+    const timeLimitSec = activeTest.timeLimit * 60;
+    const timeUp = activeTest.timeLimit > 0 && elapsed >= timeLimitSec;
+
+    // Results calculation
+    if (testComplete || timeUp) {
+      const results = testQuestions.map((q, qi) => {
+        const qAnswers = testAnswers[qi] || {};
+        let partsCorrect = 0;
+        let totalParts = q.parts?.length || 0;
+        (q.parts || []).forEach((part, pi) => {
+          const studentAns = (qAnswers[pi] || "").trim().toLowerCase().replace(/\s+/g, "");
+          const accepted = (part.acceptedAnswers || []).map(a => a.toLowerCase().replace(/\s+/g, ""));
+          if (accepted.includes(studentAns)) partsCorrect++;
+        });
+        return { question: q, correct: partsCorrect, total: totalParts };
+      });
+      const totalCorrect = results.reduce((s, r) => s + r.correct, 0);
+      const totalParts = results.reduce((s, r) => s + r.total, 0);
+      const pct = totalParts > 0 ? Math.round((totalCorrect / totalParts) * 100) : 0;
+
+      return (
+        <div style={{ ...styles.app, overflowY: "auto" }}>
+          <div style={{ ...styles.header, background: colors.gradient, flexDirection: "column", alignItems: "center", padding: "32px 20px" }}>
+            <div style={{ fontSize: 56 }}>{pct >= 70 ? "🎉" : pct >= 50 ? "👍" : "💪"}</div>
+            <h2 style={{ margin: "8px 0 4px", fontSize: 24, fontWeight: 800 }}>{timeUp ? "Time's Up!" : "Test Complete!"}</h2>
+            <p style={{ margin: 0, fontSize: 14, opacity: 0.9 }}>{activeTest.name}</p>
+          </div>
+          <div style={{ padding: "0 0 40px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: windowWidth >= 768 ? "1fr 1fr 1fr" : "1fr 1fr 1fr", gap: 12, margin: "16px 16px 0" }}>
+              <div style={{ ...styles.card, margin: 0, textAlign: "center", padding: 16 }}>
+                <div style={{ fontSize: 32, fontWeight: 800, color: pct >= 70 ? "#22C55E" : pct >= 50 ? "#F59E0B" : "#EF4444" }}>{pct}%</div>
+                <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>Score</div>
+              </div>
+              <div style={{ ...styles.card, margin: 0, textAlign: "center", padding: 16 }}>
+                <div style={{ fontSize: 32, fontWeight: 800, color: colors.primary }}>{totalCorrect}/{totalParts}</div>
+                <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>Parts Correct</div>
+              </div>
+              <div style={{ ...styles.card, margin: 0, textAlign: "center", padding: 16 }}>
+                <div style={{ fontSize: 32, fontWeight: 800, color: colors.text }}>{Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, "0")}</div>
+                <div style={{ fontSize: 11, color: colors.textLight, fontWeight: 600 }}>Time Taken</div>
+              </div>
+            </div>
+
+            {/* Question-by-question results */}
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 800, color: colors.text }}>Results Breakdown</h3>
+              {results.map((r, i) => {
+                const qTopic = allTopics[r.question.topic];
+                const qPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
+                return (
+                  <div key={i} style={{
+                    display: "flex", alignItems: "center", gap: 12, padding: "12px", marginBottom: 8,
+                    background: qPct >= 70 ? "#F0FDF4" : qPct > 0 ? "#FFFBEB" : "#FEF2F2",
+                    borderRadius: 10, border: `1px solid ${qPct >= 70 ? "#BBF7D0" : qPct > 0 ? "#FDE68A" : "#FECACA"}`,
+                  }}>
+                    <div style={{ fontSize: 22 }}>{qPct >= 70 ? "✅" : qPct > 0 ? "🟡" : "❌"}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: colors.text }}>Q{i + 1}: {r.question.source} — Q{r.question.questionNumber}</div>
+                      <div style={{ fontSize: 11, color: colors.textLight }}>{qTopic?.icon} {qTopic?.name} · {r.correct}/{r.total} parts</div>
+                    </div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: qPct >= 70 ? "#22C55E" : qPct > 0 ? "#F59E0B" : "#EF4444" }}>{qPct}%</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{ margin: "0 16px" }}>
+              <button onClick={() => { setActiveTest(null); setTestComplete(false); setScreen("splash"); }}
+                style={{ ...styles.btn(colors.primary, true), fontSize: 16, padding: "16px 24px" }}>
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Active question view
+    if (!currentQ) return null;
+    return (
+      <div style={{ ...styles.app, overflowY: "auto" }}>
+        {/* Test header */}
+        <div style={{ ...styles.header, background: "linear-gradient(135deg, #1E293B 0%, #334155 100%)" }}>
+          <div>
+            <div style={{ fontSize: 11, opacity: 0.7, textTransform: "uppercase", letterSpacing: 1 }}>{activeTest.name}</div>
+            <div style={{ fontSize: 16, fontWeight: 800 }}>Question {testQuestionIndex + 1} of {totalQuestions}</div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            {activeTest.timer && (
+              <div style={{
+                background: (activeTest.timeLimit > 0 && elapsed > timeLimitSec * 0.8) ? "#EF4444" : "rgba(255,255,255,0.2)",
+                borderRadius: 20, padding: "6px 14px", fontSize: 14, fontWeight: 700,
+              }}>
+                ⏱ {Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, "0")}
+                {activeTest.timeLimit > 0 && <span style={{ opacity: 0.7 }}> / {activeTest.timeLimit}:00</span>}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div style={{ height: 4, background: "#e2e8f0" }}>
+          <div style={{ height: "100%", width: `${((testQuestionIndex + 1) / totalQuestions) * 100}%`, background: colors.gradient, transition: "width 0.3s" }} />
+        </div>
+
+        <div style={{ padding: "0 0 40px" }}>
+          {/* Topic badge */}
+          <div style={{ padding: "12px 16px 0" }}>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 12px",
+              background: `${topic?.color}15`, color: topic?.color, borderRadius: 20, fontSize: 12, fontWeight: 700,
+            }}>
+              {topic?.icon} {topic?.name} · {currentQ.source} Q{currentQ.questionNumber} · {currentQ.totalMarks} marks
+            </span>
+          </div>
+
+          {/* Question image */}
+          {currentQ.imagePath && (
+            <div style={{ margin: "12px 16px", borderRadius: 12, overflow: "hidden", border: "1px solid #e2e8f0" }}>
+              <img src={currentQ.imagePath} alt={`Question ${testQuestionIndex + 1}`} style={{ width: "100%", display: "block" }} />
+            </div>
+          )}
+
+          {/* Answer inputs for each part */}
+          <div style={styles.card}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 15, fontWeight: 800, color: colors.text }}>Your Answers</h3>
+            {(currentQ.parts || []).map((part, pi) => (
+              <div key={pi} style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: colors.text, display: "block", marginBottom: 4 }}>
+                  {part.label} <span style={{ fontWeight: 500, color: colors.textLight }}>({part.marks} marks)</span>
+                </label>
+                <input
+                  value={(testAnswers[testQuestionIndex] || {})[pi] || ""}
+                  onChange={e => {
+                    const val = e.target.value;
+                    setTestAnswers(prev => ({
+                      ...prev,
+                      [testQuestionIndex]: { ...(prev[testQuestionIndex] || {}), [pi]: val }
+                    }));
+                  }}
+                  placeholder={`Answer for ${part.label}...`}
+                  style={styles.input}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation */}
+          <div style={{ display: "flex", gap: 12, margin: "0 16px" }}>
+            {testQuestionIndex > 0 && (
+              <button onClick={() => setTestQuestionIndex(prev => prev - 1)}
+                style={{ ...styles.btnOutline(colors.textLight), flex: 1, padding: "14px 16px", fontSize: 14 }}>
+                ← Previous
+              </button>
+            )}
+            {testQuestionIndex < totalQuestions - 1 ? (
+              <button onClick={() => setTestQuestionIndex(prev => prev + 1)}
+                style={{ ...styles.btn(colors.primary, true), flex: 1, padding: "14px 16px", fontSize: 14 }}>
+                Next →
+              </button>
+            ) : (
+              <button onClick={() => setTestComplete(true)}
+                style={{ ...styles.btn("#22C55E", true), flex: 1, padding: "14px 16px", fontSize: 16 }}>
+                ✅ Submit Test
+              </button>
+            )}
+          </div>
+
+          {/* Question navigation dots */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center", margin: "16px 16px 0" }}>
+            {testQuestions.map((_, qi) => {
+              const hasAnswer = testAnswers[qi] && Object.values(testAnswers[qi]).some(v => v.trim() !== "");
+              return (
+                <button key={qi} onClick={() => setTestQuestionIndex(qi)} style={{
+                  width: 32, height: 32, borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 700,
+                  background: qi === testQuestionIndex ? colors.primary : hasAnswer ? "#BBF7D0" : "#f1f5f9",
+                  color: qi === testQuestionIndex ? "white" : hasAnswer ? "#166534" : colors.textLight,
+                }}>
+                  {qi + 1}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
