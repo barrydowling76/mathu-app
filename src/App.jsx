@@ -3997,6 +3997,24 @@ export default function MathU() {
             </div>
           </div>
 
+          {/* Catch-Up Cards banner */}
+          <div style={{ margin: "12px 16px" }}>
+            <button onClick={() => setScreen("flashcards")}
+              style={{
+                width: "100%", border: "none", borderRadius: 16, padding: "18px 20px", cursor: "pointer",
+                background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #3B82F6 100%)",
+                color: "white", display: "flex", alignItems: "center", gap: 14,
+                boxShadow: "0 4px 16px rgba(124, 58, 237, 0.3)", transition: "all 0.2s",
+              }}>
+              <span style={{ fontSize: 32 }}>🃏</span>
+              <div style={{ textAlign: "left", flex: 1 }}>
+                <div style={{ fontSize: 16, fontWeight: 800 }}>Catch-Up Cards</div>
+                <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>Quick revision flashcards for every topic — tap to flip!</div>
+              </div>
+              <span style={{ fontSize: 20, opacity: 0.7 }}>→</span>
+            </button>
+          </div>
+
           {/* ─── SMART LEARNING: Weakness Detection ─── */}
           {Object.keys(stats.topicStats).length >= 2 && (() => {
             // Find weakest topics (below 60% accuracy with at least 3 attempts)
@@ -4260,24 +4278,6 @@ export default function MathU() {
               </div>
             </div>
           )}
-
-          {/* Catch-Up Cards banner */}
-          <div style={{ margin: "12px 16px" }}>
-            <button onClick={() => setScreen("flashcards")}
-              style={{
-                width: "100%", border: "none", borderRadius: 16, padding: "18px 20px", cursor: "pointer",
-                background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #3B82F6 100%)",
-                color: "white", display: "flex", alignItems: "center", gap: 14,
-                boxShadow: "0 4px 16px rgba(124, 58, 237, 0.3)", transition: "all 0.2s",
-              }}>
-              <span style={{ fontSize: 32 }}>🃏</span>
-              <div style={{ textAlign: "left", flex: 1 }}>
-                <div style={{ fontSize: 16, fontWeight: 800 }}>Catch-Up Cards</div>
-                <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>Quick revision flashcards for every topic — tap to flip!</div>
-              </div>
-              <span style={{ fontSize: 20, opacity: 0.7 }}>→</span>
-            </button>
-          </div>
 
           {/* Bookmarks & Formulas buttons */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "12px 16px" }}>
