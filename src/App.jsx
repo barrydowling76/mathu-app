@@ -5,6 +5,35 @@ import { parse, simplify, rationalize } from "mathjs";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, Legend, PieChart, Pie, Cell } from "recharts";
 import { FLASHCARDS } from "./flashcardData.js";
 
+// ─── ZOOM OVERLAY FOR IMAGES ───
+const ZoomOverlay = ({ src, alt, onClose }) => {
+  if (!src) return null;
+  return (
+    <div onClick={onClose} style={{
+      position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)",
+      backdropFilter: "blur(8px)", zIndex: 9999, display: "flex",
+      alignItems: "center", justifyContent: "center", cursor: "zoom-out",
+      animation: "fadeIn 0.2s ease",
+    }}>
+      <img src={src} alt={alt || "Zoomed"} style={{
+        maxWidth: "95vw", maxHeight: "92vh", borderRadius: 8,
+        boxShadow: "0 8px 40px rgba(0,0,0,0.5)", objectFit: "contain",
+      }} />
+      <div style={{
+        position: "absolute", top: 16, right: 16, width: 40, height: 40,
+        borderRadius: 20, background: "rgba(255,255,255,0.15)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        color: "white", fontSize: 22, fontWeight: 300, cursor: "pointer",
+      }}>✕</div>
+      <div style={{
+        position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
+        color: "rgba(255,255,255,0.5)", fontSize: 13, fontWeight: 500,
+        background: "rgba(0,0,0,0.4)", padding: "6px 16px", borderRadius: 20,
+      }}>Tap anywhere to close</div>
+    </div>
+  );
+};
+
 // ─── FLOATING MATH SYMBOLS BACKGROUND ───
 const MATH_SYMBOLS = ["∑", "∫", "π", "√", "∞", "Δ", "θ", "±", "≠", "≈", "∂", "λ", "σ", "μ", "∈", "∀", "∃", "⊂", "∪", "∩", "α", "β", "γ", "φ", "ω", "ℝ", "ℤ", "→", "⟨", "⟩"];
 
@@ -2030,12 +2059,17 @@ export default function MathU() {
   const [flashcardFlipped, setFlashcardFlipped] = useState(false);
   const [testStartTime, setTestStartTime] = useState(null);
   const [testElapsed, setTestElapsed] = useState(0);
+  // Zoom overlay for images (questions, formulas)
+  const [zoomedImage, setZoomedImage] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Reset zoom when navigating away
+  useEffect(() => { setZoomedImage(null); }, [screen]);
 
   // Test timer tick
   useEffect(() => {
@@ -2051,6 +2085,18 @@ export default function MathU() {
   const [dailyResults, setDailyResults] = useState([]);
   const [friendCode, setFriendCode] = useState("");
   const [pendingInvite, setPendingInvite] = useState(null);
+
+  // Friend Challenge system
+  const [challengeTopic, setChallengeTopic] = useState(null);
+  const [challengeQuestion, setChallengeQuestion] = useState(null);
+  const [challengeTime, setChallengeTime] = useState(""); // ISO string of scheduled time
+  const [challengeLink, setChallengeLink] = useState("");
+  const [activeChallenge, setActiveChallenge] = useState(null); // { question, startTime, creatorName }
+  const [challengeAnswer, setChallengeAnswer] = useState("");
+  const [challengeResult, setChallengeResult] = useState(null); // { correct, time }
+  const [challengeCountdown, setChallengeCountdown] = useState(null);
+  const [challengeElapsed, setChallengeElapsed] = useState(0);
+  const [challengeStarted, setChallengeStarted] = useState(false);
 
   // Multi-part question state
   const [activePart, setActivePart] = useState(0); // index of the current active part
@@ -2106,6 +2152,29 @@ export default function MathU() {
             window.history.replaceState({}, "", window.location.pathname);
           }
         } catch(e) { console.log("Invalid test link"); }
+      }
+      // Check for challenge link
+      const challengeParam = params.get("challenge");
+      if (challengeParam) {
+        try {
+          const decoded = JSON.parse(atob(challengeParam));
+          if (decoded && decoded.qId) {
+            const q = QUESTION_BANK.find(q => q.id === decoded.qId);
+            if (q) {
+              setActiveChallenge({
+                question: q,
+                startTime: decoded.st || Date.now(),
+                creatorName: decoded.cn || "A friend",
+              });
+              setChallengeAnswer("");
+              setChallengeResult(null);
+              setChallengeStarted(false);
+              setChallengeElapsed(0);
+              setScreen("challenge_play");
+              window.history.replaceState({}, "", window.location.pathname);
+            }
+          }
+        } catch(e) { console.log("Invalid challenge link"); }
       }
     } catch (e) {}
   }, []);
@@ -4015,6 +4084,24 @@ export default function MathU() {
             </button>
           </div>
 
+          {/* Challenge a Friend banner */}
+          <div style={{ margin: "12px 16px" }}>
+            <button onClick={() => setScreen("challenge_create")}
+              style={{
+                width: "100%", border: "none", borderRadius: 16, padding: "18px 20px", cursor: "pointer",
+                background: "linear-gradient(135deg, #F59E0B 0%, #EF4444 50%, #EC4899 100%)",
+                color: "white", display: "flex", alignItems: "center", gap: 14,
+                boxShadow: "0 4px 16px rgba(239, 68, 68, 0.3)", transition: "all 0.2s",
+              }}>
+              <span style={{ fontSize: 32 }}>⚔️</span>
+              <div style={{ textAlign: "left", flex: 1 }}>
+                <div style={{ fontSize: 16, fontWeight: 800 }}>Challenge a Friend</div>
+                <div style={{ fontSize: 12, opacity: 0.85, marginTop: 2 }}>Race your mates — first correct answer wins!</div>
+              </div>
+              <span style={{ fontSize: 20, opacity: 0.7 }}>→</span>
+            </button>
+          </div>
+
           {/* ─── SMART LEARNING: Weakness Detection ─── */}
           {Object.keys(stats.topicStats).length >= 2 && (() => {
             // Find weakest topics (below 60% accuracy with at least 3 attempts)
@@ -4331,6 +4418,7 @@ export default function MathU() {
 
     return (
       <div style={styles.app}>
+        <ZoomOverlay src={zoomedImage} onClose={() => setZoomedImage(null)} />
         {/* XP animation */}
         {xpAnimation && (
           <div style={{
@@ -4444,9 +4532,10 @@ export default function MathU() {
             </div>
           </div>
 
-          {/* Question Image from PDF */}
+          {/* Question Image from PDF (click to zoom) */}
           {currentQuestion.imagePath && (
-            <div style={{ ...styles.card, padding: 0, overflow: "hidden" }}>
+            <div style={{ ...styles.card, padding: 0, overflow: "hidden", cursor: "zoom-in", position: "relative" }}
+              onClick={() => setZoomedImage(currentQuestion.imagePath)}>
               <img
                 src={currentQuestion.imagePath}
                 alt={`Question ${currentQuestion.questionNumber}`}
@@ -4457,6 +4546,11 @@ export default function MathU() {
                 }}
                 loading="eager"
               />
+              <div style={{
+                position: "absolute", bottom: 8, right: 8, background: "rgba(0,0,0,0.5)",
+                color: "white", fontSize: 11, padding: "4px 10px", borderRadius: 12,
+                fontWeight: 600, pointerEvents: "none",
+              }}>🔍 Tap to zoom</div>
             </div>
           )}
 
@@ -5613,6 +5707,7 @@ export default function MathU() {
 
     return (
       <div style={{...styles.app, display: "flex", flexDirection: "column", height: "100vh"}}>
+        <ZoomOverlay src={zoomedImage} onClose={() => setZoomedImage(null)} />
         <div style={{
           ...styles.header,
           flexDirection: "column", alignItems: "stretch", padding: "12px 16px 0",
@@ -5669,16 +5764,18 @@ export default function MathU() {
                   p.{section.pages[0]}{section.pages.length > 1 ? `–${section.pages[section.pages.length - 1]}` : ""}
                 </span>
               </div>
-              {/* Page images */}
+              {/* Page images (click to zoom) */}
               {section.pages.map(pageNum => (
                 <img
                   key={pageNum}
                   src={`/formulae/page-${String(pageNum).padStart(2, "0")}.png`}
                   alt={`${section.name} page ${pageNum}`}
+                  onClick={() => setZoomedImage(`/formulae/page-${String(pageNum).padStart(2, "0")}.png`)}
                   style={{
                     width: "100%", borderRadius: 8, marginBottom: 8,
                     boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
                     border: `1px solid ${colors.textLight}20`,
+                    cursor: "zoom-in",
                   }}
                   loading="lazy"
                 />
@@ -7122,6 +7219,7 @@ export default function MathU() {
     if (!currentQ) return null;
     return (
       <div style={{ ...styles.app, overflowY: "auto" }}>
+        <ZoomOverlay src={zoomedImage} onClose={() => setZoomedImage(null)} />
         {/* Test header */}
         <div style={{ ...styles.header, background: "linear-gradient(135deg, #1E293B 0%, #334155 100%)" }}>
           <div>
@@ -7157,10 +7255,16 @@ export default function MathU() {
             </span>
           </div>
 
-          {/* Question image */}
+          {/* Question image (click to zoom) */}
           {currentQ.imagePath && (
-            <div style={{ margin: "12px 16px", borderRadius: 12, overflow: "hidden", border: "1px solid #e2e8f0" }}>
+            <div style={{ margin: "12px 16px", borderRadius: 12, overflow: "hidden", border: "1px solid #e2e8f0", cursor: "zoom-in", position: "relative" }}
+              onClick={() => setZoomedImage(currentQ.imagePath)}>
               <img src={currentQ.imagePath} alt={`Question ${testQuestionIndex + 1}`} style={{ width: "100%", display: "block" }} />
+              <div style={{
+                position: "absolute", bottom: 8, right: 8, background: "rgba(0,0,0,0.5)",
+                color: "white", fontSize: 11, padding: "4px 10px", borderRadius: 12,
+                fontWeight: 600, pointerEvents: "none",
+              }}>🔍 Tap to zoom</div>
             </div>
           )}
 
@@ -7225,6 +7329,401 @@ export default function MathU() {
             })}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // ─── CREATE CHALLENGE SCREEN ───
+  if (screen === "challenge_create") {
+    const allTopics = getAllTopics();
+    const topicKeys = Object.keys(allTopics);
+    const filteredQuestions = challengeTopic
+      ? QUESTION_BANK.filter(q => q.topic === challengeTopic)
+      : [];
+
+    // Generate 5 min intervals for the next 2 hours
+    const now = new Date();
+    const timeSlots = [];
+    for (let m = 5; m <= 120; m += 5) {
+      const t = new Date(now.getTime() + m * 60000);
+      timeSlots.push({ label: `In ${m} min (${t.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })})`, value: t.toISOString() });
+    }
+
+    const generateChallengeLink = () => {
+      if (!challengeQuestion) { alert("Pick a question first!"); return; }
+      const payload = {
+        qId: challengeQuestion.id,
+        st: challengeTime || new Date().toISOString(),
+        cn: username || "A friend",
+      };
+      const encoded = btoa(JSON.stringify(payload));
+      const link = `${window.location.origin}?challenge=${encoded}`;
+      setChallengeLink(link);
+    };
+
+    return (
+      <div style={styles.app}>
+        <div style={{ ...styles.header, background: "linear-gradient(135deg, #F59E0B 0%, #EF4444 50%, #EC4899 100%)" }}>
+          <button onClick={() => { setScreen("home"); setChallengeTopic(null); setChallengeQuestion(null); setChallengeLink(""); setChallengeTime(""); }}
+            style={{ background: "none", border: "none", color: "white", cursor: "pointer", fontSize: 18 }}>←</button>
+          <h2 style={{ margin: 0, fontSize: 20, fontWeight: 800, flex: 1, textAlign: "center" }}>⚔️ Challenge a Friend</h2>
+          <div style={{ width: 32 }} />
+        </div>
+
+        <div style={{ padding: 16, paddingBottom: 100 }}>
+          {/* Step 1: Pick a topic */}
+          <div style={styles.card}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: colors.text }}>1. Pick a Topic</h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {topicKeys.map(key => {
+                const t = allTopics[key];
+                const isSelected = challengeTopic === key;
+                return (
+                  <button key={key} onClick={() => { setChallengeTopic(key); setChallengeQuestion(null); setChallengeLink(""); }}
+                    style={{
+                      border: isSelected ? `2px solid ${colors.primary}` : `1px solid ${colors.textLight}30`,
+                      borderRadius: 10, padding: "8px 12px", fontSize: 12, fontWeight: 600,
+                      background: isSelected ? `${colors.primary}15` : "white",
+                      color: isSelected ? colors.primary : colors.text,
+                      cursor: "pointer", transition: "all 0.15s",
+                    }}>
+                    {t.icon} {t.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Step 2: Pick a question */}
+          {challengeTopic && (
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: colors.text }}>
+                2. Pick a Question ({filteredQuestions.length} available)
+              </h3>
+              <div style={{ maxHeight: 200, overflowY: "auto" }}>
+                {filteredQuestions.map(q => {
+                  const isSelected = challengeQuestion?.id === q.id;
+                  return (
+                    <div key={q.id} onClick={() => { setChallengeQuestion(q); setChallengeLink(""); }}
+                      style={{
+                        padding: "10px 12px", borderRadius: 8, marginBottom: 4, cursor: "pointer",
+                        border: isSelected ? `2px solid ${colors.primary}` : `1px solid ${colors.textLight}20`,
+                        background: isSelected ? `${colors.primary}10` : "white",
+                        display: "flex", justifyContent: "space-between", alignItems: "center",
+                      }}>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>
+                        {q.source} Q{q.questionNumber}
+                      </span>
+                      <span style={{ fontSize: 11, color: colors.textLight }}>
+                        {q.totalMarks} marks · {q.difficulty}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              {challengeQuestion?.imagePath && (
+                <div style={{ marginTop: 8, borderRadius: 8, overflow: "hidden", border: `1px solid ${colors.textLight}20`, cursor: "zoom-in", position: "relative" }}
+                  onClick={() => setZoomedImage(challengeQuestion.imagePath)}>
+                  <img src={challengeQuestion.imagePath} alt="Preview" style={{ width: "100%", display: "block" }} />
+                  <div style={{
+                    position: "absolute", bottom: 6, right: 6, background: "rgba(0,0,0,0.5)",
+                    color: "white", fontSize: 10, padding: "3px 8px", borderRadius: 10, fontWeight: 600,
+                  }}>🔍 Tap to zoom</div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Step 3: Set time (optional) */}
+          {challengeQuestion && (
+            <div style={styles.card}>
+              <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: colors.text }}>3. When? (optional)</h3>
+              <p style={{ fontSize: 12, color: colors.textLight, margin: "0 0 8px" }}>
+                Set a time so everyone starts together, or leave blank for "right now"
+              </p>
+              <select
+                value={challengeTime}
+                onChange={e => setChallengeTime(e.target.value)}
+                style={{
+                  ...styles.input, fontSize: 13, appearance: "auto", cursor: "pointer",
+                }}>
+                <option value="">Right now!</option>
+                {timeSlots.map(s => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Generate link */}
+          {challengeQuestion && (
+            <div style={{ margin: "0 0 16px" }}>
+              <button onClick={generateChallengeLink}
+                style={{
+                  ...styles.btn(colors.primary),
+                  width: "100%", fontSize: 16, padding: "16px 24px",
+                  background: "linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)",
+                }}>
+                🔗 Generate Challenge Link
+              </button>
+            </div>
+          )}
+
+          {/* Show link */}
+          {challengeLink && (
+            <div style={{ ...styles.card, background: `${colors.success}08`, border: `2px solid ${colors.success}30` }}>
+              <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 800, color: colors.success }}>Challenge Ready!</h3>
+              <div style={{
+                background: colors.bg, borderRadius: 8, padding: 12, marginBottom: 12,
+                fontSize: 11, color: colors.textLight, wordBreak: "break-all", fontFamily: "monospace",
+              }}>
+                {challengeLink}
+              </div>
+              <button onClick={() => {
+                const msg = `⚔️ MathU Challenge!\n\n${username || "Someone"} is challenging you to a maths duel!\n\nTopic: ${allTopics[challengeTopic]?.name}\n${challengeTime ? `⏰ Starts: ${new Date(challengeTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "⚡ Right now!"}\n\nFirst correct answer wins!\n\n${challengeLink}`;
+                navigator.clipboard.writeText(msg).then(() => alert("Challenge copied! Paste it to your friends.")).catch(() => alert("Couldn't copy automatically."));
+              }}
+                style={{
+                  ...styles.btn(colors.success),
+                  width: "100%", fontSize: 15, padding: "14px 20px",
+                }}>
+                📋 Copy & Share with Friends
+              </button>
+              <p style={{ fontSize: 11, color: colors.textLight, margin: "8px 0 0", textAlign: "center" }}>
+                Send this link via WhatsApp, Snap, or any way you like!
+              </p>
+            </div>
+          )}
+        </div>
+        <ZoomOverlay src={zoomedImage} onClose={() => setZoomedImage(null)} />
+      </div>
+    );
+  }
+
+  // ─── CHALLENGE PLAY SCREEN ───
+  // Challenge countdown & elapsed timer effects (must be top-level)
+  useEffect(() => {
+    if (screen !== "challenge_play" || !activeChallenge) return;
+    const scheduledTime = new Date(activeChallenge.startTime);
+    const isWaiting = scheduledTime.getTime() > Date.now() + 2000;
+    if (!isWaiting && !challengeStarted) {
+      setChallengeStarted(true);
+      return;
+    }
+    if (isWaiting) {
+      const interval = setInterval(() => {
+        const remaining = Math.max(0, Math.ceil((scheduledTime.getTime() - Date.now()) / 1000));
+        setChallengeCountdown(remaining);
+        if (remaining <= 0) {
+          setChallengeStarted(true);
+          clearInterval(interval);
+        }
+      }, 200);
+      return () => clearInterval(interval);
+    }
+  }, [screen, activeChallenge, challengeStarted]);
+
+  useEffect(() => {
+    if (screen !== "challenge_play" || !challengeStarted || challengeResult) return;
+    const start = Date.now();
+    const interval = setInterval(() => {
+      setChallengeElapsed(Math.floor((Date.now() - start) / 1000));
+    }, 100);
+    return () => clearInterval(interval);
+  }, [screen, challengeStarted, challengeResult]);
+
+  if (screen === "challenge_play" && activeChallenge) {
+    const q = activeChallenge.question;
+    const allTopics = getAllTopics();
+    const topic = allTopics[q?.topic];
+    const scheduledTime = new Date(activeChallenge.startTime);
+    const nowMs = Date.now();
+    const waitingToStart = scheduledTime.getTime() > nowMs + 2000; // 2s grace
+
+    const submitChallengeAnswer = () => {
+      if (!challengeAnswer.trim()) return;
+      const userAns = challengeAnswer.trim().toLowerCase().replace(/\s+/g, "");
+      let correct = false;
+      (q.parts || []).forEach(part => {
+        const accepted = (part.acceptedAnswers || []).map(a => a.toLowerCase().replace(/\s+/g, ""));
+        if (accepted.includes(userAns)) correct = true;
+      });
+      // Also try smart check
+      if (!correct) {
+        (q.parts || []).forEach(part => {
+          if (checkAnswer(userAns, part.answer, part.acceptedAnswers || [])) correct = true;
+        });
+      }
+      setChallengeResult({ correct, time: challengeElapsed });
+    };
+
+    const formatTime = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+    return (
+      <div style={{ ...styles.app, background: "linear-gradient(180deg, #0F172A 0%, #1E1B4B 100%)", minHeight: "100vh" }}>
+        <ZoomOverlay src={zoomedImage} onClose={() => setZoomedImage(null)} />
+
+        {/* Header */}
+        <div style={{
+          padding: "16px 20px", display: "flex", justifyContent: "space-between", alignItems: "center",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
+        }}>
+          <button onClick={() => { setScreen("home"); setActiveChallenge(null); }}
+            style={{ background: "none", border: "none", color: "white", cursor: "pointer", fontSize: 16 }}>←</button>
+          <span style={{ color: "white", fontWeight: 800, fontSize: 18 }}>⚔️ Challenge</span>
+          {challengeStarted && !challengeResult && (
+            <span style={{
+              color: "#F59E0B", fontWeight: 800, fontSize: 20, fontFamily: "monospace",
+              animation: "pulse 1s infinite",
+            }}>{formatTime(challengeElapsed)}</span>
+          )}
+          {!challengeStarted && <div style={{ width: 40 }} />}
+        </div>
+
+        {/* Waiting for start */}
+        {waitingToStart && !challengeStarted && (
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            padding: 40, flex: 1, textAlign: "center",
+          }}>
+            <div style={{ fontSize: 64, marginBottom: 20 }}>⏳</div>
+            <h2 style={{ color: "white", fontSize: 22, fontWeight: 800, margin: "0 0 8px" }}>Challenge Starting Soon</h2>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 14, margin: "0 0 24px" }}>
+              {activeChallenge.creatorName} challenged you!
+            </p>
+            <div style={{
+              fontSize: 56, fontWeight: 900, color: "#F59E0B", fontFamily: "monospace",
+              animation: "pulse 1s infinite",
+            }}>
+              {challengeCountdown !== null ? formatTime(challengeCountdown) : "..."}
+            </div>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, marginTop: 16 }}>
+              Get ready... the question will appear when the timer hits zero!
+            </p>
+          </div>
+        )}
+
+        {/* Challenge active */}
+        {challengeStarted && !challengeResult && (
+          <div style={{ padding: 16, paddingBottom: 100 }}>
+            {/* Topic info */}
+            <div style={{ textAlign: "center", marginBottom: 12 }}>
+              <span style={{
+                fontSize: 12, color: "rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.08)",
+                padding: "4px 12px", borderRadius: 20,
+              }}>
+                {topic?.icon} {topic?.name} · {q.source} Q{q.questionNumber}
+              </span>
+            </div>
+
+            {/* Question image */}
+            {q.imagePath && (
+              <div style={{
+                borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)",
+                marginBottom: 16, cursor: "zoom-in", position: "relative",
+              }} onClick={() => setZoomedImage(q.imagePath)}>
+                <img src={q.imagePath} alt="Challenge question" style={{ width: "100%", display: "block" }} />
+                <div style={{
+                  position: "absolute", bottom: 8, right: 8, background: "rgba(0,0,0,0.6)",
+                  color: "white", fontSize: 11, padding: "4px 10px", borderRadius: 12,
+                  fontWeight: 600, pointerEvents: "none",
+                }}>🔍 Tap to zoom</div>
+              </div>
+            )}
+
+            {/* Parts info */}
+            {q.parts && q.parts.length > 0 && (
+              <div style={{
+                background: "rgba(255,255,255,0.05)", borderRadius: 12, padding: 14, marginBottom: 16,
+              }}>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, margin: "0 0 6px", fontWeight: 600 }}>
+                  Answer the first part:
+                </p>
+                <p style={{ color: "white", fontSize: 14, fontWeight: 700, margin: 0 }}>
+                  {q.parts[0].label} ({q.parts[0].marks} marks)
+                </p>
+              </div>
+            )}
+
+            {/* Answer input */}
+            <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: 12, padding: 16 }}>
+              <input
+                value={challengeAnswer}
+                onChange={e => setChallengeAnswer(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter") submitChallengeAnswer(); }}
+                placeholder="Type your answer..."
+                autoFocus
+                style={{
+                  width: "100%", padding: "14px 16px", borderRadius: 10,
+                  border: "2px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.08)",
+                  color: "white", fontSize: 18, fontWeight: 600, outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+              <button onClick={submitChallengeAnswer}
+                style={{
+                  width: "100%", marginTop: 12, padding: "16px 24px", border: "none",
+                  borderRadius: 12, fontSize: 18, fontWeight: 800, cursor: "pointer",
+                  background: "linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)",
+                  color: "white", boxShadow: "0 4px 16px rgba(239, 68, 68, 0.4)",
+                }}>
+                ⚡ Submit Answer
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Challenge result */}
+        {challengeResult && (
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            padding: 40, flex: 1, textAlign: "center",
+          }}>
+            <div style={{ fontSize: 80, marginBottom: 16 }}>
+              {challengeResult.correct ? "🏆" : "😅"}
+            </div>
+            <h2 style={{
+              color: challengeResult.correct ? "#4ADE80" : "#F87171",
+              fontSize: 26, fontWeight: 900, margin: "0 0 8px",
+            }}>
+              {challengeResult.correct ? "Correct!" : "Not quite..."}
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15, margin: "0 0 24px" }}>
+              Your time: <span style={{ color: "#F59E0B", fontWeight: 800 }}>{formatTime(challengeResult.time)}</span>
+            </p>
+
+            {challengeResult.correct && (
+              <div style={{
+                background: "rgba(74, 222, 128, 0.1)", border: "2px solid rgba(74, 222, 128, 0.3)",
+                borderRadius: 16, padding: "16px 24px", marginBottom: 20, maxWidth: 300,
+              }}>
+                <p style={{ color: "white", fontSize: 14, fontWeight: 600, margin: 0 }}>
+                  Share your time with your friends and see who was fastest!
+                </p>
+              </div>
+            )}
+
+            <button onClick={() => {
+              const resultMsg = `⚔️ MathU Challenge Result\n\n${challengeResult.correct ? "✅ Got it right!" : "❌ Didn't get it"}\n⏱️ Time: ${formatTime(challengeResult.time)}\n\nCan you beat my time? 💪\nhttps://mathu-app.vercel.app`;
+              navigator.clipboard.writeText(resultMsg).then(() => alert("Result copied! Share it with your friends.")).catch(() => {});
+            }}
+              style={{
+                padding: "14px 28px", border: "none", borderRadius: 12, fontSize: 15, fontWeight: 700,
+                background: "linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)",
+                color: "white", cursor: "pointer", marginBottom: 12,
+              }}>
+              📤 Share My Result
+            </button>
+
+            <button onClick={() => { setScreen("home"); setActiveChallenge(null); setChallengeResult(null); }}
+              style={{
+                padding: "12px 28px", border: "2px solid rgba(255,255,255,0.2)", borderRadius: 12,
+                fontSize: 14, fontWeight: 600, background: "transparent", color: "white", cursor: "pointer",
+              }}>
+              Back to Home
+            </button>
+          </div>
+        )}
       </div>
     );
   }
